@@ -366,6 +366,7 @@ $(function() {
                      
                     if(retorno == true){
                         Funcoes.Sucesso("A exclusão do registro Foi realizada com Sucesso!");
+                        $("#registro-"+id).hide();
                     }else if(retorno != ""){
                         Funcoes.Alerta(retorno);
                     }else{          

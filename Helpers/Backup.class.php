@@ -8,6 +8,8 @@
 class Backup {
 
     var $charset = '';
+    
+    
  
     /**
      * Constructor initializes database

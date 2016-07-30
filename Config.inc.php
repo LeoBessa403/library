@@ -5,12 +5,12 @@ define('SITE', 'web');
 // Pasta dos arquivos da Admiistração
 define('ADMIN', 'admin');
 session_start();
-if(file_exists("admin/servidor_inc.php")):
-    include "admin/servidor_inc.php";
-elseif(file_exists("../admin/servidor_inc.php")):
-    include "../admin/servidor_inc.php";
+if(file_exists("admin/configuracoes.php")):
+    include "admin/configuracoes.php";
+elseif(file_exists("../admin/configuracoes.php")):
+    include "../admin/configuracoes.php";
 else:
-    include "../../admin/servidor_inc.php";
+    include "../../admin/configuracoes.php";
 endif;
 servidor_inicial();
 

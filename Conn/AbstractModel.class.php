@@ -15,8 +15,11 @@ class AbstractModel
     {
         $pesquisa = new Pesquisa();
         $pesquisa->Pesquisar($this->Tabela);
-        $obj = new $this->Entidade($pesquisa->getResult());
-        return $obj;
+        foreach ($pesquisa->getResult() as $entidade){
+            $obj = new $this->Entidade($entidade);
+            $resultado[] = $obj;
+        }
+        return $resultado;
     }
 
     public function PesquisaUmRegistro($id)

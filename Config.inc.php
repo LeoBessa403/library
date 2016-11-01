@@ -152,7 +152,7 @@ function debug($array, $Exit = false)
 
     echo "</pre>"
         . "</fieldset><br />";
-    if ($Exit):
+    if (!$Exit):
         echo '<script src="' . INCLUDES . 'jquery-2.0.3.js"></script>
                 <script type="text/javascript">
                         $(function() {

@@ -39,7 +39,7 @@ class AbstractModel
                 $obj->$metodoSet($dados2);
                 $this->PesquisaTodosNv3($obj, $obj2);
             } else {
-
+                debug("Passou aqui");
             }
         }
         return $obj;
@@ -59,7 +59,7 @@ class AbstractModel
                 $metodoSet2 = $this->getMetodo($obj3::CHAVE, false);
                 $obj->$metodoGet()->$metodoSet2($dados3);
             } else {
-
+                debug("Passou aqui");
             }
         }
         return $obj;

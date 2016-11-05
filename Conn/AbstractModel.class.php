@@ -39,10 +39,9 @@ class AbstractModel
 
     private function PesquisaTodosNv2($obj)
     {
-        $pesquisa = new Pesquisa();
-        $pesquisa->Pesquisar($this->Tabela);
         foreach ($this->Relacionamentos as $campo) {
             if ($campo['Tipo'] == 1) {
+                $obj2 = new $campo['Entidade']();
                 $metodoGet = str_replace('_', ' ', $campo['Chave']);
                 $metodoGet = 'get' . ucwords($metodoGet);
                 $metodoGet = str_replace(' ', '', $metodoGet);
@@ -53,6 +52,7 @@ class AbstractModel
                 $metodoSet = 'set' . ucwords($metodoSet);
                 $metodoSet = str_replace(' ', '', $metodoSet);
                 $obj->$metodoSet($dados2);
+                $this->PesquisaTodosNv3($obj, $obj2);
             } else {
 
             }
@@ -60,22 +60,23 @@ class AbstractModel
         return $obj;
     }
 
-    private function PesquisaTodosNv3($obj)
+    private function PesquisaTodosNv3($obj, $obj2)
     {
-        $pesquisa = new Pesquisa();
-        $pesquisa->Pesquisar($this->Tabela);
-        foreach ($this->Relacionamentos as $campo) {
+        $campos = $obj::getRelacionamentos();
+        $campos2 = $obj2::getRelacionamentos();
+        foreach ($campos2 as $campo) {
             if ($campo['Tipo'] == 1) {
-                $metodoGet = str_replace('_', ' ', $campo['Chave']);
+                $metodoGet = str_replace('_', ' ', $campos['co_pessoa']['Chave']);
                 $metodoGet = 'get' . ucwords($metodoGet);
                 $metodoGet = str_replace(' ', '', $metodoGet);
-                $dados2 = $this->PesquisaUmRegistro(
-                    $obj->$metodoGet(), $campo['Tabela'], $campo['Campos'], $campo['Entidade']
+                $metodoGet2 = str_replace('_', ' ', $campo['Chave']);
+                $metodoGet2 = 'get' . ucwords($metodoGet2);
+                $metodoGet2 = str_replace(' ', '', $metodoGet2);
+                $dados3 = $this->PesquisaUmRegistro(
+                    $obj->$metodoGet()->$metodoGet2(), $campo['Tabela'], $campo['Campos'], $campo['Entidade']
                 );
-                $metodoSet = str_replace('_', ' ', $campo['Chave']);
-                $metodoSet = 'set' . ucwords($metodoSet);
-                $metodoSet = str_replace(' ', '', $metodoSet);
-                $obj->$metodoSet($dados2);
+                $metodoSet2 = str_replace('get', 'set', $metodoGet2);
+                $obj->$metodoGet()->$metodoSet2($dados3);
             } else {
 
             }

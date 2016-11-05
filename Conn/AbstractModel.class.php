@@ -21,7 +21,7 @@ class AbstractModel
     {
         $pesquisa = new Pesquisa();
         $pesquisa->Pesquisar($this->Tabela);
-        $dados[] = array();
+        $dados = array();
         foreach ($pesquisa->getResult() as $entidade) {
             $obj = new $this->Entidade();
             foreach ($this->Campos as $campo) {
@@ -30,26 +30,57 @@ class AbstractModel
                 $metodo = str_replace(' ', '', $metodo);
                 $obj->$metodo($entidade[$campo]);
             }
-            foreach ($this->Relacionamentos as $campo) {
-                if ($campo['Tipo'] == 1) {
-                    $metodoGet = str_replace('_', ' ', $campo['Chave']);
-                    $metodoGet = 'get' . ucwords($metodoGet);
-                    $metodoGet = str_replace(' ', '', $metodoGet);
-                    $dados2 = $this->PesquisaUmRegistro(
-                        $obj->$metodoGet(), $campo['Tabela'], $campo['Campos'], $campo['Entidade']
-                    );
-                    $metodoSet = str_replace('_', ' ', $campo['Chave']);
-                    $metodoSet = 'set' . ucwords($metodoSet);
-                    $metodoSet = str_replace(' ', '', $metodoSet);
-                    $obj->$metodoSet($dados2);
-                } else {
-
-                }
-            }
+            $obj = $this->PesquisaTodosNv2($obj);
             $dados[] = $obj;
         }
-        debug($dados[1]->getCoPessoa()->getNuCpf());
+        debug($dados);
         return $dados;
+    }
+
+    private function PesquisaTodosNv2($obj)
+    {
+        $pesquisa = new Pesquisa();
+        $pesquisa->Pesquisar($this->Tabela);
+        foreach ($this->Relacionamentos as $campo) {
+            if ($campo['Tipo'] == 1) {
+                $metodoGet = str_replace('_', ' ', $campo['Chave']);
+                $metodoGet = 'get' . ucwords($metodoGet);
+                $metodoGet = str_replace(' ', '', $metodoGet);
+                $dados2 = $this->PesquisaUmRegistro(
+                    $obj->$metodoGet(), $campo['Tabela'], $campo['Campos'], $campo['Entidade']
+                );
+                $metodoSet = str_replace('_', ' ', $campo['Chave']);
+                $metodoSet = 'set' . ucwords($metodoSet);
+                $metodoSet = str_replace(' ', '', $metodoSet);
+                $obj->$metodoSet($dados2);
+            } else {
+
+            }
+        }
+        return $obj;
+    }
+
+    private function PesquisaTodosNv3($obj)
+    {
+        $pesquisa = new Pesquisa();
+        $pesquisa->Pesquisar($this->Tabela);
+        foreach ($this->Relacionamentos as $campo) {
+            if ($campo['Tipo'] == 1) {
+                $metodoGet = str_replace('_', ' ', $campo['Chave']);
+                $metodoGet = 'get' . ucwords($metodoGet);
+                $metodoGet = str_replace(' ', '', $metodoGet);
+                $dados2 = $this->PesquisaUmRegistro(
+                    $obj->$metodoGet(), $campo['Tabela'], $campo['Campos'], $campo['Entidade']
+                );
+                $metodoSet = str_replace('_', ' ', $campo['Chave']);
+                $metodoSet = 'set' . ucwords($metodoSet);
+                $metodoSet = str_replace(' ', '', $metodoSet);
+                $obj->$metodoSet($dados2);
+            } else {
+
+            }
+        }
+        return $obj;
     }
 
     public function PesquisaUmRegistro($Chave, $Tabela = null, $Campos = null, $Entidade = null)

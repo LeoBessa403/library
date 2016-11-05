@@ -2,55 +2,40 @@
 
 class AbstractModel
 {
-    private $Tabela;
     private $Entidade;
-    private $Campos;
-    private $Chave;
-    private $Relacionamentos;
 
-    public function __construct($Tabela, $Entidade, $Chave)
+    public function __construct($Entidade)
     {
-        $this->Tabela = $Tabela;
         $this->Entidade = $Entidade;
-        $this->Chave = $Chave;
-        $this->Campos = $Entidade::getCampos();
-        $this->Relacionamentos = $Entidade::getRelacionamentos();
     }
 
     public function PesquisaTodos()
     {
+        $Entidade = $this->Entidade;
         $pesquisa = new Pesquisa();
-        $pesquisa->Pesquisar($this->Tabela);
+        $pesquisa->Pesquisar($Entidade::TABELA);
         $dados = array();
         foreach ($pesquisa->getResult() as $entidade) {
-            $obj = new $this->Entidade();
-            foreach ($this->Campos as $campo) {
-                $metodo = str_replace('_', ' ', $campo);
-                $metodo = 'set' . ucwords($metodo);
-                $metodo = str_replace(' ', '', $metodo);
+            $obj = new $Entidade();
+            foreach ($Entidade::getCampos() as $campo) {
+                $metodo = $this->getMetodo($campo, false);
                 $obj->$metodo($entidade[$campo]);
             }
             $obj = $this->PesquisaTodosNv2($obj);
             $dados[] = $obj;
         }
-        debug($dados);
         return $dados;
     }
 
     private function PesquisaTodosNv2($obj)
     {
-        foreach ($this->Relacionamentos as $campo) {
+        $Entidade = $this->Entidade;
+        foreach ($Entidade::getRelacionamentos() as $campo) {
             if ($campo['Tipo'] == 1) {
                 $obj2 = new $campo['Entidade']();
-                $metodoGet = str_replace('_', ' ', $campo['Chave']);
-                $metodoGet = 'get' . ucwords($metodoGet);
-                $metodoGet = str_replace(' ', '', $metodoGet);
-                $dados2 = $this->PesquisaUmRegistro(
-                    $obj->$metodoGet(), $campo['Tabela'], $campo['Campos'], $campo['Entidade']
-                );
-                $metodoSet = str_replace('_', ' ', $campo['Chave']);
-                $metodoSet = 'set' . ucwords($metodoSet);
-                $metodoSet = str_replace(' ', '', $metodoSet);
+                $metodoGet = $this->getMetodo($obj2::CHAVE);
+                $dados2 = $this->PesquisaUmRegistroNv2($obj->$metodoGet(), $campo['Entidade']);
+                $metodoSet = $this->getMetodo($obj2::CHAVE, false);
                 $obj->$metodoSet($dados2);
                 $this->PesquisaTodosNv3($obj, $obj2);
             } else {
@@ -62,20 +47,16 @@ class AbstractModel
 
     private function PesquisaTodosNv3($obj, $obj2)
     {
-        $campos = $obj::getRelacionamentos();
-        $campos2 = $obj2::getRelacionamentos();
-        foreach ($campos2 as $campo) {
+        $campos = $obj2::getRelacionamentos();
+        foreach ($campos as $campo) {
+            $obj3 = new $campo['Entidade']();
             if ($campo['Tipo'] == 1) {
-                $metodoGet = str_replace('_', ' ', $campos['co_pessoa']['Chave']);
-                $metodoGet = 'get' . ucwords($metodoGet);
-                $metodoGet = str_replace(' ', '', $metodoGet);
-                $metodoGet2 = str_replace('_', ' ', $campo['Chave']);
-                $metodoGet2 = 'get' . ucwords($metodoGet2);
-                $metodoGet2 = str_replace(' ', '', $metodoGet2);
-                $dados3 = $this->PesquisaUmRegistro(
-                    $obj->$metodoGet()->$metodoGet2(), $campo['Tabela'], $campo['Campos'], $campo['Entidade']
+                $metodoGet = $this->getMetodo($obj2::CHAVE);
+                $metodoGet2 = $this->getMetodo($obj3::CHAVE);
+                $dados3 = $this->PesquisaUmRegistroNv3(
+                    $obj->$metodoGet()->$metodoGet2(), $obj3::ENTIDADE
                 );
-                $metodoSet2 = str_replace('get', 'set', $metodoGet2);
+                $metodoSet2 = $this->getMetodo($obj3::CHAVE, false);
                 $obj->$metodoGet()->$metodoSet2($dados3);
             } else {
 
@@ -84,24 +65,54 @@ class AbstractModel
         return $obj;
     }
 
-    public function PesquisaUmRegistro($Chave, $Tabela = null, $Campos = null, $Entidade = null)
+    public function PesquisaUmRegistro($Codigo)
     {
-        $Tabela = ($Tabela) ? $Tabela : $this->Tabela;
-        $Chave = ($Chave) ? $Chave : $this->Chave;
-        $Campos = ($Campos) ? $Campos : $this->Campos;
-        $Entidade = ($Entidade) ? $Entidade : $this->Entidade;
-
+        $Entidade = $this->Entidade;
         $pesquisa = new Pesquisa();
-        $pesquisa->Pesquisar($Tabela, "where " . $Chave . " = :id ", "id={$Chave}");
+        $pesquisa->Pesquisar($Entidade::TABELA, "where " . $Entidade::CHAVE . " = :id ", "id={$Codigo}");
         $registro = $pesquisa->getResult()[0];
         $obj = new $Entidade();
-        foreach ($Campos as $campo) {
-            $metodo = str_replace('_', ' ', $campo);
-            $metodo = 'set' . ucwords($metodo);
-            $metodo = str_replace(' ', '', $metodo);
+        foreach ($Entidade::getCampos() as $campo) {
+            $metodo = $this->getMetodo($campo, false);
             $obj->$metodo($registro[$campo]);
         }
         return $obj;
+    }
+
+    private function PesquisaUmRegistroNv2($Codigo, $Entidade)
+    {
+        $pesquisa = new Pesquisa();
+        $pesquisa->Pesquisar($Entidade::TABELA, "where " . $Entidade::CHAVE . " = :id ", "id={$Codigo}");
+        $registro = $pesquisa->getResult()[0];
+        $obj = new $Entidade();
+        foreach ($Entidade::getCampos() as $campo) {
+            $metodo = $this->getMetodo($campo, false);
+            $obj->$metodo($registro[$campo]);
+        }
+        return $obj;
+    }
+
+    private function PesquisaUmRegistroNv3($Codigo, $Entidade)
+    {
+        $pesquisa = new Pesquisa();
+        $pesquisa->Pesquisar($Entidade::TABELA, "where " . $Entidade::CHAVE . " = :id ", "id={$Codigo}");
+        $registro = $pesquisa->getResult()[0];
+        $obj = new $Entidade();
+        foreach ($Entidade::getCampos() as $campo) {
+            $metodo = $this->getMetodo($campo, false);
+            $obj->$metodo($registro[$campo]);
+        }
+        return $obj;
+    }
+
+    private function getMetodo($campo, $get = true)
+    {
+        $metodo = str_replace('_', ' ', $campo);
+        $metodo = ucwords($metodo);
+        $metodo = str_replace(' ', '', $metodo);
+        $tipo = ($get) ? 'get' : 'set';
+        $metodo = $tipo . $metodo;
+        return $metodo;
     }
 
 }

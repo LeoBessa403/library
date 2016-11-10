@@ -44,6 +44,7 @@ define('PASTASITE', HOME . SITE . '/');
 define('PASTAADMIN', HOME . ADMIN . '/');
 define('PASTABACKUP', 'Banco de Dados/backup/');
 define('PASTA_ENTIDADES', PASTA_RAIZ. ADMIN . '/Entidade/');
+define('PASTA_MODEL', PASTA_RAIZ. ADMIN . '/Model/');
 define('PASTA_CLASS', PASTA_RAIZ. ADMIN . '/Class/');
 
 

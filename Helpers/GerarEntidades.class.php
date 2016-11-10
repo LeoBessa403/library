@@ -127,7 +127,22 @@ class {$Entidade}Entidade
                 }
 
                 $ArquivoEntidade .= "}";
-                $this->saveFile($ArquivoEntidade, $Entidade);
+                $this->saveEntidade($ArquivoEntidade, $Entidade);
+
+                $ArquivoModel = "<?php\n
+/**
+ * {$Entidade}Model.class [ MODEL ]
+ * @copyright (c) " . date('Y') . ", Leo Bessa
+ */\n
+class  {$Entidade}Model extends AbstractModel
+{\n
+    \tpublic function __construct()
+    {
+        parent::__construct({$Entidade}Entidade::ENTIDADE);
+    }\n\n
+}";
+                $this->saveModel($ArquivoModel, $Entidade);
+
             }
 
             $ArquivoConstante = "<?php\n
@@ -143,8 +158,6 @@ class  Constantes
                 $ArquivoConstante .= "\tconst " . $indice . " = '" . $res . "';\n";
             }
             $ArquivoConstante .= "\n}";
-//            debug($constantes);
-
             $this->saveConstantes($ArquivoConstante);
 
         } catch (Exception $e) {
@@ -154,12 +167,27 @@ class  Constantes
     }
 
 
-    protected function saveFile($ArquivoEntidade, $Entidade)
+    protected function saveEntidade($ArquivoEntidade, $Entidade)
     {
         if (!$ArquivoEntidade) return false;
         try {
             $handle = fopen(PASTA_ENTIDADES . '/' . $Entidade . 'Entidade.class.php', 'w+');
             fwrite($handle, $ArquivoEntidade);
+            fclose($handle);
+        } catch (Exception $e) {
+            var_dump($e->getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+    protected function saveModel($ArquivoModel, $Entidade)
+    {
+        if (!$ArquivoModel) return false;
+        try {
+            $handle = fopen(PASTA_MODEL . '/' . $Entidade . 'Model.class.php', 'w+');
+            fwrite($handle, $ArquivoModel);
             fclose($handle);
         } catch (Exception $e) {
             var_dump($e->getMessage());

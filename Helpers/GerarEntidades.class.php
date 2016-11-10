@@ -48,12 +48,15 @@ class GerarEntidades
                 $ArquivoEntidade = "";
                 $row2 = mysql_query('SHOW COLUMNS FROM ' . $table);
                 $colunas = array();
+                $relacionamentosTabela = array();
                 if (mysql_num_rows($row2) > 0) {
-                    while ($row = mysql_fetch_assoc($row2)){
+                    while ($row = mysql_fetch_assoc($row2)) {
                         $colunas[] = $row['Field'];
-                        if($row['Extra'] != '')
-                        $chave_primaria = $row['Field'];
-//                        debug($row,1);
+                        if ($row['Extra'] != '')
+                            $chave_primaria = $row['Field'];
+                        if ($row['Extra'] == '' && $row['Key'] != '')
+                            $relacionamentosTabela[] = $row['Field'];
+
                     }
                 }
                 $Entidade = str_replace('tb_', '', $table);
@@ -64,36 +67,62 @@ class GerarEntidades
 /**
  * {$Entidade}.Entidade [ ENTIDADE ]
  *
- * @copyright (c) ".date('Y').", Leo Bessa
+ * @copyright (c) " . date('Y') . ", Leo Bessa
  */\n
 class {$Entidade}Entidade
 {
 \tconst TABELA = '{$table}';
 \tconst ENTIDADE = '{$Entidade}Entidade';
-\tconst CHAVE = Constantes::".strtoupper($chave_primaria).";\n\n";
+\tconst CHAVE = Constantes::" . strtoupper($chave_primaria) . ";\n\n";
 
-foreach ($colunas as $coluna)  {
-    $ArquivoEntidade .= "\tprivate $".$coluna.";\n";
-}
+                foreach ($colunas as $coluna) {
+                    $ArquivoEntidade .= "\tprivate $" . $coluna . ";\n";
+                }
                 $ArquivoEntidade .= "\n\n";
-foreach ($colunas as $coluna)  {
-    $metodoGet = $this->getMetodo($coluna);
-    $ArquivoEntidade .= "\t/**
+                $ArquivoEntidade .= "\t/**
+     * @return \$campos
+     */\n";
+                $ArquivoEntidade .= "\tpublic static function getCampos() {
+    \t\$campos = [\n";
+                foreach ($colunas as $coluna) {
+                    $ArquivoEntidade .= "\t\t\tConstantes::" . strtoupper($coluna) . ",\n";
+                }
+                $ArquivoEntidade .= "\t\t];
+    \treturn \$campos;
+    }\n\n";
+                $ArquivoEntidade .= "\t/**
+     * @return \$relacionamentos
+     */\n";
+                $ArquivoEntidade .= "\tpublic static function getRelacionamentos() {
+    \t\$relacionamentos = [\n";
+                foreach ($relacionamentosTabela as $rel) {
+                    $ArquivoEntidade .= "\t\t\tConstantes::" . strtoupper($rel) . " => array(
+                'Entidade' => " . str_replace(' ', '', ucwords(str_replace('_', ' ', str_replace('co_', '', $rel)))) . "Entidade::ENTIDADE,
+                'Tipo' => 1,
+            ),\n";
+                }
+                $ArquivoEntidade .= "\t\t];
+    \treturn \$relacionamentos;
+    }\n";
+                $ArquivoEntidade .= "\n\n";
+                foreach ($colunas as $coluna) {
+                    $metodoGet = $this->getMetodo($coluna);
+                    $ArquivoEntidade .= "\t/**
      * @return \$$coluna
      */\n";
-    $ArquivoEntidade .= "\tpublic function {$metodoGet}()
+                    $ArquivoEntidade .= "\tpublic function {$metodoGet}()
     {
         return \$this->$coluna;
     }\n\n";
-    $metodoSet = $this->getMetodo($coluna,false);
-    $ArquivoEntidade .= "\t/**
+                    $metodoSet = $this->getMetodo($coluna, false);
+                    $ArquivoEntidade .= "\t/**
      * @param mixed \$$coluna
      */\n";
-    $ArquivoEntidade .= "\tpublic function {$metodoSet}(\$$coluna)
+                    $ArquivoEntidade .= "\tpublic function {$metodoSet}(\$$coluna)
     {
         return \$this->$coluna = \$$coluna;
     }\n\n";
-}
+                }
 
                 $ArquivoEntidade .= "}";
                 $this->saveFile($ArquivoEntidade, $Entidade);
@@ -110,7 +139,7 @@ foreach ($colunas as $coluna)  {
     {
         if (!$ArquivoEntidade) return false;
         try {
-            $handle = fopen(PASTA_ENTIDADES .'/'. $Entidade . 'Entidade.class.php', 'w+');
+            $handle = fopen(PASTA_ENTIDADES . '/' . $Entidade . 'Entidade.class.php', 'w+');
             fwrite($handle, $ArquivoEntidade);
             fclose($handle);
         } catch (Exception $e) {

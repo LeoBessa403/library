@@ -16,7 +16,7 @@ class Backup {
      */
     function Backup()
     {
-        $xml = simplexml_load_file("Banco de Dados/Controle.Backup.xml");
+        $xml = simplexml_load_file("BancoDados/Controle.Backup.xml");
         $data       = $xml->data;
         $dias = Valida::CalculaDiferencaDiasData(date("d/m/Y"), $data);
         $novaData = Valida::CalculaData($data, BACKUP , "+");
@@ -31,7 +31,7 @@ class Backup {
             <root>
                 <data>'.$novaData.'</data>
             </root>';
-            file_put_contents('Banco de Dados/Controle.Backup.xml', $novo);
+            file_put_contents('BancoDados/Controle.Backup.xml', $novo);
         endif;
         
     }
@@ -86,7 +86,7 @@ class Backup {
  
                 $sql .= 'DROP TABLE IF EXISTS '.$table.';';
                 $row2 = mysql_fetch_row(mysql_query('SHOW CREATE TABLE '.$table));
-                $sql.= "\n\n".$row2[1].";\n\n";
+                $sql.= "\n\n\n".$row2[1].";\n\n\n";
  
                 for ($i = 0; $i < $numFields; $i++)
                 {
@@ -112,7 +112,7 @@ class Backup {
                             }
                         }
  
-                        $sql.= ");\n";
+                        $sql.= ");\n\n";
                     }
                 }
  
@@ -139,11 +139,7 @@ class Backup {
  
         try
         {
-            if($handle = fopen(PASTABACKUP.'Backup '.DESC.' '.date("d-m-Y H-i-s", time()).'.sql','w+')){
-                debug('ok');
-            }else{
-                debug('deu ruim');
-            }
+            $handle = fopen(PASTABACKUP.'Backup '.DESC.' '.date("d-m-Y H-i-s", time()).'.sql','w+');
             fwrite($handle, $sql);
             fclose($handle);
         }

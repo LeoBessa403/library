@@ -104,11 +104,13 @@ class AbstractModel
         $Entidade = $this->Entidade;
         $pesquisa = new Pesquisa();
         $pesquisa->Pesquisar($Entidade::TABELA, "where " . $Entidade::CHAVE . " = :id ", "id={$Codigo}");
-        $registro = $pesquisa->getResult()[0];
         $obj = new $Entidade();
-        foreach ($Entidade::getCampos() as $campo) {
-            $metodo = $this->getMetodo($campo, false);
-            $obj->$metodo($registro[$campo]);
+        if($pesquisa->getResult()){
+            $registro = $pesquisa->getResult()[0];
+            foreach ($Entidade::getCampos() as $campo) {
+                $metodo = $this->getMetodo($campo, false);
+                $obj->$metodo($registro[$campo]);
+            }
         }
         return $obj;
     }
@@ -117,11 +119,13 @@ class AbstractModel
     {
         $pesquisa = new Pesquisa();
         $pesquisa->Pesquisar($Entidade::TABELA, "where " . $Entidade::CHAVE . " = :id ", "id={$Codigo}");
-        $registro = $pesquisa->getResult()[0];
         $obj = new $Entidade();
-        foreach ($Entidade::getCampos() as $campo) {
-            $metodo = $this->getMetodo($campo, false);
-            $obj->$metodo($registro[$campo]);
+        if($pesquisa->getResult()) {
+            $registro = $pesquisa->getResult()[0];
+            foreach ($Entidade::getCampos() as $campo) {
+                $metodo = $this->getMetodo($campo, false);
+                $obj->$metodo($registro[$campo]);
+            }
         }
         return $obj;
     }
@@ -130,11 +134,13 @@ class AbstractModel
     {
         $pesquisa = new Pesquisa();
         $pesquisa->Pesquisar($Entidade::TABELA, "where " . $Entidade::CHAVE . " = :id ", "id={$Codigo}");
-        $registro = $pesquisa->getResult()[0];
         $obj = new $Entidade();
-        foreach ($Entidade::getCampos() as $campo) {
-            $metodo = $this->getMetodo($campo, false);
-            $obj->$metodo($registro[$campo]);
+        if($pesquisa->getResult()) {
+            $registro = $pesquisa->getResult()[0];
+            foreach ($Entidade::getCampos() as $campo) {
+                $metodo = $this->getMetodo($campo, false);
+                $obj->$metodo($registro[$campo]);
+            }
         }
         return $obj;
     }

@@ -92,7 +92,11 @@ class AbstractModel
                         $obj->$metodoGet()->$metodoSet2($dados3);
                     }
                 } else {
-                    debug("Passou aqui 2", 1);
+                    $dados3 = $this->PesquisaUmRegistroNv3(
+                        $obj->$metodoGet()->$metodoGet2(), $obj3::ENTIDADE
+                    );
+                    $metodoSet2 = $this->getMetodo($obj3::CHAVE, false);
+                    $obj->$metodoGet()->$metodoSet2($dados3);
                 }
             }
         }
@@ -111,6 +115,7 @@ class AbstractModel
                 $metodo = $this->getMetodo($campo, false);
                 $obj->$metodo($registro[$campo]);
             }
+            $obj = $this->PesquisaTodosNv2($obj);
         }
         return $obj;
     }

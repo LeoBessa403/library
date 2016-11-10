@@ -139,7 +139,11 @@ class Backup {
  
         try
         {
-            $handle = fopen(PASTABACKUP.'Backup '.DESC.' '.date("d-m-Y H-i-s", time()).'.sql','w+');
+            if($handle = fopen(PASTABACKUP.'Backup '.DESC.' '.date("d-m-Y H-i-s", time()).'.sql','w+')){
+                debug('ok');
+            }else{
+                debug('deu ruim');
+            }
             fwrite($handle, $sql);
             fclose($handle);
         }

@@ -36,6 +36,7 @@ class GerarEntidades
         try {
 
             $tables = array();
+            $constantes = array();
             $result = mysql_query('SHOW TABLES');
             while ($row = mysql_fetch_row($result)) {
                 $tables[] = $row[0];
@@ -52,6 +53,7 @@ class GerarEntidades
                 if (mysql_num_rows($row2) > 0) {
                     while ($row = mysql_fetch_assoc($row2)) {
                         $colunas[] = $row['Field'];
+                        $constantes[strtoupper($row['Field'])] = $row['Field'];
                         if ($row['Extra'] != '')
                             $chave_primaria = $row['Field'];
                         if ($row['Extra'] == '' && $row['Key'] != '')
@@ -128,6 +130,23 @@ class {$Entidade}Entidade
                 $this->saveFile($ArquivoEntidade, $Entidade);
             }
 
+            $ArquivoConstante = "<?php\n
+/**
+ * Constantes.class [ HELPER ]
+ * Classe responável por manipular e validade dados do sistema!
+ *
+ * @copyright (c) " . date('Y') . ", Leo Bessa
+ */\n
+class  Constantes
+{\n";
+            foreach ($constantes as $indice => $res) {
+                $ArquivoConstante .= "\tconst " . $indice . " = '" . $res . "';\n";
+            }
+            $ArquivoConstante .= "\n}";
+//            debug($constantes);
+
+            $this->saveConstantes($ArquivoConstante);
+
         } catch (Exception $e) {
             var_dump($e->getMessage());
             return false;
@@ -141,6 +160,21 @@ class {$Entidade}Entidade
         try {
             $handle = fopen(PASTA_ENTIDADES . '/' . $Entidade . 'Entidade.class.php', 'w+');
             fwrite($handle, $ArquivoEntidade);
+            fclose($handle);
+        } catch (Exception $e) {
+            var_dump($e->getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+    protected function saveConstantes($ArquivoConstante)
+    {
+        if (!$ArquivoConstante) return false;
+        try {
+            $handle = fopen(PASTA_CLASS . 'Constantes.class.php', 'w+');
+            fwrite($handle, $ArquivoConstante);
             fclose($handle);
         } catch (Exception $e) {
             var_dump($e->getMessage());

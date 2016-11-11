@@ -85,11 +85,13 @@ class AbstractModel
                             $indece++;
                         }
                     }else{
-                        $dados3 = $this->PesquisaUmRegistroNv3(
-                            $obj->$metodoGet()->$metodoGet2(), $obj3::ENTIDADE
-                        );
-                        $metodoSet2 = $this->getMetodo($obj3::CHAVE, false);
-                        $obj->$metodoGet()->$metodoSet2($dados3);
+                        if($obj->$metodoGet()){
+                            $dados3 = $this->PesquisaUmRegistroNv3(
+                                $obj->$metodoGet()->$metodoGet2(), $obj3::ENTIDADE
+                            );
+                            $metodoSet2 = $this->getMetodo($obj3::CHAVE, false);
+                            $obj->$metodoGet()->$metodoSet2($dados3);
+                        }
                     }
                 } else {
                     if($obj->$metodoGet()){

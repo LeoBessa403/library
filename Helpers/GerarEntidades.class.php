@@ -48,6 +48,16 @@ class GerarEntidades
             foreach ($tables as $table) {
                 $ArquivoEntidade = "";
                 $row2 = mysql_query('SHOW COLUMNS FROM ' . $table);
+                $referencias = array();
+                $referencia = mysql_query("SELECT i.TABLE_NAME, k.REFERENCED_TABLE_NAME, k.REFERENCED_COLUMN_NAME 
+                    FROM information_schema.TABLE_CONSTRAINTS i 
+                    LEFT JOIN information_schema.KEY_COLUMN_USAGE k 
+                    ON i.CONSTRAINT_NAME = k.CONSTRAINT_NAME 
+                    WHERE i.CONSTRAINT_TYPE = 'FOREIGN KEY' 
+                    AND i.TABLE_SCHEMA = '".DBSA."'");
+                while ($res = mysql_fetch_row($referencia)) {
+                    $referencias[$res[1]][] = $res[0];
+                }
                 $colunas = array();
                 $relacionamentosTabela = array();
                 if (mysql_num_rows($row2) > 0) {
@@ -61,10 +71,7 @@ class GerarEntidades
 
                     }
                 }
-                $Entidade = str_replace('tb_', '', $table);
-                $Entidade = str_replace('_', ' ', $Entidade);
-                $Entidade = ucwords($Entidade);
-                $Entidade = str_replace(' ', '', $Entidade);
+                $Entidade = $this->getEntidade($table);
                 $ArquivoEntidade = "<?php\n
 /**
  * {$Entidade}.Entidade [ ENTIDADE ]
@@ -78,6 +85,11 @@ class {$Entidade}Entidade
 
                 foreach ($colunas as $coluna) {
                     $ArquivoEntidade .= "\tprivate $" . $coluna . ";\n";
+                }
+                if(!empty($referencias[$table])){
+                    foreach ($referencias[$table] as $novaColuna) {
+                        $ArquivoEntidade .= "\tprivate $" . $novaColuna . ";\n";
+                    }
                 }
                 $ArquivoEntidade .= "\n\n";
                 $ArquivoEntidade .= "\t/**
@@ -102,6 +114,14 @@ class {$Entidade}Entidade
                 'Tipo' => 1,
             ),\n";
                 }
+                if(!empty($referencias[$table])){
+                    foreach ($referencias[$table] as $rel) {
+                        $ArquivoEntidade .= "\t\t\tConstantes::" . strtoupper(str_replace('tb_', 'co_', $rel)) . " => array(
+                'Entidade' => " . str_replace(' ', '', ucwords(str_replace('_', ' ', str_replace('tb_', '', $rel)))) . "Entidade::ENTIDADE,
+                'Tipo' => 1,
+            ),\n";
+                    }
+                }
                 $ArquivoEntidade .= "\t\t];
     \treturn \$relacionamentos;
     }\n";
@@ -123,6 +143,28 @@ class {$Entidade}Entidade
     {
         return \$this->$coluna = \$$coluna;
     }\n\n";
+                }
+
+                if(!empty($referencias[$table])) {
+                    foreach ($referencias[$table] as $metodos) {
+                        $metodos = str_replace('tb_', 'co_', $metodos);
+                        $metodoGet = $this->getMetodo($metodos);
+                        $ArquivoEntidade .= "\t/**
+     * @return \$$metodos
+     */\n";
+                        $ArquivoEntidade .= "\tpublic function {$metodoGet}()
+    {
+        return \$this->$metodos;
+    }\n\n";
+                        $metodoSet = $this->getMetodo($metodos, false);
+                        $ArquivoEntidade .= "\t/**
+     * @param mixed \$$metodos
+     */\n";
+                        $ArquivoEntidade .= "\tpublic function {$metodoSet}(\$$metodos)
+    {
+        return \$this->$metodos = \$$metodos;
+    }\n\n";
+                    }
                 }
 
                 $ArquivoEntidade .= "}";
@@ -220,6 +262,15 @@ class  Constantes
         $tipo = ($get) ? 'get' : 'set';
         $metodo = $tipo . $metodo;
         return $metodo;
+    }
+    
+    private function getEntidade($Entidade)
+    {
+        $Entidade = str_replace('tb_', '', $Entidade);
+        $Entidade = str_replace('_', ' ', $Entidade);
+        $Entidade = ucwords($Entidade);
+        $Entidade = str_replace(' ', '', $Entidade);
+        return $Entidade;
     }
 }
 

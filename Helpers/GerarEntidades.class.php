@@ -88,7 +88,7 @@ class {$Entidade}Entidade
                 }
                 if(!empty($referencias[$table])){
                     foreach ($referencias[$table] as $novaColuna) {
-                        $ArquivoEntidade .= "\tprivate $" . $novaColuna . ";\n";
+                        $ArquivoEntidade .= "\tprivate $" . str_replace('tb_', 'co_', $novaColuna) . ";\n";
                     }
                 }
                 $ArquivoEntidade .= "\n\n";

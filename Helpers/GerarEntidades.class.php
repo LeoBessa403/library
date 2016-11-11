@@ -68,7 +68,6 @@ class GerarEntidades
                 $ArquivoEntidade = "<?php\n
 /**
  * {$Entidade}.Entidade [ ENTIDADE ]
- *
  * @copyright (c) " . date('Y') . ", Leo Bessa
  */\n
 class {$Entidade}Entidade

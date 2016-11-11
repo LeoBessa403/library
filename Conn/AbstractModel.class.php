@@ -9,6 +9,44 @@ class AbstractModel
         $this->Entidade = $Entidade;
     }
 
+    public function Salva(array $dados, $codigo = null)
+    {
+        $Entidade = $this->Entidade;
+        if($codigo){
+            $cadastro = new Cadastra();
+            $cadastro->Cadastrar($Entidade::TABELA, $dados);
+            return $cadastro->getUltimoIdInserido();
+        }else{
+            $atualiza = new Atualiza();
+            $atualiza->Atualizar($Entidade::TABELA, $dados, "where ".$Entidade::CHAVE." = :codigo", "codigo={$codigo}");
+            return $atualiza->getResult();
+        }
+    }
+
+    public function Deleta($codigo){
+        $Entidade = $this->Entidade;
+        $deleta = new Deleta();
+        $deleta->Deletar($Entidade::TABELA, "where ".$Entidade::CHAVE." = :codigo", "codigo={$codigo}");
+        return $deleta->getResult();
+    }
+
+    public function PesquisaUmRegistro($Codigo)
+    {
+        $Entidade = $this->Entidade;
+        $pesquisa = new Pesquisa();
+        $pesquisa->Pesquisar($Entidade::TABELA, "where " . $Entidade::CHAVE . " = :id ", "id={$Codigo}");
+        $obj = new $Entidade();
+        if ($pesquisa->getResult()) {
+            $registro = $pesquisa->getResult()[0];
+            foreach ($Entidade::getCampos() as $campo) {
+                $metodo = $this->getMetodo($campo, false);
+                $obj->$metodo($registro[$campo]);
+            }
+            $obj = $this->PesquisaTodosNv2($obj);
+        }
+        return $obj;
+    }
+
     public function PesquisaTodos()
     {
         $Entidade = $this->Entidade;
@@ -74,7 +112,7 @@ class AbstractModel
             $metodoGet2 = $this->getMetodo($obj3::CHAVE);
             if (!in_array($obj3::ENTIDADE, $entidades)) {
                 if ($campo['Tipo'] == 1) {
-                    if(is_array($obj->$metodoGet())){
+                    if (is_array($obj->$metodoGet())) {
                         $indece = 0;
                         foreach ($obj->$metodoGet() as $novoRegistro) {
                             $dados4 = $this->PesquisaUmRegistroNv3(
@@ -84,8 +122,8 @@ class AbstractModel
                             $obj->$metodoGet()[$indece]->$metodoSet2($dados4);
                             $indece++;
                         }
-                    }else{
-                        if($obj->$metodoGet()){
+                    } else {
+                        if ($obj->$metodoGet()) {
                             $dados3 = $this->PesquisaUmRegistroNv3(
                                 $obj->$metodoGet()->$metodoGet2(), $obj3::ENTIDADE
                             );
@@ -94,7 +132,7 @@ class AbstractModel
                         }
                     }
                 } else {
-                    if($obj->$metodoGet()){
+                    if ($obj->$metodoGet()) {
                         $dados3 = $this->PesquisaUmRegistroNv3(
                             $obj->$metodoGet()->$metodoGet2(), $obj3::ENTIDADE
                         );
@@ -108,29 +146,12 @@ class AbstractModel
         return $obj;
     }
 
-    public function PesquisaUmRegistro($Codigo)
-    {
-        $Entidade = $this->Entidade;
-        $pesquisa = new Pesquisa();
-        $pesquisa->Pesquisar($Entidade::TABELA, "where " . $Entidade::CHAVE . " = :id ", "id={$Codigo}");
-        $obj = new $Entidade();
-        if($pesquisa->getResult()){
-            $registro = $pesquisa->getResult()[0];
-            foreach ($Entidade::getCampos() as $campo) {
-                $metodo = $this->getMetodo($campo, false);
-                $obj->$metodo($registro[$campo]);
-            }
-            $obj = $this->PesquisaTodosNv2($obj);
-        }
-        return $obj;
-    }
-
     private function PesquisaUmRegistroNv2($Codigo, $Entidade)
     {
         $pesquisa = new Pesquisa();
         $pesquisa->Pesquisar($Entidade::TABELA, "where " . $Entidade::CHAVE . " = :id ", "id={$Codigo}");
         $obj = new $Entidade();
-        if($pesquisa->getResult()) {
+        if ($pesquisa->getResult()) {
             $registro = $pesquisa->getResult()[0];
             foreach ($Entidade::getCampos() as $campo) {
                 $metodo = $this->getMetodo($campo, false);
@@ -145,7 +166,7 @@ class AbstractModel
         $pesquisa = new Pesquisa();
         $pesquisa->Pesquisar($Entidade::TABELA, "where " . $Entidade::CHAVE . " = :id ", "id={$Codigo}");
         $obj = new $Entidade();
-        if($pesquisa->getResult()) {
+        if ($pesquisa->getResult()) {
             $registro = $pesquisa->getResult()[0];
             foreach ($Entidade::getCampos() as $campo) {
                 $metodo = $this->getMetodo($campo, false);

@@ -12,7 +12,7 @@ class AbstractModel
     public function Salva(array $dados, $codigo = null)
     {
         $Entidade = $this->Entidade;
-        if($codigo){
+        if(!$codigo){
             $cadastro = new Cadastra();
             $cadastro->Cadastrar($Entidade::TABELA, $dados);
             return $cadastro->getUltimoIdInserido();

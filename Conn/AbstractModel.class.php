@@ -47,6 +47,28 @@ class AbstractModel
         return $obj;
     }
 
+    public function PesquisaUmQuando(array $Condicoes)
+    {
+        if(count($Condicoes)){
+            $Entidade = $this->Entidade;
+            $pesquisa = new Pesquisa();
+            $where = $pesquisa->getClausula($Condicoes);
+            $pesquisa->Pesquisar($Entidade::TABELA, $where);
+            $obj = new $Entidade();
+            if ($pesquisa->getResult()) {
+                $registro = $pesquisa->getResult()[0];
+                foreach ($Entidade::getCampos() as $campo) {
+                    $metodo = $this->getMetodo($campo, false);
+                    $obj->$metodo($registro[$campo]);
+                }
+                $obj = $this->PesquisaTodosNv2($obj);
+            }
+            return $obj;
+        }else{
+            return false;
+        }
+    }
+
     public function PesquisaTodos()
     {
         $Entidade = $this->Entidade;

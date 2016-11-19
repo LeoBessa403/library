@@ -62,18 +62,21 @@ class AbstractModel
                     $obj->$metodo($registro[$campo]);
                 }
                 $obj = $this->PesquisaTodosNv2($obj);
+                return $obj;
+            }else{
+                return array();
             }
-            return $obj;
         }else{
             return false;
         }
     }
 
-    public function PesquisaTodos()
+    public function PesquisaTodos($Condicoes = array())
     {
         $Entidade = $this->Entidade;
         $pesquisa = new Pesquisa();
-        $pesquisa->Pesquisar($Entidade::TABELA);
+        $where = $pesquisa->getClausula($Condicoes);
+        $pesquisa->Pesquisar($Entidade::TABELA, $where);
         $dados = array();
         foreach ($pesquisa->getResult() as $entidade) {
             $obj = new $Entidade();
@@ -129,10 +132,8 @@ class AbstractModel
         $campos = $obj2::getRelacionamentos();
         foreach ($campos as $campo) {
             $obj3 = new $campo['Entidade']();
-            $entidades = array($obj::ENTIDADE, $obj2::ENTIDADE);
             $metodoGet = $this->getMetodo($obj2::CHAVE);
             $metodoGet2 = $this->getMetodo($obj3::CHAVE);
-            if (!in_array($obj3::ENTIDADE, $entidades)) {
                 if ($campo['Tipo'] == 1) {
                     if (is_array($obj->$metodoGet())) {
                         $indece = 0;
@@ -162,8 +163,6 @@ class AbstractModel
                         $obj->$metodoGet()->$metodoSet2($dados3);
                     }
                 }
-
-            }
         }
         return $obj;
     }

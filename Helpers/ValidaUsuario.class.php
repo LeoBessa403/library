@@ -19,8 +19,7 @@ class ValidaUsuario
                     Redireciona(ADMIN . LOGIN);
                     die;
                 else:
-                    Redireciona(ADMIN . LOGIN . "?o=erro2");
-                    die;
+                    Index::Acessar();
                 endif;
             else:
                 Index::logar();

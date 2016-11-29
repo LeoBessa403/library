@@ -57,8 +57,7 @@
         * Ex.: <br>Nome do Arquivo <b>cadastro.View.php</b>
         */
         public function pegaControllerAction(){
-            $erro_404 = false;  
-            
+            $erro_404 = false;
             if(self::$modulo != SITE && self::$action != "Index" && self::$controller != "Index"):
                 if(!Valida::ValPerfil( self::$action )):
                     self::$action     = "Index";
@@ -66,61 +65,61 @@
                     $erro_404 = true;
                 endif;
             endif;
-            
-            
+
+
             if(self::$modulo != SITE && self::$modulo != ADMIN):
                 self::$modulo = "web";
                 self::$controller = "Index";
-                self::$action = "Index";     
+                self::$action = "Index";
                 $erro_404 = true;
             endif;
-                        
+
             if(self::$controller == ""):
-                    self::$controller = "Index";
-                    self::$action = "Index";               
-             elseif(self::$action == ""):
-                    self::$action = "Index";  
-             endif;
-            
-             $controller_path = self::$modulo."/Controller/" . self::$controller . '.Controller.php';
-             if((!file_exists($controller_path)) && (!file_exists("Controller/" . self::$controller . '.Controller.php'))):
-                    self::$controller = "Index";
-                    self::$action = "Index";
-                    $erro_404 = true;  
-            endif;   
-            
+                self::$controller = "Index";
+                self::$action = "Index";
+            elseif(self::$action == ""):
+                self::$action = "Index";
+            endif;
+
             $controller_path = self::$modulo."/Controller/" . self::$controller . '.Controller.php';
-            
+            if((!file_exists($controller_path)) && (!file_exists("Controller/" . self::$controller . '.Controller.php'))):
+                self::$controller = "Index";
+                self::$action = "Index";
+                $erro_404 = true;
+            endif;
+
+            $controller_path = self::$modulo."/Controller/" . self::$controller . '.Controller.php';
+
             if(!file_exists($controller_path)):
                 $controller_path = "Controller/" . self::$controller . '.Controller.php';
             endif;
-            
+
             require_once($controller_path);
             $app = new self::$controller();
-           
 
-            if( !method_exists($app, self::$action) ):                     
-                 self::$action = "Index";
-                 $erro_404 = true;
+
+            if( !method_exists($app, self::$action) ):
+                self::$action = "Index";
+                $erro_404 = true;
             endif;
-            
+
             if(self::$modulo == ADMIN):
-                if(!Valida::ValPerfil(self::$action)):
+                // VALIDAÇÃO POR PERFIL REFAZER PRA NOVA ENTIDADE
+                if(!Valida::ValPerfil(self::$action) && self::$action != 'Acessar'):
                     self::$action = "Index";
                     $erro_404 = true;
-                endif;    
+                endif;
             endif;
-                
-            
+
             $action = self::$action;
             $app->$action();
-            
+
             extract((array) $app);
-            
-           if($erro_404):
-                $arquivo_include = 'View/Index/'.ERRO_404.'.View.php';                
+
+            if($erro_404):
+                $arquivo_include = 'View/Index/'.ERRO_404.'.View.php';
                 $action = ERRO_404;
-           else:
+            else:
                 $arquivo_include = 'View/'. self::$controller ."/".self::$action.'.View.php';
                 $action = self::$action;
            endif;

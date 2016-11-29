@@ -11,6 +11,7 @@ class ValidaUsuario
     {
 
         $url = (isset($_GET['url']) && $_GET['url'] != "" ? $_GET['url'] : "");
+        $urlAmigavel = new UrlAmigavel();
         $explode = explode('/', $url);
         $session = new Session();
         if (!$session->CheckSession(SESSION_USER)):
@@ -20,6 +21,10 @@ class ValidaUsuario
                     die;
                 else:
                     Index::Acessar();
+                    $urlAmigavel::$controller = 'Index';
+                    $urlAmigavel::$action = 'Acessar';
+                    $urlAmigavel->pegaControllerAction();
+                    die;
                 endif;
             else:
                 Index::logar();
@@ -28,7 +33,7 @@ class ValidaUsuario
             if (isset($explode[3]) && $explode[3] == "desloga"):
                 $session->FinalizaSession(SESSION_USER);
                 Redireciona(ADMIN . LOGIN . "?o=sucesso2");
-                die();
+                die;
             else:
                 $us = $_SESSION[SESSION_USER];
                 $user = $us->getUser();

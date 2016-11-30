@@ -8,10 +8,11 @@
  */
 class GerarEntidades
 {
-
-
-    public function __construct()
+    var $tabelas;
+    
+    public function __construct($tabelas = array())
     {
+        $this->tabelas = $tabelas;
         $this->inicializarConexao();
         $this->gerar();
     }
@@ -34,18 +35,18 @@ class GerarEntidades
     public function gerar()
     {
         try {
-
-            $tables = array();
             $constantes = array();
-            $result = mysql_query('SHOW TABLES');
-            while ($row = mysql_fetch_row($result)) {
-                $tables[] = $row[0];
+            if(!$this->tabelas){
+                $result = mysql_query('SHOW TABLES');
+                while ($row = mysql_fetch_row($result)) {
+                    $this->tabelas[] = $row[0];
+                }
             }
 
             /**
              * Iterate tables
              */
-            foreach ($tables as $table) {
+            foreach ($this->tabelas as $table) {
                 $ArquivoEntidade = "";
                 $row2 = mysql_query('SHOW COLUMNS FROM ' . $table);
                 $referencias = array();

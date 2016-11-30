@@ -11,7 +11,6 @@ class ValidaUsuario
     {
 
         $url = (isset($_GET['url']) && $_GET['url'] != "" ? $_GET['url'] : "");
-        $urlAmigavel = new UrlAmigavel();
         $explode = explode('/', $url);
         $session = new Session();
         if (!$session->CheckSession(SESSION_USER)):
@@ -20,10 +19,7 @@ class ValidaUsuario
                     Redireciona(ADMIN . LOGIN);
                     die;
                 else:
-                    Index::Acessar();
-                    $urlAmigavel::$controller = 'Index';
-                    $urlAmigavel::$action = 'Acessar';
-                    $urlAmigavel->pegaControllerAction();
+                    Redireciona(ADMIN . LOGIN. Valida::GeraParametro("acesso/R"));
                     die;
                 endif;
             else:
@@ -32,7 +28,7 @@ class ValidaUsuario
         else:
             if (isset($explode[3]) && $explode[3] == "desloga"):
                 $session->FinalizaSession(SESSION_USER);
-                Redireciona(ADMIN . LOGIN . "?o=sucesso2");
+                Redireciona(ADMIN . LOGIN . Valida::GeraParametro("acesso/D"));
                 die;
             else:
                 $us = $_SESSION[SESSION_USER];
@@ -42,8 +38,8 @@ class ValidaUsuario
                 $agora = strtotime(Valida::DataDB(Valida::DataAtual()));
                 if ($agora > $ultimo_acesso):
                     $session->FinalizaSession(SESSION_USER);
-                    Redireciona(ADMIN . LOGIN . "?o=deslogado");
-                    die();
+                    Redireciona(ADMIN . LOGIN . Valida::GeraParametro("acesso/E"));
+                    die;
                 else:
                     $us->setUserUltimoAcesso(strtotime(Valida::DataDB(Valida::DataAtual())));
                     if ($session->CheckSession(CADASTRADO)):

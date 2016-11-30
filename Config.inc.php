@@ -19,7 +19,7 @@ servidor_inicial();
 //* CONFIGURAÇÕES DE LOGIN DO SISTEMA *//
 //*************************************//
 // Define o Controler/Action para area de login
-define('LOGIN', '/Index/Acessar');
+define('LOGIN', '/Index/Acessar/');
 // Define o Controler/Action para validar o login
 define('VALIDA_LOGAR', '/acesso/valida');
 // Define o Controler/Action para Redireciona apos o login ser validado

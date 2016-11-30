@@ -9,7 +9,7 @@
 class GerarEntidades
 {
     var $tabelas;
-    
+
     public function __construct($tabelas = array())
     {
         $this->tabelas = $tabelas;
@@ -36,7 +36,7 @@ class GerarEntidades
     {
         try {
             $constantes = array();
-            if(!$this->tabelas){
+            if (!$this->tabelas) {
                 $result = mysql_query('SHOW TABLES');
                 while ($row = mysql_fetch_row($result)) {
                     $this->tabelas[] = $row[0];
@@ -55,7 +55,7 @@ class GerarEntidades
                     LEFT JOIN information_schema.KEY_COLUMN_USAGE k 
                     ON i.CONSTRAINT_NAME = k.CONSTRAINT_NAME 
                     WHERE i.CONSTRAINT_TYPE = 'FOREIGN KEY' 
-                    AND i.TABLE_SCHEMA = '".DBSA."'");
+                    AND i.TABLE_SCHEMA = '" . DBSA . "'");
                 while ($res = mysql_fetch_row($referencia)) {
                     $referencias[$res[1]][] = $res[0];
                 }
@@ -87,7 +87,7 @@ class {$Entidade}Entidade
                 foreach ($colunas as $coluna) {
                     $ArquivoEntidade .= "\tprivate $" . $coluna . ";\n";
                 }
-                if(!empty($referencias[$table])){
+                if (!empty($referencias[$table])) {
                     foreach ($referencias[$table] as $novaColuna) {
                         $ArquivoEntidade .= "\tprivate $" . str_replace('tb_', 'co_', $novaColuna) . ";\n";
                     }
@@ -115,7 +115,7 @@ class {$Entidade}Entidade
                 'Tipo' => 1,
             ),\n";
                 }
-                if(!empty($referencias[$table])){
+                if (!empty($referencias[$table])) {
                     foreach ($referencias[$table] as $rel) {
                         $ArquivoEntidade .= "\t\t\tConstantes::" . strtoupper(str_replace('tb_', 'co_', $rel)) . " => array(
                 'Entidade' => " . str_replace(' ', '', ucwords(str_replace('_', ' ', str_replace('tb_', '', $rel)))) . "Entidade::ENTIDADE,
@@ -146,7 +146,7 @@ class {$Entidade}Entidade
     }\n\n";
                 }
 
-                if(!empty($referencias[$table])) {
+                if (!empty($referencias[$table])) {
                     foreach ($referencias[$table] as $metodos) {
                         $metodos = str_replace('tb_', 'co_', $metodos);
                         $metodoGet = $this->getMetodo($metodos);
@@ -186,8 +186,9 @@ class  {$Entidade}Model extends AbstractModel
                 $this->saveModel($ArquivoModel, $Entidade);
 
             }
+            if (!$this->tabelas) {
 
-            $ArquivoConstante = "<?php\n
+                $ArquivoConstante = "<?php\n
 /**
  * Constantes.class [ HELPER ]
  * Classe responável por manipular e validade dados do sistema!
@@ -196,11 +197,12 @@ class  {$Entidade}Model extends AbstractModel
  */\n
 class  Constantes
 {\n";
-            foreach ($constantes as $indice => $res) {
-                $ArquivoConstante .= "\tconst " . $indice . " = '" . $res . "';\n";
+                foreach ($constantes as $indice => $res) {
+                    $ArquivoConstante .= "\tconst " . $indice . " = '" . $res . "';\n";
+                }
+                $ArquivoConstante .= "\n}";
+                $this->saveConstantes($ArquivoConstante);
             }
-            $ArquivoConstante .= "\n}";
-            $this->saveConstantes($ArquivoConstante);
 
         } catch (Exception $e) {
             var_dump($e->getMessage());
@@ -264,7 +266,7 @@ class  Constantes
         $metodo = $tipo . $metodo;
         return $metodo;
     }
-    
+
     private function getEntidade($Entidade)
     {
         $Entidade = str_replace('tb_', '', $Entidade);

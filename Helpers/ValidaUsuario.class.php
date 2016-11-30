@@ -9,7 +9,6 @@ class ValidaUsuario
 
     function __construct()
     {
-
         $url = (isset($_GET['url']) && $_GET['url'] != "" ? $_GET['url'] : "");
         $explode = explode('/', $url);
         $session = new Session();

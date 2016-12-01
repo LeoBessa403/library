@@ -18,7 +18,7 @@ class ValidaUsuario
                     Redireciona(ADMIN . LOGIN);
                     die;
                 else:
-                    Redireciona(ADMIN . LOGIN. Valida::GeraParametro("acesso/R"));
+                    Redireciona(ADMIN . LOGIN . Valida::GeraParametro("acesso/R"));
                     die;
                 endif;
             else:

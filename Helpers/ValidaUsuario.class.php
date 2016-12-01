@@ -31,9 +31,10 @@ class ValidaUsuario
                 die;
             else:
                 $us = $_SESSION[SESSION_USER];
+                /** @var Session $us */
                 $user = $us->getUser();
 
-                $ultimo_acesso = intval($user[md5("ultimo_acesso")] + (60 * INATIVO));
+                $ultimo_acesso = intval(strtotime($user[md5("dt_fim_acesso")]) + (60 * INATIVO));
                 $agora = strtotime(Valida::DataDB(Valida::DataAtual()));
                 if ($agora > $ultimo_acesso):
                     $session->FinalizaSession(SESSION_USER);

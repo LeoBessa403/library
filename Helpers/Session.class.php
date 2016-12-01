@@ -8,8 +8,7 @@
  */
 class Session {
     
-    private $usuario;
-    private $usu;
+    private $acesso;
 
 
     /**
@@ -36,7 +35,7 @@ class Session {
         foreach ($user as $key => $value) {
             $usuario .= md5($key).";=/".base64_encode($value).";==/";
         }
-        $this->usu = $usuario;
+        $this->acesso = $usuario;
     }
     
     public function setUserUltimoAcesso($acesso){
@@ -46,17 +45,16 @@ class Session {
        foreach ($usu as $key => $value) {
             $usuario .= $key.";=/".base64_encode($value).";==/";
        }
-       $this->usu = $usuario;
+       $this->acesso = $usuario;
        $this->setSession(SESSION_USER,$this);
     }
     
     public function getUser(){
-        $tamanho = strlen($this->usu);        
-        $usuario = substr($this->usu,0,$tamanho-4);
+        $tamanho = strlen($this->acesso);
+        $usuario = substr($this->acesso,0,$tamanho-4);
        
         $user = explode(";==/", $usuario);
         $us = array();
-            //debug($user);
         foreach ($user as $value) {
             $user2 = explode(";=/", $value);
             $us[$user2[0]] = base64_decode($user2[1]);

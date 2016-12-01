@@ -338,9 +338,9 @@ class Valida {
     public static function ValPerfil($action){
         if(Session::CheckSession(SESSION_USER)):
             if(Session::getSession(SESSION_USER, CAMPO_PERFIL)):
-                if($action == "Index" || $action == "Logar"):
+//                if($action == "Index" || $action == "Logar"):
                     return true;
-                endif;
+//                endif;
                 $compara = strstr(UrlAmigavel::$action,'Exporta');
                 if($compara != null):
                     return true;

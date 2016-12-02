@@ -77,16 +77,16 @@ class Pesquisa extends Conn {
                 endif;
                 switch ($tipo) {
                     case 'st':
-                        $pesquisa[] = $key." = '".$value."'";
+                        $pesquisa[] = $key." in (".$value.")";
                     break;
                     case 'dt':
                         $pesquisa[] = $key." = '".$value."'";
                     break;
                     case 'co':
-                        $pesquisa[] = $key." = '".$value."'";
+                        $pesquisa[] = $key." in (".$value.")";
                     break;
                     case 'sg':
-                        $pesquisa[] = $key." = '".$value."'";
+                        $pesquisa[] = $key." in (".$value.")";
                     break;
                     case 'no':
                         $pesquisa[] = $key." like '%".$value."%'";

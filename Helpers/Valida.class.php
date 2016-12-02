@@ -335,31 +335,40 @@ class Valida {
         endif;
     }    
     
-    public static function ValPerfil($action){
+    public function ValPerfil($action){
         if(Session::CheckSession(SESSION_USER)):
             if(Session::getSession(SESSION_USER, CAMPO_PERFIL)):
-//                if($action == "Index" || $action == "Logar"):
+                if($action == "Index" || $action == "Logar"):
                     return true;
-//                endif;
+                endif;
                 $compara = strstr(UrlAmigavel::$action,'Exporta');
                 if($compara != null):
                     return true;
                 endif;
                 $us = $_SESSION[SESSION_USER];                                                                    
                 $user = $us->getUser();
-                $perfis = $user[md5(CAMPO_PERFIL)]; 
-                $perfis = explode(",", $perfis);
-                $funcionalidades = explode(",", $user[md5('funcionalidades')]);
-                
-                $pesquisa = new Pesquisa();
-                $pesquisa->Pesquisar(Constantes::FUNCIONALIDADE_TABELA,"where ds_rota like '%{$action}'", null, "co_funcionalidade");
-                $funcs = $pesquisa->getResult();
-                
-                if(in_array(1, $perfis)):
-                    return true;
-                endif;
+                $meusPerfis = $user[md5(CAMPO_PERFIL)];
+//                $perfis = explode(",", $meusPerfis);
+//                if(in_array(1, $perfis)):
+//                    return true;
+//                endif;
+                $perfilFuncionalidade = new PerfilFuncionalidadeModel();
+                $dados['co_perfil'] = $meusPerfis;
+                $meusPerfis = $perfilFuncionalidade->PesquisaTodos($dados);
+
+                $funcionalidades = array();
+                /** @var FuncionalidadeEntidade $func */
+                foreach ($meusPerfis as $func){
+                    $funcionalidades[] = $func->getCoFuncionalidade();
+                }
+
+                $funcionalSrv = new FuncionalidadeModel();
+                $data['ds_rota'] = $action;
+                /** @var FuncionalidadeEntidade $funcionalidade */
+                $funcionalidade = $funcionalSrv->PesquisaUmQuando($data);
+
                 if(!empty($funcionalidades)):
-                    if(in_array($funcs[0]['co_funcionalidade'], $funcionalidades)):
+                    if(in_array($funcionalidade->getCoFuncionalidade(), $funcionalidades)):
                         return true;
                     else:
                         return false;

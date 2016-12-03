@@ -8,7 +8,7 @@ $(function() {
     var urlValida = home + 'library/Helpers/Valida.Controller.php';
     
     // DESLOGA USUÁRIO INATIVO
-    setTimeout(function(){  location.reload(); }, (1001 * inativo * 60) ); 	
+    // setTimeout(function(){  location.reload(); }, (1001 * inativo * 60) ); 	
 
         //function to initiate Select2        
        $(".search-select").select2({          

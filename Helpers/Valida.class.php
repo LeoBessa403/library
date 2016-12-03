@@ -335,7 +335,7 @@ class Valida {
         endif;
     }    
     
-    public function ValPerfil($action){
+    public static function ValPerfil($action){
         if(Session::CheckSession(SESSION_USER)):
             if(Session::getSession(SESSION_USER, CAMPO_PERFIL)):
                 if($action == "Index" || $action == "Logar"):
@@ -348,10 +348,10 @@ class Valida {
                 $us = $_SESSION[SESSION_USER];                                                                    
                 $user = $us->getUser();
                 $meusPerfis = $user[md5(CAMPO_PERFIL)];
-//                $perfis = explode(",", $meusPerfis);
-//                if(in_array(1, $perfis)):
-//                    return true;
-//                endif;
+                $perfis = explode(",", $meusPerfis);
+                if(in_array(1, $perfis)):
+                    return true;
+                endif;
                 $perfilFuncionalidade = new PerfilFuncionalidadeModel();
                 $dados['co_perfil'] = $meusPerfis;
                 $meusPerfis = $perfilFuncionalidade->PesquisaTodos($dados);

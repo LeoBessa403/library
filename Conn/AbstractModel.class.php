@@ -43,6 +43,14 @@ class AbstractModel
                 $metodo = $this->getMetodo($campo, false);
                 $obj->$metodo($registro[$campo]);
             }
+            foreach ($Entidade::getRelacionamentos() as $indice => $result) {
+                $metodoGetChave = $this->getMetodo($Entidade::CHAVE);
+                $coChave = $obj->$metodoGetChave();
+                if (!in_array($indice, $Entidade::getCampos())) {
+                    $metodo = $this->getMetodo($indice, false);
+                    $obj->$metodo($coChave);
+                }
+            }
             $obj = $this->PesquisaTodosNv2($obj);
         }
         return $obj;
@@ -61,6 +69,14 @@ class AbstractModel
                 foreach ($Entidade::getCampos() as $campo) {
                     $metodo = $this->getMetodo($campo, false);
                     $obj->$metodo($registro[$campo]);
+                }
+                foreach ($Entidade::getRelacionamentos() as $indice => $result) {
+                    $metodoGetChave = $this->getMetodo($Entidade::CHAVE);
+                    $coChave = $obj->$metodoGetChave();
+                    if (!in_array($indice, $Entidade::getCampos())) {
+                        $metodo = $this->getMetodo($indice, false);
+                        $obj->$metodo($coChave);
+                    }
                 }
                 $obj = $this->PesquisaTodosNv2($obj);
                 return $obj;
@@ -204,6 +220,14 @@ class AbstractModel
                     $metodo = $this->getMetodo($campo, false);
                     $obj->$metodo($registro[$campo]);
                 }
+                foreach ($Entidade::getRelacionamentos() as $indice => $result) {
+                    $metodoGetChave = $this->getMetodo($Entidade::CHAVE);
+                    $coChave = $obj->$metodoGetChave();
+                    if (!in_array($indice, $Entidade::getCampos())) {
+                        $metodo = $this->getMetodo($indice, false);
+                        $obj->$metodo($coChave);
+                    }
+                }
             }
         }
         return $obj;
@@ -219,6 +243,14 @@ class AbstractModel
             foreach ($Entidade::getCampos() as $campo) {
                 $metodo = $this->getMetodo($campo, false);
                 $obj->$metodo($registro[$campo]);
+            }
+            foreach ($Entidade::getRelacionamentos() as $indice => $result) {
+                $metodoGetChave = $this->getMetodo($Entidade::CHAVE);
+                $coChave = $obj->$metodoGetChave();
+                if (!in_array($indice, $Entidade::getCampos())) {
+                    $metodo = $this->getMetodo($indice, false);
+                    $obj->$metodo($coChave);
+                }
             }
         }
         return $obj;

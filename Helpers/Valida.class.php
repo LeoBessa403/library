@@ -362,10 +362,10 @@ class Valida {
                     $funcionalidades[] = $func->getCoFuncionalidade();
                 }
 
-                $funcionalSrv = new FuncionalidadeModel();
+                $funcionalidadeModel = new FuncionalidadeModel();
                 $data['ds_rota'] = $action;
                 /** @var FuncionalidadeEntidade $funcionalidade */
-                $funcionalidade = $funcionalSrv->PesquisaUmQuando($data);
+                $funcionalidade = $funcionalidadeModel->PesquisaUmQuando($data);
 
                 if(!empty($funcionalidades)):
                     if(in_array($funcionalidade->getCoFuncionalidade(), $funcionalidades)):

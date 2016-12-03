@@ -144,7 +144,6 @@ class UrlAmigavel
      */
     public function GeraMenu(array $menu)
     {
-        $valida = new Valida();
         $ativo = UrlAmigavel::$controller;
 
         echo '<ul class="main-navigation-menu">';
@@ -169,7 +168,7 @@ class UrlAmigavel
             $controle = 0;
             foreach ($montando[$key] as $res) :
                 if ($controle > 0):
-                    if ($valida->ValPerfil($res)) :
+                    if (Valida::ValPerfil($res)) :
                         $tem = true;
                     endif;
             endif;
@@ -191,7 +190,7 @@ class UrlAmigavel
                 foreach ($montando[$key] as $result) {
                     if ($cout > 0):
                         $titulo_menu = str_replace($titulo[0], "", $result);
-                        if ($valida->ValPerfil($result)):
+                        if (Valida::ValPerfil($result)):
                             echo '<li>
                                                         <a href="' . PASTAADMIN . $titulo[0] . '/' . $result . '">
                                                                 <span class="title"> ' . $titulo_menu . ' </span>

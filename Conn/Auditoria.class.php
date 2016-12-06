@@ -141,7 +141,7 @@ class Auditoria extends Conn {
             $dados['co_usuario']            = $user[md5(CAMPO_ID)];
         endif;
         if(!empty($user)):
-            $dados['ds_perfil_usuario']     = $user[md5(CAMPO_PERFIL)];
+            $dados['ds_perfil_usuario']     = $user[md5('no_perfis')];
         endif;
         $dados['dt_realizado']              = Valida::DataDB(Valida::DataAtual('d/m/Y H:i:s'));       
       

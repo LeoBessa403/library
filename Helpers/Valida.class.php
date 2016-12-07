@@ -418,5 +418,10 @@ class Valida {
 	imagedestroy($nova);
         return $nome_foto.".".$ext;
     }
+
+    public static function RetiraMascara($valor){
+        $valor = str_replace(array(".","/","-"),"",$valor);
+        return $valor;
+    }
         
  }

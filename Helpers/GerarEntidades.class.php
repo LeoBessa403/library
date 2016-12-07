@@ -9,10 +9,12 @@
 class GerarEntidades
 {
     var $tabelas;
+    var $constantes;
 
     public function __construct($tabelas = array())
     {
         $this->tabelas = $tabelas;
+        $this->constantes = ($tabelas) ? true : false;
         $this->inicializarConexao();
         $this->gerar();
     }
@@ -186,7 +188,7 @@ class  {$Entidade}Model extends AbstractModel
                 $this->saveModel($ArquivoModel, $Entidade);
 
             }
-            if (!$this->tabelas) {
+            if (!$this->constantes) {
 
                 $ArquivoConstante = "<?php\n
 /**
@@ -201,7 +203,13 @@ class  Constantes
                     $ArquivoConstante .= "\tconst " . $indice . " = '" . $res . "';\n";
                 }
                 $ArquivoConstante .= "\n}";
-                $this->saveConstantes($ArquivoConstante);
+                $this->saveConstantes($ArquivoConstante,'w+');
+            }else{
+                $ArquivoConstante = '\n\n';
+                foreach ($constantes as $indice => $res) {
+                    $ArquivoConstante .= "\tconst " . $indice . " = '" . $res . "';\n";
+                }
+                $this->saveConstantes($ArquivoConstante,'a+');
             }
 
         } catch (Exception $e) {
@@ -241,11 +249,11 @@ class  Constantes
         return true;
     }
 
-    protected function saveConstantes($ArquivoConstante)
+    protected function saveConstantes($ArquivoConstante,$operacao)
     {
         if (!$ArquivoConstante) return false;
         try {
-            $handle = fopen(PASTA_CLASS . 'Constantes.class.php', 'w+');
+            $handle = fopen(PASTA_CLASS . 'Constantes.class.php', $operacao);
             fwrite($handle, $ArquivoConstante);
             fclose($handle);
         } catch (Exception $e) {

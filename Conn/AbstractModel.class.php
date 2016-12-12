@@ -31,6 +31,17 @@ class AbstractModel
         return $deleta->getResult();
     }
 
+    public function DeletaQuando(array $Condicoes)
+    {
+        $Entidade = $this->Entidade;
+        $deleta = new Deleta();
+        $pesquisa = new Pesquisa();
+        $where = $pesquisa->getClausula($Condicoes);
+        debug($where);
+        $deleta->Deletar($Entidade::TABELA, $where);
+        return $deleta->getResult();
+    }
+
     public function PesquisaUmRegistro($Codigo)
     {
         $Entidade = $this->Entidade;

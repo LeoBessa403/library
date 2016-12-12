@@ -25,7 +25,7 @@ class Deleta extends Conn {
      * @param STRING $Termos = WHERE | ORDER
      * @param STRING $Valores = link={$link}&link2={$link2}
      */
-    public function Deletar($Tabela, $Termos, $Valores) {
+    public function Deletar($Tabela, $Termos, $Valores = null) {
         $this->Tabela = (string) $Tabela;
         $this->Termos = (string) $Termos;
         

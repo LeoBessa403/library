@@ -37,7 +37,6 @@ class AbstractModel
         $deleta = new Deleta();
         $pesquisa = new Pesquisa();
         $where = $pesquisa->getClausula($Condicoes);
-        debug($where);
         $deleta->Deletar($Entidade::TABELA, $where);
         return $deleta->getResult();
     }

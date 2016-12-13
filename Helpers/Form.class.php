@@ -520,15 +520,20 @@ class Form
             . '<div class="col-md-12" style="display: block; padding: 0;">
                  <button data-style="zoom-out" class="btn btn-success ladda-button" type="submit" 
                  value="' . self::$idForm . '" name="' . self::$idForm . '" style="margin-top: 10px;">
-                                <span class="ladda-label"> ' . self::$botao . ' </span>
-                                <i class="fa fa-save"></i>
-                                <span class="ladda-spinner"></span>
-                            </button>
-                            <button data-style="expand-right" class="btn btn-danger ladda-button" type="reset" style="margin-top: 10px;">
-                                <span class="ladda-label"> Limpar </span>
-                                <i class="fa fa-ban"></i>
-                                <span class="ladda-spinner"></span>
-                            </button>
+                            <span class="ladda-label"> ' . self::$botao . ' </span>
+                            <i class="fa fa-save"></i>
+                            <span class="ladda-spinner"></span>
+                        </button>
+                        <button data-style="expand-right" class="btn btn-danger ladda-button" type="reset" style="margin-top: 10px;">
+                            <span class="ladda-label"> Limpar </span>
+                            <i class="fa fa-ban"></i>
+                            <span class="ladda-spinner"></span>
+                        </button>
+                         <a href="' . PASTAADMIN . UrlAmigavel::$controller . '/Listar' . UrlAmigavel::$controller . '"
+                           class="btn btn-primary tooltips" data-original-title="Voltar" data-placement="top"
+                           style="float: right; margin-top: 10px;">
+                            Voltar <i class="clip-arrow-right-2"></i>
+                         </a>
                     </div>
                     </div>
                 </form>
@@ -545,11 +550,13 @@ class Form
      */
     public function finalizaFormPesquisaAvancada()
     {
-        self::$form = '<form action="' . HOME . self::$action . '" role="form" id="' . self::$idForm . '" name="' . self::$idForm . '" method="post"  enctype="multipart/form-data" class="formulario">                                                         
+        self::$form = '<form action="' . HOME . self::$action . '" role="form" id="' . self::$idForm . '" name="' .
+            self::$idForm . '" method="post"  enctype="multipart/form-data" class="formulario">                                                         
                             <div class="col-md-12">' .
             self::$form
             . '</div>
-                                <button data-style="zoom-out" class="btn btn-success ladda-button" type="submit" value="' . Form::$idForm . '" name="' . Form::$idForm . '">
+                                <button data-style="zoom-out" class="btn btn-success ladda-button" type="submit" value="' .
+            Form::$idForm . '" name="' . Form::$idForm . '">
                                     <span class="ladda-label"> Pesquisar </span>
                                     <i class="fa fa-save"></i>
                                     <span class="ladda-spinner"></span>
@@ -574,7 +581,8 @@ class Form
     public function finalizaFormAgenda()
     {
         self::$form = '<div id="event-management" class="modal fade in modal-overflow" tabindex="-1" role="dialog" aria-hidden="true">
-                            <form action="' . HOME . self::$action . '" role="form" id="' . self::$idForm . '" name="' . self::$idForm . '" method="post"  enctype="multipart/form-data" class="formulario"> 
+                            <form action="' . HOME . self::$action . '" role="form" id="' . self::$idForm . '" 
+                            name="' . self::$idForm . '" method="post"  enctype="multipart/form-data" class="formulario"> 
                                 <div class="modal-header btn-light-grey">
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                                             &times;
@@ -585,10 +593,12 @@ class Form
             self::$form
             . '</div>
                             <div class="modal-footer">
-                                    <button type="submit" class="btn btn-success save-event" value="' . Form::$idForm . '" name="' . Form::$idForm . '">
+                                    <button type="submit" class="btn btn-success save-event" value="' .
+            Form::$idForm . '" name="' . Form::$idForm . '">
                                             <i class="fa fa-check"></i> Salvar
                                     </button>
-                                    <button data-toggle="modal" role="button" class="btn btn-bricky remove-evento no-display" id="" 
+                                    <button data-toggle="modal" role="button" class="btn btn-bricky 
+                                    remove-evento no-display" id="" 
                                         href="#Agenda">
                                          <i class="fa fa-trash-o"></i> Deletar
                                      </button>

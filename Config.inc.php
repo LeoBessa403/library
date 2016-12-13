@@ -57,7 +57,7 @@ define('ATUALIZADO', "atualizado");
 function __autoload($Class)
 {
 
-    $cDir = array('Conn', 'Helpers', 'Controller', 'Model', 'Class', 'Entidade');
+    $cDir = array('Conn', 'Helpers', 'Controller', 'Model', 'Class', 'Entidade', 'Form');
     $iDir = null;
 
     foreach ($cDir as $dirName):
@@ -110,7 +110,7 @@ function __autoload($Class)
     endforeach;
 
     if (!$iDir):
-        trigger_error("Não foi possível incluir {$Class}.class.php OU {$Class}.Controller.php");
+        debug("Não foi possível incluir {$Class}.class.php OU {$Class}.Controller.php OU {$Class}.Form.php");
         die;
     endif;
 }
@@ -166,5 +166,3 @@ function debug($array, $Exit = false)
         exit;
     endif;
 }
-
-//set_error_handler('PHPErro');

@@ -21,6 +21,9 @@ class UrlAmigavel
     /** @var Retorna o valor do Metodo solicitado * */
     public static $action;
 
+    /** @var array Action Permitidas pra acesso sem validação de usuário */
+    public static $ACESSO_PERMITIDO =  ['Acessar','Registrar'];
+
 
     /**
      * RealizaÃ§Ã£o a gestã£o da dos controladores e metodos a serem executados
@@ -110,7 +113,7 @@ class UrlAmigavel
 
         if (self::$modulo == ADMIN):
             // VALIDAÇÃO POR PERFIL REFAZER PRA NOVA ENTIDADE
-            if (!Valida::ValPerfil(self::$action) && self::$action != 'Acessar'):
+            if (!Valida::ValPerfil(self::$action) && !in_array(self::$action, self::$ACESSO_PERMITIDO)) :
                 self::$action = "Index";
                 $erro_404 = true;
             endif;
@@ -171,7 +174,7 @@ class UrlAmigavel
                     if (Valida::ValPerfil($res)) :
                         $tem = true;
                     endif;
-            endif;
+                endif;
                 $controle++;
             endforeach;
             if ($tem):

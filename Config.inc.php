@@ -76,7 +76,6 @@ function __autoload($Class)
                 $rota . $pasta . '/' . $Class . '.'. $pasta .'.php',
                 $rota . $pasta . '/' . $Class . '.class.php',
                 $rota . $pasta . '/' . $Class . '.php',
-                $Class . '.class.php'
             );
             foreach ($arquivos as $arquivo):
                 if (file_exists($arquivo) && !is_dir($arquivo)):

@@ -91,7 +91,6 @@ function __autoload($Class)
 
     if (!$control):
         debug("Não foi possível incluir {$Class}");
-        die;
     endif;
 }
 

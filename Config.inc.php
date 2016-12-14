@@ -90,7 +90,7 @@ function __autoload($Class)
     endforeach;
 
     if (!$control):
-        debug("Não foi possível incluir {$Class}.class.php OU {$Class}.Controller.php OU {$Class}.Form.php");
+        debug("Não foi possível incluir {$Class}");
         die;
     endif;
 }

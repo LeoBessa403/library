@@ -36,16 +36,16 @@ date_default_timezone_set('America/Sao_Paulo');
 //*************************************//
 
 // Define a pasta Raiz das Imagens da Biblioteca
-define('PASTA_RAIZ', str_replace('\\','/', str_replace('library','',__DIR__)));
+define('PASTA_RAIZ', str_replace('\\', '/', str_replace('library', '', __DIR__)));
 define('INCLUDES', HOME . 'library/Helpers/includes/');
 define('INCLUDES_PLUGINS', HOME . 'library/plugins/');
 define('PASTAIMG', INCLUDES . 'imagens/');
 define('PASTASITE', HOME . SITE . '/');
 define('PASTAADMIN', HOME . ADMIN . '/');
-define('PASTABACKUP', PASTA_RAIZ. '/BancoDados/backup/');
-define('PASTA_ENTIDADES', PASTA_RAIZ. ADMIN . '/Entidade/');
-define('PASTA_MODEL', PASTA_RAIZ. ADMIN . '/Model/');
-define('PASTA_CLASS', PASTA_RAIZ. ADMIN . '/Class/');
+define('PASTABACKUP', PASTA_RAIZ . '/BancoDados/backup/');
+define('PASTA_ENTIDADES', PASTA_RAIZ . ADMIN . '/Entidade/');
+define('PASTA_MODEL', PASTA_RAIZ . ADMIN . '/Model/');
+define('PASTA_CLASS', PASTA_RAIZ . ADMIN . '/Class/');
 
 
 // DEFINE PARA VALIDAÇÃO DO CADASTRO
@@ -57,59 +57,40 @@ define('ATUALIZADO', "atualizado");
 function __autoload($Class)
 {
 
-    $cDir = array('Conn', 'Helpers', 'Controller', 'Model', 'Class', 'Entidade', 'Form');
-    $iDir = null;
+    $pastas = array('Conn', 'Helpers', 'Controller', 'Model', 'Class', 'Entidade', 'Form');
+    $rotas = array(
+        './library/',
+        '../../library/',
+        '../',
+        '',
+        './' . ADMIN . '/',
+        '../../' . ADMIN . '/',
+        './' . SITE . '/',
+        '../../' . SITE . '/'
+    );
+    $control = false;
 
-    foreach ($cDir as $dirName):
-        if (!$iDir && file_exists("./library/{$dirName}/{$Class}.class.php") && !is_dir("./library/{$dirName}/{$Class}.class.php")):
-            include_once("./library/{$dirName}/{$Class}.class.php");
-            $iDir = true;
-        elseif (!$iDir && file_exists("../library/{$dirName}/{$Class}.class.php") && !is_dir("../library/{$dirName}/{$Class}.class.php")):
-            include_once("../library/{$dirName}/{$Class}.class.php");
-            $iDir = true;
-        elseif (!$iDir && file_exists("../../library/{$dirName}/{$Class}.class.php") && !is_dir("../../library/{$dirName}/{$Class}.class.php")):
-            include_once("../../library/{$dirName}/{$Class}.class.php");
-            $iDir = true;
-        elseif (!$iDir && file_exists("../{$dirName}/{$Class}.class.php") && !is_dir("../{$dirName}/{$Class}.class.php")):
-            include_once("../{$dirName}/{$Class}.class.php");
-            $iDir = true;
-        elseif (!$iDir && file_exists("{$Class}.class.php") && !is_dir("{$Class}.class.php")):
-            include_once("{$Class}.class.php");
-            $iDir = true;
-        elseif (!$iDir && file_exists("./" . ADMIN . "/{$dirName}/{$Class}.{$dirName}.php") && !is_dir("./" . ADMIN . "/{$dirName}/{$Class}.{$dirName}.php")):
-            include_once("./" . ADMIN . "/{$dirName}/{$Class}.{$dirName}.php");
-            $iDir = true;
-        elseif (!$iDir && file_exists("./" . ADMIN . "/{$dirName}/{$Class}.class.php") && !is_dir("./" . ADMIN . "/{$dirName}/{$Class}.class.php")):
-            include_once("./" . ADMIN . "/{$dirName}/{$Class}.class.php");
-            $iDir = true;
-        elseif (!$iDir && file_exists("./" . SITE . "/{$dirName}/{$Class}.class.php") && !is_dir("./" . ADMIN . "/{$dirName}/{$Class}.class.php")):
-            include_once("./" . SITE . "/{$dirName}/{$Class}.class.php");
-            $iDir = true;
-        elseif (!$iDir && file_exists("../../" . ADMIN . "/{$dirName}/{$Class}.{$dirName}.php") && !is_dir("../../" . ADMIN . "/{$dirName}/{$Class}.{$dirName}.php")):
-            include_once("../../" . ADMIN . "/{$dirName}/{$Class}.{$dirName}.php");
-            $iDir = true;
-        elseif (!$iDir && file_exists("../../" . ADMIN . "/{$dirName}/{$Class}.class.php") && !is_dir("../../" . ADMIN . "/{$dirName}/{$Class}.class.php")):
-            include_once("../../" . ADMIN . "/{$dirName}/{$Class}.class.php");
-            $iDir = true;
-        elseif (!$iDir && file_exists("../../" . SITE . "/{$dirName}/{$Class}.class.php") && !is_dir("../../" . ADMIN . "/{$dirName}/{$Class}.class.php")):
-            include_once("../../" . SITE . "/{$dirName}/{$Class}.class.php");
-            $iDir = true;
-        elseif (!$iDir && file_exists("../" . ADMIN . "/{$dirName}/{$Class}.{$dirName}.php") && !is_dir("../" . ADMIN . "/{$dirName}/{$Class}.{$dirName}.php")):
-            include_once("../" . ADMIN . "/{$dirName}/{$Class}.{$dirName}.php");
-            $iDir = true;
-        elseif (!$iDir && file_exists("../" . ADMIN . "/{$dirName}/{$Class}.class.php") && !is_dir("../" . ADMIN . "/{$dirName}/{$Class}.class.php")):
-            include_once("../" . ADMIN . "/{$dirName}/{$Class}.class.php");
-            $iDir = true;
-        elseif (!$iDir && file_exists("../" . SITE . "/{$dirName}/{$Class}.class.php") && !is_dir("../" . ADMIN . "/{$dirName}/{$Class}.class.php")):
-            include_once("../" . SITE . "/{$dirName}/{$Class}.class.php");
-            $iDir = true;
-        elseif (!$iDir && file_exists("./" . SITE . "/{$dirName}/{$Class}.{$dirName}.php") && !is_dir("./" . SITE . "/{$dirName}/{$Class}.{$dirName}.php")):
-            include_once("./" . SITE . "{$dirName}/{$Class}.{$dirName}.php");
-            $iDir = true;
-        endif;
+    foreach ($pastas as $pasta):
+        foreach ($rotas as $rota):
+            $arquivos = array(
+                $rota . $pasta . '/' . $Class . '.'. $pasta .'.php',
+                $rota . $pasta . '/' . $Class . '.class.php',
+                $rota . $pasta . '/' . $Class . '.php',
+                $Class . '.class.php'
+            );
+            foreach ($arquivos as $arquivo):
+                if (file_exists($arquivo) && !is_dir($arquivo)):
+                    include_once($arquivo);
+                    $control = true;
+                    break;
+                endif;
+            endforeach;
+            if ($control) break;
+        endforeach;
+        if ($control) break;
     endforeach;
 
-    if (!$iDir):
+    if (!$control):
         debug("Não foi possível incluir {$Class}.class.php OU {$Class}.Controller.php OU {$Class}.Form.php");
         die;
     endif;

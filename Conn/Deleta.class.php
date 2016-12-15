@@ -100,7 +100,7 @@ class Deleta extends Conn {
         } catch (PDOException $e) {
             $this->Conn->rollBack();
             $this->Result = null;
-            Valida::Mensagem("Erro ao Deletar: {$e->getMessage()}", 4);
+           echo "Erro ao Deletar: {$e->getMessage()}";
         }
     }
 

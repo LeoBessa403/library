@@ -33,13 +33,13 @@ class Modal {
                         <h4 class="modal-title">Exclusão de Registro</h4>
                 </div>
                 <div class="modal-body">
-                        <p>Deseja Realmente excluir esse Registro?</p>
+                        <b>Deseja Realmente excluir esse Registro?</b>
                 </div>
                 <div class="modal-footer">
                         <button aria-hidden="true" data-dismiss="modal" class="btn btn-bricky cancelar">
                                 Fechar
                         </button>
-                        <button class="btn btn-success" data-dismiss="modal" id="">
+                        <button class="btn btn-success" data-dismiss="modal" id="" data-msg-restricao="">
                                 OK
                         </button>
                 </div>

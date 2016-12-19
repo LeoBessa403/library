@@ -51,6 +51,7 @@ define('PASTA_CLASS', PASTA_RAIZ . ADMIN . '/Class/');
 // DEFINE PARA VALIDAÇÃO DO CADASTRO
 define('CADASTRADO', "cadastrado");
 define('ATUALIZADO', "atualizado");
+define('MENSAGEM', "mensagem");
 
 
 // AUTO LOAD DE CLASSES ####################

@@ -357,7 +357,7 @@ class Valida {
                 if($compara != null):
                     return true;
                 endif;
-                $us = $_SESSION[SESSION_USER];                                                                    
+                $us = $_SESSION[SESSION_USER];
                 $user = $us->getUser();
                 $meusPerfis = $user[md5(CAMPO_PERFIL)];
                 $perfis = explode(",", $meusPerfis);
@@ -371,7 +371,7 @@ class Valida {
                 $funcionalidades = array();
                 /** @var FuncionalidadeEntidade $func */
                 foreach ($meusPerfis as $func){
-                    $funcionalidades[] = $func->getCoFuncionalidade();
+                    $funcionalidades[] = $func->getCoFuncionalidade()->getCoFuncionalidade();
                 }
 
                 $funcionalidadeModel = new FuncionalidadeModel();

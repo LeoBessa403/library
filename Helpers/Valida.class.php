@@ -176,6 +176,18 @@ class Valida {
     }
     
     /**
+     * <b>Tranforma Data pro formato do Banco DATE:</b> Transforma uma data no formato DD/MM/YY em uma data no formato TIMESTAMP!
+     * @param STRING $data = Data em (d/m/Y)
+     * @return STRING = $Data = Data no formato timestamp!
+     */
+    public static function DataDBDate($data) {
+        self::$Data = explode('/', $data);
+        
+        self::$Data = self::$Data[2] . '-' . self::$Data[1] . '-' . self::$Data[0];
+        return self::$Data;
+    }
+    
+    /**
      * <b>Tranforma Data pro formato do Banco:</b> Transforma uma data no formato DD/MM/YY em uma data no formato TIMESTAMP!
      * @param STRING $data = Data em (d/m/Y) ou (d/m/Y H:i:s)
      * @return STRING = $Data = Data no formato timestamp!

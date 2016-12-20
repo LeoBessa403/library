@@ -448,26 +448,26 @@ class Valida {
 
     public static function MascaraCpf($string)
     {
-        $string = self::MascaraString('###.###.###-##', $string);
-        return $string;
+        $cpf = self::MascaraString('###.###.###-##', $string);
+        return $cpf;
     }
 
     public static function MascaraCnpj($string)
     {
-        $string = self::MascaraString('##.###.###/####-##', $string);
-        return $string;
+        $cnpj = self::MascaraString('##.###.###/####-##', $string);
+        return $cnpj;
     }
 
     public static function MascaraCep($string)
     {
-        $string = self::MascaraString('##.###-###', $string);
-        return $string;
+        $cep = self::MascaraString('##.###-###', $string);
+        return $cep;
     }
 
     public static function MascaraTel($string)
     {
-        $string = self::MascaraString('(##) ####-####', $string);
-        return $string;
+        $tel = self::MascaraString('(##) ####-####', $string);
+        return $tel;
     }
 
         

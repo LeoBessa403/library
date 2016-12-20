@@ -22,7 +22,7 @@ class UrlAmigavel
     public static $action;
 
     /** @var array Action Permitidas pra acesso sem validação de usuário */
-    public static $ACESSO_PERMITIDO =  ['Acessar','Registrar'];
+    public static $ACESSO_PERMITIDO = ['Acessar', 'Registrar'];
 
 
     /**
@@ -136,7 +136,8 @@ class UrlAmigavel
         elseif (file_exists(self::$modulo . "/" . $arquivo_include) && !is_dir(self::$modulo . "/" . $arquivo_include)):
             include self::$modulo . "/" . $arquivo_include;
         else:
-            Valida::Mensagem("A View <b>" . $action . ".View.php</b> no Módulo <b>" . self::$modulo . "</b> não foi encontrada!", 3);
+            Valida::Mensagem("A View <b>" . self::$modulo . "/" . self::$controller . "/" .
+                $action . ".View.php</b> não foi encontrada!", 3);
         endif;
     }
 

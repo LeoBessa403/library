@@ -298,7 +298,7 @@ class Valida {
      * uploads. Se existir retorna a imagem redimensionada!
      * @return HTML = imagem redimencionada!
      */
-    public static function getMiniatura($ImageUrl, $ImageDesc, $ImageW = null, $ImageH = null, $Classe = null) {
+    public static function GetMiniatura($ImageUrl, $ImageDesc, $ImageW = null, $ImageH = null, $Classe = null) {
 
         self::$Data = 'uploads/' . $ImageUrl;
 
@@ -317,7 +317,7 @@ class Valida {
      * @param FLOAT $valor = Valor a ser convertido.
      * @param STRING $simbolo = Simbolo a ser usado antes do valor ex.: (R$, U$).
      */
-    public static function formataMoeda($valor,$simbolo = null){
+    public static function FormataMoeda($valor,$simbolo = null){
             if($simbolo):
                 $simbolo = $simbolo." ";
             endif;
@@ -328,7 +328,7 @@ class Valida {
      * <b>FORMATA MOEDA PARA PERSISTÊNCIA NO BANCO:</b> Ao executar este HELPER, ele automaticamente
      * Formata para o valor moeda do banco (FLOAT).
      */
-    public static function formataMoedaBanco($valor){
+    public static function FormataMoedaBanco($valor){
             $valor = str_replace(array(".","R$"),"",$valor);
             $valor = str_replace(",",".",$valor);
             return number_format(trim($valor), 2, '.', '');
@@ -436,7 +436,7 @@ class Valida {
         return $valor;
     }
 
-    private static function MascaraString($mascara, $string)
+    public static function MascaraString($mascara, $string)
     {
         $string = self::RetiraMascara($string);
 

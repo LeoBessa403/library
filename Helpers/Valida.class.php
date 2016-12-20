@@ -435,5 +435,40 @@ class Valida {
         $valor = str_replace(array(".","/","-"," ","(",")"),"",$valor);
         return $valor;
     }
+
+    private static function MascaraString($mascara, $string)
+    {
+        $string = self::RetiraMascara($string);
+
+        for ($i = 0; $i < strlen($string); $i++) {
+            $mascara[strpos($mascara, "#")] = $string[$i];
+        }
+        return $mascara;
+    }
+
+    public static function MascaraCpf($string)
+    {
+        $string = self::MascaraString('###.###.###-##', $string);
+        return $string;
+    }
+
+    public static function MascaraCnpj($string)
+    {
+        $string = self::MascaraString('##.###.###/####-##', $string);
+        return $string;
+    }
+
+    public static function MascaraCep($string)
+    {
+        $string = self::MascaraString('##.###-###', $string);
+        return $string;
+    }
+
+    public static function MascaraTel($string)
+    {
+        $string = self::MascaraString('(##) ####-####', $string);
+        return $string;
+    }
+
         
  }

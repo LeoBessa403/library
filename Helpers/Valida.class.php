@@ -466,8 +466,15 @@ class Valida {
 
     public static function MascaraTel($string)
     {
-        $tel = self::MascaraString('(##) ####-####', $string);
-        return $tel;
+        $string = self::RetiraMascara($string);
+        switch (strlen($string)) {
+            case 10:
+                return self::MascaraString('(##) ####-####', $string);
+            case 11:
+                return self::MascaraString('(##) #####-####', $string);
+            default:
+                return null;
+        }
     }
 
         

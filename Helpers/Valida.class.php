@@ -128,9 +128,9 @@ class Valida {
           $icon = ($typo == 1 ? "check-circle" : ($typo == 2 ? "info-circle" : ($typo == 3 ? "exclamation-triangle" : "times-circle")));
                                                                            
           echo '<div id="sumir" class="alert alert-'.$class.'" style="padding-left: 30px;">
-                <button data-dismiss="alert" class="close">
+                <p data-dismiss="alert" class="close">
                         &times;
-                </button>
+                </p>
                 <i class="fa fa-'.$icon.'"></i>                
                 <b>'.$label.': </b>'.$msg.'
             </div>'; 

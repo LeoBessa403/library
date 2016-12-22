@@ -20,9 +20,9 @@ class Exportacao{
      * @param STRING $NomeArquivo: Nome do arquivo a ser Exportado
 
      */
-    function __construct($Formato,$NomeArquivo) {
+    function __construct($Formato) {
         $this->Formato      = $Formato;
-        $this->NomeArquivo  = $NomeArquivo;
+        $this->NomeArquivo  = "Relatório de ". UrlAmigavel::$controller;
         $this->Orientacao   = "portrait";
     }
     

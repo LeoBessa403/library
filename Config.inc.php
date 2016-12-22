@@ -52,6 +52,7 @@ define('PASTA_CLASS', PASTA_RAIZ . ADMIN . '/Class/');
 define('CADASTRADO', "cadastrado");
 define('ATUALIZADO', "atualizado");
 define('MENSAGEM', "mensagem");
+define('PESQUISA_AVANCADA', "pesquisa_avancada");
 
 
 // AUTO LOAD DE CLASSES ####################

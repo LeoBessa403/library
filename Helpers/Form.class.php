@@ -508,7 +508,7 @@ class Form
      * <b>finalizaForm:</b> Fecha o formulário
      * @return STRING com o fechamento do FORM.
      */
-    public function finalizaForm()
+    public function finalizaForm($link = false)
     {
         self::$form = '<div class="col-md-' . self::$tamanhoForm . '">							
                 <div class="panel panel-box">
@@ -528,8 +528,11 @@ class Form
                             <span class="ladda-label"> Limpar </span>
                             <i class="fa fa-ban"></i>
                             <span class="ladda-spinner"></span>
-                        </button>
-                         <a href="' . PASTAADMIN . UrlAmigavel::$controller . '/Listar' . UrlAmigavel::$controller . '"
+                        </button>';
+                        if(!$link){
+                            $link = UrlAmigavel::$controller . '/Listar' . UrlAmigavel::$controller;
+                        }
+                        self::$form .= '<a href="' . PASTAADMIN . $link . '"
                            class="btn btn-primary tooltips" data-original-title="Voltar" data-placement="top"
                            style="float: right; margin-top: 10px;">
                             Voltar <i class="clip-arrow-right-2"></i>

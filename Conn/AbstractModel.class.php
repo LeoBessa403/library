@@ -46,9 +46,27 @@ class AbstractModel
         $Entidade = $this->Entidade;
         $pesquisa = new Pesquisa();
         $pesquisa->Pesquisar($Entidade::TABELA, "where " . $Entidade::CHAVE . " = :id ", "id={$Codigo}");
+        return $this->getUmObjeto($Entidade, $pesquisa->getResult());
+    }
+
+    public function PesquisaUmQuando(array $Condicoes)
+    {
+        if (count($Condicoes)) {
+            $Entidade = $this->Entidade;
+            $pesquisa = new Pesquisa();
+            $where = $pesquisa->getClausula($Condicoes);
+            $pesquisa->Pesquisar($Entidade::TABELA, $where);
+            return $this->getUmObjeto($Entidade, $pesquisa->getResult());
+        } else {
+            return array();
+        }
+    }
+
+    public function getUmObjeto($Entidade , $dados)
+    {
         $obj = new $Entidade();
-        if ($pesquisa->getResult()) {
-            $registro = $pesquisa->getResult()[0];
+        if ($dados) {
+            $registro = $dados[0];
             foreach ($Entidade::getCampos() as $campo) {
                 $metodo = $this->getMetodo($campo, false);
                 $obj->$metodo($registro[$campo]);
@@ -62,39 +80,9 @@ class AbstractModel
                 }
             }
             $obj = $this->PesquisaTodosNv2($obj);
-        }
-        return $obj;
-    }
-
-    public function PesquisaUmQuando(array $Condicoes)
-    {
-        if (count($Condicoes)) {
-            $Entidade = $this->Entidade;
-            $pesquisa = new Pesquisa();
-            $where = $pesquisa->getClausula($Condicoes);
-            $pesquisa->Pesquisar($Entidade::TABELA, $where);
-            $obj = new $Entidade();
-            if ($pesquisa->getResult()) {
-                $registro = $pesquisa->getResult()[0];
-                foreach ($Entidade::getCampos() as $campo) {
-                    $metodo = $this->getMetodo($campo, false);
-                    $obj->$metodo($registro[$campo]);
-                }
-                foreach ($Entidade::getRelacionamentos() as $indice => $result) {
-                    $metodoGetChave = $this->getMetodo($Entidade::CHAVE);
-                    $coChave = $obj->$metodoGetChave();
-                    if (!in_array($indice, $Entidade::getCampos())) {
-                        $metodo = $this->getMetodo($indice, false);
-                        $obj->$metodo($coChave);
-                    }
-                }
-                $obj = $this->PesquisaTodosNv2($obj);
-                return $obj;
-            } else {
-                return array();
-            }
+            return $obj;
         } else {
-            return false;
+            return array();
         }
     }
 

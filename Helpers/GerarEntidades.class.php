@@ -180,7 +180,7 @@ class {$Entidade}Entidade
  */\n
 class  {$Entidade}Model extends AbstractModel
 {\n
-    \tpublic function __construct()
+    public function __construct()
     {
         parent::__construct({$Entidade}Entidade::ENTIDADE);
     }\n\n

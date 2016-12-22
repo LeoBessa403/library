@@ -41,17 +41,22 @@ class ValidaUsuario
                     Redireciona(ADMIN . LOGIN . Valida::GeraParametro("acesso/E"));
                     die;
                 else:
+                    $acessoModel = new AcessoModel();
                     $us->setUserUltimoAcesso(Valida::DataAtualBanco());
+                    $pesquisaAcesso[Constantes::CO_USUARIO] = $user[md5(Constantes::CO_USUARIO)];
+                    $pesquisaAcesso[Constantes::DS_SESSION_ID] = session_id();
+                    $meuAcesso = $acessoModel->PesquisaUmQuando($pesquisaAcesso);
+                    $acesso[Constantes::DT_FIM_ACESSO] = Valida::DataAtualBanco();
+                    $acessoModel->Salva($acesso, $meuAcesso->getCoAcesso());
                     if ($session->CheckSession(CADASTRADO)):
                         $session->FinalizaSession(CADASTRADO);
                     endif;
-                    if ($session->CheckSession(ATUALIZADO)):
-                        $session->FinalizaSession(ATUALIZADO);
-                    endif;
+                if ($session->CheckSession(ATUALIZADO)):
+                    $session->FinalizaSession(ATUALIZADO);
                 endif;
             endif;
         endif;
+        endif;
     }
-
 
 }

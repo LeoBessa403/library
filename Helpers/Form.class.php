@@ -530,9 +530,12 @@ class Form
                             <span class="ladda-spinner"></span>
                         </button>';
                         if(!$link){
-                            $link = UrlAmigavel::$controller . '/Listar' . UrlAmigavel::$controller;
+                            $link  = UrlAmigavel::$modulo . '/' .UrlAmigavel::$controller . '/';
+                            $link .= (UrlAmigavel::$modulo == ADMIN) ? 'Listar' . UrlAmigavel::$controller : 'Index';
+                        }else{
+                            $link  = UrlAmigavel::$modulo . '/' . $link;
                         }
-                        self::$form .= '<a href="' . PASTAADMIN . $link . '"
+                        self::$form .= '<a href="' . HOME . $link . '"
                            class="btn btn-primary tooltips" data-original-title="Voltar" data-placement="top"
                            style="float: right; margin-top: 10px;">
                             Voltar <i class="clip-arrow-right-2"></i>

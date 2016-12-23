@@ -36,8 +36,8 @@ class Cadastra extends Conn {
         // Auditoria
         if(TABELA_AUDITORIA):
             $id_item = $this->Result;
-            $auditoria = new Auditoria();
-            $auditoria->Auditar($this->tabela, $this->dados, 'I', $id_item);
+            $auditoria = new Auditar();
+            $auditoria->Audita($this->tabela, $this->dados, 'I', $id_item);
         endif;
     }
 

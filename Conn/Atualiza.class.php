@@ -36,9 +36,9 @@ class Atualiza extends Conn {
         $this->Termos = (string) $Termos;
        
         // Auditoria
-        if(TABELA_AUDITORIA):
-            $auditoria = new Auditoria();
-            $auditoria->Auditar($this->Tabela, $this->Dados, 'U', null, $Termos, $Valores);
+        if(TABELA_AUDITORIA && $this->Tabela != AcessoEntidade::TABELA):
+            $auditoria = new Auditar();
+            $auditoria->Audita($this->Tabela, $this->Dados, 'U', null, $Termos, $Valores);
         endif;
         
         parse_str($Valores, $this->Places);

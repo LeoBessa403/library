@@ -31,8 +31,8 @@ class Deleta extends Conn {
         
          // Auditoria
         if(TABELA_AUDITORIA):
-            $auditoria = new Auditoria();
-            $auditoria->Auditar($this->Tabela, null, 'D', null, $Termos, $Valores);
+            $auditoria = new Auditar();
+            $auditoria->Audita($this->Tabela, null, 'D', null, $Termos, $Valores);
         endif;
         
         parse_str($Valores, $this->Places);

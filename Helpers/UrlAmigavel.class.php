@@ -105,7 +105,6 @@ class UrlAmigavel
         require_once($controller_path);
         $app = new self::$controller();
 
-
         if (!method_exists($app, self::$action)):
             self::$action = "Index";
             $erro_404 = true;

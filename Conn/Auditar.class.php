@@ -6,7 +6,7 @@
  * 
  * @copyright (c) 2104, Leo Bessa
  */
-class Auditoria extends Conn {
+class Auditar extends Conn {
 
     private $tabela;
     private $dados;
@@ -26,7 +26,7 @@ class Auditoria extends Conn {
      * @param ARRAY $Dados = Informe um array atribuitivo. <br>( Nome Da Coluna => Valor ).<br>
      * Ex.: ("nome" => "leo", "sobrenome" => "bessa").
      */
-    public function Auditar($tabela, array $dados = null, $operacao, $id_item = null, $termos = null, $valores = null) {
+    public function Audita($tabela, array $dados = null, $operacao, $id_item = null, $termos = null, $valores = null) {
         $this->tabela = TABELA_AUDITORIA;
         
         if(isset($_SESSION[SESSION_USER])):

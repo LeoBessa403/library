@@ -530,8 +530,10 @@ class Form
                             <span class="ladda-spinner"></span>
                         </button>';
                         if(!$link){
-                            $link  = UrlAmigavel::$modulo . '/' .UrlAmigavel::$controller . '/';
-                            $link .= (UrlAmigavel::$modulo == ADMIN) ? 'Listar' . UrlAmigavel::$controller : 'Index';
+                            $link  = UrlAmigavel::$modulo ;
+                            $link .= (UrlAmigavel::$modulo == ADMIN)
+                                ?  '/'.UrlAmigavel::$controller . '/Listar' . UrlAmigavel::$controller
+                                : '';
                         }else{
                             $link  = UrlAmigavel::$modulo . '/' . $link;
                         }

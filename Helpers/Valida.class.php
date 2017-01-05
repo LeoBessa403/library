@@ -214,7 +214,7 @@ class Valida {
             self::$Format[1] = date('H:i:s');
         endif;
         
-        ($formato ? $formato = $formato : $formato = "d/m/Y H:i");
+        ($formato ? $formato = $formato : $formato = "d/m/Y");
       
         self::$Data = self::$Data[2] . '-' . self::$Data[1] . '-' . self::$Data[0] . ' ' . self::$Format[1];
         self::$Data = date($formato, strtotime(self::$Data));

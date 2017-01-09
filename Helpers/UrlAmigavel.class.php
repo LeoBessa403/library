@@ -125,7 +125,7 @@ class UrlAmigavel
 
         if ($erro_404):
             $module = (self::$modulo == SITE) ? 'Web' : '';
-            $arquivo_include = 'View/Index'. $module .'/' . ERRO_404 . '.View.php';
+            $arquivo_include = 'View/Index' . $module . '/' . ERRO_404 . '.View.php';
             $action = ERRO_404;
         else:
             $arquivo_include = 'View/' . self::$controller . "/" . self::$action . '.View.php';
@@ -196,12 +196,12 @@ class UrlAmigavel
                         $titulo_menu = str_replace($titulo[0], "", $result);
                         if (Valida::ValPerfil($result)):
                             echo '<li>
-                                                        <a href="' . PASTAADMIN . $titulo[0] . '/' . $result . '">
-                                                                <span class="title"> ' . $titulo_menu . ' </span>
-                                                        </a>
-                                                     </li>';
+                                    <a href="' . PASTAADMIN . $titulo[0] . '/' . $result . '">
+                                            <span class="title"> ' . $titulo_menu . ' </span>
+                                    </a>
+                                 </li>';
                         endif;
-                    endif;
+                endif;
                     $cout++;
                 }
                 echo '</ul>

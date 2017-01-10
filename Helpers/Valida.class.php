@@ -3,7 +3,7 @@
 /**
  * Check.class [ HELPER ]
  * Classe responável por manipular e validade dados do sistema!
- * 
+ *
  * @copyright (c) 2014, Leo Bessa
  */
 class Valida {
@@ -25,7 +25,7 @@ class Valida {
         else:
             return 2;
         endif;
-    }    
+    }
     /**
      * <b>RecebiVariavel:</b> Executa validação de formato de e-mail. Se for um email válido retorna true, ou retorna false.
     */
@@ -39,8 +39,8 @@ class Valida {
             endif;
         endforeach;
         return $result;
-    }    
-    
+    }
+
     /**
      * <b>Verifica CPF:</b> Executa validação CPF
      * @param STRING $cpf = Número de CPF.
@@ -62,12 +62,12 @@ class Valida {
                 $somaA = (($digitoA%11) < 2 ) ? 0 : 11-($digitoA%11);
                 $somaB = (($digitoB%11) < 2 ) ? 0 : 11-($digitoB%11);
                 if($somaA != $cpf[9] || $somaB != $cpf[10]){
-                    return 2;	
+                    return 2;
                 }else{
                     return 1;
                 }
     }
-    
+
     /**
      * <b>Verifica CNPJ:</b> Executa validação do CNPJ
      * @param STRING $cnpj = Número de CNPJ.
@@ -79,28 +79,28 @@ class Valida {
             $multiplo = 0;
             $cnpj = preg_replace('/[^0-9]/', '', $cnpj);
 
-            if(empty($cnpj) || strlen($cnpj) != 14) {                
+            if(empty($cnpj) || strlen($cnpj) != 14) {
                 return 2;
             }
             for($i = 0; $i <= 9; $i++){
                 $repetidos = str_pad('', 14, $i);
-                if($cnpj === $repetidos){                  
+                if($cnpj === $repetidos){
                     return 2;
                 }
-            }   
-            $parte1 = substr($cnpj, 0, 12); 
+            }
+            $parte1 = substr($cnpj, 0, 12);
             $parte1_invertida = strrev($parte1);
             for ($i = 0; $i <= 11; $i++){
                 $multiplicador = ($i == 0) || ($i == 8) ? 2 : $multiplicador;
                 $multiplo = ($parte1_invertida[$i] * $multiplicador);
                 $soma += $multiplo;
                 $multiplicador++;
-            }       
+            }
             $rest = $soma % 11;
-            $dv1 = ($rest == 0 || $rest == 1) ? 0 : 11 - $rest; 
+            $dv1 = ($rest == 0 || $rest == 1) ? 0 : 11 - $rest;
             $parte1 .= $dv1;
             $parte1_invertida = strrev($parte1);
-            $soma = 0;       
+            $soma = 0;
             for ($i = 0; $i <= 12; $i++){
                 $multiplicador = ($i == 0) || ($i == 8) ? 2 : $multiplicador;
                 $multiplo = ($parte1_invertida[$i] * $multiplicador);
@@ -108,38 +108,38 @@ class Valida {
                 $multiplicador++;
             }
             $rest = $soma % 11;
-            $dv2 = ($rest == 0 || $rest == 1) ? 0 : 11 - $rest;   
+            $dv2 = ($rest == 0 || $rest == 1) ? 0 : 11 - $rest;
            if($dv1 == $cnpj[12] && $dv2 == $cnpj[13]):
-               return 1; 
+               return 1;
            else:
                return 2;
            endif;
-    
+
     }
-     
+
     /**
      * <b>Mensagem:</b> função para gerar mensagens do sistema
      * @param STRING $msg: Mensagem a ser apresentada
      * @param INT $typo: atribui a classe para ser estilizada <br>(1 - Sucesso, ok / 2 - Informativo / <br>3 - Alerta / 4 - Erro).
-     */ 
-     public static function Mensagem($msg,$typo, $termina = null) { 
+     */
+     public static function Mensagem($msg,$typo, $termina = null) {
           $class = ($typo == 1 ? "success" : ($typo == 2 ? "info" : ($typo == 3 ? "warning" : "danger")));
           $label = ($typo == 1 ? "SUCESSO" : ($typo == 2 ? "INFORMATIVO" : ($typo == 3 ? "ALERTA" : "ERRO")));
           $icon = ($typo == 1 ? "check-circle" : ($typo == 2 ? "info-circle" : ($typo == 3 ? "exclamation-triangle" : "times-circle")));
-                                                                           
+
           echo '<div id="sumir" class="alert alert-'.$class.'" style="padding-left: 30px;">
                 <p data-dismiss="alert" class="close">
                         &times;
                 </p>
                 <i class="fa fa-'.$icon.'"></i>                
                 <b>'.$label.': </b>'.$msg.'
-            </div>'; 
-          
-        if ($termina):       
+            </div>';
+
+        if ($termina):
             die;
         endif;
      }
-    
+
     /**
      * <b>Tranforma URL e Nome:</b> Tranforma uma string no formato de URL amigável e retorna o a string convertida!
      * @param STRING $Name = Uma string qualquer
@@ -174,7 +174,7 @@ class Valida {
         self::$Data = self::$Data[2] . '-' . self::$Data[1] . '-' . self::$Data[0] . ' ' . self::$Format[1];
         return self::$Data;
     }
-    
+
     /**
      * <b>Tranforma Data pro formato do Banco DATE:</b> Transforma uma data no formato DD/MM/YY em uma data no formato TIMESTAMP!
      * @param STRING $data = Data em (d/m/Y)
@@ -182,24 +182,24 @@ class Valida {
      */
     public static function DataDBDate($data) {
         self::$Data = explode('/', $data);
-        
+
         self::$Data = self::$Data[2] . '-' . self::$Data[1] . '-' . self::$Data[0];
         return self::$Data;
     }
-    
+
     /**
      * <b>Tranforma Data pro formato do Banco:</b> Transforma uma data no formato DD/MM/YY em uma data no formato TIMESTAMP!
      * @param STRING $data = Data em (d/m/Y) ou (d/m/Y H:i:s)
      * @return STRING = $Data = Data no formato timestamp!
      */
-    public static function GeraParametro($link) {        
+    public static function GeraParametro($link) {
         self::$Data = explode('/', $link);
 
         self::$Data = base64_encode(md5(self::$Data[0])."/".base64_encode(self::$Data[1]));
-        
+
         return self::$Data;
     }
-    
+
     /**
      * <b>Tranforma Data pro formato de apresentação em Tela:</b> Transforma uma data no formato TIMESTAMP em uma data no formato d/m/Y!
      * @param STRING $data = Data em (d/m/Y) ou (d/m/Y H:i:s)
@@ -213,32 +213,32 @@ class Valida {
         if (empty(self::$Format[1])):
             self::$Format[1] = date('H:i:s');
         endif;
-        
+
         ($formato ? $formato = $formato : $formato = "d/m/Y");
-      
+
         self::$Data = self::$Data[2] . '-' . self::$Data[1] . '-' . self::$Data[0] . ' ' . self::$Format[1];
         self::$Data = date($formato, strtotime(self::$Data));
         return self::$Data;
     }
-    
+
     /**
-     * <b>DATA ATUAL</b> 
+     * <b>DATA ATUAL</b>
      * @return DATE = $Data = Data Atual no Formato ('d/m/Y H:i:s')!
      */
     public static function DataAtual($formato = 'd/m/Y H:i:s') {
            return date($formato);
     }
-    
+
     /**
-     * <b>DATA ATUAL BANCO</b> 
+     * <b>DATA ATUAL BANCO</b>
      * @return DATE = $Data = Data Atual no Formato Para o Banco ('Y-m-d H:i:s')!
      */
     public static function DataAtualBanco($formato = 'Y-m-d H:i:s') {
            return date($formato);
     }
-    
+
     /**
-     * <b>Somatório ou Subtração de Datas:</b> 
+     * <b>Somatório ou Subtração de Datas:</b>
      * @param STRING $data = Data em (d/m/Y)
      * @param INT $diferenca = Diferença de dias entre as Datas
      * @param STRING $operacao = Operação de Soma (+) ou Subtração (-)
@@ -252,7 +252,7 @@ class Valida {
          endif;
     }
     /**
-     * <b>Calcula a Diferença de Dias entre 2 Datas:</b> 
+     * <b>Calcula a Diferença de Dias entre 2 Datas:</b>
      * @param STRING $data1 = Data em (d/m/Y)
      * @param STRING $data2 = Data em (d/m/Y)
      * @return INT = Número de Dias de Diferença entre as Datas.
@@ -267,13 +267,13 @@ class Valida {
     }
 
     /**
-     * <b>Limpa conteúdo da Variável:</b> 
+     * <b>Limpa conteúdo da Variável:</b>
      */
     public static function LimpaVariavel($var){
 	$var = strip_tags(trim($var));
 	return $var;
     }
-    
+
     /**
      * <b>Resumi:</b> Limita a quantidade de caracteres a serem exibidas em uma string!
      * @param STRING $String = Uma string qualquer
@@ -283,15 +283,15 @@ class Valida {
     public static function Resumi($string, $Limite) {
         self::$Data = strip_tags(trim($string));
         self::$Format = (int) $Limite;
-        
+
         $count	= strlen($string);
         if($count <= self::$Format):
-		return $string;	
+		return $string;
 	else:
 		$strpos = strrpos(substr($string,0,self::$Format),' ');
 		return substr($string,0,$strpos).' ...';
         endif;
-    }    
+    }
 
     /**
      * <b>Pega Miniatura da Imagem:</b> Ao executar este HELPER, ele automaticamente verifica a existencia da imagem na pasta
@@ -310,7 +310,7 @@ class Valida {
             return false;
         endif;
     }
-    
+
      /**
      * <b>FORMATA MOEDA PARA VISUALIZAÇÃO:</b> Ao executar este HELPER, ele automaticamente
      * Formata para o valor moeda de apresentação.
@@ -323,7 +323,7 @@ class Valida {
             endif;
             return $simbolo.number_format($valor, 2, ',', '.');
     }
-    
+
     /**
      * <b>FORMATA MOEDA PARA PERSISTÊNCIA NO BANCO:</b> Ao executar este HELPER, ele automaticamente
      * Formata para o valor moeda do banco (FLOAT).
@@ -333,7 +333,7 @@ class Valida {
             $valor = str_replace(",",".",$valor);
             return number_format(trim($valor), 2, '.', '');
     }
-    
+
     /**
      * <b>Valida se o o usuário está logado no sistema:</b> Verifica se existe a Session do usuário apos o login.
      * Caso não exista a Session ele será Redirecionada para a tela de login "Definida nas configurações do sistema de Login!".
@@ -345,8 +345,8 @@ class Valida {
         else:
             return false;
         endif;
-    }    
-    
+    }
+
     public static function ValPerfil($action){
         if(Session::CheckSession(SESSION_USER)):
             if(Session::getSession(SESSION_USER, CAMPO_PERFIL)):
@@ -395,36 +395,36 @@ class Valida {
             return false;
         endif;
     }
-    
-    
+
+
     public static function Redimenciona($tmp, $name,$nome_foto,$width){
 	$ext = strtolower(substr($name,-3));
 	$nome_foto = Valida::ValNome($nome_foto)."_".uniqid();
         $arquivo = PASTAUPLOADS.$nome_foto.".".$ext;
-        
+
 	switch($ext){
 		case 'jpg': $img = imagecreatefromjpeg($tmp); break;
 		case 'jpeg': $img = imagecreatefromjpeg($tmp); break;
-		case 'png': $img = imagecreatefrompng($tmp); break;	
-	}		
+		case 'png': $img = imagecreatefrompng($tmp); break;
+	}
 	$x = imagesx($img);
 	$y = imagesy($img);
 	$height = ($width*$y) / $x;
 	$nova   = imagecreatetruecolor($width, $height);
-	
+
 	imagealphablending($nova,false);
 	imagesavealpha($nova,true);
 	imagecopyresampled($nova, $img, 0, 0, 0, 0, $width, $height, $x, $y);
-        
-        if(file_exists($arquivo)): 
+
+        if(file_exists($arquivo)):
             unlink($arquivo);
         endif;
-        
-        
+
+
 	switch($ext){
 		case 'jpg': imagejpeg($nova, PASTAUPLOADS.$nome_foto.".".$ext, 100); break;
 		case 'jpeg': imagejpeg($nova, PASTAUPLOADS.$nome_foto.".".$ext, 100); break;
-		case 'png': imagepng($nova, PASTAUPLOADS.$nome_foto.".".$ext); break;	
+		case 'png': imagepng($nova, PASTAUPLOADS.$nome_foto.".".$ext); break;
 	}
 	imagedestroy($img);
 	imagedestroy($nova);
@@ -477,5 +477,5 @@ class Valida {
         }
     }
 
-        
+
  }

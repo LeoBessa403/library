@@ -47,7 +47,11 @@ class ValidaUsuario
                     $pesquisaAcesso[Constantes::DS_SESSION_ID] = session_id();
                     $meuAcesso = $acessoModel->PesquisaUmQuando($pesquisaAcesso);
                     $acesso[Constantes::DT_FIM_ACESSO] = Valida::DataAtualBanco();
-                    $acessoModel->Salva($acesso, $meuAcesso->getCoAcesso());
+                    if($meuAcesso):
+                        $acessoModel->Salva($acesso, $meuAcesso->getCoAcesso());
+                    else:
+                        $acessoModel->Salva($acesso);
+                    endif;
                     if ($session->CheckSession(CADASTRADO)):
                         $session->FinalizaSession(CADASTRADO);
                     endif;

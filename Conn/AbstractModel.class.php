@@ -62,7 +62,7 @@ class AbstractModel
         }
     }
 
-    public function getUmObjeto($Entidade , $dados)
+    public function getUmObjeto($Entidade, $dados)
     {
         $obj = new $Entidade();
         if ($dados) {
@@ -71,14 +71,7 @@ class AbstractModel
                 $metodo = $this->getMetodo($campo, false);
                 $obj->$metodo($registro[$campo]);
             }
-            foreach ($Entidade::getRelacionamentos() as $indice => $result) {
-                $metodoGetChave = $this->getMetodo($Entidade::CHAVE);
-                $coChave = $obj->$metodoGetChave();
-                if (!in_array($indice, $Entidade::getCampos())) {
-                    $metodo = $this->getMetodo($indice, false);
-                    $obj->$metodo($coChave);
-                }
-            }
+            $obj = $this->PesquisaInclusaoRelacionamento($Entidade, $obj);
             $obj = $this->PesquisaTodosNv2($obj);
             return $obj;
         } else {
@@ -99,14 +92,7 @@ class AbstractModel
                 $metodo = $this->getMetodo($campo, false);
                 $obj->$metodo($entidade[$campo]);
             }
-            foreach ($Entidade::getRelacionamentos() as $indice => $result) {
-                $metodoGetChave = $this->getMetodo($Entidade::CHAVE);
-                $coChave = $obj->$metodoGetChave();
-                if (!in_array($indice, $Entidade::getCampos())) {
-                    $metodo = $this->getMetodo($indice, false);
-                    $obj->$metodo($coChave);
-                }
-            }
+            $obj = $this->PesquisaInclusaoRelacionamento($Entidade, $obj);
             $obj = $this->PesquisaTodosNv2($obj);
             $dados[] = $obj;
         }
@@ -124,14 +110,7 @@ class AbstractModel
                 $metodo = $this->getMetodo($campo, false);
                 $obj->$metodo($entidade[$campo]);
             }
-            foreach ($Entidade::getRelacionamentos() as $indice => $result) {
-                $metodoGetChave = $this->getMetodo($Entidade::CHAVE);
-                $coChave = $obj->$metodoGetChave();
-                if (!in_array($indice, $Entidade::getCampos())) {
-                    $metodo = $this->getMetodo($indice, false);
-                    $obj->$metodo($coChave);
-                }
-            }
+            $obj = $this->PesquisaInclusaoRelacionamento($Entidade, $obj);
             $dados[] = $obj;
         }
         return $dados;
@@ -145,7 +124,7 @@ class AbstractModel
             $metodoGet = $this->getMetodo($obj2::CHAVE);
             $metodoSet = $this->getMetodo($obj2::CHAVE, false);
             if ($campo['Tipo'] == 1) {
-                if($obj->$metodoGet()) {
+                if ($obj->$metodoGet()) {
                     $dados2 = $this->PesquisaUmRegistroNv2($obj->$metodoGet(), $campo['Entidade']);
                     $obj->$metodoSet($dados2);
                 }
@@ -171,7 +150,7 @@ class AbstractModel
                 if (is_array($obj->$metodoGet())) {
                     $indece = 0;
                     foreach ($obj->$metodoGet() as $novoRegistro) {
-                        if($novoRegistro->$metodoGet2()){
+                        if ($novoRegistro->$metodoGet2()) {
                             $dados4 = $this->PesquisaUmRegistroNv3(
                                 $novoRegistro->$metodoGet2(), $obj3::ENTIDADE
                             );
@@ -213,19 +192,12 @@ class AbstractModel
         $obj = new $Entidade();
         if ($pesquisa->getResult()) {
             $registro = $pesquisa->getResult()[0];
-            if($registro){
+            if ($registro) {
                 foreach ($Entidade::getCampos() as $campo) {
                     $metodo = $this->getMetodo($campo, false);
                     $obj->$metodo($registro[$campo]);
                 }
-                foreach ($Entidade::getRelacionamentos() as $indice => $result) {
-                    $metodoGetChave = $this->getMetodo($Entidade::CHAVE);
-                    $coChave = $obj->$metodoGetChave();
-                    if (!in_array($indice, $Entidade::getCampos())) {
-                        $metodo = $this->getMetodo($indice, false);
-                        $obj->$metodo($coChave);
-                    }
-                }
+                $obj = $this->PesquisaInclusaoRelacionamento($Entidade, $obj);
             }
         }
         return $obj;
@@ -242,13 +214,35 @@ class AbstractModel
                 $metodo = $this->getMetodo($campo, false);
                 $obj->$metodo($registro[$campo]);
             }
-            foreach ($Entidade::getRelacionamentos() as $indice => $result) {
-                $metodoGetChave = $this->getMetodo($Entidade::CHAVE);
-                $coChave = $obj->$metodoGetChave();
-                if (!in_array($indice, $Entidade::getCampos())) {
-                    $metodo = $this->getMetodo($indice, false);
-                    $obj->$metodo($coChave);
+            $obj = $this->PesquisaInclusaoRelacionamento($Entidade, $obj);
+        }
+        return $obj;
+    }
+
+    private function PesquisaInclusaoRelacionamento($Entidade, $obj)
+    {
+        $metodoGetChave = $this->getMetodo($Entidade::CHAVE);
+        $CoRegistro = $obj->$metodoGetChave();
+        foreach ($Entidade::getRelacionamentos() as $indice => $result) {
+            if (!in_array($indice, $Entidade::getCampos())) {
+                $metodo = $this->getMetodo($indice, false);
+                $metodoGet = $this->getMetodo($indice);
+                $pesquisando[$Entidade::CHAVE] = $CoRegistro;
+                $NovaEntidade = $result['Entidade'];
+                $pesquisa = new Pesquisa();
+                $where = $pesquisa->getClausula($pesquisando);
+                $pesquisa->Pesquisar($NovaEntidade::TABELA, $where);
+                $obj2 = new $NovaEntidade();
+                if ($pesquisa->getResult()) {
+                    $registro = $pesquisa->getResult()[0];
+                    if ($registro) {
+                        foreach ($NovaEntidade::getCampos() as $campo) {
+                            $metodo2 = $this->getMetodo($campo, false);
+                            $obj2->$metodo2($registro[$campo]);
+                        }
+                    }
                 }
+                $obj->$metodo($obj2->$metodoGet());
             }
         }
         return $obj;

@@ -469,7 +469,7 @@ class Valida {
         $string = self::RetiraMascara($string);
         switch (strlen($string)) {
             case 10:
-                return self::MascaraString('(##) ####-####', $string);
+                return self::MascaraString('(##) 9####-####', $string);
             case 11:
                 return self::MascaraString('(##) #####-####', $string);
             default:

@@ -3,10 +3,11 @@
 /**
  * <b>Read.class:</b>
  * Classe responsável por leituras genéticas no banco de dados!
- * 
+ *
  * @copyright (c) 2104, Leo Bessa
  */
-class Pesquisa extends Conn {
+class Pesquisa extends Conn
+{
 
     private $Select;
     private $Places;
@@ -26,26 +27,28 @@ class Pesquisa extends Conn {
      * @param STRING $Termos = WHERE | ORDER | LIMIT :limit | OFFSET :offset
      * @param STRING $Valores = variavel={$valor}&variavel2={$valor2}
      */
-    public function Pesquisar($Tabela, $Termos = null, $Valores = null, $Campos = null) {
+    public function Pesquisar($Tabela, $Termos = null, $Valores = null, $Campos = null)
+    {
         $this->Tabela = $Tabela;
         if (!empty($Valores)):
             parse_str($Valores, $this->Places);
         endif;
-        
-        if(!$Campos):
+
+        if (!$Campos):
             $Campos = '*';
         endif;
-        
+
         $this->Select = "SELECT {$Campos} FROM {$Tabela} {$Termos}";
         $this->Execute();
     }
 
     /**
-     * <b>Obter resultado:</b> Retorna um array com todos os resultados obtidos. 
+     * <b>Obter resultado:</b> Retorna um array com todos os resultados obtidos.
      * Para obter um resultado chame o índice getResult()[0]!
      * @return ARRAY $this = Array ResultSet
      */
-    public function getResult() {
+    public function getResult()
+    {
         return $this->Result;
     }
 
@@ -53,83 +56,89 @@ class Pesquisa extends Conn {
      * <b>Contar Registros: </b> Retorna o número de registros encontrados pelo select!
      * @return INT $Var = Quantidade de registros encontrados
      */
-    public function getRegistrosEncontrados() {
+    public function getRegistrosEncontrados()
+    {
         return $this->Read->rowCount();
-    } 
-    
+    }
+
     /**
      * <b>Get Claúsula: </b> Retorna a claúsula where para pesquisas!
      * @param ARRAY $dados = (Indice = Coluna da tabela e valor = valor a ser pesquisado)
      * EX: array('no_membro' => $_POST['no_membro'] , 'st_status' => $_POST['st_status'])
      * @return STRING a cla[usula montada
      */
-    public function getClausula(array $dados) {
+    public function getClausula(array $dados)
+    {
         $where = '';
         $pesquisa = array();
-        
         foreach ($dados as $key => $value) {
-            if(!empty($dados[$key])):
+            if (!empty($dados[$key])):
                 $tipo = explode(".", $key);
-                if(count($tipo) > 1):
-                    $tipo = strtolower(substr($tipo[1], 0,2));
-                else:    
-                    $tipo = strtolower(substr($tipo[0], 0,2));
+                if (count($tipo) > 1):
+                    $tipo = strtolower(substr($tipo[1], 0, 2));
+                else:
+                    $tipo = strtolower(substr($tipo[0], 0, 2));
                 endif;
-                switch ($tipo) {
-                    case 'st':
-                        $pesquisa[] = $key." in (".$value.")";
-                    break;
-                    case 'dt':
-                        $pesquisa[] = $key." = '".$value."'";
-                    break;
-                    case 'co':
-                        $pesquisa[] = $key." in (".$value.")";
-                    break;
-                    case 'sg':
-                        $pesquisa[] = $key." in (".$value.")";
-                    break;
-                    case 'no':
-                        $pesquisa[] = $key." like '%".$value."%'";
-                    break;
-                    case 'ds':
-                        $pesquisa[] = $key." like '%".$value."%'";
-                    break;
-                    case 'nu':
-                        $pesquisa[] = $key." like '%".$value."%'";
-                    break;
-
-                    default:
-                        break;
-                }
+                if ($value):
+                    switch ($tipo) {
+                        case 'st':
+                            $pesquisa[] = $key . " in (" . $value . ")";
+                            break;
+                        case 'tp':
+                            $pesquisa[] = $key . " in ('" . $value . "')";
+                            break;
+                        case 'dt':
+                            $pesquisa[] = $key . " = '" . $value . "'";
+                            break;
+                        case 'co':
+                            $pesquisa[] = $key . " in (" . $value . ")";
+                            break;
+                        case 'sg':
+                            $pesquisa[] = $key . " in (" . $value . ")";
+                            break;
+                        case 'no':
+                            $pesquisa[] = $key . " like '%" . $value . "%'";
+                            break;
+                        case 'ds':
+                            $pesquisa[] = $key . " like '%" . $value . "%'";
+                            break;
+                        case 'nu':
+                            $pesquisa[] = $key . " like '%" . $value . "%'";
+                            break;
+                        default:
+                            break;
+                    }
+                endif;
             endif;
         }
-        
         $i = 0;
         foreach ($pesquisa as $value) {
-            if($i > 0):
-                $where .= " and ".$value;
+            if ($i > 0):
+                $where .= " and " . $value;
             else:
-                $where = "where ".$value;
+                $where = "where " . $value;
             endif;
             $i++;
         }
         return $where;
-    } 
-    
+    }
+
     /**
-     * <b>Seta os dados:</b> Dados a serem substituidos na query de pesquisa.  
+     * <b>Seta os dados:</b> Dados a serem substituidos na query de pesquisa.
      * @param STRING $Valores = variavel={$valor}&variavel2={$valor2}
      */
-    public function setDados($Valores) {
+    public function setDados($Valores)
+    {
         parse_str($Valores, $this->Places);
         $this->Execute();
     }
-    
+
     /**
-     * <b>getSql:</b> Retorna o SQL que esta sendo Executado.  
+     * <b>getSql:</b> Retorna o SQL que esta sendo Executado.
      */
-    public function getSql() {
-       return $this->Select;
+    public function getSql()
+    {
+        return $this->Select;
     }
 
     /**
@@ -138,26 +147,29 @@ class Pesquisa extends Conn {
      * ****************************************
      */
     //Obtém o PDO e Prepara a query
-    private function Connect() {
+    private function Connect()
+    {
         $this->Conn = parent::getConn();
         $this->Read = $this->Conn->prepare($this->Select);
-        $this->Read->setFetchMode(PDO::FETCH_ASSOC);      
+        $this->Read->setFetchMode(PDO::FETCH_ASSOC);
     }
 
     //Cria a sintaxe da query para Prepared Statements
-    private function getSyntax() {
+    private function getSyntax()
+    {
         if ($this->Places):
             foreach ($this->Places as $Vinculo => $Valor):
                 if ($Vinculo == 'limit' || $Vinculo == 'offset'):
-                    $Valor = (int) $Valor;
+                    $Valor = (int)$Valor;
                 endif;
-                $this->Read->bindValue(":{$Vinculo}", $Valor, ( is_int($Valor) ? PDO::PARAM_INT : PDO::PARAM_STR));
+                $this->Read->bindValue(":{$Vinculo}", $Valor, (is_int($Valor) ? PDO::PARAM_INT : PDO::PARAM_STR));
             endforeach;
         endif;
     }
 
     //Obtém a Conexão e a Syntax, executa a query!
-    private function Execute() {
+    private function Execute()
+    {
         $this->Connect();
         try {
             $this->getSyntax();

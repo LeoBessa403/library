@@ -82,7 +82,7 @@ class Pesquisa extends Conn
                 if ($value):
                     switch ($tipo) {
                         case 'st':
-                            $pesquisa[] = $key . " in (" . $value . ")";
+                            $pesquisa[] = $key . " in ('" . $value . "')";
                             break;
                         case 'tp':
                             $pesquisa[] = $key . " in ('" . $value . "')";

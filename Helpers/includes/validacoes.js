@@ -5,12 +5,15 @@ $(function () {
 
     var home = dados['HOME'];
     var inativo = dados['INATIVO'];
+    var ambiente = dados['AMBIENTE'];
     var urlValida = home + 'library/Helpers/Valida.Controller.php';
 
-    // DESLOGA USUÁRIO INATIVO
-    setTimeout(function () {
-        location.reload();
-    }, (1001 * inativo * 60));
+    // DESLOGA USUÁRIO INATIVO DO MODULO DO SISTEMA
+    if(ambiente == 'ADMIN'){
+        setTimeout(function () {
+            location.reload();
+        }, (1001 * inativo * 60));
+    }
 
     //function to initiate Select2
     $(".search-select").select2({
@@ -38,7 +41,7 @@ $(function () {
                             if (dia <= 31) {
                                 erro = true;
                             }
-                            break
+                            break;
                         case '04':
                         case '06':
                         case '09':
@@ -46,7 +49,7 @@ $(function () {
                             if (dia <= 30) {
                                 erro = true;
                             }
-                            break
+                            break;
                         case '02':
                             if ((ano % 4 == 0) || (ano % 100 == 0) || (ano % 400 == 0)) {
                                 bissexto = 1;

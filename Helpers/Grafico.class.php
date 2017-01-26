@@ -169,7 +169,7 @@ class Grafico
         }
         echo "</script>";
 
-        return '<div class="grafico" id="' . $this->Div . '" style="width: 100%; height: 100%;"></div>';
+//        return '<div class="grafico" id="' . $this->Div . '" style="width: 100%; height: 100%;"></div>';
     }
 
     private function MontaDados($dados, $TipoPorcentagem = false)

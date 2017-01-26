@@ -111,7 +111,6 @@ class Grafico
             case 3:
                 echo "google.load('visualization', '1', {'packages': ['geochart']});
                         google.setOnLoadCallback(drawRegionsMap);
-
                         function drawRegionsMap() {
                          var data4 = google.visualization.arrayToDataTable([";
                 $this->MontaDados($this->Dados);
@@ -123,7 +122,7 @@ class Grafico
                 };
                 var chart4 = new google.visualization.GeoChart(document.getElementById('" . $this->Div . "'));
                 chart4.draw(data4, options4);
-            };";
+                };";
                 break;
 
             //Gráfico Pizza
@@ -168,8 +167,6 @@ class Grafico
 
         }
         echo "</script>";
-
-//        return '<div class="grafico" id="' . $this->Div . '" style="width: 100%; height: 100%;"></div>';
     }
 
     private function MontaDados($dados, $TipoPorcentagem = false)
@@ -178,9 +175,9 @@ class Grafico
         $i = 1;
         $result = '';
         foreach ($dados as $key => $valor) {
-            if($TipoPorcentagem){
+            if ($TipoPorcentagem) {
                 $result .= "['" . $key . "'," . $valor . "]";
-            }else{
+            } else {
                 $result .= $valor;
             }
             if ($i < $quant) {

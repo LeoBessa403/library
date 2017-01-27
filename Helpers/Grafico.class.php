@@ -63,7 +63,6 @@ class Grafico
      */
     public function GeraGrafico()
     {
-        echo '<script type="text/javascript" src="' . HOME . 'library/Helpers/includes/gera-grafico.js"></script>';
         echo '<script type="text/javascript">';
 
         switch ($this->Modelo) {
@@ -109,9 +108,10 @@ class Grafico
 
             /// Gráfico de Mapa
             case 3:
-                echo "google.load('visualization', '1', {'packages': ['geochart']});
-                        google.setOnLoadCallback(drawRegionsMap);
-                        function drawRegionsMap() {
+                echo "google.charts.load('upcoming', {'packages': ['geochart']});
+                         google.charts.setOnLoadCallback(drawRegionsMap);
+
+                      function drawRegionsMap() {
                          var data4 = google.visualization.arrayToDataTable([";
                 $this->MontaDados($this->Dados);
                 echo "]);
@@ -156,6 +156,7 @@ class Grafico
                     width : $('#" . $this->Div . "').width(),
                     height: $('#" . $this->Div . "').height(),
                     titleTextStyle: {color: 'gray', fontSize: 20},
+                    legend: { position: 'none', maxLines: 3 , textStyle: {fontSize: 10} },
                     //isStacked: true
                     //orientation: 'vertical'
                 };
@@ -175,9 +176,9 @@ class Grafico
         $i = 1;
         $result = '';
         foreach ($dados as $key => $valor) {
-            if ($TipoPorcentagem) {
+            if($TipoPorcentagem){
                 $result .= "['" . $key . "'," . $valor . "]";
-            } else {
+            }else{
                 $result .= $valor;
             }
             if ($i < $quant) {

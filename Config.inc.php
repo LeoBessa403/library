@@ -14,7 +14,6 @@ else:
 endif;
 servidor_inicial();
 
-
 //*************************************//
 //* CONFIGURAÇÕES DE LOGIN DO SISTEMA *//
 //*************************************//
@@ -59,7 +58,7 @@ define('PESQUISA_AVANCADA', "pesquisa_avancada");
 function __autoload($Class)
 {
 
-    $pastas = array('Conn', 'Helpers', 'Controller', 'Model', 'Class', 'Entidade', 'Form');
+    $pastas = array('Conn', 'Helpers', 'Controller', 'Model', 'Class', 'Entidade', 'Form', 'Service', 'Enum');
     $rotas = array(
         './library/',
         '../../library/',

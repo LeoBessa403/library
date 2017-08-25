@@ -40,11 +40,13 @@ class GerarEntidades
             $constantes = array();
             if (!$this->tabelas) {
                 $result = mysql_query('SHOW TABLES');
-                while ($row = mysql_fetch_row($result)) {
-                    $this->tabelas[] = $row[0];
+                $this->tabelas = [];
+                if($result){
+                    while ($row = mysql_fetch_row($result)) {
+                        $this->tabelas[] = $row[0];
+                    }
                 }
             }
-
             /**
              * Iterate tables
              */
@@ -249,7 +251,7 @@ class  Constantes
         return true;
     }
 
-    protected function saveConstantes($ArquivoConstante,$operacao)
+    protected function saveConstantes($ArquivoConstante, $operacao)
     {
         if (!$ArquivoConstante) return false;
         try {

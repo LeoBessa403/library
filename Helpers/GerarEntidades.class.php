@@ -289,6 +289,7 @@ class Relacionamentos
                 $ArquivoRelacionamento .= "\t\t('$campo') => Array (\n";
                 $ArquivoRelacionamento .= "($i) => '$entidade[$i]',\n";
                 $ArquivoRelacionamento .= "(" . ($i+1) . ") => '".$entidade[$i+1]."',\n";
+                $ArquivoRelacionamento .= "(" . ($i+2) . ") => '1',\n";
                 $ArquivoRelacionamento .= "),\n";
             }
             $ArquivoRelacionamento .= "),\n";

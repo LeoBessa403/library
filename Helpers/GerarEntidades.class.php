@@ -10,6 +10,7 @@ class GerarEntidades
 {
     var $tabelas;
     var $constantes;
+    var $relacionamentos;
 
     public function __construct($tabelas = array())
     {
@@ -30,9 +31,7 @@ class GerarEntidades
     }
 
     /**
-     * Backup the whole database or just some tables
-     * Use '*' for whole database or 'table1 table2 table3...'
-     * @param string $tables
+     * @return bool
      */
     public function gerar()
     {
@@ -41,7 +40,7 @@ class GerarEntidades
             if (!$this->tabelas) {
                 $result = mysql_query('SHOW TABLES');
                 $this->tabelas = [];
-                if($result){
+                if ($result) {
                     while ($row = mysql_fetch_row($result)) {
                         $this->tabelas[] = $row[0];
                     }
@@ -51,7 +50,6 @@ class GerarEntidades
              * Iterate tables
              */
             foreach ($this->tabelas as $table) {
-                $ArquivoEntidade = "";
                 $row2 = mysql_query('SHOW COLUMNS FROM ' . $table);
                 $referencias = array();
                 $referencia = mysql_query("SELECT i.TABLE_NAME, k.REFERENCED_TABLE_NAME, k.REFERENCED_COLUMN_NAME 
@@ -64,6 +62,7 @@ class GerarEntidades
                     $referencias[$res[1]][] = $res[0];
                 }
                 $colunas = array();
+                $chave_primaria = '';
                 $relacionamentosTabela = array();
                 if (mysql_num_rows($row2) > 0) {
                     while ($row = mysql_fetch_assoc($row2)) {
@@ -77,149 +76,185 @@ class GerarEntidades
                     }
                 }
                 $Entidade = $this->getEntidade($table);
-                $ArquivoEntidade = "<?php\n
-/**
- * {$Entidade}.Entidade [ ENTIDADE ]
- * @copyright (c) " . date('Y') . ", Leo Bessa
- */\n
-class {$Entidade}Entidade
-{
-\tconst TABELA = '{$table}';
-\tconst ENTIDADE = '{$Entidade}Entidade';
-\tconst CHAVE = Constantes::" . strtoupper($chave_primaria) . ";\n\n";
+                $this->geraEntidade($Entidade, $table, $chave_primaria, $colunas, $referencias, $relacionamentosTabela);
+                $this->geraClassRelacionamento($this->relacionamentos);
 
-                foreach ($colunas as $coluna) {
-                    $ArquivoEntidade .= "\tprivate $" . $coluna . ";\n";
-                }
-                if (!empty($referencias[$table])) {
-                    foreach ($referencias[$table] as $novaColuna) {
-                        $ArquivoEntidade .= "\tprivate $" . str_replace('tb_', 'co_', $novaColuna) . ";\n";
-                    }
-                }
-                $ArquivoEntidade .= "\n\n";
-                $ArquivoEntidade .= "\t/**
-     * @return \$campos
-     */\n";
-                $ArquivoEntidade .= "\tpublic static function getCampos() {
-    \t\$campos = [\n";
-                foreach ($colunas as $coluna) {
-                    $ArquivoEntidade .= "\t\t\tConstantes::" . strtoupper($coluna) . ",\n";
-                }
-                $ArquivoEntidade .= "\t\t];
-    \treturn \$campos;
-    }\n\n";
-                $ArquivoEntidade .= "\t/**
-     * @return \$relacionamentos
-     */\n";
-                $ArquivoEntidade .= "\tpublic static function getRelacionamentos() {
-    \t\$relacionamentos = [\n";
-                foreach ($relacionamentosTabela as $rel) {
-                    $ArquivoEntidade .= "\t\t\tConstantes::" . strtoupper($rel) . " => array(
-                'Entidade' => " . str_replace(' ', '', ucwords(str_replace('_', ' ', str_replace('co_', '', $rel)))) . "Entidade::ENTIDADE,
-                'Tipo' => 1,
-            ),\n";
-                }
-                if (!empty($referencias[$table])) {
-                    foreach ($referencias[$table] as $rel) {
-                        $ArquivoEntidade .= "\t\t\tConstantes::" . strtoupper(str_replace('tb_', 'co_', $rel)) . " => array(
-                'Entidade' => " . str_replace(' ', '', ucwords(str_replace('_', ' ', str_replace('tb_', '', $rel)))) . "Entidade::ENTIDADE,
-                'Tipo' => 1,
-            ),\n";
-                    }
-                }
-                $ArquivoEntidade .= "\t\t];
-    \treturn \$relacionamentos;
-    }\n";
-                $ArquivoEntidade .= "\n\n";
-                foreach ($colunas as $coluna) {
-                    $metodoGet = $this->getMetodo($coluna);
-                    $ArquivoEntidade .= "\t/**
-     * @return \$$coluna
-     */\n";
-                    $ArquivoEntidade .= "\tpublic function {$metodoGet}()
-    {
-        return \$this->$coluna;
-    }\n\n";
-                    $metodoSet = $this->getMetodo($coluna, false);
-                    $ArquivoEntidade .= "\t/**
-     * @param mixed \$$coluna
-     */\n";
-                    $ArquivoEntidade .= "\tpublic function {$metodoSet}(\$$coluna)
-    {
-        return \$this->$coluna = \$$coluna;
-    }\n\n";
-                }
-
-                if (!empty($referencias[$table])) {
-                    foreach ($referencias[$table] as $metodos) {
-                        $metodos = str_replace('tb_', 'co_', $metodos);
-                        $metodoGet = $this->getMetodo($metodos);
-                        $ArquivoEntidade .= "\t/**
-     * @return \$$metodos
-     */\n";
-                        $ArquivoEntidade .= "\tpublic function {$metodoGet}()
-    {
-        return \$this->$metodos;
-    }\n\n";
-                        $metodoSet = $this->getMetodo($metodos, false);
-                        $ArquivoEntidade .= "\t/**
-     * @param mixed \$$metodos
-     */\n";
-                        $ArquivoEntidade .= "\tpublic function {$metodoSet}(\$$metodos)
-    {
-        return \$this->$metodos = \$$metodos;
-    }\n\n";
-                    }
-                }
-
-                $ArquivoEntidade .= "}";
-                $this->saveEntidade($ArquivoEntidade, $Entidade);
-
-                $ArquivoModel = "<?php\n
-/**
- * {$Entidade}Model.class [ MODEL ]
- * @copyright (c) " . date('Y') . ", Leo Bessa
- */\n
-class  {$Entidade}Model extends AbstractModel
-{\n
-    public function __construct()
-    {
-        parent::__construct({$Entidade}Entidade::ENTIDADE);
-    }\n\n
-}";
-                $this->saveModel($ArquivoModel, $Entidade);
-
-            }
-            if (!$this->constantes) {
-
-                $ArquivoConstante = "<?php\n
-/**
- * Constantes.class [ HELPER ]
- * Classe responável por manipular e validade dados do sistema!
- *
- * @copyright (c) " . date('Y') . ", Leo Bessa
- */\n
-class  Constantes
-{\n";
-                foreach ($constantes as $indice => $res) {
-                    $ArquivoConstante .= "\tconst " . $indice . " = '" . $res . "';\n";
-                }
-                $ArquivoConstante .= "\n}";
-                $this->saveConstantes($ArquivoConstante,'w+');
-            }else{
-                $ArquivoConstante = '\n\n';
-                foreach ($constantes as $indice => $res) {
-                    $ArquivoConstante .= "\tconst " . $indice . " = '" . $res . "';\n";
-                }
-                $this->saveConstantes($ArquivoConstante,'a+');
+//                $ArquivoModel = "<?php\n
+///**
+// * {$Entidade}Model.class [ MODEL ]
+// * @copyright (c) " . date('Y') . ", Leo Bessa
+// */\n
+//class  {$Entidade}Model extends AbstractModel
+//{\n
+//    public function __construct()
+//    {
+//        parent::__construct({$Entidade}Entidade::ENTIDADE);
+//    }\n\n
+//}";
+//                $this->saveModel($ArquivoModel, $Entidade);
+//
+//            }
+//            if (!$this->constantes) {
+//
+//                $ArquivoConstante = "<?php\n
+///**
+// * Constantes.class [ HELPER ]
+// * Classe responável por manipular e validade dados do sistema!
+// *
+// * @copyright (c) " . date('Y') . ", Leo Bessa
+// */\n
+//class  Constantes
+//{\n";
+//                foreach ($constantes as $indice => $res) {
+//                    $ArquivoConstante .= "\tconst " . $indice . " = '" . $res . "';\n";
+//                }
+//                $ArquivoConstante .= "\n}";
+//                $this->saveConstantes($ArquivoConstante, 'w+');
+//            } else {
+//                $ArquivoConstante = '\n\n';
+//                foreach ($constantes as $indice => $res) {
+//                    $ArquivoConstante .= "\tconst " . $indice . " = '" . $res . "';\n";
+//                }
+//                $this->saveConstantes($ArquivoConstante, 'a+');
             }
 
         } catch (Exception $e) {
             var_dump($e->getMessage());
             return false;
         }
+
+        debug($this->relacionamentos);
+
+        return true;
     }
 
+    private function getEntidade($Entidade)
+    {
+        $Entidade = str_replace(array('tb_', 'co_'), '', $Entidade);
+        $Entidade = str_replace('_', ' ', $Entidade);
+        $Entidade = ucwords($Entidade);
+        $Entidade = str_replace(' ', '', $Entidade);
+        return $Entidade;
+    }
+
+    private function geraEntidade($Entidade, $table, $chave_primaria, $colunas, $referencias, $relacionamentosTabela)
+    {
+        $ArquivoEntidade = "<?php\n
+/**
+ * {$Entidade}.Entidade [ ENTIDADE ]
+ * @copyright (c) " . date('Y') . ", Leo Bessa
+ */\n
+class {$Entidade}Entidade extends AbstractEntidade
+{
+\tconst TABELA = '{$table}';
+\tconst ENTIDADE = '{$Entidade}Entidade';
+\tconst CHAVE = Constantes::" . strtoupper($chave_primaria) . ";\n\n";
+
+        foreach ($colunas as $coluna) {
+            $ArquivoEntidade .= "\tprivate $" . $coluna . ";\n";
+        }
+        if (!empty($referencias[$table])) {
+            foreach ($referencias[$table] as $novaColuna) {
+                $ArquivoEntidade .= "\tprivate $" . str_replace('tb_', 'co_', $novaColuna) . ";\n";
+            }
+        }
+        $ArquivoEntidade .= "\n\n";
+        $ArquivoEntidade .= "\t/**
+     * @return array
+     */\n";
+        $ArquivoEntidade .= "\tpublic static function getCampos() {
+    \treturn [\n";
+        foreach ($colunas as $coluna) {
+            $ArquivoEntidade .= "\t\t\tConstantes::" . strtoupper($coluna) . ",\n";
+        }
+        $ArquivoEntidade .= "\t\t];
+    }\n\n";
+        $ArquivoEntidade .= "\t/**
+     * @return \$relacionamentos
+     */\n";
+        $ArquivoEntidade .= "\tpublic static function getRelacionamentos() {
+    \t\$relacionamentos = [\n";
+        foreach ($relacionamentosTabela as $rel) {
+            $this->relacionamentos[$table][$rel] = [
+                $rel,
+                $this->getEntidade($rel)
+            ];
+            $this->relacionamentos[str_replace('co_', 'tb_', $rel)][str_replace('tb_', 'co_', $table)] = [
+                $rel,
+                $this->getEntidade($table)
+            ];
+        }
+        if (!empty($referencias[$table])) {
+            foreach ($referencias[$table] as $rel) {
+                $this->relacionamentos[$table][$rel] = [
+                    $rel,
+                    $this->getEntidade($rel)
+                ];
+                $this->relacionamentos[str_replace('co_', 'tb_', $rel)][str_replace('tb_', 'co_', $table)] = [
+                    $rel,
+                    $this->getEntidade($table)
+                ];
+            }
+        }
+        $ArquivoEntidade .= "\t\t];
+    \treturn \$relacionamentos;
+    }\n";
+        $ArquivoEntidade .= "\n\n";
+        foreach ($colunas as $coluna) {
+            $metodoGet = $this->getMetodo($coluna);
+            $ArquivoEntidade .= "\t/**
+     * @return \$$coluna
+     */\n";
+            $ArquivoEntidade .= "\tpublic function {$metodoGet}()
+    {
+        return \$this->$coluna;
+    }\n\n";
+            $metodoSet = $this->getMetodo($coluna, false);
+            $ArquivoEntidade .= "\t/**
+     * @param \$$coluna
+     * @return mixed
+     */\n";
+            $ArquivoEntidade .= "\tpublic function {$metodoSet}(\$$coluna)
+    {
+        return \$this->$coluna = \$$coluna;
+    }\n\n";
+        }
+
+        if (!empty($referencias[$table])) {
+            foreach ($referencias[$table] as $metodos) {
+                $metodos = str_replace('tb_', 'co_', $metodos);
+                $metodoGet = $this->getMetodo($metodos);
+                $ArquivoEntidade .= "\t/**
+     * @return \$$metodos
+     */\n";
+                $ArquivoEntidade .= "\tpublic function {$metodoGet}()
+    {
+        return \$this->$metodos;
+    }\n\n";
+                $metodoSet = $this->getMetodo($metodos, false);
+                $ArquivoEntidade .= "\t/**
+     * @param mixed \$$metodos
+     */\n";
+                $ArquivoEntidade .= "\tpublic function {$metodoSet}(\$$metodos)
+    {
+        return \$this->$metodos = \$$metodos;
+    }\n\n";
+            }
+        }
+
+        $ArquivoEntidade .= "}";
+        $this->saveEntidade($ArquivoEntidade, $Entidade);
+    }
+
+    private function getMetodo($campo, $get = true)
+    {
+        $metodo = str_replace('_', ' ', $campo);
+        $metodo = ucwords($metodo);
+        $metodo = str_replace(' ', '', $metodo);
+        $tipo = ($get) ? 'get' : 'set';
+        $metodo = $tipo . $metodo;
+        return $metodo;
+    }
 
     protected function saveEntidade($ArquivoEntidade, $Entidade)
     {
@@ -233,6 +268,47 @@ class  Constantes
             return false;
         }
 
+        return true;
+    }
+
+    private function geraClassRelacionamento($relacionamentos)
+    {
+        $ArquivoRelacionamento = "<?php\n
+/**
+ * Relacionamentos.class [ RELACIONAMENTOS DO BANCO ]
+ * @copyright (c) " . date('Y') . ", Leo Bessa
+ */\n
+class Relacionamentos
+{\n\n";
+        $ArquivoRelacionamento .= "\tpublic static function getRelacionamentos(){
+    \treturn array(\n";
+        foreach ($relacionamentos as $tabela => $valor) {
+            $ArquivoRelacionamento .= "\t\t('$tabela') => Array (\n";
+            $i = 0;
+            foreach ($valor as $campo => $entidade) {
+                $ArquivoRelacionamento .= "\t\t('$campo') => Array (\n";
+                $ArquivoRelacionamento .= "($i) => '$entidade[$i]',\n";
+                $ArquivoRelacionamento .= "(" . ($i+1) . ") => '".$entidade[$i+1]."',\n";
+                $ArquivoRelacionamento .= "),\n";
+            }
+            $ArquivoRelacionamento .= "),\n";
+        }
+        $ArquivoRelacionamento .= ");\n}\n}";
+
+        $this->saveRelacionamentos($ArquivoRelacionamento);
+    }
+
+    protected function saveRelacionamentos($ArquivoRelacionamento)
+    {
+        if (!$ArquivoRelacionamento) return false;
+        try {
+            $handle = fopen(PASTA_CLASS . '/Relacionamentos.class.php', 'w+');
+            fwrite($handle, $ArquivoRelacionamento);
+            fclose($handle);
+        } catch (Exception $e) {
+            var_dump($e->getMessage());
+            return false;
+        }
         return true;
     }
 
@@ -264,26 +340,6 @@ class  Constantes
         }
 
         return true;
-    }
-
-
-    private function getMetodo($campo, $get = true)
-    {
-        $metodo = str_replace('_', ' ', $campo);
-        $metodo = ucwords($metodo);
-        $metodo = str_replace(' ', '', $metodo);
-        $tipo = ($get) ? 'get' : 'set';
-        $metodo = $tipo . $metodo;
-        return $metodo;
-    }
-
-    private function getEntidade($Entidade)
-    {
-        $Entidade = str_replace('tb_', '', $Entidade);
-        $Entidade = str_replace('_', ' ', $Entidade);
-        $Entidade = ucwords($Entidade);
-        $Entidade = str_replace(' ', '', $Entidade);
-        return $Entidade;
     }
 }
 

@@ -227,7 +227,7 @@ class AbstractModel
             if (!in_array($indice, $Entidade::getCampos())) {
                 $metodo = $this->getMetodo($indice, false);
                 $metodoGet = $this->getMetodo($indice);
-                $pesquisando[$Entidade::CHAVE] = $CoRegistro;
+                $pesquisando[$result['Campo']] = $CoRegistro;
                 $NovaEntidade = $result['Entidade'];
                 $pesquisa = new Pesquisa();
                 $where = $pesquisa->getClausula($pesquisando);

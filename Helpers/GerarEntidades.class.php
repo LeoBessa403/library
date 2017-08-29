@@ -79,52 +79,48 @@ class GerarEntidades
                 $this->geraEntidade($Entidade, $table, $chave_primaria, $colunas, $referencias, $relacionamentosTabela);
                 $this->geraClassRelacionamento($this->relacionamentos);
 
-//                $ArquivoModel = "<?php\n
-///**
-// * {$Entidade}Model.class [ MODEL ]
-// * @copyright (c) " . date('Y') . ", Leo Bessa
-// */\n
-//class  {$Entidade}Model extends AbstractModel
-//{\n
-//    public function __construct()
-//    {
-//        parent::__construct({$Entidade}Entidade::ENTIDADE);
-//    }\n\n
-//}";
-//                $this->saveModel($ArquivoModel, $Entidade);
-//
-//            }
-//            if (!$this->constantes) {
-//
-//                $ArquivoConstante = "<?php\n
-///**
-// * Constantes.class [ HELPER ]
-// * Classe responável por manipular e validade dados do sistema!
-// *
-// * @copyright (c) " . date('Y') . ", Leo Bessa
-// */\n
-//class  Constantes
-//{\n";
-//                foreach ($constantes as $indice => $res) {
-//                    $ArquivoConstante .= "\tconst " . $indice . " = '" . $res . "';\n";
-//                }
-//                $ArquivoConstante .= "\n}";
-//                $this->saveConstantes($ArquivoConstante, 'w+');
-//            } else {
-//                $ArquivoConstante = '\n\n';
-//                foreach ($constantes as $indice => $res) {
-//                    $ArquivoConstante .= "\tconst " . $indice . " = '" . $res . "';\n";
-//                }
-//                $this->saveConstantes($ArquivoConstante, 'a+');
-            }
+                $ArquivoModel = "<?php\n
+/**
+ * {$Entidade}Model.class [ MODEL ]
+ * @copyright (c) " . date('Y') . ", Leo Bessa
+ */\n
+class  {$Entidade}Model extends AbstractModel
+{\n
+    public function __construct()
+    {
+        parent::__construct({$Entidade}Entidade::ENTIDADE);
+    }\n\n
+}";
+                $this->saveModel($ArquivoModel, $Entidade);
+                
+                if (!$this->constantes) {
 
+                    $ArquivoConstante = "<?php\n
+/**
+ * Constantes.class [ HELPER ]
+ * Classe responável por manipular e validade dados do sistema!
+ *
+ * @copyright (c) " . date('Y') . ", Leo Bessa
+ */\n
+class  Constantes
+{\n";
+                    foreach ($constantes as $indice => $res) {
+                        $ArquivoConstante .= "\tconst " . $indice . " = '" . $res . "';\n";
+                    }
+                    $ArquivoConstante .= "\n}";
+                    $this->saveConstantes($ArquivoConstante, 'w+');
+                } else {
+                    $ArquivoConstante = '\n\n';
+                    foreach ($constantes as $indice => $res) {
+                        $ArquivoConstante .= "\tconst " . $indice . " = '" . $res . "';\n";
+                    }
+                    $this->saveConstantes($ArquivoConstante, 'a+');
+                }
+            }
         } catch (Exception $e) {
             var_dump($e->getMessage());
             return false;
         }
-
-        debug($this->relacionamentos);
-
         return true;
     }
 
@@ -173,7 +169,7 @@ class {$Entidade}Entidade extends AbstractEntidade
      * @return \$relacionamentos
      */\n";
         $ArquivoEntidade .= "\tpublic static function getRelacionamentos() {
-    \t\$relacionamentos = [\n";
+    \t\$relacionamentos = Relacionamentos::getRelacionamentos();\n\t\treturn \$relacionamentos[static::TABELA];\n\t}\n";
         foreach ($relacionamentosTabela as $rel) {
             $this->relacionamentos[$table][$rel] = [
                 $rel,
@@ -196,9 +192,6 @@ class {$Entidade}Entidade extends AbstractEntidade
                 ];
             }
         }
-        $ArquivoEntidade .= "\t\t];
-    \treturn \$relacionamentos;
-    }\n";
         $ArquivoEntidade .= "\n\n";
         foreach ($colunas as $coluna) {
             $metodoGet = $this->getMetodo($coluna);
@@ -281,20 +274,20 @@ class {$Entidade}Entidade extends AbstractEntidade
 class Relacionamentos
 {\n\n";
         $ArquivoRelacionamento .= "\tpublic static function getRelacionamentos(){
-    \treturn array(\n";
+    \t\treturn array(\n";
         foreach ($relacionamentos as $tabela => $valor) {
-            $ArquivoRelacionamento .= "\t\t('$tabela') => Array (\n";
+            $ArquivoRelacionamento .= "\t\t\t(" . $this->getEntidade($tabela) . "Entidade::TABELA) => Array(\n";
             $i = 0;
             foreach ($valor as $campo => $entidade) {
-                $ArquivoRelacionamento .= "\t\t('$campo') => Array (\n";
-                $ArquivoRelacionamento .= "($i) => '$entidade[$i]',\n";
-                $ArquivoRelacionamento .= "(" . ($i+1) . ") => '".$entidade[$i+1]."',\n";
-                $ArquivoRelacionamento .= "(" . ($i+2) . ") => '1',\n";
-                $ArquivoRelacionamento .= "),\n";
+                $ArquivoRelacionamento .= "\t\t\t\t(Constantes::" . strtoupper($campo) . ") => Array(\n";
+                $ArquivoRelacionamento .= "\t\t\t\t\t('Campo') => Constantes::" . strtoupper($entidade[$i]) . ",\n";
+                $ArquivoRelacionamento .= "\t\t\t\t\t('Entidade') => '" . $entidade[$i + 1] . "',\n";
+                $ArquivoRelacionamento .= "\t\t\t\t\t('Tipo') => '1',\n";
+                $ArquivoRelacionamento .= "\t\t\t\t),\n";
             }
-            $ArquivoRelacionamento .= "),\n";
+            $ArquivoRelacionamento .= "\t\t\t),\n";
         }
-        $ArquivoRelacionamento .= ");\n}\n}";
+        $ArquivoRelacionamento .= "\t\t);\n}\n}";
 
         $this->saveRelacionamentos($ArquivoRelacionamento);
     }

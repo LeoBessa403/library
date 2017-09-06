@@ -131,7 +131,7 @@ class AbstractModel
                 $this->PesquisaTodosNv3($obj, $obj2);
             } else {
                 $novoMetodo = $this->getMetodo($obj::CHAVE);
-                $todos = $this->PesquisaTodosNv1($campo['Entidade'], $obj::CHAVE, $obj->$novoMetodo());
+                $todos = $this->PesquisaTodosNv1($campo['Entidade'], $campo['Campo'], $obj->$novoMetodo());
                 $obj->$metodoSet($todos);
                 $this->PesquisaTodosNv3($obj, $obj2);
             }

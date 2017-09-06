@@ -34,7 +34,7 @@ class ValidaUsuario
                 /** @var Session $us */
                 $user = $us->getUser();
 
-                $ultimo_acesso = intval(strtotime($user[md5(Constantes::DT_FIM_ACESSO)]) + (60 * INATIVO));
+                $ultimo_acesso = intval(strtotime($user[md5(DT_FIM_ACESSO)]) + (60 * INATIVO));
                 $agora = strtotime(Valida::DataAtualBanco());
                 if ($agora > $ultimo_acesso):
                     $session->FinalizaSession(SESSION_USER);
@@ -43,10 +43,10 @@ class ValidaUsuario
                 else:
                     $acessoModel = new AcessoModel();
                     $us->setUserUltimoAcesso(Valida::DataAtualBanco());
-                    $pesquisaAcesso[Constantes::CO_USUARIO] = $user[md5(Constantes::CO_USUARIO)];
-                    $pesquisaAcesso[Constantes::DS_SESSION_ID] = session_id();
+                    $pesquisaAcesso[CO_USUARIO] = $user[md5(CO_USUARIO)];
+                    $pesquisaAcesso[DS_SESSION_ID] = session_id();
                     $meuAcesso = $acessoModel->PesquisaUmQuando($pesquisaAcesso);
-                    $acesso[Constantes::DT_FIM_ACESSO] = Valida::DataAtualBanco();
+                    $acesso[DT_FIM_ACESSO] = Valida::DataAtualBanco();
                     if($meuAcesso):
                         $acessoModel->Salva($acesso, $meuAcesso->getCoAcesso());
                     else:

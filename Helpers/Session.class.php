@@ -45,7 +45,7 @@ class Session
     public function setUserUltimoAcesso($acesso)
     {
         $user = $this->getUser();
-        $user[md5(Constantes::DT_FIM_ACESSO)] = $acesso;
+        $user[md5(DT_FIM_ACESSO)] = $acesso;
         $usuario = "";
         foreach ($user as $key => $value) {
             $usuario .= $key . ";=/" . base64_encode($value) . ";==/";

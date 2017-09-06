@@ -10,7 +10,7 @@ class AbstractEntidade
 
     public function ultimo(array $valor)
     {
-        return $valor[count($valor)];
+        return $valor[(count($valor) - 1)];
     }
 
 }

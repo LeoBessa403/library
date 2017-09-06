@@ -47,6 +47,7 @@ class GerarEntidades
                 }
             }
 
+            // Gera a Classe de Relacionamentos
             foreach ($this->tabelas as $table) {
                 $row2 = mysql_query('SHOW COLUMNS FROM ' . $table);
                 $colunas = array();
@@ -94,44 +95,11 @@ class GerarEntidades
                 }
                 $Entidade = $this->getEntidade($table);
                 $this->geraEntidade($Entidade, $table, $chave_primaria, $colunas, $this->relacionamentos[$table]);
+                $this->geraModel($Entidade);
+                $this->geraConstantes($constantes);
+                $this->geraService($Entidade);
 
-                $ArquivoModel = "<?php\n
-/**
- * {$Entidade}Model.class [ MODEL ]
- * @copyright (c) " . date('Y') . ", Leo Bessa
- */\n
-class  {$Entidade}Model extends AbstractModel
-{\n
-    public function __construct()
-    {
-        parent::__construct({$Entidade}Entidade::ENTIDADE);
-    }\n\n
-}";
-                $this->saveModel($ArquivoModel, $Entidade);
 
-                if (!$this->constantes) {
-
-                    $ArquivoConstante = "<?php\n
-/**
- * Constantes.class [ HELPER ]
- * Classe responável por manipular e validade dados do sistema!
- *
- * @copyright (c) " . date('Y') . ", Leo Bessa
- */\n
-class  Constantes
-{\n";
-                    foreach ($constantes as $indice => $res) {
-                        $ArquivoConstante .= "\tconst " . $indice . " = '" . $res . "';\n";
-                    }
-                    $ArquivoConstante .= "\n}";
-                    $this->saveConstantes($ArquivoConstante, 'w+');
-                } else {
-                    $ArquivoConstante = '\n\n';
-                    foreach ($constantes as $indice => $res) {
-                        $ArquivoConstante .= "\tconst " . $indice . " = '" . $res . "';\n";
-                    }
-                    $this->saveConstantes($ArquivoConstante, 'a+');
-                }
             }
         } catch (Exception $e) {
             var_dump($e->getMessage());
@@ -302,6 +270,23 @@ class {$Entidade}Entidade extends AbstractEntidade
         return true;
     }
 
+    private function geraModel($Entidade)
+    {
+        $ArquivoModel = "<?php\n
+/**
+ * {$Entidade}Model.class [ MODEL ]
+ * @copyright (c) " . date('Y') . ", Leo Bessa
+ */
+class  {$Entidade}Model extends AbstractModel
+{\n
+    public function __construct()
+    {
+        parent::__construct({$Entidade}Entidade::ENTIDADE);
+    }\n\n
+}";
+        $this->saveModel($ArquivoModel, $Entidade);
+    }
+
     protected function saveModel($ArquivoModel, $Entidade)
     {
         if (!$ArquivoModel) return false;
@@ -317,6 +302,33 @@ class {$Entidade}Entidade extends AbstractEntidade
         return true;
     }
 
+    private function geraConstantes($constantes)
+    {
+        if (!$this->constantes) {
+
+            $ArquivoConstante = "<?php\n
+/**
+ * Constantes.class [ HELPER ]
+ * Classe responável por manipular e validade dados do sistema!
+ *
+ * @copyright (c) " . date('Y') . ", Leo Bessa
+ */\n
+class  Constantes
+{\n";
+            foreach ($constantes as $indice => $res) {
+                $ArquivoConstante .= "\tconst " . $indice . " = '" . $res . "';\n";
+            }
+            $ArquivoConstante .= "\n}";
+            $this->saveConstantes($ArquivoConstante, 'w+');
+        } else {
+            $ArquivoConstante = '\n\n';
+            foreach ($constantes as $indice => $res) {
+                $ArquivoConstante .= "\tconst " . $indice . " = '" . $res . "';\n";
+            }
+            $this->saveConstantes($ArquivoConstante, 'a+');
+        }
+    }
+
     protected function saveConstantes($ArquivoConstante, $operacao)
     {
         if (!$ArquivoConstante) return false;
@@ -328,9 +340,34 @@ class {$Entidade}Entidade extends AbstractEntidade
             var_dump($e->getMessage());
             return false;
         }
+        return true;
+    }
+
+    private function geraService($Entidade)
+    {
+        $ArquivoService = "<?php\n
+/**
+ * {$Entidade}Service.class [ SEVICE ]
+ * @copyright (c) " . date('Y') . ", Leo Bessa
+ */
+class  {$Entidade}Service extends AbstractService
+{\n
+}";
+        $this->saveService($ArquivoService, $Entidade);
+    }
+
+    protected function saveService($ArquivoService, $Entidade)
+    {
+        if (!$ArquivoService) return false;
+        try {
+            $handle = fopen(PASTA_SEVICE . '/' . $Entidade . 'Service.class.php', 'w+');
+            fwrite($handle, $ArquivoService);
+            fclose($handle);
+        } catch (Exception $e) {
+            var_dump($e->getMessage());
+            return false;
+        }
 
         return true;
     }
 }
-
-?>

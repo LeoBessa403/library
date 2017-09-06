@@ -102,7 +102,7 @@ class GerarEntidades
 
             }
         } catch (Exception $e) {
-            var_dump($e->getMessage());
+            debug($e->getMessage());
             return false;
         }
         return true;
@@ -132,8 +132,8 @@ class Relacionamentos
             $ArquivoRelacionamento .= "\t\t\t(" . $this->getEntidade($tabela) . "Entidade::TABELA) => Array(\n";
             $i = 0;
             foreach ($valor as $campo => $entidade) {
-                $ArquivoRelacionamento .= "\t\t\t\t(Constantes::" . strtoupper($campo) . ") => Array(\n";
-                $ArquivoRelacionamento .= "\t\t\t\t\t('Campo') => Constantes::" . strtoupper($entidade[$i]) . ",\n";
+                $ArquivoRelacionamento .= "\t\t\t\t(" . strtoupper($campo) . ") => Array(\n";
+                $ArquivoRelacionamento .= "\t\t\t\t\t('Campo') => " . strtoupper($entidade[$i]) . ",\n";
                 $ArquivoRelacionamento .= "\t\t\t\t\t('Entidade') => '" . $entidade[$i + 1] . "Entidade',\n";
                 $ArquivoRelacionamento .= "\t\t\t\t\t('Tipo') => '1',\n";
                 $ArquivoRelacionamento .= "\t\t\t\t),\n";
@@ -175,7 +175,7 @@ class {$Entidade}Entidade extends AbstractEntidade
 {
 \tconst TABELA = '{$table}';
 \tconst ENTIDADE = '{$Entidade}Entidade';
-\tconst CHAVE = Constantes::" . strtoupper($chave_primaria) . ";\n\n";
+\tconst CHAVE = " . strtoupper($chave_primaria) . ";\n\n";
 
         foreach ($colunas as $coluna) {
             $ArquivoEntidade .= "\tprivate $" . $coluna . ";\n";
@@ -190,7 +190,7 @@ class {$Entidade}Entidade extends AbstractEntidade
         $ArquivoEntidade .= "\tpublic static function getCampos() {
     \treturn [\n";
         foreach ($colunas as $coluna) {
-            $ArquivoEntidade .= "\t\t\tConstantes::" . strtoupper($coluna) . ",\n";
+            $ArquivoEntidade .= "\t\t\t" . strtoupper($coluna) . ",\n";
         }
         $ArquivoEntidade .= "\t\t];
     }\n\n";
@@ -312,18 +312,16 @@ class  {$Entidade}Model extends AbstractModel
  * Classe responável por manipular e validade dados do sistema!
  *
  * @copyright (c) " . date('Y') . ", Leo Bessa
- */\n
-class  Constantes
-{\n";
+ */\n";
             foreach ($constantes as $indice => $res) {
-                $ArquivoConstante .= "\tconst " . $indice . " = '" . $res . "';\n";
+                $ArquivoConstante .= "\tdefine('" . $indice . "', '" . $res . "');\n";
             }
-            $ArquivoConstante .= "\n}";
+            $ArquivoConstante .= "\n";
             $this->saveConstantes($ArquivoConstante, 'w+');
         } else {
             $ArquivoConstante = '\n\n';
             foreach ($constantes as $indice => $res) {
-                $ArquivoConstante .= "\tconst " . $indice . " = '" . $res . "';\n";
+                $ArquivoConstante .= "\tdefine('" . $indice . "', '" . $res . "');\n";
             }
             $this->saveConstantes($ArquivoConstante, 'a+');
         }

@@ -45,6 +45,7 @@ define('PASTABACKUP', PASTA_RAIZ . '/BancoDados/backup/');
 define('PASTA_ENTIDADES', PASTA_RAIZ . ADMIN . '/Entidade/');
 define('PASTA_MODEL', PASTA_RAIZ . ADMIN . '/Model/');
 define('PASTA_CLASS', PASTA_RAIZ . ADMIN . '/Class/');
+define('PASTA_SEVICE', PASTA_RAIZ . ADMIN . '/Service/');
 
 
 // DEFINE PARA VALIDAÇÃO DO CADASTRO

@@ -72,7 +72,7 @@ class GerarEntidades
                     ];
                 }
             }
-            $this->geraClassRelacionamento($this->relacionamentos);
+//            $this->geraClassRelacionamento($this->relacionamentos);
 
             /**
              * Iterate tables
@@ -94,11 +94,11 @@ class GerarEntidades
                     }
                 }
                 $Entidade = $this->getEntidade($table);
-                $this->geraEntidade($Entidade, $table, $chave_primaria, $colunas, $this->relacionamentos[$table]);
+                $constantes = $this->geraConstantesService($constantes, $table);
+//                $this->geraEntidade($Entidade, $table, $chave_primaria, $colunas, $this->relacionamentos[$table]);
                 $this->geraModel($Entidade);
                 $this->geraConstantes($constantes);
                 $this->geraService($Entidade);
-
 
             }
         } catch (Exception $e) {
@@ -302,6 +302,14 @@ class  {$Entidade}Model extends AbstractModel
         return true;
     }
 
+    private function geraConstantesService($constantes, $table)
+    {
+        $constantes[strtoupper(str_replace('tb_', '', $table)) . "_SERVICE"] =
+            $this->getEntidade($table). "Service";
+
+        return $constantes;
+    }
+
     private function geraConstantes($constantes)
     {
         if (!$this->constantes) {
@@ -350,6 +358,10 @@ class  {$Entidade}Model extends AbstractModel
  */
 class  {$Entidade}Service extends AbstractService
 {\n
+    public function __construct()
+    {
+        parent::__construct({$Entidade}Entidade::ENTIDADE);
+    }\n\n
 }";
         $this->saveService($ArquivoService, $Entidade);
     }

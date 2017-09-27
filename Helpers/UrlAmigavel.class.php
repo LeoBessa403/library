@@ -12,13 +12,13 @@ class UrlAmigavel
     private static $explode;
     private static $params;
 
-    /** @var Retorna o valor do Modulo solicitado * */
+    /** @var String Retorna o valor do Modulo solicitado * */
     public static $modulo;
 
-    /** @var Retorna o valor do Controller solicitado * */
+    /** @var String Retorna o valor do Controller solicitado * */
     public static $controller;
 
-    /** @var Retorna o valor do Metodo solicitado * */
+    /** @var String Retorna o valor do Metodo solicitado * */
     public static $action;
 
     /** @var array Action Permitidas pra acesso sem validação de usuário */
@@ -42,7 +42,7 @@ class UrlAmigavel
     /**
      * <b>PegaParametro:</b> Pega todos os parÃªmetros passados pela URL
      * @param STRING $name = Passando o nome do parametro a ser retornado.
-     * @return ARRAY Retorna um array de parÃ¢metros ou caso mensione o parÃ¢metro a ser pesquisado
+     * @return ArrayAccess Retorna um array de parÃ¢metros ou caso mensione o parÃ¢metro a ser pesquisado
      * retorno com o valor de uma variavel solicitada
      */
     public static function PegaParametro($name = null)
@@ -54,13 +54,14 @@ class UrlAmigavel
         else:
             return self::$params;
         endif;
+        return null;
     }
 
     /**
      * <b>pegaControllerAction:</b> Gerencia e inicia o controlador e metodo a ser executado
-     * @return INCLUDE Retorna a inclusÃ£o do arquivo solicitado.
-     * @return Valor padÃ£o para Controller (INDEX) e metodo (INDEX)
-     * @return Realiza a InclusÃ£o da View com o mesmo nome da action dentro da Pasta View.
+     * INCLUDE Retorna a inclusÃ£o do arquivo solicitado.
+     * Valor padÃ£o para Controller (INDEX) e metodo (INDEX)
+     * Realiza a InclusÃ£o da View com o mesmo nome da action dentro da Pasta View.
      * Ex.: <br>Nome do Arquivo <b>cadastro.View.php</b>
      */
     public function pegaControllerAction()
@@ -219,7 +220,6 @@ class UrlAmigavel
     private static function setUrl()
     {
         $url = (isset($_GET['url']) && $_GET['url'] != "" ? $_GET['url'] : "web/IndexWeb/Index");
-        $url = $url;
         self::$url = $url . '/';
     }
 

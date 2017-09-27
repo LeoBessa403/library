@@ -202,29 +202,28 @@ class {$Entidade}Entidade extends AbstractEntidade
         }
         $ArquivoEntidade .= "\t\t];
     }\n\n";
-        $ArquivoEntidade .= "\t/**
-     * @return \$relacionamentos
+        $ArquivoEntidade .= "\t/**\n\t* @return \$relacionamentos
      */\n";
         $ArquivoEntidade .= "\tpublic static function getRelacionamentos() {
     \t\$relacionamentos = Relacionamentos::getRelacionamentos();\n\t\treturn \$relacionamentos[static::TABELA];\n\t}\n";
         $ArquivoEntidade .= "\n\n";
         foreach ($colunas as $coluna) {
             $metodoGet = $this->getMetodo($coluna);
-            $ArquivoEntidade .= "\t/**
-     * @return \$$coluna
+            $ArquivoEntidade .= "\t/**\n";
+
+            if (strstr($coluna, 'co_') && $coluna != $chave_primaria) {
+                $ArquivoEntidade .= "\t* @return " . $this->getEntidade($coluna) . "Entidade \$$coluna";
+            } else {
+                $ArquivoEntidade .= "\t* @return \$$coluna";
+            }
+            $ArquivoEntidade .= "
      */\n";
             $ArquivoEntidade .= "\tpublic function {$metodoGet}()
     {
         return \$this->$coluna;
     }\n\n";
             $metodoSet = $this->getMetodo($coluna, false);
-            $ArquivoEntidade .= "\t/**";
-
-            if (strstr($coluna, 'co_') && $coluna != $chave_primaria) {
-                $ArquivoEntidade .= "* @param " . $this->getEntidade($coluna) . "Entidade \$$coluna";
-            } else {
-                $ArquivoEntidade .= "* @param \$$coluna";
-            }
+            $ArquivoEntidade .= "\t/**\n\t* @param \$$coluna";
             $ArquivoEntidade .= "
      * @return mixed
      */\n";
@@ -237,8 +236,15 @@ class {$Entidade}Entidade extends AbstractEntidade
         foreach ($relacionamentosTabela as $index => $metodos) {
             $metodos = str_replace('tb_', 'co_', $index);
             $metodoGet = $this->getMetodo($metodos);
-            $ArquivoEntidade .= "\t/**
-     * @return \$$metodos
+
+            $ArquivoEntidade .= "\t/**\n";
+
+            if (strstr($metodos, 'co_') && $metodos != $chave_primaria) {
+                $ArquivoEntidade .= "\t* @return " . $this->getEntidade($metodos) . "Entidade \$$metodos";
+            } else {
+                $ArquivoEntidade .= "\t* @return \$$metodos";
+            }
+            $ArquivoEntidade .= "
      */\n";
             $ArquivoEntidade .= "\tpublic function {$metodoGet}()
     {

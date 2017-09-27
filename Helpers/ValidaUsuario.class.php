@@ -22,7 +22,8 @@ class ValidaUsuario extends AbstractController
                     die;
                 endif;
             else:
-                Index::logar();
+                $index = new Index();
+                $index->Logar();
             endif;
         else:
             if (isset($explode[3]) && $explode[3] == "desloga"):

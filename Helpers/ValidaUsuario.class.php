@@ -4,7 +4,7 @@
  * ValidaUsuario.class [ HELPER ]
  * @copyright (c) 2016, Leo Bessa
  */
-class ValidaUsuario
+class ValidaUsuario extends AbstractController
 {
 
     function __construct()
@@ -41,16 +41,18 @@ class ValidaUsuario
                     Redireciona(ADMIN . LOGIN . Valida::GeraParametro("acesso/E"));
                     die;
                 else:
-                    $acessoModel = new AcessoModel();
+                    $acessoService = $this->getService(ACESSO_SERVICE);
                     $us->setUserUltimoAcesso(Valida::DataAtualBanco());
                     $pesquisaAcesso[CO_USUARIO] = $user[md5(CO_USUARIO)];
                     $pesquisaAcesso[DS_SESSION_ID] = session_id();
-                    $meuAcesso = $acessoModel->PesquisaUmQuando($pesquisaAcesso);
+                    $meuAcesso = $acessoService->PesquisaUmQuando($pesquisaAcesso);
                     $acesso[DT_FIM_ACESSO] = Valida::DataAtualBanco();
                     if($meuAcesso):
-                        $acessoModel->Salva($acesso, $meuAcesso->getCoAcesso());
+                        $acessoService->Salva($acesso, $meuAcesso->getCoAcesso());
                     else:
-                        $acessoModel->Salva($acesso);
+                        $pesquisaAcesso[DT_INICIO_ACESSO] = Valida::DataAtualBanco();
+                        $pesquisaAcesso[DT_FIM_ACESSO] = Valida::DataAtualBanco();
+                        $acessoService->Salva($pesquisaAcesso);
                     endif;
                     if ($session->CheckSession(CADASTRADO)):
                         $session->FinalizaSession(CADASTRADO);

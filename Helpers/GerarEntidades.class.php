@@ -72,7 +72,7 @@ class GerarEntidades
                     ];
                 }
             }
-//            $this->geraClassRelacionamento($this->relacionamentos);
+            $this->geraClassRelacionamento($this->relacionamentos);
 
             /**
              * Iterate tables
@@ -95,7 +95,7 @@ class GerarEntidades
                 }
                 $Entidade = $this->getEntidade($table);
                 $constantes = $this->geraConstantesService($constantes, $table);
-//                $this->geraEntidade($Entidade, $table, $chave_primaria, $colunas, $this->relacionamentos[$table]);
+                $this->geraEntidade($Entidade, $table, $chave_primaria, $colunas, $this->relacionamentos[$table]);
                 $this->geraModel($Entidade);
                 $this->geraConstantes($constantes);
                 $this->geraService($Entidade);
@@ -159,6 +159,14 @@ class Relacionamentos
         return true;
     }
 
+    private function geraConstantesService($constantes, $table)
+    {
+        $constantes[strtoupper(str_replace('tb_', '', $table)) . "_SERVICE"] =
+            $this->getEntidade($table) . "Service";
+
+        return $constantes;
+    }
+
     private function geraEntidade($Entidade, $table, $chave_primaria, $colunas, $relacionamentosTabela)
     {
         foreach ($colunas as $coluna) {
@@ -210,8 +218,14 @@ class {$Entidade}Entidade extends AbstractEntidade
         return \$this->$coluna;
     }\n\n";
             $metodoSet = $this->getMetodo($coluna, false);
-            $ArquivoEntidade .= "\t/**
-     * @param \$$coluna
+            $ArquivoEntidade .= "\t/**";
+
+            if (strstr($coluna, 'co_') && $coluna != $chave_primaria) {
+                $ArquivoEntidade .= "* @param " . $this->getEntidade($coluna) . "Entidade \$$coluna";
+            } else {
+                $ArquivoEntidade .= "* @param \$$coluna";
+            }
+            $ArquivoEntidade .= "
      * @return mixed
      */\n";
             $ArquivoEntidade .= "\tpublic function {$metodoSet}(\$$coluna)
@@ -300,14 +314,6 @@ class  {$Entidade}Model extends AbstractModel
         }
 
         return true;
-    }
-
-    private function geraConstantesService($constantes, $table)
-    {
-        $constantes[strtoupper(str_replace('tb_', '', $table)) . "_SERVICE"] =
-            $this->getEntidade($table). "Service";
-
-        return $constantes;
     }
 
     private function geraConstantes($constantes)

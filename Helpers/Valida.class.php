@@ -225,9 +225,18 @@ class Valida
 
     /**
      * <b>DATA ATUAL BANCO</b>
-     * @return DATE = $Data = Data Atual no Formato Para o Banco ('Y-m-d H:i:s')!
+     * @return STRING = $Data = Data Atual no Formato Para o Banco ('Y-m-d H:i:s')!
      */
-    public static function DataAtualBanco($formato = 'Y-m-d H:i:s')
+    public static function DataAtualBanco($formato = 'Y-m-d')
+    {
+        return date($formato);
+    }
+
+    /**
+     * <b>DATA HORA ATUAL BANCO</b>
+     * @return STRING = $Data = Data Atual no Formato Para o Banco ('Y-m-d H:i:s')!
+     */
+    public static function DataHoraAtualBanco($formato = 'Y-m-d H:i:s')
     {
         return date($formato);
     }

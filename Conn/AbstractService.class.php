@@ -6,4 +6,10 @@ class AbstractService extends AbstractModel
     {
         parent::__construct($Entidade);
     }
+    
+    public function getDados($dados, $entidade)
+    {
+        $abstractEntidade = new AbstractEntidade();
+        return $abstractEntidade->getDados($dados, $entidade);
+    }
 }

@@ -35,7 +35,7 @@ class Form
      * @param STRING $idform : atribui o ID para o Formulário
      * @param STRING $action : Ação a realizar a pesquisa e carregar a GRID
      * @param STRING $botao : Label do Botão
-     * @param STRING $tamanhoForm : Tamanho do Formulário
+     * @param INT $tamanhoForm : Tamanho do Formulário
      */
     function __construct($idform, $action, $botao = "Salvar", $tamanhoForm = 6)
     {

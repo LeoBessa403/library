@@ -9,35 +9,46 @@ class AbstractModel
         $this->Entidade = $Entidade;
     }
 
-    public function Salva(array $dados, $codigo = null)
+    public function Salva(array $dados, $codigo = null, $commit = null)
     {
         $Entidade = $this->Entidade;
         if (!$codigo) {
             $cadastro = new Cadastra();
-            $cadastro->Cadastrar($Entidade::TABELA, $dados);
+            $cadastro->Cadastrar($Entidade::TABELA, $dados, $commit);
             return $cadastro->getUltimoIdInserido();
         } else {
             $atualiza = new Atualiza();
-            $atualiza->Atualizar($Entidade::TABELA, $dados, "where " . $Entidade::CHAVE . " = :codigo", "codigo={$codigo}");
+            $atualiza->Atualizar(
+                $Entidade::TABELA,
+                $dados,
+                "where " . $Entidade::CHAVE . " = :codigo",
+                "codigo={$codigo}",
+                $commit
+            );
             return $atualiza->getResult();
         }
     }
 
-    public function Deleta($codigo)
+    public function Deleta($codigo, $commit = null)
     {
         $Entidade = $this->Entidade;
         $deleta = new Deleta();
-        $deleta->Deletar($Entidade::TABELA, "where " . $Entidade::CHAVE . " = :codigo", "codigo={$codigo}");
+        $deleta->Deletar(
+            $Entidade::TABELA,
+            "where " . $Entidade::CHAVE . " = :codigo",
+            "codigo={$codigo}",
+            $commit
+        );
         return $deleta->getResult();
     }
 
-    public function DeletaQuando(array $Condicoes)
+    public function DeletaQuando(array $Condicoes, $commit = null)
     {
         $Entidade = $this->Entidade;
         $deleta = new Deleta();
         $pesquisa = new Pesquisa();
         $where = $pesquisa->getClausula($Condicoes);
-        $deleta->Deletar($Entidade::TABELA, $where);
+        $deleta->Deletar($Entidade::TABELA, $where, null, $commit);
         return $deleta->getResult();
     }
 
@@ -47,19 +58,6 @@ class AbstractModel
         $pesquisa = new Pesquisa();
         $pesquisa->Pesquisar($Entidade::TABELA, "where " . $Entidade::CHAVE . " = :id ", "id={$Codigo}");
         return $this->getUmObjeto($Entidade, $pesquisa->getResult());
-    }
-
-    public function PesquisaUmQuando(array $Condicoes)
-    {
-        if (count($Condicoes)) {
-            $Entidade = $this->Entidade;
-            $pesquisa = new Pesquisa();
-            $where = $pesquisa->getClausula($Condicoes);
-            $pesquisa->Pesquisar($Entidade::TABELA, $where);
-            return $this->getUmObjeto($Entidade, $pesquisa->getResult());
-        } else {
-            return array();
-        }
     }
 
     public function getUmObjeto($Entidade, $dados)
@@ -79,41 +77,44 @@ class AbstractModel
         }
     }
 
-    public function PesquisaTodos($Condicoes = array())
+    private function getMetodo($campo, $get = true)
     {
-        $Entidade = $this->Entidade;
-        $pesquisa = new Pesquisa();
-        $where = $pesquisa->getClausula($Condicoes);
-        $pesquisa->Pesquisar($Entidade::TABELA, $where);
-        $dados = array();
-        foreach ($pesquisa->getResult() as $entidade) {
-            $obj = new $Entidade();
-            foreach ($Entidade::getCampos() as $campo) {
-                $metodo = $this->getMetodo($campo, false);
-                $obj->$metodo($entidade[$campo]);
-            }
-            $obj = $this->PesquisaInclusaoRelacionamento($Entidade, $obj);
-            $obj = $this->PesquisaTodosNv2($obj);
-            $dados[] = $obj;
-        }
-        return $dados;
+        $metodo = str_replace('_', ' ', $campo);
+        $metodo = ucwords($metodo);
+        $metodo = str_replace(' ', '', $metodo);
+        $tipo = ($get) ? 'get' : 'set';
+        $metodo = $tipo . $metodo;
+        return $metodo;
     }
 
-    private function PesquisaTodosNv1($Entidade, $ChaveExtrangeira, $codigo)
+    private function PesquisaInclusaoRelacionamento($Entidade, $obj)
     {
-        $pesquisa = new Pesquisa();
-        $pesquisa->Pesquisar($Entidade::TABELA, 'where ' . $ChaveExtrangeira . ' = ' . $codigo);
-        $dados = array();
-        foreach ($pesquisa->getResult() as $entidade) {
-            $obj = new $Entidade();
-            foreach ($Entidade::getCampos() as $campo) {
-                $metodo = $this->getMetodo($campo, false);
-                $obj->$metodo($entidade[$campo]);
+        $metodoGetChave = $this->getMetodo($Entidade::CHAVE);
+        $CoRegistro = $obj->$metodoGetChave();
+        foreach ($Entidade::getRelacionamentos() as $indice => $result) {
+            if (!in_array($indice, $Entidade::getCampos())) {
+                $metodo = $this->getMetodo($indice, false);
+                $metodoGet = $this->getMetodo($indice);
+                $pesquisando[$result['Campo']] = $CoRegistro;
+                $NovaEntidade = $result['Entidade'];
+                $pesquisa = new Pesquisa();
+                $where = $pesquisa->getClausula($pesquisando);
+                $pesquisa->Pesquisar($NovaEntidade::TABELA, $where);
+
+                $obj2 = new $NovaEntidade();
+                if ($pesquisa->getResult()) {
+                    $registro = $pesquisa->getResult()[0];
+                    if ($registro) {
+                        foreach ($NovaEntidade::getCampos() as $campo) {
+                            $metodo2 = $this->getMetodo($campo, false);
+                            $obj2->$metodo2($registro[$campo]);
+                        }
+                    }
+                }
+                $obj->$metodo($obj2->$metodoGet());
             }
-            $obj = $this->PesquisaInclusaoRelacionamento($Entidade, $obj);
-            $dados[] = $obj;
         }
-        return $dados;
+        return $obj;
     }
 
     private function PesquisaTodosNv2($obj)
@@ -134,6 +135,24 @@ class AbstractModel
                 $todos = $this->PesquisaTodosNv1($campo['Entidade'], $campo['Campo'], $obj->$novoMetodo());
                 $obj->$metodoSet($todos);
                 $this->PesquisaTodosNv3($obj, $obj2);
+            }
+        }
+        return $obj;
+    }
+
+    private function PesquisaUmRegistroNv2($Codigo, $Entidade)
+    {
+        $pesquisa = new Pesquisa();
+        $pesquisa->Pesquisar($Entidade::TABELA, "where " . $Entidade::CHAVE . " = :id ", "id={$Codigo}");
+        $obj = new $Entidade();
+        if ($pesquisa->getResult()) {
+            $registro = $pesquisa->getResult()[0];
+            if ($registro) {
+                foreach ($Entidade::getCampos() as $campo) {
+                    $metodo = $this->getMetodo($campo, false);
+                    $obj->$metodo($registro[$campo]);
+                }
+                $obj = $this->PesquisaInclusaoRelacionamento($Entidade, $obj);
             }
         }
         return $obj;
@@ -185,24 +204,6 @@ class AbstractModel
         return $obj;
     }
 
-    private function PesquisaUmRegistroNv2($Codigo, $Entidade)
-    {
-        $pesquisa = new Pesquisa();
-        $pesquisa->Pesquisar($Entidade::TABELA, "where " . $Entidade::CHAVE . " = :id ", "id={$Codigo}");
-        $obj = new $Entidade();
-        if ($pesquisa->getResult()) {
-            $registro = $pesquisa->getResult()[0];
-            if ($registro) {
-                foreach ($Entidade::getCampos() as $campo) {
-                    $metodo = $this->getMetodo($campo, false);
-                    $obj->$metodo($registro[$campo]);
-                }
-                $obj = $this->PesquisaInclusaoRelacionamento($Entidade, $obj);
-            }
-        }
-        return $obj;
-    }
-
     private function PesquisaUmRegistroNv3($Codigo, $Entidade)
     {
         $pesquisa = new Pesquisa();
@@ -219,44 +220,54 @@ class AbstractModel
         return $obj;
     }
 
-    private function PesquisaInclusaoRelacionamento($Entidade, $obj)
+    private function PesquisaTodosNv1($Entidade, $ChaveExtrangeira, $codigo)
     {
-        $metodoGetChave = $this->getMetodo($Entidade::CHAVE);
-        $CoRegistro = $obj->$metodoGetChave();
-        foreach ($Entidade::getRelacionamentos() as $indice => $result) {
-            if (!in_array($indice, $Entidade::getCampos())) {
-                $metodo = $this->getMetodo($indice, false);
-                $metodoGet = $this->getMetodo($indice);
-                $pesquisando[$result['Campo']] = $CoRegistro;
-                $NovaEntidade = $result['Entidade'];
-                $pesquisa = new Pesquisa();
-                $where = $pesquisa->getClausula($pesquisando);
-                $pesquisa->Pesquisar($NovaEntidade::TABELA, $where);
-
-                $obj2 = new $NovaEntidade();
-                if ($pesquisa->getResult()) {
-                    $registro = $pesquisa->getResult()[0];
-                    if ($registro) {
-                        foreach ($NovaEntidade::getCampos() as $campo) {
-                            $metodo2 = $this->getMetodo($campo, false);
-                            $obj2->$metodo2($registro[$campo]);
-                        }
-                    }
-                }
-                $obj->$metodo($obj2->$metodoGet());
+        $pesquisa = new Pesquisa();
+        $pesquisa->Pesquisar($Entidade::TABELA, 'where ' . $ChaveExtrangeira . ' = ' . $codigo);
+        $dados = array();
+        foreach ($pesquisa->getResult() as $entidade) {
+            $obj = new $Entidade();
+            foreach ($Entidade::getCampos() as $campo) {
+                $metodo = $this->getMetodo($campo, false);
+                $obj->$metodo($entidade[$campo]);
             }
+            $obj = $this->PesquisaInclusaoRelacionamento($Entidade, $obj);
+            $dados[] = $obj;
         }
-        return $obj;
+        return $dados;
     }
 
-    private function getMetodo($campo, $get = true)
+    public function PesquisaUmQuando(array $Condicoes)
     {
-        $metodo = str_replace('_', ' ', $campo);
-        $metodo = ucwords($metodo);
-        $metodo = str_replace(' ', '', $metodo);
-        $tipo = ($get) ? 'get' : 'set';
-        $metodo = $tipo . $metodo;
-        return $metodo;
+        if (count($Condicoes)) {
+            $Entidade = $this->Entidade;
+            $pesquisa = new Pesquisa();
+            $where = $pesquisa->getClausula($Condicoes);
+            $pesquisa->Pesquisar($Entidade::TABELA, $where);
+            return $this->getUmObjeto($Entidade, $pesquisa->getResult());
+        } else {
+            return array();
+        }
+    }
+
+    public function PesquisaTodos($Condicoes = array())
+    {
+        $Entidade = $this->Entidade;
+        $pesquisa = new Pesquisa();
+        $where = $pesquisa->getClausula($Condicoes);
+        $pesquisa->Pesquisar($Entidade::TABELA, $where);
+        $dados = array();
+        foreach ($pesquisa->getResult() as $entidade) {
+            $obj = new $Entidade();
+            foreach ($Entidade::getCampos() as $campo) {
+                $metodo = $this->getMetodo($campo, false);
+                $obj->$metodo($entidade[$campo]);
+            }
+            $obj = $this->PesquisaInclusaoRelacionamento($Entidade, $obj);
+            $obj = $this->PesquisaTodosNv2($obj);
+            $dados[] = $obj;
+        }
+        return $dados;
     }
 
 }

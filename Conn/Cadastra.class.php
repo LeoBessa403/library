@@ -12,6 +12,7 @@ class Cadastra extends Conn
     private $tabela;
     private $dados;
     private $Result;
+    private $Commit;
 
     /** @var PDOStatement */
     private $Create;
@@ -26,11 +27,13 @@ class Cadastra extends Conn
      * @param STRING $Tabela = Informe o nome da tabela no banco!
      * @param ARRAY $Dados = Informe um array atribuitivo. <br>( Nome Da Coluna => Valor ).<br>
      * Ex.: ("nome" => "leo", "sobrenome" => "bessa").
+     * @param Bool $Commit Realizar o Commit
      */
-    public function Cadastrar($tabela, array $dados)
+    public function Cadastrar($tabela, array $dados, $Commit)
     {
         $this->tabela = (string)$tabela;
         $this->dados = $dados;
+        $this->Commit = $Commit;
 
         $this->getSyntax();
         $this->Execute();
@@ -53,12 +56,15 @@ class Cadastra extends Conn
     private function Execute()
     {
         $this->Connect();
+        if($this->Commit)
         $this->Conn->beginTransaction();
         try {
             $this->Create->execute($this->dados);
             $this->Result = $this->Conn->lastInsertId();
+            if($this->Commit)
             $this->Conn->commit();
         } catch (PDOException $e) {
+            if($this->Commit)
             $this->Conn->rollBack();
             $this->Result = null;
             Valida::Mensagem("Erro ao Cadastrar: na TABEA {$this->tabela} {$e->getMessage()}", 4);

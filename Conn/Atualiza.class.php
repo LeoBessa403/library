@@ -13,6 +13,7 @@ class Atualiza extends Conn {
     private $Termos;
     private $Places;
     private $Result;
+    private $Commit;
 
     /** @var PDOStatement */
     private $Update;
@@ -29,11 +30,13 @@ class Atualiza extends Conn {
      * @param ARRAY $Dados = [ NomeDaColuna ] => Valor ( Atribuição )
      * @param STRING $Termos = WHERE coluna = :link AND.. OR..
      * @param STRING $Valores = link={$link}&link2={$link2}
+     * @param Bool $Commit Realizar o Commit
      */
-    public function Atualizar($Tabela, array $Dados, $Termos, $Valores) {
+    public function Atualizar($Tabela, array $Dados, $Termos, $Valores, $Commit) {
         $this->Tabela = (string) $Tabela;
         $this->Dados = $Dados;
         $this->Termos = (string) $Termos;
+        $this->Commit = $Commit;
        
         // Auditoria
         if(TABELA_AUDITORIA && $this->Tabela != AcessoEntidade::TABELA):
@@ -109,6 +112,7 @@ class Atualiza extends Conn {
         try {
             $this->Update->execute(array_merge($this->Dados, $this->Places));
             $this->Result = true;
+            if($this->Commit)
             $this->Conn->commit();
         } catch (PDOException $e) {
             $this->Conn->rollBack();

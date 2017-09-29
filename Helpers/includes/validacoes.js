@@ -9,7 +9,7 @@ $(function () {
     var urlValida = home + 'library/Helpers/Valida.Controller.php';
 
     // DESLOGA USUÁRIO INATIVO DO MODULO DO SISTEMA
-    if(ambiente == 'ADMIN'){
+    if (ambiente == 'ADMIN') {
         setTimeout(function () {
             location.reload();
         }, (1001 * inativo * 60));
@@ -207,17 +207,17 @@ $(function () {
     });
     $(".cep").mask("99.999-999").keyup(function () {
         var valor = $(this).val().replace(/[^0-9-.]+/g, '');
-        var valor = valor.val().replace(/[^-.]+/g, '');
+        valor = valor.val().replace(/[^-.]+/g, '');
         $(this).val(valor);
     });
     $(".tel").mask("(99) 9999-9999?9").keyup(function () {
         var valor = $(this).val().replace(/[^0-9]+/g, '');
-        var valor = valor.val().replace(/[^()-]+/g, '');
+        valor = valor.val().replace(/[^()-]+/g, '');
         $(this).val(valor);
     });
     $(".tel0800").mask("0800-999-9999").keyup(function () {
         var valor = $(this).val().replace(/[^0-9]+/g, '');
-        var valor = valor.val().replace(/[^-]+/g, '');
+        valor = valor.val().replace(/[^-]+/g, '');
         $(this).val(valor);
     });
     $(".data").mask("99/99/9999").change(function () {
@@ -237,7 +237,7 @@ $(function () {
         }
     ).keyup(function () {
         var valor = $(this).val().replace(/[^0-9]+/g, '');
-        var valor = valor.val().replace(/[^/]+/g, '');
+        valor = valor.val().replace(/[^/]+/g, '');
         $(this).val(valor);
     });
     $(".cpf").mask("999.999.999-99").change(function () {
@@ -246,7 +246,7 @@ $(function () {
         validaCPF(cpf, id);
     }).keyup(function () {
         var valor = $(this).val().replace(/[^0-9]+/g, '');
-        var valor = valor.val().replace(/[^.-]+/g, '');
+        valor = valor.val().replace(/[^.-]+/g, '');
         $(this).val(valor);
     });
     $(".cnpj").mask("99.999.999/9999-99").change(function () {
@@ -255,7 +255,7 @@ $(function () {
         validaCNPJ(cnpj, id);
     }).keyup(function () {
         var valor = $(this).val().replace(/[^0-9]+/g, '');
-        var valor = valor.val().replace(/[^/.-]+/g, '');
+        valor = valor.val().replace(/[^/.-]+/g, '');
         $(this).val(valor);
     });
     $(".email").change(function () {
@@ -277,11 +277,11 @@ $(function () {
         var tecla = (window.event) ? event.keyCode : e.which;
         if ((tecla > 47 && tecla < 58))
             return true;
+        else if (tecla == 8 || tecla == 0) {
+            return true;
+        }
         else {
-            if (tecla == 8 || tecla == 0)
-                return true;
-            else
-                return false;
+            return false;
         }
     }).keyup(function () {
         var valor = $(this).val().replace(/[^0-9]+/g, '');
@@ -300,7 +300,7 @@ $(function () {
         }
     }).keyup(function () {
         var valor = $(this).val().replace(/[^0-9]+/g, '');
-        var valor = valor.val().replace(/[^,.]+/g, '');
+        valor = valor.val().replace(/[^,.]+/g, '');
         $(this).val(valor);
     });
 
@@ -381,11 +381,11 @@ $(function () {
                 Funcoes.Sucesso("A exclusão do registro Foi realizada com Sucesso!");
                 $("#registro-" + id).hide();
             } else if (retorno != "") {
-                if(msg){
+                if (msg) {
                     $.get(urlValida, {valida: 'msg_valida', msg: msg}, function (retorno) {
                         Funcoes.Alerta("Não foi possível a exclusão do registro.<br><br>" + retorno);
                     });
-                }else{
+                } else {
                     Funcoes.Alerta("Não foi possível a exclusão do registro.");
                 }
             } else {

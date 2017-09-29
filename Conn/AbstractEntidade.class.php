@@ -14,6 +14,7 @@ class AbstractEntidade
 
     public function getDados($dados, $entidade)
     {
+        $ccamposRetiraMascara = [NU_TEL1, NU_TEL2, NU_TEL3, NU_TEL4, NU_CPF, NU_CEP, NU_CNPJ];
         $resultado = array();
         $campos = $entidade::getCampos();
         foreach ($campos as $campo) {
@@ -21,7 +22,12 @@ class AbstractEntidade
             if ($campo == DT_CADASTRO) {
                 $resultado[$campo] = Valida::DataHoraAtualBanco();
             }
-
+            if (strstr($campo, 'co_')) {
+                unset($resultado[$campo]);
+            }
+            if (in_array($campo, $ccamposRetiraMascara)) {
+                $resultado[$campo] = Valida::RetiraMascara($resultado[$campo]);
+            }
         }
         return $resultado;
     }

@@ -6,6 +6,17 @@ class AbstractService extends AbstractModel
     {
         parent::__construct($Entidade);
     }
+
+    public function getService($service)
+    {
+        return new $service();
+    }
+
+    public function getTransaction()
+    {
+        $Conn = new Cadastra();
+        return $Conn->Connect();
+    }
     
     public function getDados($dados, $entidade)
     {

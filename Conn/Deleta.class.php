@@ -12,7 +12,6 @@ class Deleta extends Conn {
     private $Termos;
     private $Places;
     private $Result;
-    private $Commit;
 
     /** @var PDOStatement */
     private $Delete;
@@ -25,12 +24,10 @@ class Deleta extends Conn {
      * @param STRING $Tabela = Nome da tabela
      * @param STRING $Termos = WHERE | ORDER
      * @param STRING $Valores = link={$link}&link2={$link2}
-     * @param Bool $Commit Realizar o Commit
      */
-    public function Deletar($Tabela, $Termos, $Valores = null, $Commit) {
+    public function Deletar($Tabela, $Termos, $Valores = null) {
         $this->Tabela = (string) $Tabela;
         $this->Termos = (string) $Termos;
-        $this->Commit = $Commit;
         
          // Auditoria
         if(TABELA_AUDITORIA):
@@ -99,7 +96,6 @@ class Deleta extends Conn {
         try {
             $this->Delete->execute($this->Places);
             $this->Result = true;
-            if($this->Commit)
             $this->Conn->commit();
         } catch (PDOException $e) {
             $this->Conn->rollBack();

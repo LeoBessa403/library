@@ -75,7 +75,7 @@ function __autoload($Class)
     foreach ($pastas as $pasta):
         foreach ($rotas as $rota):
             $arquivos = array(
-                $rota . $pasta . '/' . $Class . '.'. $pasta .'.php',
+                $rota . $pasta . '/' . $Class . '.' . $pasta . '.php',
                 $rota . $pasta . '/' . $Class . '.class.php',
                 $rota . $pasta . '/' . $Class . '.php',
             );
@@ -151,4 +151,15 @@ function debug($array, $Exit = false)
                 </script>';
         exit;
     endif;
+}
+
+/**
+ * Carrega os JS das View respectivas
+ */
+function carregaJs($urlAmigavel)
+{
+    $arquivo = '/js/includes/' . $urlAmigavel::$controller . '/' . $urlAmigavel::$action . '.js';
+    if (file_exists(ADMIN . $arquivo)) {
+        echo '<script src="' . PASTAADMIN . $arquivo . '"></script>';
+    }
 }

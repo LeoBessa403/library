@@ -30,22 +30,6 @@ class Valida
     }
 
     /**
-     * <b>RecebiVariavel:</b> Executa validação de formato de e-mail. Se for um email válido retorna true, ou retorna false.
-     */
-    public static function RecebiVariavel($campos, $dados)
-    {
-        $campos = explode(",", $campos);
-        foreach ($campos as $campo):
-            if (isset($dados[$campo])):
-                if ($dados[$campo]):
-                    $result[$campo] = $dados[$campo];
-                endif;
-            endif;
-        endforeach;
-        return $result;
-    }
-
-    /**
      * <b>Verifica CPF:</b> Executa validação CPF
      * @param STRING $cpf = Número de CPF.
      * @return BOOL = 1 para CPF válido, ou 2 para false.
@@ -193,6 +177,18 @@ class Valida
     }
 
     /**
+     * Verifica se uma data é valida
+     *
+     * @param DateTime $value d/m/Y
+     * @return boolean
+     */
+    public static function dataValida($value)
+    {
+        list($dia, $mes, $ano) = explode('/', $value);
+        return checkdate($mes, $dia, $ano);
+    }
+
+    /**
      * <b>Tranforma Data pro formato de apresentação em Tela:</b> Transforma uma data no formato TIMESTAMP em uma data no formato d/m/Y!
      * @param STRING $data = Data em (d/m/Y) ou (d/m/Y H:i:s)
      * @param STRING $formato = formato da data para apresentação = ex.: (d/m/Y H:i:s) ou (d/m/Y H:i) ou (d/m/Y), valor padrão (d/m/Y H:i)
@@ -206,8 +202,9 @@ class Valida
         if (empty(self::$Format[1])):
             self::$Format[1] = date('H:i:s');
         endif;
-
-        ($formato ? $formato = $formato : $formato = "d/m/Y");
+        if (!$formato):
+            $formato = "d/m/Y";
+        endif;
 
         self::$Data = self::$Data[2] . '-' . self::$Data[1] . '-' . self::$Data[0] . ' ' . self::$Format[1];
         self::$Data = date($formato, strtotime(self::$Data));
@@ -216,7 +213,7 @@ class Valida
 
     /**
      * <b>DATA ATUAL</b>
-     * @return DATE = $Data = Data Atual no Formato ('d/m/Y H:i:s')!
+     * @return DateTime = $Data = Data Atual no Formato ('d/m/Y H:i:s')!
      */
     public static function DataAtual($formato = 'd/m/Y H:i:s')
     {

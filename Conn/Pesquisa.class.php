@@ -26,6 +26,7 @@ class Pesquisa extends Conn
      * @param STRING $Tabela = Nome da tabela
      * @param STRING $Termos = WHERE | ORDER | LIMIT :limit | OFFSET :offset
      * @param STRING $Valores = variavel={$valor}&variavel2={$valor2}
+     * @param STRING $Campos = variavel={$valor}&variavel2={$valor2}
      */
     public function Pesquisar($Tabela, $Termos = null, $Valores = null, $Campos = null)
     {

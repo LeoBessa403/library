@@ -9,46 +9,37 @@ class AbstractModel
         $this->Entidade = $Entidade;
     }
 
-    public function Salva(array $dados, $codigo = null, $commit = null)
+    public function Salva(array $dados, $codigo = null)
     {
         $Entidade = $this->Entidade;
         if (!$codigo) {
             $cadastro = new Cadastra();
-            $cadastro->Cadastrar($Entidade::TABELA, $dados, $commit);
+            $cadastro->Cadastrar($Entidade::TABELA, $dados);
             return $cadastro->getUltimoIdInserido();
         } else {
             $atualiza = new Atualiza();
             $atualiza->Atualizar(
-                $Entidade::TABELA,
-                $dados,
-                "where " . $Entidade::CHAVE . " = :codigo",
-                "codigo={$codigo}",
-                $commit
+                $Entidade::TABELA, $dados, "where " . $Entidade::CHAVE . " = :codigo", "codigo={$codigo}"
             );
             return $atualiza->getResult();
         }
     }
 
-    public function Deleta($codigo, $commit = null)
+    public function Deleta($codigo)
     {
         $Entidade = $this->Entidade;
         $deleta = new Deleta();
-        $deleta->Deletar(
-            $Entidade::TABELA,
-            "where " . $Entidade::CHAVE . " = :codigo",
-            "codigo={$codigo}",
-            $commit
-        );
+        $deleta->Deletar($Entidade::TABELA, "where " . $Entidade::CHAVE . " = :codigo", "codigo={$codigo}");
         return $deleta->getResult();
     }
 
-    public function DeletaQuando(array $Condicoes, $commit = null)
+    public function DeletaQuando(array $Condicoes)
     {
         $Entidade = $this->Entidade;
         $deleta = new Deleta();
         $pesquisa = new Pesquisa();
         $where = $pesquisa->getClausula($Condicoes);
-        $deleta->Deletar($Entidade::TABELA, $where, null, $commit);
+        $deleta->Deletar($Entidade::TABELA, $where);
         return $deleta->getResult();
     }
 
@@ -92,6 +83,7 @@ class AbstractModel
         $metodoGetChave = $this->getMetodo($Entidade::CHAVE);
         $CoRegistro = $obj->$metodoGetChave();
         foreach ($Entidade::getRelacionamentos() as $indice => $result) {
+            $pesquisando = array();
             if (!in_array($indice, $Entidade::getCampos())) {
                 $metodo = $this->getMetodo($indice, false);
                 $metodoGet = $this->getMetodo($indice);
@@ -133,8 +125,18 @@ class AbstractModel
             } else {
                 $novoMetodo = $this->getMetodo($obj::CHAVE);
                 $todos = null;
-                if(count($obj->$novoMetodo())){
-                    $todos = $this->PesquisaTodosNv1($campo['Entidade'], $campo['Campo'], $obj->$novoMetodo());
+                if (count($obj->$novoMetodo())) {
+                    if (is_array($obj->$novoMetodo())) {
+                        $indece = 0;
+                        foreach ($obj->$novoMetodo() as $novoRegistro) {
+                            $todos[$indece] = $this->PesquisaTodosNv1(
+                                $campo['Entidade'], $campo['Campo'], $novoRegistro->$novoMetodo()
+                            );
+                            $indece++;
+                        }
+                    } else {
+                        $todos = $this->PesquisaTodosNv1($campo['Entidade'], $campo['Campo'], $obj->$novoMetodo());
+                    }
                 }
                 $obj->$metodoSet($todos);
                 $this->PesquisaTodosNv3($obj, $obj2);
@@ -172,13 +174,15 @@ class AbstractModel
                 if (is_array($obj->$metodoGet())) {
                     $indece = 0;
                     foreach ($obj->$metodoGet() as $novoRegistro) {
-                        if ($novoRegistro->$metodoGet2()) {
-                            $dados4 = $this->PesquisaUmRegistroNv3(
-                                $novoRegistro->$metodoGet2(), $obj3::ENTIDADE
-                            );
-                            $metodoSet2 = $this->getMetodo($obj3::CHAVE, false);
-                            $obj->$metodoGet()[$indece]->$metodoSet2($dados4);
-                            $indece++;
+                        if (count($novoRegistro)) {
+                            if ($novoRegistro->$metodoGet2()) {
+                                $dados4 = $this->PesquisaUmRegistroNv3(
+                                    $novoRegistro->$metodoGet2(), $obj3::ENTIDADE
+                                );
+                                $metodoSet2 = $this->getMetodo($obj3::CHAVE, false);
+                                $obj->$metodoGet()[$indece]->$metodoSet2($dados4);
+                                $indece++;
+                            }
                         }
                     }
                 } else {
@@ -193,7 +197,9 @@ class AbstractModel
                     }
                 }
             } else {
-                if ($obj->$metodoGet()) {
+                if (is_array($obj->$metodoGet())) {
+
+                } elseif ($obj->$metodoGet()) {
                     if ($obj->$metodoGet()->$metodoGet2()) {
                         $dados3 = $this->PesquisaUmRegistroNv3(
                             $obj->$metodoGet()->$metodoGet2(), $obj3::ENTIDADE

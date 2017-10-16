@@ -14,7 +14,7 @@ class AbstractEntidade
 
     public function getDados($dados, $entidade)
     {
-        $ccamposRetiraMascara = [NU_TEL1, NU_TEL2, NU_TEL3, NU_TEL4, NU_CPF, NU_CEP, NU_CNPJ];
+        $camposRetiraMascara = [NU_TEL1, NU_TEL2, NU_TEL3, NU_TEL4, NU_CPF, NU_CEP, NU_CNPJ];
         $resultado = array();
         $campos = $entidade::getCampos();
         foreach ($campos as $campo) {
@@ -25,7 +25,10 @@ class AbstractEntidade
             if (strstr($campo, 'co_')) {
                 unset($resultado[$campo]);
             }
-            if (in_array($campo, $ccamposRetiraMascara)) {
+            if (strstr($campo, 'ds_')) {
+                $resultado[$campo] = (!empty($resultado[$campo])) ? trim($resultado[$campo]) : null;
+            }
+            if (in_array($campo, $camposRetiraMascara)) {
                 $resultado[$campo] = Valida::RetiraMascara($resultado[$campo]);
             }
         }

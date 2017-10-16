@@ -126,7 +126,7 @@ function Redireciona($local)
 
 /**
  * <b>Usado para fazer Debug</b>
- * @param QUALQUER TIPO $array = Array a ser apresentado
+ * @param $array = Array a ser apresentado
  * @return STRING = Print_r($array).
  */
 function debug($array, $Exit = false)
@@ -142,13 +142,13 @@ function debug($array, $Exit = false)
 
     echo "</pre>"
         . "</fieldset><br />";
-    if (!$Exit):
         echo '<script src="' . INCLUDES . 'jquery-2.0.3.js"></script>
                 <script type="text/javascript">
                         $(function() {
                             $(".navbar-content").hide();
                         });
                 </script>';
+    if (!$Exit):
         exit;
     endif;
 }

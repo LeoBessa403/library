@@ -127,6 +127,7 @@ function Redireciona($local)
 /**
  * <b>Usado para fazer Debug</b>
  * @param $array = Array a ser apresentado
+ * @param $Exit = Array a ser apresentado
  * @return STRING = Print_r($array).
  */
 function debug($array, $Exit = false)
@@ -155,6 +156,7 @@ function debug($array, $Exit = false)
 
 /**
  * Carrega os JS das View respectivas
+ * @param $urlAmigavel UrlAmigavel
  */
 function carregaJs($urlAmigavel)
 {

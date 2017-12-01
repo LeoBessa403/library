@@ -391,7 +391,7 @@ class Valida
                 /** @var FuncionalidadeEntidade $funcionalidade */
                 $funcionalidade = $funcionalidadeModel->PesquisaUmQuando($data);
 
-                if (!empty($funcionalidades)):
+                if (!empty($funcionalidades) && !empty($funcionalidade)):
                     if (in_array($funcionalidade->getCoFuncionalidade(), $funcionalidades)):
                         return true;
                     endif;

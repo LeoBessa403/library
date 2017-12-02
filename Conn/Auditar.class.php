@@ -69,17 +69,20 @@ class Auditar extends Conn {
                 $pesquisa->Pesquisar($tabela, $termos, $valores);
                 $result2 = $pesquisa->getResult();
                 $id_item = "";
-                foreach ($result2[0] as $key => $value) {
-                    if(in_array($key, $chaves))
-                    $id_item .= $value.",";
+                if(!empty($result2[0])){
+                    foreach ($result2[0] as $key => $value) {
+                        if(in_array($key, $chaves))
+                            $id_item .= $value.",";
+                    }
                 }
-                $tamanho  = strlen($id_item);        
+                $tamanho  = strlen($id_item);
                 $id_item  = substr($id_item,0,$tamanho-1);
-
-                foreach ($result2[0] as $key => $value) {
-                    $item_anterior .= $key."==".$value.";/";
-                }
-                $tamanho        = strlen($item_anterior);        
+               if(!empty($result2[0])){
+                   foreach ($result2[0] as $key => $value) {
+                       $item_anterior .= $key."==".$value.";/";
+                   }
+               }
+                $tamanho        = strlen($item_anterior);
                 $item_anterior  = substr($item_anterior,0,$tamanho-2);  
                 
                 foreach ($dados as $key => $value) {

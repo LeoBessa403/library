@@ -315,12 +315,10 @@ $(function () {
         if (obrigatorios == true) {
             if (validacao == "error") {
                 Funcoes.Alerta("Existe(em) campo(s) com erro, favor verificar!");
-                irAoTopo();
                 return false;
             }
         } else {
             Funcoes.Informativo("Existe(em) campo(s) obrigatório(s) em branco, favor verificar!");
-            irAoTopo();
             return false;
         }
     });

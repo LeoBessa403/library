@@ -14,7 +14,7 @@ class AbstractEntidade
 
     public function getDados($dados, $entidade)
     {
-        $camposRetiraMascara = [NU_TEL1, NU_TEL2, NU_TEL3, NU_CPF, NU_CEP];
+        $camposRetiraMascara = [NU_TEL1, NU_TEL2, NU_TEL3, NU_CPF, NU_CEP, NU_TEL_RESPONSAVEL];
         $resultado = array();
         $campos = $entidade::getCampos();
         foreach ($campos as $campo) {

@@ -29,7 +29,7 @@ class AbstractEntidade
                 $resultado[$campo] = (!empty($resultado[$campo])) ? trim($resultado[$campo]) : null;
             }
             if (in_array($campo, $camposRetiraMascara)) {
-                $resultado[$campo] = Valida::RetiraMascara($resultado[$campo]);
+                $resultado[$campo] = trim(Valida::RetiraMascara($resultado[$campo]));
             }
         }
         return $resultado;

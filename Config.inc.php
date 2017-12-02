@@ -116,11 +116,7 @@ function PHPErro($ErrNo, $ErrMsg, $ErrFile, $ErrLine)
  */
 function Redireciona($local)
 {
-    if (!headers_sent()) {
-        foreach (headers_list() as $header)
-            header_remove($header);
-    }
-    header("Location: " . HOME . $local);
+    echo "<script>location.href='".HOME . $local."';</script>";
     exit();
 }
 

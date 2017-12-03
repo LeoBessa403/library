@@ -77,7 +77,7 @@ class UrlAmigavel
 
 
         if (self::$modulo != SITE && self::$modulo != ADMIN):
-            self::$modulo = "web";
+            self::$modulo = SITE;
             self::$controller = "IndexWeb";
             self::$action = "Index";
             $erro_404 = true;

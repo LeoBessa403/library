@@ -271,21 +271,19 @@ class UrlAmigavel
             foreach (self::$explode as $val) {
                 if ($i % 2 == 0) {
                     $ind[] = $val;
+                } else {
+                    $value[] = $val;
                 }
+                $i++;
+            }
+        } else {
+            $ind = array();
+            $value = array();
+        }
+        if (count($ind) == count($value) && !empty($ind) && !empty($value))
+            self::$params = array_combine($ind, $value);
+        else
+            self::$params = array();
 
-else {
-    $value[] = $val;
-}
-$i++;
-}
-} else {
-    $ind = array();
-    $value = array();
-}
-if (count($ind) == count($value) && !empty($ind) && !empty($value))
-    self::$params = array_combine($ind, $value);
-else
-    self::$params = array();
-
-}
+    }
 }

@@ -61,7 +61,7 @@ class Cadastra extends Conn
         } catch (PDOException $e) {
             $this->Conn->rollBack();
             $this->Result = null;
-            Valida::Mensagem("Erro ao Cadastrar: na TABEA {$this->tabela} {$e->getMessage()}", 4);
+            Valida::Mensagem("Erro ao Cadastrar: na TABELA {$this->tabela} {$e->getMessage()}", 4);
         }
     }
 

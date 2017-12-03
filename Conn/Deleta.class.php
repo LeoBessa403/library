@@ -100,7 +100,7 @@ class Deleta extends Conn {
         } catch (PDOException $e) {
             $this->Conn->rollBack();
             $this->Result = null;
-           echo "Erro ao Deletar na TABEA {$this->Tabela}: {$e->getMessage()}";
+           echo "Erro ao Deletar na TABELA {$this->Tabela}: {$e->getMessage()}";
         }
     }
 

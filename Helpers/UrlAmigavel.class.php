@@ -202,7 +202,7 @@ class UrlAmigavel
                                     </a>
                                  </li>';
                         endif;
-                endif;
+                    endif;
                     $cout++;
                 }
                 echo '</ul>
@@ -249,14 +249,18 @@ class UrlAmigavel
         unset(self::$explode[0], self::$explode[1], self::$explode[2]);
         array_pop(self::$explode);
 
-        if (end(self::$explode) == null){
+        if (end(self::$explode) == null) {
             array_pop(self::$explode);
         }
 
         if (!empty(self::$explode[3])):
             self::$explode = base64_decode(self::$explode[3]);
             self::$explode = explode("/", self::$explode);
-            self::$explode[1] = base64_decode(self::$explode[1]);
+            if (!empty(self::$explode[1])) {
+                self::$explode[1] = base64_decode(self::$explode[1]);
+            } else {
+                self::$explode[1] = null;
+            }
         endif;
 
 
@@ -267,19 +271,21 @@ class UrlAmigavel
             foreach (self::$explode as $val) {
                 if ($i % 2 == 0) {
                     $ind[] = $val;
-                } else {
-                    $value[] = $val;
                 }
-                $i++;
-            }
-        } else {
-            $ind = array();
-            $value = array();
-        }
-        if (count($ind) == count($value) && !empty($ind) && !empty($value))
-            self::$params = array_combine($ind, $value);
-        else
-            self::$params = array();
 
-    }
+else {
+    $value[] = $val;
+}
+$i++;
+}
+} else {
+    $ind = array();
+    $value = array();
+}
+if (count($ind) == count($value) && !empty($ind) && !empty($value))
+    self::$params = array_combine($ind, $value);
+else
+    self::$params = array();
+
+}
 }

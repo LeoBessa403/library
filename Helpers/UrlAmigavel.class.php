@@ -77,7 +77,7 @@ class UrlAmigavel
 
 
         if (self::$modulo != SITE && self::$modulo != ADMIN):
-            self::$modulo = SITE;
+            self::$modulo = 'web';
             self::$controller = "IndexWeb";
             self::$action = "Index";
             $erro_404 = true;
@@ -97,7 +97,7 @@ class UrlAmigavel
             $erro_404 = true;
         endif;
 
-        $controller_path = self::$modulo . "/Controller/" . self::$controller . '.Controller.php';
+        $controller_path =  self::$modulo . "/Controller/" . self::$controller . '.Controller.php';
 
         if (!file_exists($controller_path)):
             $controller_path = "Controller/" . self::$controller . '.Controller.php';
@@ -125,7 +125,7 @@ class UrlAmigavel
         extract((array)$app);
 
         if ($erro_404):
-            $module = (self::$modulo == SITE) ? 'Web' : '';
+            $module = (self::$modulo == SITE) ? 'web' : '';
             $arquivo_include = 'View/Index' . $module . '/' . ERRO_404 . '.View.php';
             $action = ERRO_404;
         else:

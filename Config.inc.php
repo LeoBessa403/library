@@ -1,7 +1,7 @@
 <?php
 //Inicia a Sessão
 // Pasta do arquivos do site
-define('SITE', 'Web');
+define('SITE', 'web');
 // Pasta dos arquivos da Admiistração
 define('ADMIN', 'admin');
 session_start();

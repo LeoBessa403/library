@@ -434,6 +434,10 @@ $(function () {
         $("#carregando .cancelar").click();
     });
 
+    if($("#sumir").hasClass('alert')){
+        irAoTopo();
+    }
+
     //Função de subir a página ao topo
     function irAoTopo() {
         $("html, body").animate({

@@ -370,9 +370,11 @@ class  {$Entidade}Model extends AbstractModel
  */
 class  {$Entidade}Service extends AbstractService
 {\n
+    private \$ObjetoModel;\n\n
     public function __construct()
     {
         parent::__construct({$Entidade}Entidade::ENTIDADE);
+        \$this->ObjetoModel = New {$Entidade}Model();
     }\n\n
 }";
         $this->saveService($ArquivoService, $Entidade);

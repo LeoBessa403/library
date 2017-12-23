@@ -201,8 +201,8 @@ class AbstractModel
 
                 } elseif ($obj->$metodoGet()) {
                     if ($obj->$metodoGet()->$metodoGet2()) {
-                        $dados3 = $this->PesquisaUmRegistroNv3(
-                            $obj->$metodoGet()->$metodoGet2(), $obj3::ENTIDADE
+                        $dados3 = $this->PesquisaTodosNv4(
+                            $obj->$metodoGet()->$metodoGet(), $obj3::ENTIDADE, $obj2
                         );
                         $metodoSet2 = $this->getMetodo($obj3::CHAVE, false);
                         $obj->$metodoGet()->$metodoSet2($dados3);
@@ -275,6 +275,24 @@ class AbstractModel
             $obj = $this->PesquisaInclusaoRelacionamento($Entidade, $obj);
             $obj = $this->PesquisaTodosNv2($obj);
             $dados[] = $obj;
+        }
+        return $dados;
+    }
+
+    private function PesquisaTodosNv4($Codigo, $Entidade, $obj2)
+    {
+        $pesquisa = new Pesquisa();
+        $pesquisa->Pesquisar($Entidade::TABELA, "where " . $obj2::CHAVE . " = :id ", "id={$Codigo}");
+        $dados = [];
+        if ($pesquisa->getResult()) {
+            foreach ($pesquisa->getResult() as $registro) {
+                $obj = new $Entidade();
+                foreach ($Entidade::getCampos() as $campo) {
+                    $metodo = $this->getMetodo($campo, false);
+                    $obj->$metodo($registro[$campo]);
+                }
+                $dados[] = $obj;
+            }
         }
         return $dados;
     }

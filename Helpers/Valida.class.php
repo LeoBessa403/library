@@ -13,8 +13,9 @@ class Valida
     private static $Format;
 
     /**
-     * <b>Verifica E-mail:</b> Executa validação de formato de e-mail. Se for um email válido retorna true, ou retorna false.
-     * @param STRING $Email = Uma conta de e-mail
+     * <b>Verifica E-mail:</b> Executa validação de formato de e-mail. Se for um email válido retorna true,
+     * ou retorna false.
+     * @param STRING $email = Uma conta de e-mail
      * @return BOOL = 1 para True em um email válido, ou 2 para false
      */
     public static function ValEmail($email)
@@ -110,13 +111,16 @@ class Valida
     /**
      * <b>Mensagem:</b> função para gerar mensagens do sistema
      * @param STRING $msg : Mensagem a ser apresentada
-     * @param INT $typo : atribui a classe para ser estilizada <br>(1 - Sucesso, ok / 2 - Informativo / <br>3 - Alerta / 4 - Erro).
+     * @param INT $typo : atribui a classe para ser estilizada <br>(1 - Sucesso, ok / 2 - Informativo /
+     * <br>3 - Alerta / 4 - Erro).
      */
     public static function Mensagem($msg, $typo, $termina = null)
     {
         $class = ($typo == 1 ? "success" : ($typo == 2 ? "info" : ($typo == 3 ? "warning" : "danger")));
         $label = ($typo == 1 ? "SUCESSO" : ($typo == 2 ? "INFORMATIVO" : ($typo == 3 ? "ALERTA" : "ERRO")));
-        $icon = ($typo == 1 ? "check-circle" : ($typo == 2 ? "info-circle" : ($typo == 3 ? "exclamation-triangle" : "times-circle")));
+        $icon = ($typo == 1 ? "check-circle" : ($typo == 2 ? "info-circle" :
+            ($typo == 3 ? "exclamation-triangle" : "times-circle"))
+        );
 
         echo '<div id="sumir" class="alert alert-' . $class . '" style="padding-left: 30px;">
                 <p data-dismiss="alert" class="close">
@@ -132,7 +136,8 @@ class Valida
     }
 
     /**
-     * <b>Tranforma Data pro formato do Banco:</b> Transforma uma data no formato DD/MM/YY em uma data no formato TIMESTAMP!
+     * <b>Tranforma Data pro formato do Banco:</b> Transforma uma data no formato DD/MM/YY em
+     * uma data no formato TIMESTAMP!
      * @param STRING $data = Data em (d/m/Y) ou (d/m/Y H:i:s)
      * @return STRING = $Data = Data no formato timestamp!
      */
@@ -150,7 +155,8 @@ class Valida
     }
 
     /**
-     * <b>Tranforma Data pro formato do Banco DATE:</b> Transforma uma data no formato DD/MM/YY em uma data no formato TIMESTAMP!
+     * <b>Tranforma Data pro formato do Banco DATE:</b> Transforma uma data no formato DD/MM/YY
+     * em uma data no formato TIMESTAMP!
      * @param STRING $data = Data em (d/m/Y)
      * @return STRING = $Data = Data no formato timestamp!
      */
@@ -163,9 +169,8 @@ class Valida
     }
 
     /**
-     * <b>Tranforma Data pro formato do Banco:</b> Transforma uma data no formato DD/MM/YY em uma data no formato TIMESTAMP!
-     * @param STRING $data = Data em (d/m/Y) ou (d/m/Y H:i:s)
-     * @return STRING = $Data = Data no formato timestamp!
+     * @param $link
+     * @return string
      */
     public static function GeraParametro($link)
     {
@@ -189,9 +194,11 @@ class Valida
     }
 
     /**
-     * <b>Tranforma Data pro formato de apresentação em Tela:</b> Transforma uma data no formato TIMESTAMP em uma data no formato d/m/Y!
+     * <b>Tranforma Data pro formato de apresentação em Tela:</b> Transforma
+     * uma data no formato TIMESTAMP em uma data no formato d/m/Y!
      * @param STRING $data = Data em (d/m/Y) ou (d/m/Y H:i:s)
-     * @param STRING $formato = formato da data para apresentação = ex.: (d/m/Y H:i:s) ou (d/m/Y H:i) ou (d/m/Y), valor padrão (d/m/Y H:i)
+     * @param STRING $formato = formato da data para apresentação =
+     * ex.: (d/m/Y H:i:s) ou (d/m/Y H:i) ou (d/m/Y), valor padrão (d/m/Y H:i)
      * @return STRING = $Data = Data no formato escolhido!
      */
     public static function DataShow($data, $formato = NULL)
@@ -213,6 +220,7 @@ class Valida
 
     /**
      * <b>DATA ATUAL</b>
+     * @param $formato
      * @return DateTime = $Data = Data Atual no Formato ('d/m/Y H:i:s')!
      */
     public static function DataAtual($formato = 'd/m/Y H:i:s')
@@ -222,6 +230,7 @@ class Valida
 
     /**
      * <b>DATA ATUAL BANCO</b>
+     * @param $formato
      * @return STRING = $Data = Data Atual no Formato Para o Banco ('Y-m-d H:i:s')!
      */
     public static function DataAtualBanco($formato = 'Y-m-d')
@@ -231,6 +240,7 @@ class Valida
 
     /**
      * <b>DATA HORA ATUAL BANCO</b>
+     * @param $formato
      * @return STRING = $Data = Data Atual no Formato Para o Banco ('Y-m-d H:i:s')!
      */
     public static function DataHoraAtualBanco($formato = 'Y-m-d H:i:s')
@@ -243,6 +253,7 @@ class Valida
      * @param STRING $data = Data em (d/m/Y)
      * @param INT $diferenca = Diferença de dias entre as Datas
      * @param STRING $operacao = Operação de Soma (+) ou Subtração (-)
+     * @return Date
      */
     public static function CalculaData($data, $diferenca, $operacao)
     {
@@ -281,26 +292,27 @@ class Valida
 
     /**
      * <b>Resumi:</b> Limita a quantidade de caracteres a serem exibidas em uma string!
-     * @param STRING $String = Uma string qualquer
+     * @param STRING $palavra = Uma string qualquer
      * @param INT $Limite = Quantidade de caracteres que limita uma string
      * @return STRING $String = Uma string limitado com o limite concatenada com (...)
      */
-    public static function Resumi($string, $Limite)
+    public static function Resumi($palavra, $Limite)
     {
-        self::$Data = strip_tags(trim($string));
+        self::$Data = strip_tags(trim($palavra));
         self::$Format = (int)$Limite;
 
-        $count = strlen($string);
+        $count = strlen($palavra);
         if ($count <= self::$Format):
-            return $string;
+            return $palavra;
         else:
-            $strpos = strrpos(substr($string, 0, self::$Format), ' ');
-            return substr($string, 0, $strpos) . ' ...';
+            $strpos = strrpos(substr($palavra, 0, self::$Format), ' ');
+            return substr($palavra, 0, $strpos) . ' ...';
         endif;
     }
 
     /**
-     * <b>Pega Miniatura da Imagem:</b> Ao executar este HELPER, ele automaticamente verifica a existencia da imagem na pasta
+     * <b>Pega Miniatura da Imagem:</b> Ao executar este HELPER, ele automaticamente verifica
+     * a existencia da imagem na pasta
      * uploads. Se existir retorna a imagem redimensionada!
      * @return HTML = imagem redimencionada!
      */
@@ -323,6 +335,7 @@ class Valida
      * Formata para o valor moeda de apresentação.
      * @param FLOAT $valor = Valor a ser convertido.
      * @param STRING $simbolo = Simbolo a ser usado antes do valor ex.: (R$, U$).
+     * @return Miniimagem
      */
     public static function FormataMoeda($valor, $simbolo = null)
     {
@@ -345,7 +358,8 @@ class Valida
 
     /**
      * <b>Valida se o o usuário está logado no sistema:</b> Verifica se existe a Session do usuário apos o login.
-     * Caso não exista a Session ele será Redirecionada para a tela de login "Definida nas configurações do sistema de Login!".
+     * Caso não exista a Session ele será Redirecionada para a tela de login "Definida nas configurações
+     * do sistema de Login!".
      * Retornando com o Parâmetro erro = restrito;
      */
     public static function ValLogin()
@@ -357,6 +371,10 @@ class Valida
         endif;
     }
 
+    /**
+     * @param $action
+     * @return bool
+     */
     public static function ValPerfil($action)
     {
         if (Session::CheckSession(SESSION_USER)):
@@ -401,6 +419,13 @@ class Valida
         return false;
     }
 
+    /**
+     * @param $tmp
+     * @param $name
+     * @param $nome_foto
+     * @param $width
+     * @return string
+     */
     public static function Redimenciona($tmp, $name, $nome_foto, $width)
     {
         $ext = strtolower(substr($name, -3));
@@ -467,12 +492,21 @@ class Valida
         return strtolower(utf8_encode(self::$Data));
     }
 
+    /**
+     * @param $string
+     * @return mixed
+     */
     public static function MascaraCpf($string)
     {
         $cpf = self::MascaraString('###.###.###-##', $string);
         return $cpf;
     }
 
+    /**
+     * @param $mascara
+     * @param $string
+     * @return mixed
+     */
     public static function MascaraString($mascara, $string)
     {
         $string = self::RetiraMascara($string);
@@ -483,24 +517,40 @@ class Valida
         return $mascara;
     }
 
+    /**
+     * @param $valor
+     * @return mixed
+     */
     public static function RetiraMascara($valor)
     {
         $valor = str_replace(array(".", ",", "/", "-", " ", "(", ")"), "", $valor);
         return $valor;
     }
 
+    /**
+     * @param $string
+     * @return mixed
+     */
     public static function MascaraCnpj($string)
     {
         $cnpj = self::MascaraString('##.###.###/####-##', $string);
         return $cnpj;
     }
 
+    /**
+     * @param $string
+     * @return mixed
+     */
     public static function MascaraCep($string)
     {
         $cep = self::MascaraString('##.###-###', $string);
         return $cep;
     }
 
+    /**
+     * @param $string
+     * @return mixed|null
+     */
     public static function MascaraTel($string)
     {
         $string = self::RetiraMascara($string);

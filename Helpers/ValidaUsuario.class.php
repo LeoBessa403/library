@@ -7,7 +7,7 @@
 class ValidaUsuario extends AbstractController
 {
 
-    function __construct()
+    public function validacao()
     {
         $url = (isset($_GET['url']) && $_GET['url'] != "" ? $_GET['url'] : "");
         $explode = explode('/', $url);
@@ -27,7 +27,8 @@ class ValidaUsuario extends AbstractController
             endif;
         else:
             /** @var AcessoService $AcessoSevice */
-            $AcessoSevice = $this->getService(ACESSO_SERVICE);
+            $AcessoSevice = static::getService(ACESSO_SERVICE);
+            debug($AcessoSevice);
             $us = $_SESSION[SESSION_USER];
             /** @var Session $us */
             $user = $us->getUser();

@@ -27,13 +27,12 @@ class ValidaUsuario extends AbstractController
             endif;
         else:
             /** @var AcessoService $AcessoSevice */
-            $AcessoSevice = static::getService(ACESSO_SERVICE);
-            debug($AcessoSevice);
+            $AcessoSevice = $this->getService(ACESSO_SERVICE);
             $us = $_SESSION[SESSION_USER];
             /** @var Session $us */
             $user = $us->getUser();
             $coUsuario = $user[md5(CO_USUARIO)];
-            $acessoService->finalizaAcessos();
+            $AcessoSevice->finalizaAcessos();
 
             if (isset($explode[3]) && $explode[3] == "desloga"):
                 $AcessoSevice->terminaAcesso($coUsuario);

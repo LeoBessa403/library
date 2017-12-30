@@ -363,7 +363,8 @@ class  {$Entidade}Model extends AbstractModel
 
     private function geraService($Entidade)
     {
-        $ArquivoService = "<?php\n
+        if($Entidade = 'Acesso'){
+            $ArquivoService = "<?php\n
 /**
  * {$Entidade}Service.class [ SEVICE ]
  * @copyright (c) " . date('Y') . ", Leo Bessa
@@ -377,7 +378,8 @@ class  {$Entidade}Service extends AbstractService
         \$this->ObjetoModel = New {$Entidade}Model();
     }\n\n
 }";
-        $this->saveService($ArquivoService, $Entidade);
+            $this->saveService($ArquivoService, $Entidade);
+        }
     }
 
     protected function saveService($ArquivoService, $Entidade)

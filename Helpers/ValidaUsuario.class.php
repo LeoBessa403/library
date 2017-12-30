@@ -32,7 +32,6 @@ class ValidaUsuario extends AbstractController
             /** @var Session $us */
             $user = $us->getUser();
             $coUsuario = $user[md5(CO_USUARIO)];
-            $AcessoSevice->finalizaAcessos();
 
             if (isset($explode[3]) && $explode[3] == "desloga"):
                 $AcessoSevice->terminaAcesso($coUsuario);

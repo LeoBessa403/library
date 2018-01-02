@@ -69,6 +69,10 @@ $(function () {
             } else {
                 validaOK(id, "Data válida!");
             }
+        }else {
+            $('#' + id).parent(".form-group").removeClass('has-success, has-error');
+            $('.' + id).parent(".form-group").removeClass('has-success, has-error');
+            $('span#' + id + '-info').text('');
         }
     }
 
@@ -220,6 +224,38 @@ $(function () {
         valor = valor.val().replace(/[^-]+/g, '');
         $(this).val(valor);
     });
+
+    ///// VERIFICA INTERVALO DE DATAS
+    function gerarData(str) {
+        var partes = str.split("/");
+        return new Date(partes[2], partes[1] - 1, partes[0]);
+    }
+
+    function verificarIntervaloDatas(id) {
+        var inicio = $(".dt1").val();
+        var fim = $(".dt2").val();
+        if(fim && inicio){
+            if (gerarData(fim) < gerarData(inicio)){
+                var id1 = $(".dt1").attr('id');
+                var id2 = $(".dt2").attr('id');
+                $('#' + id1).val('');
+                $('#' + id2).val('');
+                $('#' + id1).parent(".form-group").removeClass('has-success');
+                $('#' + id2).parent(".form-group").removeClass('has-success');
+                $('.' + id1).parent(".form-group").removeClass('has-success');
+                $('.' + id2).parent(".form-group").removeClass('has-success');
+                $('span#' + id1 + '-info').text('');
+                $('span#' + id2 + '-info').text('');
+                Funcoes.Alerta("A data inicial é maior que a data final");
+            }
+        }
+    }
+
+    $(".dt1, .dt2").change(function () {
+        var id = $(this).attr("id");
+        verificarIntervaloDatas(id);
+    });
+
     $(".data").mask("99/99/9999").change(function () {
         var data = $(this).val();
         var id = $(this).attr("id");

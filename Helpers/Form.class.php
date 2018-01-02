@@ -163,20 +163,20 @@ class Form
         return $this;
     }
 
-//    /**
-//     * <b>setStylo:</b> Atribui os Stylo (CSS) para o input
-//     * @param ARRAY $stylo. define propriedade de CSS para stylo (Propriedade: Atributo) 
-//     * Ex.: array ('border' => '1px solid red', 'color' => 'black')
-//     */
-//    public function setStylo(array $stylo) { 
-//        if (!empty($stylo)):             
-//            foreach ($stylo as $key => $value) {
-//                self::$style .= "$key: $value; ";
-//            }
-//        endif;
-//        return $this;        
-//    }
-//    
+    /**
+     * <b>setStylo:</b> Atribui os Stylo (CSS) para o input
+     * @param ARRAY $stylo. define propriedade de CSS para stylo (Propriedade: Atributo)
+     * Ex.: array ('border' => '1px solid red', 'color' => 'black')
+     */
+    public function setStylo(array $stylo) {
+        if (!empty($stylo)):
+            foreach ($stylo as $key => $value) {
+                self::$style .= "$key: $value; ";
+            }
+        endif;
+        return $this;
+    }
+
     /**
      * <b>setId:</b> Pega no banco de dados os registros para o autocomplete.
      * @param STRING $tabela : nome da tabela a ser consultada.
@@ -454,7 +454,7 @@ class Form
                     endif;
                 endif;
                 //CAMPO TIPO TEXT
-                self::$form .= '<input type="' . self::$type . '"' . self::$place . ' class="form-control ' . self::$classes . '" id="' . self::$id . '" name="' . self::$id . '" value="' . $valor . '"/>';
+                self::$form .= '<input type="' . self::$type . '" stylo="' . self::$style . '"'. self::$place . ' class="form-control ' . self::$classes . '" id="' . self::$id . '" name="' . self::$id . '" value="' . $valor . '"/>';
             endif;
 
             // VERIFICA SE TEM ÍCONE

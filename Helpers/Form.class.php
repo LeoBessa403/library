@@ -560,7 +560,7 @@ class Form
     {
         self::$form = '<form action="' . HOME . self::$action . '" role="form" id="' . self::$idForm . '" name="' .
             self::$idForm . '" method="post"  enctype="multipart/form-data" class="formulario">                                                         
-                            <div class="col-md-12">' .
+                            <div class="col-md-12" style="z-index: 1000000;">' .
             self::$form
             . '</div>
                                 <button data-style="zoom-out" class="btn btn-success ladda-button" type="submit" value="' .

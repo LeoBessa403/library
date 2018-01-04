@@ -363,7 +363,7 @@ class  {$Entidade}Model extends AbstractModel
 
     private function geraService($Entidade)
     {
-        if($Entidade = 'Acesso'){
+        if($Entidade != 'Acesso'){
             $ArquivoService = "<?php\n
 /**
  * {$Entidade}Service.class [ SEVICE ]

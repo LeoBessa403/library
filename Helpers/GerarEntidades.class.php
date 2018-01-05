@@ -181,7 +181,7 @@ class Relacionamentos
  */\n
 class {$Entidade}Entidade extends AbstractEntidade
 {
-\tconst TABELA = '{$table}';
+\tconst TABELA = '".strtoupper($table)."';
 \tconst ENTIDADE = '{$Entidade}Entidade';
 \tconst CHAVE = " . strtoupper($chave_primaria) . ";\n\n";
 

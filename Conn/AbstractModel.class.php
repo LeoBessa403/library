@@ -169,7 +169,7 @@ class AbstractModel
         foreach ($campos as $campo) {
             $obj3 = new $campo['Entidade']();
             $metodoGet = $this->getMetodo($obj2::CHAVE);
-            $metodoGet2 = $this->getMetodo($obj3::CHAVE);
+            $metodoGet2 = $this->getMetodo($campo['Campo']);
             if ($campo['Tipo'] == 1) {
                 if (is_array($obj->$metodoGet())) {
                     $indece = 0;
@@ -179,7 +179,7 @@ class AbstractModel
                                 $dados4 = $this->PesquisaUmRegistroNv3(
                                     $novoRegistro->$metodoGet2(), $obj3::ENTIDADE
                                 );
-                                $metodoSet2 = $this->getMetodo($obj3::CHAVE, false);
+                                $metodoSet2 = $this->getMetodo($campo['Campo'], false);
                                 $obj->$metodoGet()[$indece]->$metodoSet2($dados4);
                                 $indece++;
                             }
@@ -191,7 +191,7 @@ class AbstractModel
                             $dados3 = $this->PesquisaUmRegistroNv3(
                                 $obj->$metodoGet()->$metodoGet2(), $obj3::ENTIDADE
                             );
-                            $metodoSet2 = $this->getMetodo($obj3::CHAVE, false);
+                            $metodoSet2 = $this->getMetodo($campo['Campo'], false);
                             $obj->$metodoGet()->$metodoSet2($dados3);
                         }
                     }
@@ -202,7 +202,7 @@ class AbstractModel
                         $dados3 = $this->PesquisaTodosNv4(
                             $obj->$metodoGet()->$metodoGet(), $obj3::ENTIDADE, $obj2
                         );
-                        $metodoSet2 = $this->getMetodo($obj3::CHAVE, false);
+                        $metodoSet2 = $this->getMetodo($campo['Campo'], false);
                         $obj->$metodoGet()->$metodoSet2($dados3);
                     }
                 }

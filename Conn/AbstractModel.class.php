@@ -142,7 +142,6 @@ class AbstractModel
                 $this->PesquisaTodosNv3($obj, $obj2);
             }
         }
-        debug($obj);
         return $obj;
     }
 
@@ -198,9 +197,7 @@ class AbstractModel
                     }
                 }
             } else {
-                if (is_array($obj->$metodoGet())) {
-
-                } elseif ($obj->$metodoGet()) {
+                if ($obj->$metodoGet()) {
                     if ($obj->$metodoGet()->$metodoGet2()) {
                         $dados3 = $this->PesquisaTodosNv4(
                             $obj->$metodoGet()->$metodoGet(), $obj3::ENTIDADE, $obj2
@@ -234,7 +231,7 @@ class AbstractModel
     {
         $pesquisa = new Pesquisa();
         $pesquisa->Pesquisar($Entidade::TABELA, 'where ' . $ChaveExtrangeira . ' = ' . $codigo);
-        $dados = array();
+        $dados = null;
         foreach ($pesquisa->getResult() as $entidade) {
             $obj = new $Entidade();
             foreach ($Entidade::getCampos() as $campo) {

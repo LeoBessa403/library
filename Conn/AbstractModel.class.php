@@ -272,7 +272,6 @@ class AbstractModel
             }
             $obj = $this->PesquisaInclusaoRelacionamento($Entidade, $obj);
             $obj = $this->PesquisaTodosNv2($obj);
-            debug($obj);
             $dados[] = $obj;
         }
         return $dados;

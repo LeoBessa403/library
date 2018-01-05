@@ -181,7 +181,7 @@ class Relacionamentos
  */\n
 class {$Entidade}Entidade extends AbstractEntidade
 {
-\tconst TABELA = '".strtoupper($table)."';
+\tconst TABELA = '" . strtoupper($table) . "';
 \tconst ENTIDADE = '{$Entidade}Entidade';
 \tconst CHAVE = " . strtoupper($chave_primaria) . ";\n\n";
 
@@ -195,16 +195,18 @@ class {$Entidade}Entidade extends AbstractEntidade
         $ArquivoEntidade .= "\t/**
      * @return array
      */\n";
-        $ArquivoEntidade .= "\tpublic static function getCampos() {
+        $ArquivoEntidade .= "\tpublic static function getCampos() 
+        {
     \treturn [\n";
         foreach ($colunas as $coluna) {
             $ArquivoEntidade .= "\t\t\t" . strtoupper($coluna) . ",\n";
         }
         $ArquivoEntidade .= "\t\t];
     }\n\n";
-        $ArquivoEntidade .= "\t/**\n\t* @return \$relacionamentos
+        $ArquivoEntidade .= "\t/**\n\t* @return array \$relacionamentos
      */\n";
-        $ArquivoEntidade .= "\tpublic static function getRelacionamentos() {
+        $ArquivoEntidade .= "\tpublic static function getRelacionamentos() 
+        {
     \t\$relacionamentos = Relacionamentos::getRelacionamentos();\n\t\treturn \$relacionamentos[static::TABELA];\n\t}\n";
         $ArquivoEntidade .= "\n\n";
         foreach ($colunas as $coluna) {
@@ -213,6 +215,8 @@ class {$Entidade}Entidade extends AbstractEntidade
 
             if (strstr($coluna, 'co_') && $coluna != $chave_primaria) {
                 $ArquivoEntidade .= "\t* @return " . $this->getEntidade($coluna) . "Entidade \$$coluna";
+            } elseif ($coluna == $chave_primaria) {
+                $ArquivoEntidade .= "\t* @return int \$$coluna";
             } else {
                 $ArquivoEntidade .= "\t* @return \$$coluna";
             }
@@ -363,7 +367,7 @@ class  {$Entidade}Model extends AbstractModel
 
     private function geraService($Entidade)
     {
-        if($Entidade != 'Acesso'){
+        if ($Entidade != 'Acesso') {
             $ArquivoService = "<?php\n
 /**
  * {$Entidade}Service.class [ SEVICE ]

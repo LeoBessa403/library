@@ -191,7 +191,7 @@ class AbstractModel
                             $dados3 = $this->PesquisaUmRegistroNv3(
                                 $obj->$metodoGet()->$metodoGet2(), $obj3::ENTIDADE
                             );
-                            $metodoSet2 = $this->getMetodo($campo['Campo'], false);
+                            $metodoSet2 = $this->getMetodo($obj3::CHAVE, false);
                             $obj->$metodoGet()->$metodoSet2($dados3);
                         }
                     }
@@ -202,7 +202,7 @@ class AbstractModel
                         $dados3 = $this->PesquisaTodosNv4(
                             $obj->$metodoGet()->$metodoGet(), $obj3::ENTIDADE, $obj2
                         );
-                        $metodoSet2 = $this->getMetodo($campo['Campo'], false);
+                        $metodoSet2 = $this->getMetodo($obj3::CHAVE, false);
                         $obj->$metodoGet()->$metodoSet2($dados3);
                     }
                 }

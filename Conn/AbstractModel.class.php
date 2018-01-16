@@ -262,6 +262,7 @@ class AbstractModel
         $Entidade = $this->Entidade;
         $pesquisa = new Pesquisa();
         $where = $pesquisa->getClausula($Condicoes);
+        $where = $where. " ORDER BY " . $Entidade::CHAVE." DESC";
         $pesquisa->Pesquisar($Entidade::TABELA, $where);
         $dados = array();
         foreach ($pesquisa->getResult() as $entidade) {

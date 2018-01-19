@@ -59,8 +59,11 @@ class Grid {
     }
     
     
-    public function criaLinha($id_linha) {
-        echo '<tr id="registro-'.$id_linha.'" class="linha-tabela">';
+    public function criaLinha($id_linha,$destaque = null) {
+        if($destaque){
+            $destaque = 'style="background : #ffcccc;"';
+        }
+        echo '<tr id="registro-'.$id_linha.'" class="linha-tabela" '.$destaque.'>';
         echo self::$td;
         echo '</tr>';
         self::$td = "";

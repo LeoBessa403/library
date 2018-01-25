@@ -323,6 +323,7 @@ $(function () {
     });
     $(".numero").keypress(function (e) {
         var tecla = (window.event) ? event.keyCode : e.which;
+        alert(tecla);
         if ((tecla > 47 && tecla < 58))
             return true;
         else if (tecla == 8 || tecla == 0) {

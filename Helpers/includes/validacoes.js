@@ -70,9 +70,7 @@ $(function () {
                 validaOK(id, "Data válida!");
             }
         }else {
-            $('#' + id).parent(".form-group").removeClass('has-success, has-error');
-            $('.' + id).parent(".form-group").removeClass('has-success, has-error');
-            $('span#' + id + '-info').text('');
+           tiraValidacao(id);
         }
     }
 
@@ -85,6 +83,8 @@ $(function () {
                     validaOK(id, "CPF válido!");
                 }
             });
+        }else{
+            tiraValidacao(id);
         }
     }
 
@@ -97,6 +97,8 @@ $(function () {
                     validaOK(id, "E-mail válido!");
                 }
             });
+        }else{
+            tiraValidacao(id);
         }
     }
 
@@ -109,6 +111,8 @@ $(function () {
                     validaOK(id, "CNPJ válido!");
                 }
             });
+        }else{
+            tiraValidacao(id);
         }
     }
 
@@ -182,6 +186,13 @@ $(function () {
         $('#' + id).parent(".form-group").addClass('has-success').removeClass('has-error');
         $('.' + id).parent(".form-group").addClass('has-success').removeClass('has-error');
         $('span#' + id + '-info').text(msg).prepend('<i class="fa clip-checkmark-circle-2"></i> ');
+        return true;
+    }
+
+    function tiraValidacao(id) {
+        $('#' + id).parent(".form-group").removeClass('has-success').removeClass('has-error');
+        $('.' + id).parent(".form-group").removeClass('has-success').removeClass('has-error');
+        $('span#' + id + '-info').text(".");
         return true;
     }
 

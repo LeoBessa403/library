@@ -131,27 +131,5 @@ class Modal {
         </div>';
         echo '<a data-toggle="modal" role="button" href="#foto_cliente" id="fotos"></a>';
     }
-    
-    public static function PesquisaAvancada() {
-        $apps = new UrlAmigavel::$controller(); 
-        echo '<div class="modal fade pesquisando in modal-overflow" id="pesquisaAvancada" tabindex="-1" role="dialog" aria-hidden="false">
-                    <div class="modal-header btn-light-grey" style="width: 100%;">
-                            <h4 class="modal-title">Pesquisa Avançada</h4>
-                    </div>
-                    <div class="modal-body">';
-                                $action = UrlAmigavel::$action."PesquisaAvancada";
-                                $apps->$action();
-                  echo '</div>
-                    <div class="modal-footer">
-                    </div>
-                </div>
-            
-                    <div class="col-md-12 space10">
-                        <a  style="margin-left: 10px;" data-toggle="modal" class="btn btn-primary tooltips pull-right" role="button" href="#pesquisaAvancada" id="pesquisando" data-original-title="Pesquisa Avançada" data-placement="left">
-                            <i class="clip-tree"></i>
-                        </a>
-                        ';
-    }
-    
-    
+
 }

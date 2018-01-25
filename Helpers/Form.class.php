@@ -560,7 +560,7 @@ class Form
     {
         self::$form = '<form action="' . HOME . self::$action . '" role="form" id="' . self::$idForm . '" name="' .
             self::$idForm . '" method="post"  enctype="multipart/form-data" class="formulario">                                                         
-                            <div class="col-md-12" style="z-index: 1000000;">' .
+                            <div class="col-md-12">' .
             self::$form
             . '</div>
                                 <button data-style="zoom-out" class="btn btn-success ladda-button" type="submit" value="' .
@@ -573,9 +573,6 @@ class Form
                                     <span class="ladda-label"> Limpar </span>
                                     <i class="fa fa-ban"></i>
                                     <span class="ladda-spinner"></span>
-                                </button>
-                                <button aria-hidden="true" data-dismiss="modal" class="btn btn-light-grey cancelar">
-                                        Fechar
                                 </button>
                         </form>';
 

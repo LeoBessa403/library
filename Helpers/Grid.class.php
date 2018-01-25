@@ -27,20 +27,26 @@ class Grid {
         return $this;
     }
     
-    private function pesquisaAvancada() {
-        $apps = new UrlAmigavel::$controller(); 
-        $pesquisa = false;
+    public function pesquisaAvancada() {
+        $apps = new UrlAmigavel::$controller();
+        $action = UrlAmigavel::$action."PesquisaAvancada";
+        echo '<div class="row">';
+        echo '<div class="col-md-6"> 
+                <div class="panel panel-box">
+                        <div class="panel-body">';
+        if( method_exists($apps, $action) ):
+            $apps->$action();
+        endif;
+        echo '</div></div></div>';
+        echo '</div><hr>';
+    }
+
+    private function gerarBtnExportar() {
+        $apps = new UrlAmigavel::$controller();
         $exporta = false;
         echo '<div class="row">';
-        if( method_exists($apps, UrlAmigavel::$action."PesquisaAvancada") ):
-            Modal::PesquisaAvancada();
-            $pesquisa = true;
-        endif;                    
-        if( method_exists($apps,"Exportar".UrlAmigavel::$action) ):    
-                if(!$pesquisa):  
-                    echo '<div class="col-md-12 space10">';
-                endif;
-         echo  '
+        if( method_exists($apps,"Exportar".UrlAmigavel::$action) ):
+         echo  '<div class="col-md-12 space10">
                 <a role="button" class="btn btn-success tooltips pull-right" id="excel" 
                    href="'.PASTAADMIN.UrlAmigavel::$controller.'/Exportar'.UrlAmigavel::$action.'/'.Valida::GeraParametro('formato/excel').'" data-original-title="Exportar para Excel" data-placement="left">
                      Excel <i class="clip-file-excel"></i>
@@ -49,13 +55,13 @@ class Grid {
                    href="'.PASTAADMIN.UrlAmigavel::$controller.'/Exportar'.UrlAmigavel::$action.'/'.Valida::GeraParametro('formato/pdf').'" data-original-title="Exportar para PDF" data-placement="left">
                      PDF <i class="clip-file-pdf"></i>
                 </a>
-                ';  
+                ';
             $exporta = true;
-        endif;     
-        if($pesquisa || $exporta):  
+        endif;
+        if($exporta):
             echo '</div>';
         endif;
-        echo '</div>';    
+        echo '</div>';
     }
     
     
@@ -72,7 +78,7 @@ class Grid {
     
     
     public function criaGrid($id = 1) {
-        $this->pesquisaAvancada();
+        $this->gerarBtnExportar();
         echo '<div class="table-responsive">
                 <table class="table table-striped table-bordered table-hover table-full-width" id="sample_'.$id.'">
                 <thead>

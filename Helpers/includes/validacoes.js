@@ -294,6 +294,7 @@ $(function () {
     }).keyup(function () {
         var valor = $(this).val().replace(/[^0-9]+/g, '');
         valor = valor.val().replace(/[^.-]+/g, '');
+        alert(valor);
         $(this).val(valor);
     });
     $(".cnpj").mask("99.999.999/9999-99").change(function () {

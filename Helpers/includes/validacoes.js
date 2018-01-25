@@ -293,8 +293,7 @@ $(function () {
         validaCPF(cpf, id);
     }).keyup(function () {
         var valor = $(this).val().replace(/[^0-9]+/g, '');
-        // valor = valor.val().replace(/[^.-]+/g, '');
-        // alert(valor);
+        valor = valor.val().replace(/[^.-]+/g, '');
         $(this).val(valor);
     });
     $(".cnpj").mask("99.999.999/9999-99").change(function () {
@@ -323,7 +322,6 @@ $(function () {
     });
     $(".numero").keypress(function (e) {
         var tecla = (window.event) ? event.keyCode : e.which;
-        alert(tecla);
         if ((tecla > 47 && tecla < 58))
             return true;
         else if (tecla == 8 || tecla == 0) {

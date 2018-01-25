@@ -27,17 +27,17 @@ class Grid {
         return $this;
     }
     
-    public function pesquisaAvancada() {
+    public function pesquisaAvancada($titulo = 'Pesquisar') {
         $apps = new UrlAmigavel::$controller();
         $action = UrlAmigavel::$action."PesquisaAvancada";
         echo '<div class="row">';
         echo '<div class="col-md-6"> 
-                <div class="panel panel-box">
-                        <div class="panel-body">';
+                <div class="panel panel-box" style="padding: 0 0 15px 15px; margin-top: 0;">
+                        <h2><small>'.$titulo.'</small></h2>';
         if( method_exists($apps, $action) ):
             $apps->$action();
         endif;
-        echo '</div></div></div>';
+        echo '</div></div>';
         echo '</div><hr>';
     }
 

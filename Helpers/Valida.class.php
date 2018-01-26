@@ -372,10 +372,11 @@ class Valida
     }
 
     /**
+     * @param $act
      * @param $action
      * @return bool
      */
-    public static function ValPerfil($action)
+    public static function ValPerfil($act ,$action = null)
     {
         if (Session::CheckSession(SESSION_USER)):
             if (Session::getSession(SESSION_USER, CAMPO_PERFIL)):
@@ -394,8 +395,11 @@ class Valida
                 if (in_array(1, $perfis)):
                     return true;
                 endif;
+//                if($action == null){
+//                    return false;
+//                }
                 $perfilFuncionalidade = new PerfilFuncionalidadeModel();
-                $dados['co_perfil'] = $meusPerfis;
+                $dados[CO_PERFIL] = $meusPerfis;
                 $meusPerfis = $perfilFuncionalidade->PesquisaTodos($dados);
 
                 $funcionalidades = array();
@@ -405,7 +409,7 @@ class Valida
                 }
 
                 $funcionalidadeModel = new FuncionalidadeModel();
-                $data['ds_rota'] = $action;
+                $data[CO_FUNCIONALIDADE] = $act;
                 /** @var FuncionalidadeEntidade $funcionalidade */
                 $funcionalidade = $funcionalidadeModel->PesquisaUmQuando($data);
 

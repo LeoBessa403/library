@@ -68,7 +68,8 @@ class UrlAmigavel
     {
         $erro_404 = false;
         if (self::$modulo != SITE && self::$action != "Index" && self::$controller != "Index"):
-            if (!Valida::ValPerfil(self::$action)):
+            $ac = $this->setActionPermissao(self::$action);
+            if (!Valida::ValPerfil($ac, self::$action)):
                 self::$action = "Index";
                 self::$controller = "Index";
                 $erro_404 = true;
@@ -113,7 +114,8 @@ class UrlAmigavel
 
         if (self::$modulo == ADMIN):
             // VALIDAÇÃO POR PERFIL REFAZER PRA NOVA ENTIDADE
-            if (!Valida::ValPerfil(self::$action) && !in_array(self::$action, self::$ACESSO_PERMITIDO)) :
+            $act = $this->setActionPermissao(self::$action);
+            if (!Valida::ValPerfil($act, self::$action) && !in_array(self::$action, self::$ACESSO_PERMITIDO)) :
                 self::$action = "Index";
                 $erro_404 = true;
             endif;
@@ -166,14 +168,14 @@ class UrlAmigavel
                                    <span class="title"> SITE </span><span class="selected"></span>
                            </a>
                    </li>';
-
         foreach ($menu as $key => $value) {
             $montando[$key] = $value;
             $tem = false;
             $controle = 0;
             foreach ($montando[$key] as $res) :
                 if ($controle > 0):
-                    if (Valida::ValPerfil($res)) :
+                    $ac = $this->setActionPermissao($res);
+                    if (Valida::ValPerfil($ac, $res)) :
                         $tem = true;
                     endif;
                 endif;
@@ -195,7 +197,8 @@ class UrlAmigavel
                 foreach ($montando[$key] as $result) {
                     if ($cout > 0):
                         $titulo_menu = str_replace($titulo[0], "", $result);
-                        if (Valida::ValPerfil($result)):
+                        $act = $this->setActionPermissao($result);
+                        if (Valida::ValPerfil($act, $result)):
                             echo '<li>
                                     <a href="' . PASTAADMIN . $titulo[0] . '/' . $result . '">
                                             <span class="title"> ' . $titulo_menu . ' </span>
@@ -242,6 +245,17 @@ class UrlAmigavel
     {
         $ac = (!isset(self::$explode[2]) || self::$explode[2] == null || self::$explode[2] == 'Index' ? 'Index' : self::$explode[2]);
         self::$action = $ac;
+    }
+
+    private static function setActionPermissao($ac)
+    {
+        $actions = PermissaoAcessoEnum::$actions;
+        foreach ($actions as $cons => $action){
+            if($ac == $action){
+                return $cons;
+            }
+        }
+        return null;
     }
 
     private static function setParams()

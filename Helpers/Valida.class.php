@@ -395,9 +395,6 @@ class Valida
                 if (in_array(1, $perfis)):
                     return true;
                 endif;
-//                if($action == null){
-//                    return false;
-//                }
                 $perfilFuncionalidade = new PerfilFuncionalidadeModel();
                 $dados[CO_PERFIL] = $meusPerfis;
                 $meusPerfis = $perfilFuncionalidade->PesquisaTodos($dados);

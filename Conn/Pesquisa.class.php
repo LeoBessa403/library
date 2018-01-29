@@ -74,40 +74,67 @@ class Pesquisa extends Conn
         $pesquisa = array();
         foreach ($dados as $key => $value) {
             if (!empty($dados[$key])):
-                $tipo = explode(".", $key);
-                if (count($tipo) > 1):
-                    $tipo = strtolower(substr($tipo[1], 0, 2));
-                else:
-                    $tipo = strtolower(substr($tipo[0], 0, 2));
-                endif;
                 if ($value):
-                    switch ($tipo) {
-                        case 'st':
-                            $pesquisa[] = $key . " in ('" . $value . "')";
-                            break;
-                        case 'tp':
-                            $pesquisa[] = $key . " in ('" . $value . "')";
-                            break;
-                        case 'dt':
-                            $pesquisa[] = $key . " = '" . $value . "'";
-                            break;
-                        case 'co':
-                            $pesquisa[] = $key . " in (" . $value . ")";
-                            break;
-                        case 'sg':
-                            $pesquisa[] = $key . " in (" . $value . ")";
-                            break;
-                        case 'no':
-                            $pesquisa[] = $key . " like '%" . $value . "%'";
-                            break;
-                        case 'ds':
-                            $pesquisa[] = $key . " like '%" . $value . "%'";
-                            break;
-                        case 'nu':
-                            $pesquisa[] = $key . " like '%" . $value . "%'";
-                            break;
-                        default:
-                            break;
+                    $operador = explode("#", $key);
+                    $tipo = explode(".", $operador[0]);
+                    if (count($tipo) > 1):
+                        $tipo = strtolower(substr($tipo[1], 0, 2));
+                    else:
+                        $tipo = strtolower(substr($tipo[0], 0, 2));
+                    endif;
+                    if(!empty($operador[1])){
+                        switch ($operador[1]) {
+                            case 'in':
+                                if($tipo == 'st' || $tipo == 'tp'){
+                                    $pesquisa[] = $operador[0] . " in ('" . $value . "')";
+                                }elseif($tipo == 'co' || $tipo == 'sg'){
+                                    $pesquisa[] = $operador[0] . " in (" . $value . ")";
+                                }
+                                break;
+                            case '=':
+                                $pesquisa[] = $operador[0] . " = '" . $value . "'";
+                                break;
+                            case 'like':
+                                $pesquisa[] = $operador[0] . " like '%" . $value . "%'";
+                                break;
+                            case '>=':
+                                $pesquisa[] = $operador[0] . " >= '" . $value . "'";
+                                break;
+                            case '<=':
+                                $pesquisa[] = $operador[0] . " <= '" . $value . "'";
+                                break;
+                            default:
+                                break;
+                        }
+                    }else{
+                        switch ($tipo) {
+                            case 'st':
+                                $pesquisa[] = $key . " in ('" . $value . "')";
+                                break;
+                            case 'tp':
+                                $pesquisa[] = $key . " in ('" . $value . "')";
+                                break;
+                            case 'dt':
+                                $pesquisa[] = $key . " = '" . $value . "'";
+                                break;
+                            case 'co':
+                                $pesquisa[] = $key . " in (" . $value . ")";
+                                break;
+                            case 'sg':
+                                $pesquisa[] = $key . " in (" . $value . ")";
+                                break;
+                            case 'no':
+                                $pesquisa[] = $key . " like '%" . $value . "%'";
+                                break;
+                            case 'ds':
+                                $pesquisa[] = $key . " like '%" . $value . "%'";
+                                break;
+                            case 'nu':
+                                $pesquisa[] = $key . " like '%" . $value . "%'";
+                                break;
+                            default:
+                                break;
+                        }
                     }
                 endif;
             endif;

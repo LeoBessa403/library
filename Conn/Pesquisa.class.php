@@ -94,6 +94,9 @@ class Pesquisa extends Conn
                             case '=':
                                 $pesquisa[] = $operador[0] . " = '" . $value . "'";
                                 break;
+                            case '<>':
+                                $pesquisa[] = $operador[0] . " <> '" . $value . "'";
+                                break;
                             case 'like':
                                 $pesquisa[] = $operador[0] . " like '%" . $value . "%'";
                                 break;

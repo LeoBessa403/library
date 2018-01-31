@@ -123,7 +123,7 @@ class Valida
         );
 
         echo '<div id="sumir" class="alert alert-' . $class . '" style="padding-left: 30px;">
-                <p data-dismiss="alert" class="close">
+                <p data-dismiss="alert" class="close" style="margin-top: 0;">
                         &times;
                 </p>
                 <i class="fa fa-' . $icon . '"></i>                

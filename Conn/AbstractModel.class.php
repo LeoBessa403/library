@@ -9,6 +9,12 @@ class AbstractModel
         $this->Entidade = $Entidade;
     }
 
+    /** Retorna um objeto PDO Singleton Pattern. */
+    public function getPDO() {
+        $ObjetoPDO = NEW ObjetoPDO();
+        return $ObjetoPDO::$ObjetoPDO;
+    }
+
     public function Salva(array $dados, $codigo = null)
     {
         $Entidade = $this->Entidade;

@@ -53,15 +53,13 @@ class Cadastra extends Conn
     private function Execute()
     {
         $this->Connect();
-        $this->Conn->beginTransaction();
         try {
             $this->Create->execute($this->dados);
             $this->Result = $this->Conn->lastInsertId();
-            $this->Conn->commit();
         } catch (PDOException $e) {
-            $this->Conn->rollBack();
             $this->Result = null;
-            Valida::Mensagem("Erro ao Cadastrar: na TABELA {$this->tabela} {$e->getMessage()}", 4);
+            if (DESENVOLVEDOR)
+                Valida::Mensagem("Erro ao Cadastrar: na TABELA {$this->tabela} {$e->getMessage()}", 4);
         }
     }
 
@@ -74,11 +72,12 @@ class Cadastra extends Conn
 
     private function Connect()
     {
-        $this->Conn = parent::getConn();
+        $this->Conn = ObjetoPDO::$ObjetoPDO;
+        if (!$this->Conn) {
+            $this->Conn = parent::getConn();
+        }
         $this->Create = $this->Conn->prepare($this->Create);
     }
-
-    //Cria a sintaxe da query para Prepared Statements
 
     /**
      * <b>Obtem o resultado:</b> Retorna o ID do registro inserido ou FALSE caso nem um registro seja inserido!

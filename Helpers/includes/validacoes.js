@@ -69,8 +69,8 @@ $(function () {
             } else {
                 validaOK(id, "Data válida!");
             }
-        }else {
-           tiraValidacao(id);
+        } else {
+            tiraValidacao(id);
         }
     }
 
@@ -83,7 +83,7 @@ $(function () {
                     validaOK(id, "CPF válido!");
                 }
             });
-        }else{
+        } else {
             tiraValidacao(id);
         }
     }
@@ -97,7 +97,7 @@ $(function () {
                     validaOK(id, "E-mail válido!");
                 }
             });
-        }else{
+        } else {
             tiraValidacao(id);
         }
     }
@@ -111,7 +111,7 @@ $(function () {
                     validaOK(id, "CNPJ válido!");
                 }
             });
-        }else{
+        } else {
             tiraValidacao(id);
         }
     }
@@ -227,6 +227,13 @@ $(function () {
     });
     $(".tel").mask("(99) 9999-9999?9").keyup(function () {
         var valor = $(this).val().replace(/[^0-9]+/g, '');
+        if (valor.length == 11) {
+            $(this).unmask();
+            $(this).mask("(99) 99999-999?9");
+        }else if (valor.length == 10){
+            $(this).unmask();
+            $(this).mask("(99) 9999-9999?9");
+        }
         valor = valor.val().replace(/[^()-]+/g, '');
         $(this).val(valor);
     });
@@ -245,8 +252,8 @@ $(function () {
     function verificarIntervaloDatas(id) {
         var inicio = $(".dt1").val();
         var fim = $(".dt2").val();
-        if(fim && inicio){
-            if (gerarData(fim) < gerarData(inicio)){
+        if (fim && inicio) {
+            if (gerarData(fim) < gerarData(inicio)) {
                 var id1 = $(".dt1").attr('id');
                 var id2 = $(".dt2").attr('id');
                 $('#' + id1).val('');
@@ -481,7 +488,7 @@ $(function () {
         $("#carregando .cancelar").click();
     });
 
-    if($("#sumir").hasClass('alert')){
+    if ($("#sumir").hasClass('alert')) {
         irAoTopo();
     }
 

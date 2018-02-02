@@ -196,6 +196,16 @@ $(function () {
         return true;
     }
 
+    function mascaraTel(element, valor) {
+        if (valor.length == 11) {
+            element.unmask();
+            element.mask("(99) 99999-999?9");
+        } else if (valor.length == 10) {
+            element.unmask();
+            element.mask("(99) 9999-9999?9");
+        }
+    }
+
     // MASCARAS
 
     // Somente letras maiúsculas, minúsculas, espaço e acentos
@@ -227,13 +237,7 @@ $(function () {
     });
     $(".tel").mask("(99) 9999-9999?9").keyup(function () {
         var valor = $(this).val().replace(/[^0-9]+/g, '');
-        if (valor.length == 11) {
-            $(this).unmask();
-            $(this).mask("(99) 99999-999?9");
-        }else if (valor.length == 10){
-            $(this).unmask();
-            $(this).mask("(99) 9999-9999?9");
-        }
+        mascaraTel($(this), valor);
         valor = valor.val().replace(/[^()-]+/g, '');
         $(this).val(valor);
     });
@@ -241,6 +245,13 @@ $(function () {
         var valor = $(this).val().replace(/[^0-9]+/g, '');
         valor = valor.val().replace(/[^-]+/g, '');
         $(this).val(valor);
+    });
+
+    $(".tel").each(function () {
+        var valor = $(this).val().replace(/[^0-9]+/g, '');
+        mascaraTel($(this), valor);
+        $(this).val(valor);
+        $(this).focus();
     });
 
     ///// VERIFICA INTERVALO DE DATAS

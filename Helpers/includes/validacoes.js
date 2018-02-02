@@ -444,7 +444,7 @@ $(function () {
 
             if (retorno == true) {
                 Funcoes.Sucesso("A exclusão do registro Foi realizada com Sucesso!");
-                $("#registro-" + id).hide();
+                window.setTimeout('location.reload()', 5000);
             } else if (retorno != "") {
                 if (msg) {
                     $.get(urlValida, {valida: 'msg_valida', msg: msg}, function (retorno) {

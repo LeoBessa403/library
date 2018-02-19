@@ -330,13 +330,13 @@ class  {$Entidade}Model extends AbstractModel
     {
         if (!$this->constantes) {
 
-            $ArquivoConstante = "<?php\n
+            $ArquivoConstante = "<?php \n
 /**
  * Constantes.class [ HELPER ]
  * Classe responável por manipular e validade dados do sistema!
  *
  * @copyright (c) " . date('Y') . ", Leo Bessa
- */\n";
+ */ \n";
             foreach ($constantes as $indice => $res) {
                 $ArquivoConstante .= "\tdefine('" . $indice . "', '" . $res . "');\n";
             }

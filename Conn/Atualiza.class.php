@@ -29,9 +29,9 @@ class Atualiza extends Conn
      * @param ARRAY $Dados = [ NomeDaColuna ] => Valor ( Atribuição )
      * @param STRING $Termos = WHERE coluna = :link AND.. OR..
      * @param STRING $Valores = link={$link}&link2={$link2}
-     * @param Bool $Commit Realizar o Commit
+     * @param STRING $co_registro = Código do Registro
      */
-    public function Atualizar($Tabela, array $Dados, $Termos, $Valores, $codigo)
+    public function Atualizar($Tabela, array $Dados, $Termos, $Valores, $co_registro)
     {
         $this->Tabela = (string)$Tabela;
         $this->Dados = $Dados;
@@ -40,7 +40,7 @@ class Atualiza extends Conn
         // Auditoria
         if (TABELA_AUDITORIA && $this->Tabela != AcessoEntidade::TABELA):
             $auditoria = new Auditar();
-            $auditoria->Audita($this->Tabela, $this->Dados, AuditoriaEnum::UPDATE, $codigo, $Termos, $Valores);
+            $auditoria->Audita($this->Tabela, $this->Dados, AuditoriaEnum::UPDATE, $co_registro, $Termos, $Valores);
         endif;
 
         parse_str($Valores, $this->Places);

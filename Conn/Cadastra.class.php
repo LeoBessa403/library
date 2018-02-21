@@ -37,9 +37,9 @@ class Cadastra extends Conn
 
         // Auditoria
         if (TABELA_AUDITORIA && $tabela != AcessoEntidade::TABELA):
-            $id_item = $this->Result;
+            $co_registro = $this->Result;
             $auditoria = new Auditar();
-            $auditoria->Audita($this->tabela, $this->dados, AuditoriaEnum::INSERT, $id_item);
+            $auditoria->Audita($this->tabela, $this->dados, AuditoriaEnum::INSERT, $co_registro);
         endif;
     }
 

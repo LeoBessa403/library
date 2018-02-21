@@ -25,9 +25,9 @@ class Deleta extends Conn
      * @param STRING $Tabela = Nome da tabela
      * @param STRING $Termos = WHERE | ORDER
      * @param STRING $Valores = link={$link}&link2={$link2}
-     * @param STRING $codigo = link={$link}&link2={$link2}
+     * @param STRING $co_registro = Código do Registro
      */
-    public function Deletar($Tabela, $Termos, $Valores = null, $codigo = null)
+    public function Deletar($Tabela, $Termos, $Valores = null, $co_registro = null)
     {
         $this->Tabela = (string)$Tabela;
         $this->Termos = (string)$Termos;
@@ -35,7 +35,7 @@ class Deleta extends Conn
         // Auditoria
         if (TABELA_AUDITORIA && $this->Tabela != AcessoEntidade::TABELA):
             $auditoria = new Auditar();
-            $auditoria->Audita($this->Tabela, null, AuditoriaEnum::DELETE, $codigo, $Termos, $Valores);
+            $auditoria->Audita($this->Tabela, null, AuditoriaEnum::DELETE, $co_registro, $Termos, $Valores);
         endif;
 
         parse_str($Valores, $this->Places);

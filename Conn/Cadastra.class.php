@@ -36,10 +36,10 @@ class Cadastra extends Conn
         $this->Execute();
 
         // Auditoria
-        if (TABELA_AUDITORIA):
+        if (TABELA_AUDITORIA && $tabela != AcessoEntidade::TABELA):
             $id_item = $this->Result;
             $auditoria = new Auditar();
-            $auditoria->Audita($this->tabela, $this->dados, 'I', $id_item);
+            $auditoria->Audita($this->tabela, $this->dados, AuditoriaEnum::INSERT, $id_item);
         endif;
     }
 
@@ -58,8 +58,10 @@ class Cadastra extends Conn
             $this->Result = $this->Conn->lastInsertId();
         } catch (PDOException $e) {
             $this->Result = null;
-            if (DESENVOLVEDOR)
+            if (DESENVOLVEDOR){
                 Valida::Mensagem("Erro ao Cadastrar: na TABELA {$this->tabela} {$e->getMessage()}", 4);
+                debug(10);
+            }
         }
     }
 
@@ -75,6 +77,7 @@ class Cadastra extends Conn
         $this->Conn = ObjetoPDO::$ObjetoPDO;
         if (!$this->Conn) {
             $this->Conn = parent::getConn();
+            Auditar::$coAuditoria = null;
         }
         $this->Create = $this->Conn->prepare($this->Create);
     }

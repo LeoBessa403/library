@@ -25,16 +25,17 @@ class Deleta extends Conn
      * @param STRING $Tabela = Nome da tabela
      * @param STRING $Termos = WHERE | ORDER
      * @param STRING $Valores = link={$link}&link2={$link2}
+     * @param STRING $codigo = link={$link}&link2={$link2}
      */
-    public function Deletar($Tabela, $Termos, $Valores = null)
+    public function Deletar($Tabela, $Termos, $Valores = null, $codigo = null)
     {
         $this->Tabela = (string)$Tabela;
         $this->Termos = (string)$Termos;
 
         // Auditoria
-        if (TABELA_AUDITORIA):
+        if (TABELA_AUDITORIA && $this->Tabela != AcessoEntidade::TABELA):
             $auditoria = new Auditar();
-            $auditoria->Audita($this->Tabela, null, 'D', null, $Termos, $Valores);
+            $auditoria->Audita($this->Tabela, null, AuditoriaEnum::DELETE, $codigo, $Termos, $Valores);
         endif;
 
         parse_str($Valores, $this->Places);
@@ -90,6 +91,7 @@ class Deleta extends Conn
         $this->Conn = ObjetoPDO::$ObjetoPDO;
         if (!$this->Conn) {
             $this->Conn = parent::getConn();
+            Auditar::$coAuditoria = null;
         }
         $this->Delete = $this->Conn->prepare($this->Delete);
     }
@@ -109,8 +111,10 @@ class Deleta extends Conn
             $this->Result = true;
         } catch (PDOException $e) {
             $this->Result = null;
-            if (DESENVOLVEDOR)
+            if (DESENVOLVEDOR){
                 echo "Erro ao Deletar na TABELA {$this->Tabela}: {$e->getMessage()}";
+                debug(10);
+            }
         }
     }
 

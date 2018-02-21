@@ -31,7 +31,7 @@ class Atualiza extends Conn
      * @param STRING $Valores = link={$link}&link2={$link2}
      * @param Bool $Commit Realizar o Commit
      */
-    public function Atualizar($Tabela, array $Dados, $Termos, $Valores)
+    public function Atualizar($Tabela, array $Dados, $Termos, $Valores, $codigo)
     {
         $this->Tabela = (string)$Tabela;
         $this->Dados = $Dados;
@@ -40,7 +40,7 @@ class Atualiza extends Conn
         // Auditoria
         if (TABELA_AUDITORIA && $this->Tabela != AcessoEntidade::TABELA):
             $auditoria = new Auditar();
-            $auditoria->Audita($this->Tabela, $this->Dados, 'U', null, $Termos, $Valores);
+            $auditoria->Audita($this->Tabela, $this->Dados, AuditoriaEnum::UPDATE, $codigo, $Termos, $Valores);
         endif;
 
         parse_str($Valores, $this->Places);
@@ -98,6 +98,7 @@ class Atualiza extends Conn
         $this->Conn = ObjetoPDO::$ObjetoPDO;
         if (!$this->Conn) {
             $this->Conn = parent::getConn();
+            Auditar::$coAuditoria = null;
         }
         $this->Update = $this->Conn->prepare($this->Update);
     }
@@ -122,8 +123,10 @@ class Atualiza extends Conn
             $this->Result = true;
         } catch (PDOException $e) {
             $this->Result = null;
-            if (DESENVOLVEDOR)
+            if (DESENVOLVEDOR){
                 Valida::Mensagem("Erro ao Atualizar na TABELA {$this->Tabela}: {$e->getMessage()}", 4);
+                debug(10);
+            }
         }
     }
 

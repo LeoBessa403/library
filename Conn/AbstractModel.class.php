@@ -25,7 +25,7 @@ class AbstractModel
         } else {
             $atualiza = new Atualiza();
             $atualiza->Atualizar(
-                $Entidade::TABELA, $dados, "where " . $Entidade::CHAVE . " = :codigo", "codigo={$codigo}"
+                $Entidade::TABELA, $dados, "where " . $Entidade::CHAVE . " = :codigo", "codigo={$codigo}", $codigo
             );
             return $atualiza->getResult();
         }
@@ -35,7 +35,7 @@ class AbstractModel
     {
         $Entidade = $this->Entidade;
         $deleta = new Deleta();
-        $deleta->Deletar($Entidade::TABELA, "where " . $Entidade::CHAVE . " = :codigo", "codigo={$codigo}");
+        $deleta->Deletar($Entidade::TABELA, "where " . $Entidade::CHAVE . " = :codigo", "codigo={$codigo}", $codigo);
         return $deleta->getResult();
     }
 

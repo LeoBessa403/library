@@ -204,12 +204,24 @@ class AbstractModel
                 }
             } else {
                 if ($obj->$metodoGet()) {
-                    if ($obj->$metodoGet()->$metodoGet2()) {
-                        $dados3 = $this->PesquisaTodosNv4(
-                            $obj->$metodoGet()->$metodoGet(), $obj3::ENTIDADE, $obj2
-                        );
-                        $metodoSet2 = $this->getMetodo($obj3::CHAVE, false);
-                        $obj->$metodoGet()->$metodoSet2($dados3);
+                    if (!is_array($obj->$metodoGet())) {
+                        if ($obj->$metodoGet()->$metodoGet2()) {
+                            $dados3 = $this->PesquisaTodosNv4(
+                                $obj->$metodoGet()->$metodoGet(), $obj3::ENTIDADE, $obj2
+                            );
+                            $metodoSet2 = $this->getMetodo($obj3::CHAVE, false);
+                            $obj->$metodoGet()->$metodoSet2($dados3);
+                        }
+                    }else{
+                        foreach ($obj->$metodoGet() as $item){
+                            if ($item->$metodoGet2()) {
+                                $dados3 = $this->PesquisaTodosNv4(
+                                    $item->$metodoGet(), $obj3::ENTIDADE, $obj2
+                                );
+                                $metodoSet2 = $this->getMetodo($obj3::CHAVE, false);
+                                $item->$metodoSet2($dados3);
+                            }
+                        }
                     }
                 }
             }

@@ -76,24 +76,28 @@ class Auditar extends Conn
             // ATUALIZA DADOS
             case AuditoriaEnum::UPDATE:
                 $result = $this->getResult($tabela, $co_registro, $termos, $valores);
-                foreach ($result as $key => $value) {
-                    $dadosAuditoriaItens[DS_ITEM_ANTERIOR] = $value;
-                    $dadosAuditoriaItens[DS_ITEM_ATUAL] = (!empty($dados[$key])) ? $dados[$key] : null;
-                    $dadosAuditoriaItens[DS_CAMPO] = $key;
-                    $this->dados = $dadosAuditoriaItens;
-                    $this->getSyntax();
-                    $this->Execute();
+                foreach ($result as $item) {
+                    foreach ($item as $key => $value) {
+                        $dadosAuditoriaItens[DS_ITEM_ANTERIOR] = $value;
+                        $dadosAuditoriaItens[DS_ITEM_ATUAL] = (!empty($dados[$key])) ? $dados[$key] : null;
+                        $dadosAuditoriaItens[DS_CAMPO] = $key;
+                        $this->dados = $dadosAuditoriaItens;
+                        $this->getSyntax();
+                        $this->Execute();
+                    }
                 }
                 break;
             // DELETA DADOS
             case AuditoriaEnum::DELETE:
                 $result = $this->getResult($tabela, $co_registro, $termos, $valores);
-                foreach ($result as $key => $value) {
-                    $dadosAuditoriaItens[DS_ITEM_ANTERIOR] = $value;
-                    $dadosAuditoriaItens[DS_CAMPO] = $key;
-                    $this->dados = $dadosAuditoriaItens;
-                    $this->getSyntax();
-                    $this->Execute();
+                foreach ($result as $item) {
+                    foreach ($item as $key => $value) {
+                        $dadosAuditoriaItens[DS_ITEM_ANTERIOR] = $value;
+                        $dadosAuditoriaItens[DS_CAMPO] = $key;
+                        $this->dados = $dadosAuditoriaItens;
+                        $this->getSyntax();
+                        $this->Execute();
+                    }
                 }
                 break;
             default :
@@ -111,6 +115,9 @@ class Auditar extends Conn
     private function Connect()
     {
         $this->Conn = ObjetoPDO::$ObjetoPDO;
+        if (!$this->Conn) {
+            $this->Conn = parent::getConn();
+        }
         $this->Create = $this->Conn->prepare($this->Create);
     }
 
@@ -152,8 +159,14 @@ class Auditar extends Conn
     {
         $Entidade = $this->getEntidade($tabela);
         $pesquisa = new Pesquisa();
-        $pesquisa->Pesquisar($Entidade::TABELA, "where " . $Entidade::CHAVE . " = :id ", "id={$co_registro}");
-        return $pesquisa->getResult()[0];
+        if (!$co_registro) {
+            $pesquisa->Pesquisar($Entidade::TABELA, $termos, $valores);
+            return $pesquisa->getResult();
+        } else {
+            $pesquisa->Pesquisar($Entidade::TABELA, "where " . $Entidade::CHAVE . " = :id ",
+                "id={$co_registro}");
+            return $pesquisa->getResult();
+        }
     }
 
 }

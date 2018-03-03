@@ -77,10 +77,12 @@ class Grid {
     }
     
     
-    public function criaGrid($id = 1) {
+    public function criaGrid($id = 1, $dateTable = true) {
         $this->gerarBtnExportar();
+        $class = ($dateTable) ? 'table ' : '';
         echo '<div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover table-full-width" id="sample_'.$id.'">
+                <table class="'.$class.'table-striped table-bordered table-hover table-full-width" id="sample_'.$id.'"
+                style="width: 100%">
                 <thead>
                     <tr style="background-color: #99ccff; color: #000;">';
                     if(is_array(self::$colunas)):

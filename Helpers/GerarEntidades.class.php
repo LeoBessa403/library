@@ -16,18 +16,9 @@ class GerarEntidades
     {
         $this->tabelas = $tabelas;
         $this->constantes = ($tabelas) ? true : false;
-        $this->inicializarConexao();
+        $conn = new ObjetoPDO();
+        $conn->inicializarConexao();
         $this->gerar();
-    }
-
-
-    protected function inicializarConexao()
-    {
-        $conn = mysql_connect(HOST, USER, PASS);
-        mysql_select_db(DBSA, $conn);
-        if (!mysql_set_charset('utf8', $conn)) {
-            mysql_query('SET NAMES "utf8"');
-        }
     }
 
     /**

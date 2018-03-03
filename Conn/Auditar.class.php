@@ -30,7 +30,7 @@ class Auditar extends Conn
      */
     public function Audita($tabela, array $dados = null, $operacao, $co_registro = null, $termos = null, $valores = null)
     {
-        if (isset($_SESSION[SESSION_USER])):
+        if (isset($_SESSION[SESSION_USER]) && UrlAmigavel::$modulo == ADMIN):
             $us = $_SESSION[SESSION_USER];
             $user = $us->getUser();
         else:
@@ -42,6 +42,8 @@ class Auditar extends Conn
             if (!empty($user)):
                 $dadosAuditoria[DS_PERFIL_USUARIO] = $user[md5('no_perfis')];
                 $dadosAuditoria[CO_USUARIO] = $user[md5(CAMPO_ID)];
+            else:
+                $dadosAuditoria[DS_PERFIL_USUARIO] = 'Via Site';
             endif;
             $dadosAuditoria[DT_REALIZADO] = Valida::DataHoraAtualBanco();
             $this->dados = $dadosAuditoria;

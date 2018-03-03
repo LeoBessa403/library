@@ -42,4 +42,13 @@ abstract class Conn {
         return self::Conectar();
     }
 
+    public function inicializarConexao()
+    {
+        $conn = mysql_connect(HOST, USER, PASS);
+        mysql_select_db(DBSA, $conn);
+        if (!mysql_set_charset('utf8', $conn)) {
+            mysql_query('SET NAMES "utf8"');
+        }
+    }
+
 }

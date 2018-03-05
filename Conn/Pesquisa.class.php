@@ -76,35 +76,37 @@ class Pesquisa extends Conn
             if (!empty($dados[$key])):
                 if ($value):
                     $operador = explode("#", $key);
-                    $tipo = explode(".", $operador[0]);
-                    if (count($tipo) > 1):
+                    if (count($operador) > 1):
+                        $tipo = explode(".", $operador[1]);
                         $tipo = strtolower(substr($tipo[1], 0, 2));
                     else:
-                        $tipo = strtolower(substr($tipo[0], 0, 2));
+                        $tipo = explode(".", $operador[0]);
+                        $newTipo = (count($tipo) > 1) ? $tipo[1] : $tipo[0];
+                        $tipo = strtolower(substr($newTipo, 0, 2));
                     endif;
                     if(!empty($operador[1])){
-                        switch ($operador[1]) {
+                        switch ($operador[0]) {
                             case 'in':
                                 if($tipo == 'st' || $tipo == 'tp'){
-                                    $pesquisa[] = $operador[0] . " in ('" . $value . "')";
+                                    $pesquisa[] = $operador[1] . " in ('" . $value . "')";
                                 }elseif($tipo == 'co' || $tipo == 'sg'){
-                                    $pesquisa[] = $operador[0] . " in (" . $value . ")";
+                                    $pesquisa[] = $operador[1] . " in (" . $value . ")";
                                 }
                                 break;
                             case '=':
-                                $pesquisa[] = $operador[0] . " = '" . $value . "'";
+                                $pesquisa[] = $operador[1] . " = '" . $value . "'";
                                 break;
                             case '<>':
-                                $pesquisa[] = $operador[0] . " <> '" . $value . "'";
+                                $pesquisa[] = $operador[1] . " <> '" . $value . "'";
                                 break;
                             case 'like':
-                                $pesquisa[] = $operador[0] . " like '%" . $value . "%'";
+                                $pesquisa[] = $operador[1] . " like '%" . $value . "%'";
                                 break;
                             case '>=':
-                                $pesquisa[] = $operador[0] . " >= '" . $value . "'";
+                                $pesquisa[] = $operador[1] . " >= '" . $value . "'";
                                 break;
                             case '<=':
-                                $pesquisa[] = $operador[0] . " <= '" . $value . "'";
+                                $pesquisa[] = $operador[1] . " <= '" . $value . "'";
                                 break;
                             default:
                                 break;

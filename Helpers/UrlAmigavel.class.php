@@ -93,7 +93,7 @@ class UrlAmigavel
 
         $controller_path = self::$modulo . "/Controller/" . self::$controller . '.Controller.php';
         if ((!file_exists($controller_path)) && (!file_exists("Controller/" . self::$controller . '.Controller.php'))):
-            self::$controller = "IndexWeb";
+            self::$controller = (self::$modulo == ADMIN) ? "Index" : "IndexWeb";
             self::$action = "Index";
             $erro_404 = true;
         endif;
@@ -112,7 +112,7 @@ class UrlAmigavel
             $erro_404 = true;
         endif;
 
-        if (self::$modulo == ADMIN):
+        if (self::$modulo == ADMIN && !$erro_404):
             // VALIDAÇÃO POR PERFIL REFAZER PRA NOVA ENTIDADE
             $act = $this->setActionPermissao(self::$action);
             if (!Valida::ValPerfil($act, self::$action) && !in_array(self::$action, self::$ACESSO_PERMITIDO)) :
@@ -121,8 +121,10 @@ class UrlAmigavel
             endif;
         endif;
 
-        $action = self::$action;
-        $app->$action();
+        if (method_exists($app, self::$action)):
+            $action = self::$action;
+            $app->$action();
+        endif;
 
         extract((array)$app);
 

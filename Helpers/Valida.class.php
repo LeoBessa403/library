@@ -187,7 +187,7 @@ class Valida
      * @param DateTime $value d/m/Y
      * @return boolean
      */
-    public static function dataValida($value)
+    public static function DataValida($value)
     {
         list($dia, $mes, $ano) = explode('/', $value);
         return checkdate($mes, $dia, $ano);
@@ -376,7 +376,7 @@ class Valida
      * @param $action
      * @return bool
      */
-    public static function ValPerfil($act ,$action = null)
+    public static function ValPerfil($act, $action = null)
     {
         if (Session::CheckSession(SESSION_USER)):
             if (Session::getSession(SESSION_USER, CAMPO_PERFIL)):

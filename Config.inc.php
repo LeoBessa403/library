@@ -59,7 +59,7 @@ define('PESQUISA_AVANCADA', "pesquisa_avancada");
 function __autoload($Class)
 {
 
-    $pastas = array('Conn', 'Helpers', 'Controller', 'Model', 'Class', 'Entidade', 'Form', 'Service', 'Enum');
+    $pastas = array('Conn', 'Helpers', 'Controller', 'Model', 'Validador', 'Class', 'Entidade', 'Form', 'Service', 'Enum');
     $rotas = array(
         './library/',
         '../../library/',

@@ -38,6 +38,9 @@ class Valida
     public static function ValCPF($cpf)
     {
         $cpf = preg_replace('/[^0-9]/', '', $cpf);
+        if (empty($cpf) || strlen($cpf) != 11) {
+            return 2;
+        }
         $digitoA = 0;
         $digitoB = 0;
         for ($i = 0, $x = 10; $i <= 8; $i++, $x--) {

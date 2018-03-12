@@ -11,6 +11,11 @@ class AbstractValidador
     const VALIDACAO_TEL = 5;
     const VALIDACAO_NOME = 6;
     const VALIDACAO_DATA = 7;
+    const VALIDACAO_MOEDA = 8;
+    const VALIDACAO_HORAS = 9;
+    const VALIDACAO_0800 = 10;
+    const VALIDACAO_INTERVALO_DATA = 11;
+    const VALIDACAO_SENHA = 12;
 
     /**
      * @param $dados
@@ -36,50 +41,99 @@ class AbstractValidador
     {
         $validador = false;
         switch ($tipoValidacao) {
-            case 1:
-                $validador = Valida::ValCPF(Valida::RetiraMascara($dado));
-                if ($validador != 1) {
-                    $validador = false;
+            case static::VALIDACAO_CPF:
+                $validador = preg_replace('/[^a-zA-Z]/', '', $dado);
+                if (strlen($validador) == 0) {
+                    $validador = Valida::ValCPF(Valida::RetiraMascara($dado));
+                    if ($validador != 1) {
+                        $validador = false;
+                    }
                 }
                 break;
-            case 2:
-                $validador = Valida::ValCNPJ(Valida::RetiraMascara($dado));
-                if ($validador != 1) {
-                    $validador = false;
+            case static::VALIDACAO_CNPJ:
+                $validador = preg_replace('/[^a-zA-Z]/', '', $dado);
+                if (strlen($validador) == 0) {
+                    $validador = Valida::ValCNPJ(Valida::RetiraMascara($dado));
+                    if ($validador != 1) {
+                        $validador = false;
+                    }
                 }
                 break;
-            case 3:
+            case static::VALIDACAO_EMAIL:
                 $validador = Valida::ValEmail($dado);
                 if ($validador != 1) {
                     $validador = false;
                 }
                 break;
-            case 4:
-                $validador = preg_replace('/[^0-9]/', '', $dado);
-                if (strlen($validador) == 7) {
-                    $validador = true;
-                } else {
-                    $validador = false;
-                }
-                break;
-            case 5:
-                $validador = preg_replace('/[^0-9]/', '', $dado);
-                if (strlen($validador) == 10 || strlen($validador) == 11) {
-                    $validador = true;
-                } else {
-                    $validador = false;
-                }
-                break;
-            case 6:
+            case static::VALIDACAO_CEP:
                 $validador = preg_replace('/[^a-zA-Z]/', '', $dado);
-                if (strlen($validador) >= $qtdCaracteres) {
-                    $validador = true;
-                } else {
-                    $validador = false;
+                if (strlen($validador) == 0) {
+                    $validador = preg_replace('/[^0-9]/', '', $dado);
+                    if (strlen($validador) == 7) {
+                        $validador = true;
+                    }
                 }
                 break;
-            case 7:
-                $validador = $this->trataData($dado);
+            case static::VALIDACAO_TEL:
+                $validador = preg_replace('/[^a-zA-Z]/', '', $dado);
+                if (strlen($validador) == 0) {
+                    $validador = preg_replace('/[^0-9]/', '', $dado);
+                    if (strlen($validador) == 10 || strlen($validador) == 11) {
+                        $validador = true;
+                    }
+                }
+                break;
+            case static::VALIDACAO_NOME:
+                $validador = preg_replace('/[^0-9]/', '', $dado);
+                if (strlen($validador) == 0) {
+                    $validador = preg_replace('/[^a-zA-Z]/', '', $dado);
+                    if (strlen($validador) >= $qtdCaracteres) {
+                        $validador = true;
+                    }
+                }
+                break;
+            case static::VALIDACAO_DATA:
+                $validador = preg_replace('/[^a-zA-Z]/', '', $dado);
+                if (strlen($validador) == 0) {
+                    $validador = $this->trataData($dado);
+                }
+                break;
+            case static::VALIDACAO_MOEDA:
+                $validador = preg_replace('/[^a-zA-Z]/', '', Valida::RetiraMascara($dado));
+                if (strlen($validador) == 0) {
+                    $validador = true;
+                }
+                break;
+            case static::VALIDACAO_HORAS:
+                $validador = preg_replace('/[^a-zA-Z]/', '', $dado);
+                if (strlen($validador) == 0) {
+                    $validador = preg_replace('/[^0-9]/', '', $dado);
+                    if (strlen($validador) == 4) {
+                        $validador = true;
+                    }
+                }
+                break;
+            case static::VALIDACAO_0800:
+                $validador = preg_replace('/[^a-zA-Z]/', '', $dado);
+                if (strlen($validador) == 0) {
+                    $validador = preg_replace('/[^0-9]/', '', $dado);
+                    if (strlen($validador) == 11) {
+                        $validador = true;
+                    }
+                }
+                break;
+            case static::VALIDACAO_SENHA:
+                $validador = preg_match('/^[a-zA-Z0-9]+/', $dado);
+                if (!$validador) {
+                    $validador = preg_replace('/[^a-z]/', '', $dado);
+                    if (strlen($validador) == 1) {
+                        $validador = preg_replace('/[^A-Z]/', '', $dado);
+                        if (strlen($validador) == 1) {
+                            if(strlen($dado) >= $qtdCaracteres)
+                            $validador = true;
+                        }
+                    }
+                }
                 break;
         }
         if ($validador) {
@@ -90,8 +144,9 @@ class AbstractValidador
 
     private function trataData($data)
     {
+        $validador = preg_replace('/[^a-zA-Z]/', '', $data);
         $data = preg_replace('/[^0-9]/', '', $data);
-        if (strlen($data) != 8) {
+        if (strlen($data) != 8 || strlen($validador) > 0) {
             return false;
         }
         $dia = substr($data, 0, 2);
@@ -124,6 +179,39 @@ class AbstractValidador
         } else {
             $this->retorno[SUCESSO][] = false;
             $this->retorno[MSG][OBRIGATORIOS][] = $labelCampo;
+        }
+        return $this->retorno;
+    }
+
+    /**
+     * @param $dt1
+     * @param $dt2
+     * @param string $labelCampo1
+     * @param string $labelCampo2
+     * @return array
+     */
+    public function validaIntervaloData($dt1, $dt2, $labelCampo1 = 'Data Início', $labelCampo2 = 'Data Termino')
+    {
+        $controle = true;
+        $this->iniciaRetorno();
+        if (!$this->trataData($dt1)) {
+            $this->retorno[SUCESSO][] = false;
+            $this->retorno[MSG][OBRIGATORIOS][] = $labelCampo1;
+            $controle = false;
+        }
+        if (!$this->trataData($dt2)) {
+            $this->retorno[SUCESSO][] = false;
+            $this->retorno[MSG][OBRIGATORIOS][] = $labelCampo2;
+            $controle = false;
+        }
+        if ($controle) {
+            $intervalo = Valida::CalculaDiferencaDiasData($dt1, $dt2);
+            if ($intervalo > 0) {
+                $this->retorno[SUCESSO][] = false;
+                $this->retorno[MSG][OBRIGATORIOS][] = "Intervalo das datas";
+            } else {
+                $this->retorno[SUCESSO][] = true;
+            }
         }
         return $this->retorno;
     }
@@ -239,7 +327,7 @@ class AbstractValidador
             }
             $mensagem = str_replace('%s', $msgRetorno, Mensagens::MSG_ERROS_CAMPOS);
         }
-        if($mensagem != ''){
+        if ($mensagem != '') {
             $msg[SUCESSO] = false;
             $msg[MSG] = $mensagem;
         }

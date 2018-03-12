@@ -91,13 +91,13 @@ class AbstractValidador
     private function trataData($data)
     {
         $data = preg_replace('/[^0-9]/', '', $data);
-        if(strlen($data) != 8){
+        if (strlen($data) != 8) {
             return false;
         }
         $dia = substr($data, 0, 2);
         $mes = substr($data, 2, 2);
         $ano = substr($data, 4, 4);
-        return Valida::DataValida($dia.'/'.$mes.'/'.$ano);
+        return Valida::DataValida($dia . '/' . $mes . '/' . $ano);
     }
 
     private function iniciaRetorno()
@@ -121,7 +121,7 @@ class AbstractValidador
         $this->iniciaRetorno();
         if ($arquivo["tmp_name"]) {
             $this->retorno[SUCESSO][] = true;
-        }else{
+        } else {
             $this->retorno[SUCESSO][] = false;
             $this->retorno[MSG][OBRIGATORIOS][] = $labelCampo;
         }
@@ -147,7 +147,7 @@ class AbstractValidador
             if (!$validadorCpf) {
                 $this->retorno[SUCESSO][] = false;
                 $this->retorno[MSG][VALIDOS][] = $labelCampo;
-            }else{
+            } else {
                 $this->retorno[SUCESSO][] = true;
             }
         }
@@ -164,15 +164,15 @@ class AbstractValidador
     public function ValidaCampoValido($dados, $tipoValidacao, $labelCampo, $qtdCaracteres = 1)
     {
         $this->iniciaRetorno();
-        if($dados){
+        if ($dados) {
             $validadorCpf = $this->validaCampoMascara($dados, $tipoValidacao, $qtdCaracteres);
             if (!$validadorCpf) {
                 $this->retorno[SUCESSO][] = false;
                 $this->retorno[MSG][] = $labelCampo;
-            }else{
+            } else {
                 $this->retorno[SUCESSO][] = true;
             }
-        }else{
+        } else {
             $this->retorno[SUCESSO][] = true;
         }
         return $this->retorno;
@@ -197,11 +197,53 @@ class AbstractValidador
         $this->iniciaRetorno();
         if ((is_array($select)) && !empty($select[0])) {
             $this->retorno[SUCESSO][] = true;
-        }else{
+        } else {
             $this->retorno[SUCESSO][] = false;
             $this->retorno[MSG][OBRIGATORIOS][] = $labelCampo;
         }
         return $this->retorno;
+    }
+
+    /**
+     * @param $retorno
+     * @return mixed
+     */
+    public function montaRetorno($retorno)
+    {
+        $msgRetorno = '';
+        $obrigatorios = '';
+        $validos = '';
+        $mensagem = '';
+        $msg = [
+            SUCESSO => true,
+            MSG => ''
+        ];;
+        foreach ($retorno[DADOS] as $dado) {
+            if (!$dado[SUCESSO][0]) {
+                if (!empty($dado[MSG][VALIDOS][0])) {
+                    $validos[] = $dado[MSG][VALIDOS][0];
+                }
+                if (!empty($dado[MSG][OBRIGATORIOS])) {
+                    $obrigatorios[] = $dado[MSG][OBRIGATORIOS][0];
+                }
+            }
+        }
+        if ($obrigatorios || $validos) {
+            if ($obrigatorios && $validos) {
+                $msgRetorno = implode(', ', $obrigatorios) . ' é(são) Obrigatório(s) e ' .
+                    implode(', ', $validos) . ' está(ão) Inválido(s)';
+            } elseif ($obrigatorios) {
+                $msgRetorno = implode(', ', $obrigatorios) . ' é(são) Obrigatório(s)';
+            } elseif ($validos) {
+                $msgRetorno = implode(', ', $validos) . ' está(ão) Inválido(s)';
+            }
+            $mensagem = str_replace('%s', $msgRetorno, Mensagens::MSG_ERROS_CAMPOS);
+        }
+        if($mensagem != ''){
+            $msg[SUCESSO] = false;
+            $msg[MSG] = $mensagem;
+        }
+        return $msg;
     }
 
 

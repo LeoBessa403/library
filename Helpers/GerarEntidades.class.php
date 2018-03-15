@@ -70,6 +70,7 @@ class GerarEntidades
              * Iterate tables
              */
             foreach ($this->tabelas as $table) {
+                $table = strtolower($table);
                 $row2 = mysql_query('SHOW COLUMNS FROM ' . $table);
                 $colunas = array();
                 $chave_primaria = '';

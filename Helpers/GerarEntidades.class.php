@@ -40,6 +40,7 @@ class GerarEntidades
 
             // Gera a Classe de Relacionamentos
             foreach ($this->tabelas as $table) {
+                $table = strtolower($table);
                 $row2 = mysql_query('SHOW COLUMNS FROM ' . $table);
                 $colunas = array();
                 $relacionamentosTabela = array();

@@ -188,7 +188,6 @@ class Form
 
         $autocomplete = new Pesquisa();
         $autocomplete->Pesquisar($tabela, "ORDER BY $campo", NULL, $id . ',' . $campo);
-        $dados[""] = "Selecione um item";
         if ($autocomplete->getResult()) {
             foreach ($autocomplete->getResult() as $res) {
                 $dados[$res[$id]] = $res[$campo];

@@ -18,20 +18,6 @@ class AbstractValidador
     const VALIDACAO_SENHA = 12;
 
     /**
-     * @param $dados
-     * @param int $qtdCaracteres
-     * @return bool
-     */
-    private function validaCampoDescricao($dados, $qtdCaracteres = 1)
-    {
-        $validador = Valida::LimpaVariavel($dados);
-        if (strlen($validador) >= $qtdCaracteres) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * @param $dado
      * @param $tipoValidacao
      * @param int $qtdCaracteres
@@ -167,6 +153,26 @@ class AbstractValidador
     }
 
     /**
+     * @param $dados
+     * @param int $qtdCaracteres
+     * @param $labelCampo
+     * @return array
+     */
+    public function validaCampoObrigatorioDescricao($dados, $qtdCaracteres = 1, $labelCampo)
+    {
+        $this->iniciaRetorno();
+        $validador = Valida::LimpaVariavel($dados);
+        if (strlen($validador) >= $qtdCaracteres) {
+            $this->retorno[SUCESSO][] = true;
+        } else {
+            $this->retorno[SUCESSO][] = false;
+            $this->retorno[MSG][OBRIGATORIOS][] = $labelCampo;
+        }
+
+        return $this->retorno;
+    }
+
+    /**
      * @param $arquivo
      * @param $labelCampo
      * @return array
@@ -226,7 +232,7 @@ class AbstractValidador
     public function ValidaCampoObrigatorioValido($dados, $tipoValidacao, $labelCampo, $qtdCaracteres = 1)
     {
         $this->iniciaRetorno();
-        $obrigatorioCpf = $this->validaCampoDescricao($dados);
+        $obrigatorioCpf = $this->validaCampoObrigatorioDescricao($dados, $qtdCaracteres, $labelCampo);
         if (!$obrigatorioCpf) {
             $this->retorno[SUCESSO][] = false;
             $this->retorno[MSG][OBRIGATORIOS][] = $labelCampo;
@@ -253,8 +259,8 @@ class AbstractValidador
     {
         $this->iniciaRetorno();
         if ($dados) {
-            $validadorCpf = $this->validaCampoMascara($dados, $tipoValidacao, $qtdCaracteres);
-            if (!$validadorCpf) {
+            $validador = $this->validaCampoMascara($dados, $tipoValidacao, $qtdCaracteres);
+            if (!$validador) {
                 $this->retorno[SUCESSO][] = false;
                 $this->retorno[MSG][] = $labelCampo;
             } else {

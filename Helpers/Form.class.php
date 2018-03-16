@@ -8,7 +8,6 @@
  */
 class Form
 {
-
     private static $classes;
     private static $label;
     private static $place;
@@ -28,7 +27,6 @@ class Form
     public static $idForm;
     public static $form;
     public static $botao;
-
 
     /**
      * <b>Form da Pesquisa Avançada:</b> ionicia o formulário e suas configurações
@@ -55,6 +53,7 @@ class Form
      * <b>setClasses:</b> Atribui as classes para os campos.
      * @param STRING $classes : Essas classes podem ser utilizadas par formação de CSS,
      * para atribuir a eventos de JQUERY, e calsses de validações. EX: (cpf ob moeda).
+     * @return $this
      */
     public function setClasses($classes)
     {
@@ -65,6 +64,7 @@ class Form
     /**
      * <b>setLabel:</b> Atribui o label a ser apresentado para todos os tipos de campo.
      * @param STRING $label .
+     * @return $this
      */
     public function setLabel($label)
     {
@@ -75,6 +75,7 @@ class Form
     /**
      * <b>setValues:</b> Atribui o valor para os campos
      * @param STRING $values . pode ser utilizados para todos os inputs e textearea.
+     * @return $this
      */
     public function setValues($values)
     {
@@ -84,7 +85,8 @@ class Form
 
     /**
      * <b>setValues:</b> Atribui o valor para os campos
-     * @param STRING $values . pode ser utilizados para todos os inputs e textearea.
+     * @param STRING $valor . pode ser utilizados para todos os inputs e textearea.
+     * @return $this
      */
     public function setValor($valor)
     {
@@ -94,7 +96,8 @@ class Form
 
     /**
      * <b>setTamanhoInput:</b> Atribui o tamanho maximo para o input
-     * @param STRING $values . pode ser utilizados para todos os inputs e textearea.
+     * @param STRING $tamanho . pode ser utilizados para todos os inputs e textearea.
+     * @return $this
      */
     public function setTamanhoInput($tamanho)
     {
@@ -105,6 +108,7 @@ class Form
     /**
      * <b>setType:</b> Atribui o tipo do Input, Valor padrão (TEXT)
      * @param STRING $type : password, file, select, textarea, radio, checkbox, hidden e o text.
+     * @return $this
      */
     public function setType($type)
     {
@@ -114,7 +118,8 @@ class Form
 
     /**
      * <b>setPlace:</b> Atribui o tipo do Input, Valor padrão (TEXT)
-     * @param STRING $type : password, file, select, textarea, radio, checkbox, hidden e o text.
+     * @param STRING $place : password, file, select, textarea, radio, checkbox, hidden e o text.
+     * @return $this
      */
     public function setPlace($place)
     {
@@ -125,6 +130,7 @@ class Form
     /**
      * <b>setLimite:</b> Da um Limite máximo de itens para Inputs Multiplos
      * @param STRING setLimite: Limite de Número para Inputs Multiplos.
+     * @return $this
      */
     public function setLimite($limite)
     {
@@ -134,7 +140,8 @@ class Form
 
     /**
      * <b>setInfo:</b> Atribui o tipo do Input, Valor padrão (TEXT)
-     * @param STRING $type : password, file, select, textarea, radio, checkbox, hidden e o text.
+     * @param STRING $info : password, file, select, textarea, radio, checkbox, hidden e o text.
+     * @return $this
      */
     public function setInfo($info)
     {
@@ -144,7 +151,9 @@ class Form
 
     /**
      * <b>setIcon:</b> Atribui o tipo do Input, Valor padrão (TEXT)
-     * @param STRING $type : password, file, select, textarea, radio, checkbox, hidden e o text.
+     * @param STRING $icon : password, file, select, textarea, radio, checkbox, hidden e o text.
+     * @param STRING $lado : password, file, select, textarea, radio, checkbox, hidden e o text.
+     * @return $this
      */
     public function setIcon($icon, $lado = "esq")
     {
@@ -156,6 +165,7 @@ class Form
     /**
      * <b>setId:</b> Atribui o ID e o NAME do input
      * @param STRING $id .
+     * @return $this
      */
     public function setId($id)
     {
@@ -165,8 +175,9 @@ class Form
 
     /**
      * <b>setStylo:</b> Atribui os Stylo (CSS) para o input
-     * @param ARRAY $stylo. define propriedade de CSS para stylo (Propriedade: Atributo)
+     * @param $stylo $stylo. define propriedade de CSS para stylo (Propriedade: Atributo)
      * Ex.: array ('border' => '1px solid red', 'color' => 'black')
+     * @return $this
      */
     public function setStylo(array $stylo) {
         if (!empty($stylo)):
@@ -181,11 +192,11 @@ class Form
      * <b>setId:</b> Pega no banco de dados os registros para o autocomplete.
      * @param STRING $tabela : nome da tabela a ser consultada.
      * @param STRING $campo : nome do campo a ser consultado.
-     * @return ARRAY script: gera o script para o autocomplete
+     * @return $this script: gera o script para o autocomplete
      */
     public function setAutocomplete($tabela, $campo, $id)
     {
-
+        $dados = [];
         $autocomplete = new Pesquisa();
         $autocomplete->Pesquisar($tabela, "ORDER BY $campo", NULL, $id . ',' . $campo);
         if ($autocomplete->getResult()) {
@@ -199,7 +210,8 @@ class Form
 
     /**
      * <b>setOptions:</b> Atribui os valores das options a montar um select
-     * @param ARRAY $options : O indece do array se torna o value da option e o valor do array se torna o label a ser apresentado..
+     * @param $options $options : O indece do array se torna o value da option e o valor do array se torna o label a ser apresentado..
+     * @return $this
      */
     public function setOptions($options)
     {
@@ -209,7 +221,8 @@ class Form
 
     /**
      * <b>setLabelCheckRadio:</b> Atribui os valores dos label para checkbox e radiobuttom.
-     * @param ARRAY $label_options : Cada indice do array se torna uma opção dos  checkbox ou radiobuttom
+     * @param $label_options $label_options : Cada indice do array se torna uma opção dos  checkbox ou radiobuttom
+     * @return $this
      */
     public function setLabelCheckRadio($label_options)
     {

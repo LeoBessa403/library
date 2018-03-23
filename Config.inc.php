@@ -22,7 +22,7 @@ define('LOGIN', '/Index/Acessar/');
 // Define o Controler/Action para validar o login
 define('VALIDA_LOGAR', '/acesso/valida');
 // Define o Controler/Action para Redireciona apos o login ser validado
-define('LOGADO', '/Index/Index');
+define('LOGADO', '/Agenda/Calendario');
 // Nome da View da Página de Erro Controller ou Action não encontrado. (Erro 404).
 define('ERRO_404', '404');
 

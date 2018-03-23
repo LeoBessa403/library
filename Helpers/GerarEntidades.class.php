@@ -11,6 +11,7 @@ class GerarEntidades
     var $tabelas;
     var $constantes;
     var $relacionamentos;
+    var $conn;
 
     public function __construct($tabelas = array())
     {
@@ -29,10 +30,10 @@ class GerarEntidades
         try {
             $constantes = array();
             if (!$this->tabelas) {
-                $result = mysql_query('SHOW TABLES');
+                $result = mysqli_query($this->conn,'SHOW TABLES');
                 $this->tabelas = [];
                 if ($result) {
-                    while ($row = mysql_fetch_row($result)) {
+                    while ($row = mysqli_fetch_row($result)) {
                         $this->tabelas[] = $row[0];
                     }
                 }
@@ -41,11 +42,11 @@ class GerarEntidades
             // Gera a Classe de Relacionamentos
             foreach ($this->tabelas as $table) {
                 $table = strtolower($table);
-                $row2 = mysql_query('SHOW COLUMNS FROM ' . $table);
+                $row2 = mysqli_query($this->conn,'SHOW COLUMNS FROM ' . $table);
                 $colunas = array();
                 $relacionamentosTabela = array();
-                if (mysql_num_rows($row2) > 0) {
-                    while ($row = mysql_fetch_assoc($row2)) {
+                if (mysqli_num_rows($row2) > 0) {
+                    while ($row = mysqli_fetch_assoc($row2)) {
                         $colunas[] = $row['Field'];
                         $constantes[strtoupper($row['Field'])] = $row['Field'];
                         if ($row['Extra'] == '' && $row['Key'] != '')
@@ -71,12 +72,12 @@ class GerarEntidades
              */
             foreach ($this->tabelas as $table) {
                 $table = strtolower($table);
-                $row2 = mysql_query('SHOW COLUMNS FROM ' . $table);
+                $row2 = mysqli_query($this->conn,'SHOW COLUMNS FROM ' . $table);
                 $colunas = array();
                 $chave_primaria = '';
                 $relacionamentosTabela = array();
-                if (mysql_num_rows($row2) > 0) {
-                    while ($row = mysql_fetch_assoc($row2)) {
+                if (mysqli_num_rows($row2) > 0) {
+                    while ($row = mysqli_fetch_assoc($row2)) {
                         $colunas[] = $row['Field'];
                         $constantes[strtoupper($row['Field'])] = $row['Field'];
                         if ($row['Extra'] != '')

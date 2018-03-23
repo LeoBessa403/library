@@ -101,7 +101,7 @@ class UrlAmigavel
         $controller_path =  self::$modulo . "/Controller/" . self::$controller . '.Controller.php';
 
         if (!file_exists($controller_path)):
-            $controller_path = "Controller/" . self::$controller . '.Controller.php';
+            $controller_path =  self::$modulo . "Controller/" . self::$controller . '.Controller.php';
         endif;
 
         require_once($controller_path);

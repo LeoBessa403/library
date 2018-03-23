@@ -30,7 +30,7 @@ class GerarEntidades
         try {
             $constantes = array();
             if (!$this->tabelas) {
-                $result = mysqli_query($this->conn,'SHOW TABLES');
+                $result = mysqli_query($this->conn, 'SHOW TABLES');
                 $this->tabelas = [];
                 if ($result) {
                     while ($row = mysqli_fetch_row($result)) {
@@ -42,7 +42,7 @@ class GerarEntidades
             // Gera a Classe de Relacionamentos
             foreach ($this->tabelas as $table) {
                 $table = strtolower($table);
-                $row2 = mysqli_query($this->conn,'SHOW COLUMNS FROM ' . $table);
+                $row2 = mysqli_query($this->conn, 'SHOW COLUMNS FROM ' . $table);
                 $colunas = array();
                 $relacionamentosTabela = array();
                 if (mysqli_num_rows($row2) > 0) {
@@ -59,7 +59,7 @@ class GerarEntidades
                         $rel,
                         $this->getEntidade($rel)
                     ];
-                    $this->relacionamentos[str_replace('co_', 'tb_', $rel)][str_replace('tb_', 'co_', $table)] = [
+                    $this->relacionamentos[str_replace('co_', 'tb_', $rel)][str_replace(array('TB_', 'tb_'), 'co_', $table)] = [
                         $rel,
                         $this->getEntidade($table)
                     ];
@@ -72,7 +72,7 @@ class GerarEntidades
              */
             foreach ($this->tabelas as $table) {
                 $table = strtolower($table);
-                $row2 = mysqli_query($this->conn,'SHOW COLUMNS FROM ' . $table);
+                $row2 = mysqli_query($this->conn, 'SHOW COLUMNS FROM ' . $table);
                 $colunas = array();
                 $chave_primaria = '';
                 $relacionamentosTabela = array();
@@ -155,7 +155,7 @@ class Relacionamentos
 
     private function geraConstantesService($constantes, $table)
     {
-        $constantes[strtoupper(str_replace('tb_', '', $table)) . "_SERVICE"] =
+        $constantes[strtoupper(str_replace(array('TB_', 'tb_'), '', $table)) . "_SERVICE"] =
             $this->getEntidade($table) . "Service";
 
         return $constantes;
@@ -183,7 +183,7 @@ class {$Entidade}Entidade extends AbstractEntidade
             $ArquivoEntidade .= "\tprivate $" . $coluna . ";\n";
         }
         foreach ($relacionamentosTabela as $index => $novaColuna) {
-            $ArquivoEntidade .= "\tprivate $" . str_replace('tb_', 'co_', $index) . ";\n";
+            $ArquivoEntidade .= "\tprivate $" . str_replace(array('TB_', 'tb_'), 'co_', $index) . ";\n";
         }
         $ArquivoEntidade .= "\n\n";
         $ArquivoEntidade .= "\t/**
@@ -232,7 +232,7 @@ class {$Entidade}Entidade extends AbstractEntidade
         }
 
         foreach ($relacionamentosTabela as $index => $metodos) {
-            $metodos = str_replace('tb_', 'co_', $index);
+            $metodos = str_replace(array('TB_', 'tb_'), 'co_', $index);
             $metodoGet = $this->getMetodo($metodos);
 
             $ArquivoEntidade .= "\t/**\n";

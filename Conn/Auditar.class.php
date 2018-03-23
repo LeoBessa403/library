@@ -150,7 +150,7 @@ class Auditar extends Conn
 
     private function getEntidade($Entidade)
     {
-        $Entidade = str_replace(array('TB_'), '', $Entidade);
+        $Entidade = str_replace(array('tb_', 'TB_'), '', $Entidade);
         $Entidade = str_replace('_', ' ', $Entidade);
         $Entidade = ucwords(strtolower($Entidade));
         $Entidade = str_replace(' ', '', $Entidade);

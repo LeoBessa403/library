@@ -178,10 +178,17 @@ class Valida
     public static function GeraParametro($link)
     {
         self::$Data = explode('/', $link);
-
-        self::$Data = base64_encode(md5(self::$Data[0]) . "/" . base64_encode(self::$Data[1]));
-
-        return self::$Data;
+        $link = md5(self::$Data[0]) . "/" . base64_encode(self::$Data[1]);
+        if(!empty(self::$Data[2])){
+            $link .= "/" . md5(self::$Data[2]) . "/" . base64_encode(self::$Data[3]);
+        }
+        if(!empty(self::$Data[4])){
+            $link .= "/" . md5(self::$Data[4]) . "/" . base64_encode(self::$Data[5]);
+        }
+        if(!empty(self::$Data[6])){
+            $link .= "/" . md5(self::$Data[6]) . "/" . base64_encode(self::$Data[7]);
+        }
+        return base64_encode($link);
     }
 
     /**

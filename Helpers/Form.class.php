@@ -179,7 +179,8 @@ class Form
      * Ex.: array ('border' => '1px solid red', 'color' => 'black')
      * @return $this
      */
-    public function setStylo(array $stylo) {
+    public function setStylo(array $stylo)
+    {
         if (!empty($stylo)):
             foreach ($stylo as $key => $value) {
                 self::$style .= "$key: $value; ";
@@ -365,14 +366,15 @@ class Form
 
             //CAMPO TIPO TEXTAREA
             elseif (self::$type == "textarea"):
+                $valor = '';
                 if (is_array(self::$valor) && !empty(self::$valor)):
-                    $valor = self::$valor[self::$id];
+                    if (!empty(self::$valor[self::$id])):
+                        $valor = self::$valor[self::$id];
+                    endif;
                 else:
                     if (!empty(self::$valor)):
                         $valor = self::$valor;
                         self::$valor = "";
-                    else:
-                        $valor = "";
                     endif;
                 endif;
                 self::$form .= "<textarea id='" . self::$id . "' name='" . self::$id . "'" . self::$place . " style='resize: none;' class='form-control " . self::$classes . "' >" . $valor . "</textarea>";
@@ -429,14 +431,15 @@ class Form
                                     </div>';
                 else:
                     foreach (self::$label_options as $key => $op):
+                        $valor = "";
                         if (is_array(self::$valor) && !empty(self::$valor)):
-                            $valor = self::$valor[self::$id];
+                            if (!empty(self::$valor[self::$id])):
+                                $valor = self::$valor[self::$id];
+                            endif;
                         else:
                             if (!empty(self::$valor)):
                                 $valor = self::$valor;
                                 self::$valor = "";
-                            else:
-                                $valor = "";
                             endif;
                         endif;
 
@@ -455,18 +458,19 @@ class Form
 
                 endif;
             else:
+                $valor = '';
                 if (is_array(self::$valor) && !empty(self::$valor)):
-                    $valor = self::$valor[self::$id];
+                    if (!empty(self::$valor[self::$id])):
+                        $valor = self::$valor[self::$id];
+                    endif;
                 else:
                     if (!empty(self::$valor)):
                         $valor = self::$valor;
                         self::$valor = "";
-                    else:
-                        $valor = "";
                     endif;
                 endif;
                 //CAMPO TIPO TEXT
-                self::$form .= '<input type="' . self::$type . '" stylo="' . self::$style . '"'. self::$place . ' class="form-control ' . self::$classes . '" id="' . self::$id . '" name="' . self::$id . '" value="' . $valor . '"/>';
+                self::$form .= '<input type="' . self::$type . '" stylo="' . self::$style . '"' . self::$place . ' class="form-control ' . self::$classes . '" id="' . self::$id . '" name="' . self::$id . '" value="' . $valor . '"/>';
             endif;
 
             // VERIFICA SE TEM ÍCONE
@@ -541,15 +545,15 @@ class Form
                             <i class="fa fa-ban"></i>
                             <span class="ladda-spinner"></span>
                         </button>';
-                        if(!$link){
-                            $link  = UrlAmigavel::$modulo ;
-                            $link .= (UrlAmigavel::$modulo == ADMIN)
-                                ?  '/'.UrlAmigavel::$controller . '/Listar' . UrlAmigavel::$controller
-                                : '';
-                        }else{
-                            $link  = UrlAmigavel::$modulo . '/' . $link;
-                        }
-                        self::$form .= '<a href="' . HOME . $link . '"
+        if (!$link) {
+            $link = UrlAmigavel::$modulo;
+            $link .= (UrlAmigavel::$modulo == ADMIN)
+                ? '/' . UrlAmigavel::$controller . '/Listar' . UrlAmigavel::$controller
+                : '';
+        } else {
+            $link = UrlAmigavel::$modulo . '/' . $link;
+        }
+        self::$form .= '<a href="' . HOME . $link . '"
                            class="btn btn-primary tooltips" data-original-title="Voltar" data-placement="top"
                            style="float: right; margin-top: 10px;">
                             Voltar <i class="clip-arrow-right-2"></i>
@@ -590,44 +594,5 @@ class Form
 
         return self::$form;
     }
-
-    /**
-     * <b>finalizaForm:</b> Fecha o formulário
-     * @return STRING com o fechamento do FORM.
-     */
-    public function finalizaFormAgenda()
-    {
-        self::$form = '<div id="event-management" class="modal fade in modal-overflow" tabindex="-1" role="dialog" aria-hidden="true">
-                            <form action="' . HOME . self::$action . '" role="form" id="' . self::$idForm . '" 
-                            name="' . self::$idForm . '" method="post"  enctype="multipart/form-data" class="formulario"> 
-                                <div class="modal-header btn-light-grey">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                            &times;
-                                    </button>
-                                    <h4 class="modal-title">Gerenciador de Eventualidades</h4>
-                                </div>
-                                <div class="modal-body">' .
-            self::$form
-            . '</div>
-                            <div class="modal-footer">
-                                    <button type="submit" class="btn btn-success save-event" value="' .
-            Form::$idForm . '" name="' . Form::$idForm . '">
-                                            <i class="fa fa-check"></i> Salvar
-                                    </button>
-                                    <button data-toggle="modal" role="button" class="btn btn-bricky 
-                                    remove-evento no-display" id="" 
-                                        href="#Agenda">
-                                         <i class="fa fa-trash-o"></i> Deletar
-                                     </button>
-                                    <button type="button" data-dismiss="modal" class="btn btn-light-grey">
-                                            Fechar
-                                    </button>
-                            </div>
-                        </form>
-                    </div>';
-
-        return self::$form;
-    }
-
 
 }

@@ -277,6 +277,21 @@ class UrlAmigavel
             } else {
                 self::$explode[1] = null;
             }
+            if (!empty(self::$explode[3])) {
+                self::$explode[3] = base64_decode(self::$explode[3]);
+            } else {
+                self::$explode[3] = null;
+            }
+            if (!empty(self::$explode[5])) {
+                self::$explode[5] = base64_decode(self::$explode[5]);
+            } else {
+                self::$explode[5] = null;
+            }
+            if (!empty(self::$explode[7])) {
+                self::$explode[7] = base64_decode(self::$explode[7]);
+            } else {
+                self::$explode[7] = null;
+            }
         endif;
 
 

@@ -197,7 +197,9 @@ class Form
      */
     public function setAutocomplete($tabela, $campo, $id)
     {
-        $dados = [];
+        $dados = [
+            '' => Mensagens::MSG_SEM_ITEM_SELECIONADO
+        ];
         $autocomplete = new Pesquisa();
         $autocomplete->Pesquisar($tabela, "ORDER BY $campo", NULL, $id . ',' . $campo);
         if ($autocomplete->getResult()) {

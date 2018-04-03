@@ -233,16 +233,17 @@ class AbstractValidador
     {
         $this->iniciaRetorno();
         $obrigatorioCpf = $this->validaCampoObrigatorioDescricao($dados, $qtdCaracteres, $labelCampo);
+        $control = count($obrigatorioCpf[SUCESSO]) - 1;
         if (!$obrigatorioCpf) {
-            $this->retorno[SUCESSO][] = false;
-            $this->retorno[MSG][OBRIGATORIOS][] = $labelCampo;
+            $this->retorno[SUCESSO][$control] = false;
+            $this->retorno[MSG][OBRIGATORIOS][$control] = $labelCampo;
         } else {
             $validadorCpf = $this->validaCampoMascara($dados, $tipoValidacao, $qtdCaracteres);
             if (!$validadorCpf) {
-                $this->retorno[SUCESSO][] = false;
-                $this->retorno[MSG][VALIDOS][] = $labelCampo;
+                $this->retorno[SUCESSO][$control] = false;
+                $this->retorno[MSG][VALIDOS][$control] = $labelCampo;
             } else {
-                $this->retorno[SUCESSO][] = true;
+                $this->retorno[SUCESSO][$control] = true;
             }
         }
         return $this->retorno;
@@ -317,7 +318,7 @@ class AbstractValidador
                 if (!empty($dado[MSG][VALIDOS][0])) {
                     $validos[] = $dado[MSG][VALIDOS][0];
                 }
-                if (!empty($dado[MSG][OBRIGATORIOS])) {
+                if (!empty($dado[MSG][OBRIGATORIOS][0])) {
                     $obrigatorios[] = $dado[MSG][OBRIGATORIOS][0];
                 }
             }

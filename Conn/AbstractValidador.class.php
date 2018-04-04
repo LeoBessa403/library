@@ -23,7 +23,7 @@ class AbstractValidador
      * @param int $qtdCaracteres
      * @return bool
      */
-    private function validaCampoMascara($dado, $tipoValidacao, $qtdCaracteres = 1)
+    private function ValidaCampoMascara($dado, $tipoValidacao, $qtdCaracteres = 1)
     {
         $validador = false;
         switch ($tipoValidacao) {
@@ -158,7 +158,7 @@ class AbstractValidador
      * @param $labelCampo
      * @return array
      */
-    public function validaCampoObrigatorioDescricao($dados, $qtdCaracteres = 1, $labelCampo)
+    public function ValidaCampoObrigatorioDescricao($dados, $qtdCaracteres = 1, $labelCampo)
     {
         $this->iniciaRetorno();
         $validador = Valida::LimpaVariavel($dados);
@@ -177,7 +177,7 @@ class AbstractValidador
      * @param $labelCampo
      * @return array
      */
-    public function validaCampoArquivo($arquivo, $labelCampo)
+    public function ValidaCampoArquivo($arquivo, $labelCampo)
     {
         $this->iniciaRetorno();
         if ($arquivo["tmp_name"]) {
@@ -196,7 +196,7 @@ class AbstractValidador
      * @param string $labelCampo2
      * @return array
      */
-    public function validaIntervaloData($dt1, $dt2, $labelCampo1 = 'Data Início', $labelCampo2 = 'Data Termino')
+    public function ValidaIntervaloData($dt1, $dt2, $labelCampo1 = 'Data Início', $labelCampo2 = 'Data Termino')
     {
         $controle = true;
         $this->iniciaRetorno();
@@ -232,13 +232,13 @@ class AbstractValidador
     public function ValidaCampoObrigatorioValido($dados, $tipoValidacao, $labelCampo, $qtdCaracteres = 1)
     {
         $this->iniciaRetorno();
-        $obrigatorioCpf = $this->validaCampoObrigatorioDescricao($dados, $qtdCaracteres, $labelCampo);
+        $obrigatorioCpf = $this->ValidaCampoObrigatorioDescricao($dados, $qtdCaracteres, $labelCampo);
         $control = count($obrigatorioCpf[SUCESSO]) - 1;
         if (!$obrigatorioCpf) {
             $this->retorno[SUCESSO][$control] = false;
             $this->retorno[MSG][OBRIGATORIOS][$control] = $labelCampo;
         } else {
-            $validadorCpf = $this->validaCampoMascara($dados, $tipoValidacao, $qtdCaracteres);
+            $validadorCpf = $this->ValidaCampoMascara($dados, $tipoValidacao, $qtdCaracteres);
             if (!$validadorCpf) {
                 $this->retorno[SUCESSO][$control] = false;
                 $this->retorno[MSG][VALIDOS][$control] = $labelCampo;
@@ -260,7 +260,7 @@ class AbstractValidador
     {
         $this->iniciaRetorno();
         if ($dados) {
-            $validador = $this->validaCampoMascara($dados, $tipoValidacao, $qtdCaracteres);
+            $validador = $this->ValidaCampoMascara($dados, $tipoValidacao, $qtdCaracteres);
             if (!$validador) {
                 $this->retorno[SUCESSO][] = false;
                 $this->retorno[MSG][] = $labelCampo;
@@ -287,7 +287,7 @@ class AbstractValidador
      * @param $labelCampo
      * @return array
      */
-    public function validaCampoSelctObrigatorio($select, $labelCampo)
+    public function ValidaCampoSelectObrigatorio($select, $labelCampo)
     {
         $this->iniciaRetorno();
         if ((is_array($select)) && !empty($select[0])) {
@@ -303,7 +303,7 @@ class AbstractValidador
      * @param $retorno
      * @return mixed
      */
-    public function montaRetorno($retorno)
+    public function MontaRetorno($retorno)
     {
         $msgRetorno = '';
         $obrigatorios = '';

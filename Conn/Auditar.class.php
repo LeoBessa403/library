@@ -15,7 +15,7 @@ class Auditar extends Conn
     public static $coAuditoria;
 
     /** @var PDOStatement */
-    private $Create;
+    private $Audita;
 
     /** @var PDO */
     private $Conn;
@@ -120,7 +120,7 @@ class Auditar extends Conn
         if (!$this->Conn) {
             $this->Conn = parent::getConn();
         }
-        $this->Create = $this->Conn->prepare($this->Create);
+        $this->Audita = $this->Conn->prepare($this->Audita);
     }
 
     //Cria a sintaxe da query para Prepared Statements
@@ -128,7 +128,7 @@ class Auditar extends Conn
     {
         $Fileds = implode(', ', array_keys($this->dados));
         $Places = ':' . implode(', :', array_keys($this->dados));
-        $this->Create = "INSERT INTO {$this->tabela} ({$Fileds}) VALUES ({$Places})";
+        $this->Audita = "INSERT INTO {$this->tabela} ({$Fileds}) VALUES ({$Places})";
     }
 
     //Obtém a Conexão e a Syntax, executa a query!
@@ -136,7 +136,7 @@ class Auditar extends Conn
     {
         $this->Connect();
         try {
-            $this->Create->execute($this->dados);
+            $this->Audita->execute($this->dados);
             $this->Result = $this->Conn->lastInsertId();
         } catch (PDOException $e) {
             $this->Result = null;

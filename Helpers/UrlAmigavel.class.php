@@ -129,7 +129,7 @@ class UrlAmigavel
         extract((array)$app);
 
         if ($erro_404):
-            $module = (self::$modulo == SITE) ? 'web' : '';
+            $module = (self::$modulo == SITE) ? 'Web' : '';
             $arquivo_include = 'View/Index' . $module . '/' . ERRO_404 . '.View.php';
             $action = ERRO_404;
         else:

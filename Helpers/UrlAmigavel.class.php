@@ -98,10 +98,10 @@ class UrlAmigavel
             $erro_404 = true;
         endif;
 
-        $controller_path =  self::$modulo . "/Controller/" . self::$controller . '.Controller.php';
+        $controller_path = self::$modulo . "/Controller/" . self::$controller . '.Controller.php';
 
         if (!file_exists($controller_path)):
-            $controller_path =  self::$modulo . "Controller/" . self::$controller . '.Controller.php';
+            $controller_path = self::$modulo . "Controller/" . self::$controller . '.Controller.php';
         endif;
 
         require_once($controller_path);
@@ -220,8 +220,8 @@ class UrlAmigavel
 
     public static function getLink()
     {
-        $link = $_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
-        return str_replace(str_replace('http://','',HOME),'',$link);
+        $link = $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+        return str_replace(str_replace(array('http://', 'https://'), '', HOME), '', $link);
     }
 
     /*************************/
@@ -251,15 +251,16 @@ class UrlAmigavel
 
     private static function setAction()
     {
-        $ac = (!isset(self::$explode[2]) || self::$explode[2] == null || self::$explode[2] == 'Index' ? 'Index' : self::$explode[2]);
+        $ac = (!isset(self::$explode[2]) || self::$explode[2] == null || self::$explode[2] == 'Index'
+            ? 'Index' : self::$explode[2]);
         self::$action = $ac;
     }
 
     private static function setActionPermissao($ac)
     {
         $actions = PermissaoAcessoEnum::$actions;
-        foreach ($actions as $cons => $action){
-            if($ac == $action){
+        foreach ($actions as $cons => $action) {
+            if ($ac == $action) {
                 return $cons;
             }
         }

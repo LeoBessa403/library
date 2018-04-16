@@ -224,7 +224,9 @@ class UrlAmigavel
 
     private static function setUrl()
     {
-        $url = (isset($_GET['url']) && $_GET['url'] != "" ? $_GET['url'] : Redireciona("web/IndexWeb/Index"));
+        $link = $_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
+        $link = str_replace(str_replace('http://','',HOME),'',$link);
+        $url = (isset($link) && $link != "" ? $link : Redireciona("web/IndexWeb/Index"));
         self::$url = $url . '/';
     }
 

@@ -218,14 +218,18 @@ class UrlAmigavel
 
     }
 
+    public static function getLink()
+    {
+        $link = $_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
+        return str_replace(str_replace('http://','',HOME),'',$link);
+    }
+
     /*************************/
     /**** METODOS PRIVADOS ***/
     /*************************/
-
     private static function setUrl()
     {
-        $link = $_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
-        $link = str_replace(str_replace('http://','',HOME),'',$link);
+        $link = static::getLink();
         $url = (isset($link) && $link != "" ? $link : Redireciona("web/IndexWeb/Index"));
         self::$url = $url . '/';
     }

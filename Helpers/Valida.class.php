@@ -583,10 +583,15 @@ class Valida
             </a>';
     }
 
-    public static function geraLinkWhatSapp($mensagem, array $parametros = [])
+    /**
+     * @param $mensagem
+     * @param null $parametros
+     */
+    public static function geraLinkWhatSapp($mensagem, $parametros = null)
     {
         $pre = 'https://api.whatsapp.com/send?phone=' . WHATSAPP . '&l=pt_BR&text=';
-        echo $pre.$mensagem;
+        $msg = $pre . str_replace('%s', $parametros, $mensagem);
+        echo $msg;
     }
 
 

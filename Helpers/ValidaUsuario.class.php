@@ -9,7 +9,8 @@ class ValidaUsuario extends AbstractController
 
     public function validacao()
     {
-        $url = (isset($_GET['url']) && $_GET['url'] != "" ? $_GET['url'] : "");
+        $link = UrlAmigavel::getLink();
+        $url = (isset($link) && $link != "" ? $link : "");
         $explode = explode('/', $url);
         $session = new Session();
         if (!$session->CheckSession(SESSION_USER)):

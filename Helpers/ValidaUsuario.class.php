@@ -12,10 +12,11 @@ class ValidaUsuario extends AbstractController
         $link = UrlAmigavel::getLink();
         $url = (isset($link) && $link != "" ? $link : "");
         $explode = explode('/', $url);
+        /** @var Session $session */
         $session = new Session();
-        if (!$session->CheckSession(SESSION_USER)):
+        if (!$session->CheckSession(SESSION_USER)) {
             if (!isset($_POST['logar_sistema'])):
-                if (isset($explode[3]) && $explode[3] == "PrimeiroAcesso"):
+                if (isset($explode[2]) && $explode[2] == "PrimeiroAcesso"):
                     Redireciona(ADMIN . LOGIN);
                     die;
                 else:
@@ -26,7 +27,7 @@ class ValidaUsuario extends AbstractController
                 $index = new Index();
                 $index->Logar();
             endif;
-        else:
+        } else {
             /** @var AcessoService $AcessoSevice */
             $AcessoSevice = $this->getService(ACESSO_SERVICE);
             $us = $_SESSION[SESSION_USER];
@@ -56,7 +57,7 @@ class ValidaUsuario extends AbstractController
                     endif;
                 endif;
             endif;
-        endif;
+        }
     }
 
 }

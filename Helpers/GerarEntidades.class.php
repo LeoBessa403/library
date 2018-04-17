@@ -212,7 +212,7 @@ class {$Entidade}Entidade extends AbstractEntidade
             } elseif ($coluna == $chave_primaria) {
                 $ArquivoEntidade .= "\t* @return int \$$coluna";
             } else {
-                $ArquivoEntidade .= "\t* @return \$$coluna";
+                $ArquivoEntidade .= "\t* @return mixed \$$coluna";
             }
             $ArquivoEntidade .= "
      */\n";

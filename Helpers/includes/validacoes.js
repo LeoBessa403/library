@@ -253,6 +253,8 @@ $(function () {
         $(this).val(valor);
         $(this).focus();
     });
+    $("input[type=text]:enabled:visible:first").focus();
+    irAoTopo();
 
     ///// VERIFICA INTERVALO DE DATAS
     function gerarData(str) {

@@ -585,15 +585,21 @@ class Valida
 
     /**
      * @param $mensagem
-     * @param null $parametros
+     * @param array $parametros
+     * @param string $whatsapp
      */
-    public static function geraLinkWhatSapp($mensagem, $parametros = null)
+    public static function geraLinkWhatSapp($mensagem, array $parametros = [], $whatsapp = WHATSAPP)
     {
-        $pre = 'https://api.whatsapp.com/send?phone=' . WHATSAPP . '&l=pt_BR&text=';
-        $msg = $pre . $mensagem;
-        if ($parametros)
-            $msg = $pre . str_replace('%s', $parametros, $msg);
-        echo $msg;
+        $pre = 'https://api.whatsapp.com/send?phone=' . $whatsapp . '&l=pt_BR&text=';
+        if (!empty($parametros)) {
+            for ($i = 0; $i < count($parametros); $i++) {
+                $strpos = strpos(substr($mensagem, 0, strlen($mensagem)), '%');
+                $msgAux = substr($mensagem, $strpos + 2, strlen($mensagem));
+                $msg = substr($mensagem, 0, $strpos + 2);
+                $mensagem = str_replace('%s', $parametros[$i], $msg) . $msgAux;
+            }
+        }
+        echo $pre . $mensagem;
     }
 
 

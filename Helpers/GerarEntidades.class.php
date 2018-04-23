@@ -18,7 +18,7 @@ class GerarEntidades
         $this->tabelas = $tabelas;
         $this->constantes = ($tabelas) ? true : false;
         $conn = new ObjetoPDO();
-        $conn->inicializarConexao();
+        $this->conn = $conn->inicializarConexao();
         $this->gerar();
     }
 

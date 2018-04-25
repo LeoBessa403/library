@@ -10,7 +10,8 @@ class AbstractModel
     }
 
     /** Retorna um objeto PDO Singleton Pattern. */
-    public function getPDO() {
+    public function getPDO()
+    {
         $ObjetoPDO = NEW ObjetoPDO();
         return $ObjetoPDO::$ObjetoPDO;
     }
@@ -25,7 +26,8 @@ class AbstractModel
         } else {
             $atualiza = new Atualiza();
             $atualiza->Atualizar(
-                $Entidade::TABELA, $dados, "where " . $Entidade::CHAVE . " = :codigo", "codigo={$codigo}", $codigo
+                $Entidade::TABELA, $dados, "where " . $Entidade::CHAVE . " = :codigo",
+                "codigo={$codigo}", $codigo
             );
             return $atualiza->getResult();
         }
@@ -35,7 +37,10 @@ class AbstractModel
     {
         $Entidade = $this->Entidade;
         $deleta = new Deleta();
-        $deleta->Deletar($Entidade::TABELA, "where " . $Entidade::CHAVE . " = :codigo", "codigo={$codigo}", $codigo);
+        $deleta->Deletar(
+            $Entidade::TABELA, "where " . $Entidade::CHAVE . " = :codigo",
+            "codigo={$codigo}", $codigo
+        );
         return $deleta->getResult();
     }
 
@@ -212,8 +217,8 @@ class AbstractModel
                             $metodoSet2 = $this->getMetodo($obj3::CHAVE, false);
                             $obj->$metodoGet()->$metodoSet2($dados3);
                         }
-                    }else{
-                        foreach ($obj->$metodoGet() as $item){
+                    } else {
+                        foreach ($obj->$metodoGet() as $item) {
                             if ($item->$metodoGet2()) {
                                 $dados3 = $this->PesquisaTodosNv4(
                                     $item->$metodoGet(), $obj3::ENTIDADE, $obj2
@@ -248,7 +253,10 @@ class AbstractModel
     private function PesquisaTodosNv1($Entidade, $ChaveExtrangeira, $codigo)
     {
         $pesquisa = new Pesquisa();
-        $pesquisa->Pesquisar($Entidade::TABELA, 'where ' . $ChaveExtrangeira . ' = ' . $codigo);
+        $pesquisa->Pesquisar(
+            $Entidade::TABELA, "where " . $ChaveExtrangeira . " = :id ",
+            "id={$codigo}"
+        );
         $dados = null;
         foreach ($pesquisa->getResult() as $entidade) {
             $obj = new $Entidade();
@@ -280,7 +288,7 @@ class AbstractModel
         $Entidade = $this->Entidade;
         $pesquisa = new Pesquisa();
         $where = $pesquisa->getClausula($Condicoes);
-        $where = $where . " ORDER BY ".$Entidade::CHAVE." DESC";
+        $where = $where . " ORDER BY " . $Entidade::CHAVE . " DESC";
         $pesquisa->Pesquisar($Entidade::TABELA, $where);
         $dados = array();
         foreach ($pesquisa->getResult() as $entidade) {

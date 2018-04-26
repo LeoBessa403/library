@@ -8,6 +8,13 @@
  */
 class Email {
 
+    /** @var PHPMailer */
+    public $Mail;
+
+    /** CONSTROLE */
+    private $Error;
+    private $Result;
+
     private $Email_Destinatario;
     private $Email_Remetente;
     private $Senha_Email_Remetente;
@@ -21,6 +28,7 @@ class Email {
     function __construct($Email_Remetente = null, $Senha_Email_Remetente = null){
         $this->Email_Remetente = ($Email_Remetente)? $Email_Remetente : USER_EMAIL; 
         $this->Senha_Email_Remetente = ($Senha_Email_Remetente)? $Senha_Email_Remetente : PASS_EMAIL;
+        $this->Mail = new PHPMailer(true);
     }
 
     /**
@@ -31,8 +39,10 @@ class Email {
         
         $compara = strstr(HOME,'localhost');
         if($compara == null):
-                $control = TRUE;
-                $mail = new PHPMailer(true);
+                /** @var PHPMailer $mail*/
+                $mail = $this->Mail;
+                $this->Mail->CharSet = 'utf-8';
+                $this->Mail->setLanguage('pt');
                 $mail->IsSMTP();
                 $mail->SMTPAuth   = true;
                 $mail->IsHTML(true); 
@@ -47,29 +57,22 @@ class Email {
                 $mail->Subject = utf8_decode($this->Titulo);
                 $mail->Body = utf8_decode($this->Mensagem);
                 $mail->AltBody = 'Mensagem de Erro automática, favor não responder!'; // optional - MsgHTML will create an alternate automatically
-        //            $mail->AddAttachment('images/phpmailer.gif');      // attachment
-        //            $mail->AddAttachment('images/phpmailer_mini.gif'); // attachment
                 foreach ($this->Email_Destinatario as $nome => $email) {
                     if($email){
                         $mail->AddAddress(utf8_decode($email), utf8_decode($nome));
-                        if($mail->Send())
-                            $valida = TRUE;
-                        else
-                            $valida = FALSE;
+                        if($mail->Send()){
+                            $this->Error = null;
+                            $this->Result = true;
+                        }else{
+                            $this->Error = '<b>ERRO AO ENVIAR E-MAIL:</b> ' . $mail->ErrorInfo;
+                            $this->Result = false;
+                        }
                         /* Limpa tudo */
                         $mail->ClearAllRecipients();
                         $mail->ClearAttachments();
-                        if($valida == FALSE){
-                            $control = FALSE;
-                        }
+                        $mail->clearAddresses();
                     }
                 }
-
-
-                if($control == true)
-                    return TRUE;
-                else
-                    return $mail->ErrorInfo;
         endif;
        
     }
@@ -102,16 +105,7 @@ class Email {
         $this->Titulo = $Titulo;
         return $this;
     }
-    
-    /**
-     * <b>Enviar Imagem:</b> Basta envelopar um $_FILES de uma imagem e caso queira um nome e uma largura personalizada.
-     * Caso não informe a largura será 1024!
-     * @param INT $Width = Largura da imagem ( 800 padrão )
-     */
-    public function getTitulo() {
-        return $this->Titulo;
-    }
-    
+
     /**
      * <b>Enviar Imagem:</b> Basta envelopar um $_FILES de uma imagem e caso queira um nome e uma largura personalizada.
      * Caso não informe a largura será 1024!
@@ -123,13 +117,29 @@ class Email {
     }
     
     /**
-     * <b>Enviar Imagem:</b> Basta envelopar um $_FILES de uma imagem e caso queira um nome e uma largura personalizada.
-     * Caso não informe a largura será 1024!
-     * @param INT $Width = Largura da imagem ( 800 padrão )
+     * <b>Enviar Anexo:</b> Efetue o Upload da imagem com a classe de upload. Com o getResult() deste envio, basta anexar ao e-mail!
      */
-    public function getMensagem() {
-        return $this->Mensagem;
+    public function addFile($File) {
+        $this->File = $this->Mail->AddAttachment($File);
     }
+
+    /**
+     * <b>Verificar Envio:</b> Executando um getResult é possível verificar se foi ou não efetuado
+     * o envio do e-mail. Para mensagens execute o getError();
+     * @return BOOL $Result = TRUE or FALSE
+     */
+    public function getResult() {
+        return $this->Result;
+    }
+
+    /**
+     * <b>Obter Erro:</b> Retorna um array associativo com o erro e o tipo de erro.
+     * @return ARRAY $Error = Array associatico com o erro
+     */
+    public function getError() {
+        return $this->Error;
+    }
+
     
 
 }

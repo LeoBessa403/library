@@ -115,7 +115,7 @@ class Backup
         if (!$sql) return false;
 
         try {
-            $handle = fopen(PASTABACKUP . 'Backup ' . DESC . ' ' . date("d-m-Y H-i-s", time()) . '.sql', 'w+');
+            $handle = fopen(PASTABACKUP . 'Backup ' . DESC . ' ' . date("Y-m-d H-i-s", time()) . '.sql', 'w+');
             fwrite($handle, $sql);
             fclose($handle);
         } catch (Exception $e) {

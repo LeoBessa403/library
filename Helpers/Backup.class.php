@@ -58,6 +58,7 @@ class Backup
                 $tables = is_array($tables) ? $tables : explode(',', $tables);
             }
 
+            $sql = '-- AMBIENTE: ' .HOME. ' / BANCO: ' . DBSA . ";\n\n";
             $sql = 'CREATE DATABASE IF NOT EXISTS ' . DBSA . ";\n\n";
             $sql .= 'USE ' . DBSA . ";\n\n";
 

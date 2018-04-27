@@ -583,6 +583,14 @@ class Valida
             </a>';
     }
 
+    public static function geraBtnNovo()
+    {
+        echo '<a href="' . PASTAADMIN . UrlAmigavel::$controller . '/Cadastro' . UrlAmigavel::$controller . '"
+               class="btn btn-green tooltips" data-original-title="Criar '.UrlAmigavel::$controller .'" data-placement="top">
+               <i class="fa fa-plus"></i> Criar '.UrlAmigavel::$controller .'
+            </a>';
+    }
+
     /**
      * @param $mensagem
      * @param array $parametros

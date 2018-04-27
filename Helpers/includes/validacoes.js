@@ -197,10 +197,10 @@ $(function () {
     }
 
     function mascaraTel(element, valor) {
-        if (valor.length == 11) {
+        if (valor.length === 11) {
             element.unmask();
             element.mask("(99) 99999-999?9");
-        } else if (valor.length == 10) {
+        } else if (valor.length === 10) {
             element.unmask();
             element.mask("(99) 9999-9999?9");
         }
@@ -250,11 +250,7 @@ $(function () {
     $(".tel").each(function () {
         var valor = $(this).val().replace(/[^0-9]+/g, '');
         mascaraTel($(this), valor);
-        $(this).val(valor);
-        $(this).focus();
     });
-    $("input[type=text]:enabled:visible:first").focus();
-    irAoTopo();
 
     ///// VERIFICA INTERVALO DE DATAS
     function gerarData(str) {

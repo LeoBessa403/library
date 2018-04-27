@@ -193,15 +193,16 @@ class Form
      * <b>setId:</b> Pega no banco de dados os registros para o autocomplete.
      * @param STRING $tabela : nome da tabela a ser consultada.
      * @param STRING $campo : nome do campo a ser consultado.
+     * @param STRING $order : Ordenação.
      * @return $this script: gera o script para o autocomplete
      */
-    public function setAutocomplete($tabela, $campo, $id)
+    public function setAutocomplete($tabela, $campo, $id, $order = 'ASC')
     {
         $dados = [
             '' => Mensagens::MSG_SEM_ITEM_SELECIONADO
         ];
         $autocomplete = new Pesquisa();
-        $autocomplete->Pesquisar($tabela, "ORDER BY $campo", NULL, $id . ',' . $campo);
+        $autocomplete->Pesquisar($tabela, "ORDER BY $campo $order", NULL, $id . ',' . $campo);
         if ($autocomplete->getResult()) {
             foreach ($autocomplete->getResult() as $res) {
                 $dados[$res[$id]] = $res[$campo];

@@ -9,6 +9,7 @@
 class Backup
 {
     var $charset = '';
+    var $conn;
 
     /**
      * Constructor initializes database
@@ -22,7 +23,8 @@ class Backup
 
         if ($dias < 1):
             $this->charset = 'utf8';
-            $this->initializeDatabase();
+            $conn = new ObjetoPDO();
+            $this->conn = $conn->inicializarConexao();
             $this->RealizarBackup();
 
             // ATUALIZA O XML DE CONTROLE DE BACKUP
@@ -32,15 +34,6 @@ class Backup
 </root>';
             file_put_contents('BancoDados/Controle.Backup.xml', $novo);
         endif;
-    }
-
-    protected function initializeDatabase()
-    {
-        $conn = mysql_connect(HOST, USER, PASS);
-        mysql_select_db(DBSA, $conn);
-        if (!mysql_set_charset($this->charset, $conn)) {
-            mysql_query('SET NAMES ' . $this->charset);
-        }
     }
 
     /**
@@ -57,8 +50,8 @@ class Backup
              */
             if ($tables == '*') {
                 $tables = array();
-                $result = mysql_query('SHOW TABLES');
-                while ($row = mysql_fetch_row($result)) {
+                $result = mysqli_query($this->conn, 'SHOW TABLES');
+                while ($row = mysqli_fetch_row($result)) {
                     $tables[] = $row[0];
                 }
             } else {
@@ -73,15 +66,15 @@ class Backup
              */
             foreach ($tables as $table) {
 
-                $result = mysql_query('SELECT * FROM ' . $table);
-                $numFields = mysql_num_fields($result);
+                $result = mysqli_query($this->conn, 'SELECT * FROM ' . $table);
+                $numFields = mysqli_num_fields($result);
 
                 $sql .= 'DROP TABLE IF EXISTS ' . $table . ';';
-                $row2 = mysql_fetch_row(mysql_query('SHOW CREATE TABLE ' . $table));
+                $row2 = mysqli_fetch_row(mysqli_query($this->conn, 'SHOW CREATE TABLE ' . $table));
                 $sql .= "\n\n\n" . $row2[1] . ";\n\n\n";
 
                 for ($i = 0; $i < $numFields; $i++) {
-                    while ($row = mysql_fetch_row($result)) {
+                    while ($row = mysqli_fetch_row($result)) {
                         $sql .= 'INSERT INTO ' . $table . ' VALUES(';
                         for ($j = 0; $j < $numFields; $j++) {
                             $row[$j] = addslashes($row[$j]);

@@ -179,7 +179,7 @@ class Upload
     {
         $this->File = $Image;
         $this->Name = ((string)$Name ? $Name : substr($Image['name'], 0, strrpos($Image['name'], '.')));
-        $this->Width = ((int)$Width ? $Width : 800);
+        $this->Width = ((int)$Width ? $Width : TAMANHO);
         $this->Folder = ($Folder ? $Folder : "");
 
         $this->CreateFolder($this->Folder);
@@ -195,6 +195,7 @@ class Upload
         foreach ($Folder as $value) {
             $pasta .= $value . "/";
             if (!file_exists(self::$BaseDir . $pasta) && !is_dir(self::$BaseDir . $pasta)):
+//                debug(self::$BaseDir . $pasta);
                 mkdir(self::$BaseDir . $pasta, 0777);
             endif;
         }

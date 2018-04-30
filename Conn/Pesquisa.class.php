@@ -108,6 +108,12 @@ class Pesquisa extends Conn
                             case '<=':
                                 $pesquisa[] = $operador[1] . " <= '" . $value . "'";
                                 break;
+                            case '>':
+                                $pesquisa[] = $operador[1] . " > '" . $value . "'";
+                                break;
+                            case '<':
+                                $pesquisa[] = $operador[1] . " < '" . $value . "'";
+                                break;
                             default:
                                 break;
                         }

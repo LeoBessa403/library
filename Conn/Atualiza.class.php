@@ -123,7 +123,7 @@ class Atualiza extends Conn
             $this->Result = true;
         } catch (PDOException $e) {
             $this->Result = null;
-            if (DESENVOLVEDOR){
+            if (DEBUG){
                 Valida::Mensagem("Erro ao Atualizar na TABELA {$this->Tabela}: {$e->getMessage()}", 4);
                 debug(10);
             }

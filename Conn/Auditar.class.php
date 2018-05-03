@@ -141,7 +141,7 @@ class Auditar extends Conn
         } catch (PDOException $e) {
             $this->Result = null;
             $this->Result = null;
-            if (DESENVOLVEDOR) {
+            if (DEBUG) {
                 Valida::Mensagem("Erro ao Cadastrar a {$this->tabela}: {$e->getMessage()}", 4);
                 debug(10);
             }

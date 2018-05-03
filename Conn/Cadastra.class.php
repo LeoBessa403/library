@@ -58,7 +58,7 @@ class Cadastra extends Conn
             $this->Result = $this->Conn->lastInsertId();
         } catch (PDOException $e) {
             $this->Result = null;
-            if (DESENVOLVEDOR){
+            if (DEBUG){
                 Valida::Mensagem("Erro ao Cadastrar: na TABELA {$this->tabela} {$e->getMessage()}", 4);
                 debug(10);
             }

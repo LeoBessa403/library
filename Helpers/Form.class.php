@@ -527,11 +527,12 @@ class Form
      * <b>finalizaForm:</b> Fecha o formulário
      * @return STRING com o fechamento do FORM.
      */
-    public function finalizaForm($link = false)
+    public function finalizaForm($link = false, $btnVoltar = true, $titulo = null)
     {
         self::$form = '<div class="col-md-' . self::$tamanhoForm . '">							
                 <div class="panel panel-box">
                         <div class="panel-body">
+                 <h2 style="margin: 0 0 15px;"><small>' . $titulo . '</small></h2>
                             <form action="' . HOME . self::$action . '" role="form" id="'
             . self::$idForm . '" name="' . self::$idForm . '" method="post"  enctype="multipart/form-data" class="formulario">                                                         
                             <div class="col-md-12"">' .
@@ -548,20 +549,23 @@ class Form
                             <i class="fa fa-ban"></i>
                             <span class="ladda-spinner"></span>
                         </button>';
-        if (!$link) {
-            $link = UrlAmigavel::$modulo;
-            $link .= (UrlAmigavel::$modulo == ADMIN)
-                ? '/' . UrlAmigavel::$controller . '/Listar' . UrlAmigavel::$controller
-                : '';
-        } else {
-            $link = UrlAmigavel::$modulo . '/' . $link;
-        }
-        self::$form .= '<a href="' . HOME . $link . '"
+        if ($btnVoltar) {
+            if (!$link) {
+                $link = UrlAmigavel::$modulo;
+                $link .= (UrlAmigavel::$modulo == ADMIN)
+                    ? '/' . UrlAmigavel::$controller . '/Listar' . UrlAmigavel::$controller
+                    : '';
+            } else {
+                $link = UrlAmigavel::$modulo . '/' . $link;
+            }
+            self::$form .= '<a href="' . HOME . $link . '"
                            class="btn btn-primary tooltips" data-original-title="Voltar" data-placement="top"
                            style="float: right; margin-top: 10px;">
                             Voltar <i class="clip-arrow-right-2"></i>
-                         </a>
-                    </div>
+                         </a>';
+        }
+
+        self::$form .= '</div>
                     </div>
                 </form>
              </div>

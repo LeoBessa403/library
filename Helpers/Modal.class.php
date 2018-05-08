@@ -89,6 +89,50 @@ class Modal {
                 </div>
             </div>';
     }
+
+    public static function desativaDestaque($id) {
+       echo '<div class="modal fade in modal-overflow produto_model" id="'.$id.'" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-header btn-bricky">
+                        <button type="button" class="close cancelar" data-dismiss="modal" aria-hidden="true">
+                                X
+                        </button>
+                        <h4 class="modal-title">Desativar Destaque do Produto</h4>
+                </div>
+                <div class="modal-body">
+                        <b>Deseja Realmente Desativar o Destaque desse Produto?</b>
+                </div>
+                <div class="modal-footer">
+                        <button aria-hidden="true" data-dismiss="modal" class="btn btn-bricky cancelar">
+                                Fechar
+                        </button>
+                        <button class="btn btn-success" data-dismiss="modal" id="" data-url-action="">
+                                OK
+                        </button>
+                </div>
+            </div>';
+    }
+
+    public static function ativaDestaque($id) {
+       echo '<div class="modal fade in modal-overflow produto_model" id="'.$id.'" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-header btn-success">
+                        <button type="button" class="close cancelar" data-dismiss="modal" aria-hidden="true">
+                                X
+                        </button>
+                        <h4 class="modal-title">Ativar Destaque do Produto</h4>
+                </div>
+                <div class="modal-body">
+                        <b>Deseja Realmente Ativar o Destaque desse Produto?</b>
+                </div>
+                <div class="modal-footer">
+                        <button aria-hidden="true" data-dismiss="modal" class="btn btn-bricky cancelar">
+                                Fechar
+                        </button>
+                        <button class="btn btn-success" data-dismiss="modal" id="" data-url-action="">
+                                OK
+                        </button>
+                </div>
+            </div>';
+    }
     
     
     public static function confirmacao($id) {

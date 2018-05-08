@@ -160,6 +160,6 @@ function carregaJs($urlAmigavel)
 {
     $arquivo = '/js/includes/' . $urlAmigavel::$controller . '/' . $urlAmigavel::$action . '.js';
     if (file_exists(ADMIN . $arquivo)) {
-        echo '<script src="' . PASTAADMIN . $arquivo . '"></script>';
+        echo '<script src="' . HOME . ADMIN . $arquivo . '"></script>';
     }
 }

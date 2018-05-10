@@ -41,7 +41,7 @@ class Grid {
         echo '</div><hr>';
     }
 
-    private function gerarBtnExportar() {
+    public function gerarBtnExportar() {
         $apps = new UrlAmigavel::$controller();
         $exporta = false;
         echo '<div class="row">';

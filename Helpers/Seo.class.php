@@ -109,7 +109,7 @@ class Seo
         $controller = new $control();
         $dadosSeo = $controller->$metodo();
         $this->Imagem = $dadosSeo['imagem'];
-        $this->Descricao = Valida::Resumi(strip_tags($dadosSeo['descricao']), 150);
+        $this->Descricao = Valida::Resumi(strip_tags($dadosSeo['descricao']), 230);
         $this->Titulo = $dadosSeo['titulo'] . ' | ' . DESC;
     }
 

@@ -140,7 +140,7 @@ $(function () {
         if (forca < 30) {
             validaErro(id, "Fraca");
         } else if ((forca >= 30) && (forca < 60)) {
-            validaErro(id, "Razoável");
+            validaOK(id, "Razoável");
         } else if ((forca >= 60) && (forca < 85)) {
             validaOK(id, "Boa");
         } else {

@@ -114,9 +114,8 @@ class Backup
     protected function saveFile(&$sql)
     {
         if (!$sql) return false;
-
         try {
-            $handle = fopen(PASTABACKUP . 'Backup ' . DESC . ' ' . date("Y-m-d H-i-s", time()) . '.sql', 'w+');
+            $handle = fopen(PASTABACKUP . 'Backup ' . Valida::ValNome(DESC) . ' ' . date("Y-m-d H-i-s", time()) . '.sql', 'w+');
             fwrite($handle, $sql);
             fclose($handle);
         } catch (Exception $e) {

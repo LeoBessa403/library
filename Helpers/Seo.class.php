@@ -110,9 +110,11 @@ class Seo
             $controller = new $control();
             if (method_exists($controller, $metodo)):
                 $dadosSeo = $controller->$metodo();
-                $this->Imagem = $dadosSeo['imagem'];
-                $this->Descricao = Valida::Resumi(strip_tags($dadosSeo['descricao']), 150);
-                $this->Titulo = $dadosSeo['titulo'] . ' | ' . DESC;
+                if (!empty($dadosSeo)) {
+                    $this->Imagem = $dadosSeo['imagem'];
+                    $this->Descricao = Valida::Resumi(strip_tags($dadosSeo['descricao']), 150);
+                    $this->Titulo = $dadosSeo['titulo'] . ' | ' . DESC;
+                }
             endif;
         endif;
     }

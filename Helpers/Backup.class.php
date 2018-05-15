@@ -25,7 +25,6 @@ class Backup
             $backupCheck = fopen('BancoDados/Backup.txt', "w");
             fwrite($backupCheck, Valida::DataDBDate($novaData));
             fclose($backupCheck);
-
             $this->charset = 'utf8';
             $conn = new ObjetoPDO();
             $this->conn = $conn->inicializarConexao();

@@ -24,7 +24,6 @@ class UrlAmigavel
     /** @var array Action Permitidas pra acesso sem validação de usuário */
     public static $ACESSO_PERMITIDO = ['Acessar', 'Registrar', 'RecuperarSenha'];
 
-
     /**
      * RealizaÃ§Ã£o a gestã£o da dos controladores e metodos a serem executados
      * e pega os ParÃ¢metos via GET!
@@ -55,6 +54,18 @@ class UrlAmigavel
             return self::$params;
         endif;
         return null;
+    }
+
+    /**
+     * @return mixed
+     */
+    public static function PegaParametroUrlAmigavel()
+    {
+        if(!empty(self::$explode[3])){
+            return self::$explode[3];
+        }else{
+            return false;
+        }
     }
 
     /**
@@ -276,22 +287,25 @@ class UrlAmigavel
             array_pop(self::$explode);
         }
 
+        $controller_url_amigavel = explode(', ', CONTROLLER_SEO);
         if (!empty(self::$explode[3])):
-            self::$explode = base64_decode(self::$explode[3]);
-            self::$explode = explode("/", self::$explode);
-            if (!empty(self::$explode[1])) {
-                self::$explode[1] = base64_decode(self::$explode[1]);
-            } else {
-                self::$explode[1] = null;
-            }
-            if (!empty(self::$explode[3])) {
-                self::$explode[3] = base64_decode(self::$explode[3]);
-            }
-            if (!empty(self::$explode[5])) {
-                self::$explode[5] = base64_decode(self::$explode[5]);
-            }
-            if (!empty(self::$explode[7])) {
-                self::$explode[7] = base64_decode(self::$explode[7]);
+            if (!in_array(self::$controller, $controller_url_amigavel)) {
+                self::$explode = base64_decode(self::$explode[3]);
+                self::$explode = explode("/", self::$explode);
+                if (!empty(self::$explode[1])) {
+                    self::$explode[1] = base64_decode(self::$explode[1]);
+                } else {
+                    self::$explode[1] = null;
+                }
+                if (!empty(self::$explode[3])) {
+                    self::$explode[3] = base64_decode(self::$explode[3]);
+                }
+                if (!empty(self::$explode[5])) {
+                    self::$explode[5] = base64_decode(self::$explode[5]);
+                }
+                if (!empty(self::$explode[7])) {
+                    self::$explode[7] = base64_decode(self::$explode[7]);
+                }
             }
         endif;
 

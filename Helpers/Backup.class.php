@@ -16,23 +16,20 @@ class Backup
      */
     function Backup()
     {
-        $xml = simplexml_load_file("BancoDados/Controle.Backup.xml");
-        $data = $xml->date;
-        $dias = Valida::CalculaDiferencaDiasData(date("d/m/Y"), $data);
-        $novaData = Valida::CalculaData(date("d/m/Y"), BACKUP, "+");
+        $backup = fopen('BancoDados/Backup.txt', "a+");
+        $backupDate = fgets($backup);
+        $dias = Valida::CalculaDiferencaDiasData(date("d/m/Y"), Valida::DataShow($backupDate));
 
         if ($dias < 1):
+            $novaData = Valida::CalculaData(date("d/m/Y"), BACKUP, "+");
+            $backupCheck = fopen('BancoDados/Backup.txt', "w");
+            fwrite($backupCheck, Valida::DataDBDate($novaData));
+            fclose($backupCheck);
+
             $this->charset = 'utf8';
             $conn = new ObjetoPDO();
             $this->conn = $conn->inicializarConexao();
             $this->RealizarBackup();
-
-            // ATUALIZA O XML DE CONTROLE DE BACKUP
-            $novo = '<?xml version="1.0" encoding="UTF-8"?>
-<root>
-    <date>' . $novaData . '</date>
-</root>';
-            file_put_contents('BancoDados/Controle.Backup.xml', $novo);
         endif;
     }
 
@@ -58,7 +55,7 @@ class Backup
                 $tables = is_array($tables) ? $tables : explode(',', $tables);
             }
 
-            $sql = '-- AMBIENTE: ' .HOME. ' / BANCO: ' . DBSA . ";\n\n";
+            $sql = '-- AMBIENTE: ' . HOME . ' / BANCO: ' . DBSA . ";\n\n";
             $sql = 'CREATE DATABASE IF NOT EXISTS ' . DBSA . ";\n\n";
             $sql .= 'USE ' . DBSA . ";\n\n";
 

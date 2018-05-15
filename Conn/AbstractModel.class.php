@@ -277,7 +277,7 @@ class AbstractModel
             $pesquisa = new Pesquisa();
             $where = $pesquisa->getClausula($Condicoes);
             $pesquisa->Pesquisar($Entidade::TABELA, $where);
-            if (!empty($pesquisa->getResult())) {
+            if (count($pesquisa->getResult())) {
                 return $this->getUmObjeto($Entidade, $pesquisa->getResult());
             }
         }

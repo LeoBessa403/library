@@ -235,6 +235,24 @@ $(function () {
         valor = valor.val().replace(/[^-.]+/g, '');
         $(this).val(valor);
     });
+
+    var campo_cep = $('#nu_cep');
+    if (campo_cep.length) {
+        campo_cep.change(function () {
+            var cep = $(this).val().replace('-', '').replace('.', '');
+            if (cep.length === 8) {
+                $.get("https://viacep.com.br/ws/" + cep + "/json", function (data) {
+                    if (!data.erro) {
+                        $('#ds_bairro').val(data.bairro);
+                        $('#ds_complemento').val(data.complemento);
+                        $('#no_cidade').val(data.localidade);
+                        $('#ds_endereco').val(data.logradouro);
+                        $('#sg_uf').val(data.uf).trigger("change.select2");
+                    }
+                }, 'json');
+            }
+        });
+    }
     $(".tel").mask("(99) 9999-9999?9").keyup(function () {
         var valor = $(this).val().replace(/[^0-9]+/g, '');
         mascaraTel($(this), valor);

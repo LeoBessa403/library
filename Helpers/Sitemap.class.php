@@ -126,6 +126,8 @@ class Sitemap
         fwrite($this->SitemapXml, $this->Sitemap);
         fclose($this->SitemapXml);
 
+        debug($this->Sitemap);
+
         //CRIA O GZ
         $this->SitemapGz = gzopen("../sitemap.xml.gz", 'w9');
         gzwrite($this->SitemapGz, $this->Sitemap);

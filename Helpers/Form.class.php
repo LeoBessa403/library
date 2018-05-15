@@ -407,8 +407,13 @@ class Form
             //CAMPO TIPO SIMGLE FILE (SOMENTE PRA UM ARQUIVO)
             elseif (self::$type == "singlefile"):
                 self::$form .= '<div class="fileupload fileupload-new" data-provides="fileupload">
-                                            <div class="fileupload-new thumbnail" style="width: 150px; height: 150px;">' . (isset(self::$valor[self::$id]) ? Valida::getMiniatura(self::$valor[self::$id], "Pre Carregamento", 150, 150) : Valida::getMiniatura("sem-foto.jpg", "Pre Carregamento", 150, 150)) . '
-                                            </div>
+                                            <div class="fileupload-new thumbnail" style="width: 150px; height: 150px;">';
+                if (isset(self::$valor[self::$id])) {
+                    self::$form .= Valida::getMiniatura(self::$valor[self::$id], "Pre Carregamento", 150, 150);
+                } else {
+                    self::$form .= '<img src="' . HOME . 'library/Helpers/Timthumb.class.php?src=' . HOME . 'library/Imagens/sem-foto.jpg&w=150&h=150" alt="Pre Carregamento" title="Pre Carregamento"  />';
+                }
+                self::$form .= '</div>
                                             <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 150px; max-height: 150px; line-height: 20px;"></div>
                                             <div class="user-edit-image-buttons">
                                                     <span class="btn btn-dark-grey btn-file"><span class="fileupload-new"><i class="fa fa-folder-open-o"></i> Abrir Arquivo</span>

@@ -104,11 +104,17 @@ class Seo
     {
         $control = $url::$controller;
         $metodo = 'getSeo' . $control;
-        $controller = new $control();
-        $dadosSeo = $controller->$metodo();
-        $this->Imagem = $dadosSeo['imagem'];
-        $this->Descricao = Valida::Resumi(strip_tags($dadosSeo['descricao']), 150);
-        $this->Titulo = $dadosSeo['titulo'] . ' | ' . DESC;
+        $controller_path = $url::$modulo . "/Controller/" . $control . '.Controller.php';
+
+        if (file_exists($controller_path)):
+            $controller = new $control();
+            if (method_exists($controller, $metodo)):
+                $dadosSeo = $controller->$metodo();
+                $this->Imagem = $dadosSeo['imagem'];
+                $this->Descricao = Valida::Resumi(strip_tags($dadosSeo['descricao']), 150);
+                $this->Titulo = $dadosSeo['titulo'] . ' | ' . DESC;
+            endif;
+        endif;
     }
 
 }

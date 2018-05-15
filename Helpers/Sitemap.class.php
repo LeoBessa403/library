@@ -122,14 +122,12 @@ class Sitemap
         $this->Sitemap .= '</urlset>';
 
         //CRIA O XML
-        $this->SitemapXml = fopen("../sitemap.xml", "w+");
+        $this->SitemapXml = fopen(PASTA_RAIZ . "sitemap.xml", "w+");
         fwrite($this->SitemapXml, $this->Sitemap);
         fclose($this->SitemapXml);
 
-        debug($this->Sitemap);
-
         //CRIA O GZ
-        $this->SitemapGz = gzopen("../sitemap.xml.gz", 'w9');
+        $this->SitemapGz = gzopen(PASTA_RAIZ . "sitemap.xml.gz", 'w9');
         gzwrite($this->SitemapGz, $this->Sitemap);
         gzclose($this->SitemapGz);
     }

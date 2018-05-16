@@ -13,7 +13,25 @@ class Sitemap
     private $SitemapGz;
     private $SitemapPing;
 
-    public function exeSitemap($Ping = true)
+    /**
+     * Sitemap constructor.
+     * @param bool $Ping
+     */
+    function __construct($Ping = true)
+    {
+        //Gera SITEMAP (1X / dia)
+        $SiteMapCheck = fopen('sitemap.txt', "a+");
+        $SiteMapCheckDate = fgets($SiteMapCheck);
+        if ($SiteMapCheckDate != date('Y-m-d')):
+            $this->exeSitemap($Ping);
+            $SiteMapCheck = fopen('sitemap.txt', "w");
+            fwrite($SiteMapCheck, date('Y-m-d'));
+            fclose($SiteMapCheck);
+        endif;
+    }
+
+
+    private function exeSitemap($Ping)
     {
         $this->SitemapUpdate();
         if ($Ping != false):

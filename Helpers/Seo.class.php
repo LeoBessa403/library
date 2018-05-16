@@ -89,7 +89,7 @@ class Seo
 
     private function geraImagem()
     {
-        $imagem = HOME . 'library/Imagens/padrao.jpg';
+        $imagem = HOME . SITE . '/Images/padrao.jpg';
         if (!file_exists($imagem) && !is_dir($imagem)) {
             $this->Imagem = $imagem;
         } else {

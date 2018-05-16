@@ -53,7 +53,10 @@ class Sitemap
         $this->Sitemap .= '<priority>1.0</priority >' . "\r\n";
         $this->Sitemap .= '</url>' . "\r\n";
 
-        require_once 'sitemap.php';
+
+        if(file_exists('sitemap.php')){
+            require_once 'sitemap.php';
+        }
 
         //CLOSE
         $this->Sitemap .= '</urlset>';

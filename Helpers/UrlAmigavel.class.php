@@ -103,7 +103,9 @@ class UrlAmigavel
         endif;
 
         $controller_path = self::$modulo . "/Controller/" . self::$controller . '.Controller.php';
-        if ((!file_exists($controller_path)) && (!file_exists("Controller/" . self::$controller . '.Controller.php'))):
+        if ((!file_exists($controller_path)) &&
+            (!file_exists("Controller/" . self::$controller . '.Controller.php')) &&
+            (!file_exists("library/Controller/" . self::$controller . '.Controller.php'))):
             self::$controller = (self::$modulo == ADMIN) ? "Index" : "IndexWeb";
             self::$action = "Index";
             $erro_404 = true;
@@ -112,7 +114,7 @@ class UrlAmigavel
         $controller_path = self::$modulo . "/Controller/" . self::$controller . '.Controller.php';
 
         if (!file_exists($controller_path)):
-            $controller_path = self::$modulo . "Controller/" . self::$controller . '.Controller.php';
+            $controller_path = "library/Controller/" . self::$controller . '.Controller.php';
         endif;
 
         require_once($controller_path);

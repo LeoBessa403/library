@@ -246,6 +246,43 @@ class Index extends AbstractController
     //************ EXEMPLOS DE ACTION ****************************//
     //*************************************************************//
 
+//    private function trafficStart() {
+//        $ip = filter_input(INPUT_SERVER, 'REMOTE_ADDR', FILTER_VALIDATE_IP);
+//
+//        $url = "http://ip-api.com/json/{$ip}";
+//        $timeout = 3;
+//        $ch = curl_init($url);
+//        curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+//        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-type: application/json'));
+//        $rq = curl_exec($ch);
+//        curl_close($ch);
+//        $geo = array();
+//        if ($rq !== false) {
+//            $geo = json_decode($rq);
+//        }
+//        $this->Traffic['trafego_data'] = date('Y-m-d');
+//        $this->Traffic['trafego_data_hora'] = date('Y-m-d H:i:s');
+//        $this->Traffic['trafego_IP'] = $this->Session['online_ip'];
+//        $this->Traffic['trafego_pais'] = (isset($geo->country)) ? $geo->country : 'Desconhecido';
+//        $this->Traffic['trafego_pais_code'] = (isset($geo->countryCode)) ? $geo->countryCode : 'Desconhecida';
+//        $this->Traffic['trafego_estado'] = (isset($geo->regionName)) ? $geo->regionName : 'Desconhecida';
+//        $this->Traffic['trafego_uf'] = (isset($geo->region)) ? $geo->region : 'Desconhecida';
+//        $this->Traffic['trafego_cidade'] = (isset($geo->city)) ? $geo->city : 'Desconhecida';
+//        $this->Traffic['trafego_navegador'] = $this->getBrowser();
+//        $this->Traffic['trafego_plataforma'] = $this->getPlatform();
+//        $this->Traffic['trafego_device'] = $this->getDevice();
+//        $this->Traffic['trafego_reference'] = $this->getreferer();
+//        $this->Traffic['trafego_pagina'] = $this->Session['online_url'];
+//        $this->Traffic['trafego_useragent'] = $this->Session['online_agent'];
+//
+//        $Create = new Create();
+//        $Create->ExeCreate(DB_VIEWS_TRAFEGO, $this->Traffic);
+//    }
+
+
+
     // EXEMPLO DE ENVIO DE EMAIL
     public function VerGraficos()
     {

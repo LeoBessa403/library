@@ -100,21 +100,23 @@ class AbstractModel
                 $metodoGet = $this->getMetodo($indice);
                 $pesquisando[$result['Campo']] = $CoRegistro;
                 $NovaEntidade = $result['Entidade'];
-                $pesquisa = new Pesquisa();
-                $where = $pesquisa->getClausula($pesquisando);
-                $pesquisa->Pesquisar($NovaEntidade::TABELA, $where);
+                if ($this->validaEntidadeSemRastreio($NovaEntidade)) {
+                    $pesquisa = new Pesquisa();
+                    $where = $pesquisa->getClausula($pesquisando);
+                    $pesquisa->Pesquisar($NovaEntidade::TABELA, $where);
 
-                $obj2 = new $NovaEntidade();
-                if ($pesquisa->getResult()) {
-                    $registro = $pesquisa->getResult()[0];
-                    if ($registro) {
-                        foreach ($NovaEntidade::getCampos() as $campo) {
-                            $metodo2 = $this->getMetodo($campo, false);
-                            $obj2->$metodo2($registro[$campo]);
+                    $obj2 = new $NovaEntidade();
+                    if ($pesquisa->getResult()) {
+                        $registro = $pesquisa->getResult()[0];
+                        if ($registro) {
+                            foreach ($NovaEntidade::getCampos() as $campo) {
+                                $metodo2 = $this->getMetodo($campo, false);
+                                $obj2->$metodo2($registro[$campo]);
+                            }
                         }
                     }
+                    $obj->$metodo($obj2->$metodoGet());
                 }
-                $obj->$metodo($obj2->$metodoGet());
             }
         }
         return $obj;
@@ -124,33 +126,35 @@ class AbstractModel
     {
         $Entidade = $this->Entidade;
         foreach ($Entidade::getRelacionamentos() as $campo) {
-            $obj2 = new $campo['Entidade']();
-            $metodoGet = $this->getMetodo($obj2::CHAVE);
-            $metodoSet = $this->getMetodo($obj2::CHAVE, false);
-            if ($campo['Tipo'] == 1) {
-                if ($obj->$metodoGet()) {
-                    $dados2 = $this->PesquisaUmRegistroNv2($obj->$metodoGet(), $campo['Entidade']);
-                    $obj->$metodoSet($dados2);
-                }
-                $this->PesquisaTodosNv3($obj, $obj2);
-            } else {
-                $novoMetodo = $this->getMetodo($obj::CHAVE);
-                $todos = null;
-                if (count($obj->$novoMetodo())) {
-                    if (is_array($obj->$novoMetodo())) {
-                        $indece = 0;
-                        foreach ($obj->$novoMetodo() as $novoRegistro) {
-                            $todos[$indece] = $this->PesquisaTodosNv1(
-                                $campo['Entidade'], $campo['Campo'], $novoRegistro->$novoMetodo()
-                            );
-                            $indece++;
-                        }
-                    } else {
-                        $todos = $this->PesquisaTodosNv1($campo['Entidade'], $campo['Campo'], $obj->$novoMetodo());
+            if ($this->validaEntidadeSemRastreio($campo['Entidade'])) {
+                $obj2 = new $campo['Entidade']();
+                $metodoGet = $this->getMetodo($obj2::CHAVE);
+                $metodoSet = $this->getMetodo($obj2::CHAVE, false);
+                if ($campo['Tipo'] == 1) {
+                    if ($obj->$metodoGet()) {
+                        $dados2 = $this->PesquisaUmRegistroNv2($obj->$metodoGet(), $campo['Entidade']);
+                        $obj->$metodoSet($dados2);
                     }
+                    $this->PesquisaTodosNv3($obj, $obj2);
+                } else {
+                    $novoMetodo = $this->getMetodo($obj::CHAVE);
+                    $todos = null;
+                    if (count($obj->$novoMetodo())) {
+                        if (is_array($obj->$novoMetodo())) {
+                            $indece = 0;
+                            foreach ($obj->$novoMetodo() as $novoRegistro) {
+                                $todos[$indece] = $this->PesquisaTodosNv1(
+                                    $campo['Entidade'], $campo['Campo'], $novoRegistro->$novoMetodo()
+                                );
+                                $indece++;
+                            }
+                        } else {
+                            $todos = $this->PesquisaTodosNv1($campo['Entidade'], $campo['Campo'], $obj->$novoMetodo());
+                        }
+                    }
+                    $obj->$metodoSet($todos);
+                    $this->PesquisaTodosNv3($obj, $obj2);
                 }
-                $obj->$metodoSet($todos);
-                $this->PesquisaTodosNv3($obj, $obj2);
             }
         }
         return $obj;
@@ -178,53 +182,55 @@ class AbstractModel
     {
         $campos = $obj2::getRelacionamentos();
         foreach ($campos as $campo) {
-            $obj3 = new $campo['Entidade']();
-            $metodoGet = $this->getMetodo($obj2::CHAVE);
-            $metodoGet2 = $this->getMetodo($obj3::CHAVE);
-            if ($campo['Tipo'] == 1) {
-                if (is_array($obj->$metodoGet())) {
-                    $indece = 0;
-                    foreach ($obj->$metodoGet() as $novoRegistro) {
-                        if (count($novoRegistro)) {
-                            if ($novoRegistro->$metodoGet2()) {
-                                $dados4 = $this->PesquisaUmRegistroNv3(
-                                    $novoRegistro->$metodoGet2(), $obj3::ENTIDADE
+                if ($this->validaEntidadeSemRastreio($campo['Entidade'])) {
+                $obj3 = new $campo['Entidade']();
+                $metodoGet = $this->getMetodo($obj2::CHAVE);
+                $metodoGet2 = $this->getMetodo($obj3::CHAVE);
+                if ($campo['Tipo'] == 1) {
+                    if (is_array($obj->$metodoGet())) {
+                        $indece = 0;
+                        foreach ($obj->$metodoGet() as $novoRegistro) {
+                            if (count($novoRegistro)) {
+                                if ($novoRegistro->$metodoGet2()) {
+                                    $dados4 = $this->PesquisaUmRegistroNv3(
+                                        $novoRegistro->$metodoGet2(), $obj3::ENTIDADE
+                                    );
+                                    $metodoSet2 = $this->getMetodo($obj3::CHAVE, false);
+                                    $obj->$metodoGet()[$indece]->$metodoSet2($dados4);
+                                    $indece++;
+                                }
+                            }
+                        }
+                    } else {
+                        if ($obj->$metodoGet()) {
+                            if ($obj->$metodoGet()->$metodoGet2()) {
+                                $dados3 = $this->PesquisaUmRegistroNv3(
+                                    $obj->$metodoGet()->$metodoGet2(), $obj3::ENTIDADE
                                 );
                                 $metodoSet2 = $this->getMetodo($obj3::CHAVE, false);
-                                $obj->$metodoGet()[$indece]->$metodoSet2($dados4);
-                                $indece++;
+                                $obj->$metodoGet()->$metodoSet2($dados3);
                             }
                         }
                     }
                 } else {
                     if ($obj->$metodoGet()) {
-                        if ($obj->$metodoGet()->$metodoGet2()) {
-                            $dados3 = $this->PesquisaUmRegistroNv3(
-                                $obj->$metodoGet()->$metodoGet2(), $obj3::ENTIDADE
-                            );
-                            $metodoSet2 = $this->getMetodo($obj3::CHAVE, false);
-                            $obj->$metodoGet()->$metodoSet2($dados3);
-                        }
-                    }
-                }
-            } else {
-                if ($obj->$metodoGet()) {
-                    if (!is_array($obj->$metodoGet())) {
-                        if ($obj->$metodoGet()->$metodoGet2()) {
-                            $dados3 = $this->PesquisaTodosNv4(
-                                $obj->$metodoGet()->$metodoGet(), $obj3::ENTIDADE, $obj2
-                            );
-                            $metodoSet2 = $this->getMetodo($obj3::CHAVE, false);
-                            $obj->$metodoGet()->$metodoSet2($dados3);
-                        }
-                    } else {
-                        foreach ($obj->$metodoGet() as $item) {
-                            if ($item->$metodoGet2()) {
+                        if (!is_array($obj->$metodoGet())) {
+                            if ($obj->$metodoGet()->$metodoGet2()) {
                                 $dados3 = $this->PesquisaTodosNv4(
-                                    $item->$metodoGet(), $obj3::ENTIDADE, $obj2
+                                    $obj->$metodoGet()->$metodoGet(), $obj3::ENTIDADE, $obj2
                                 );
                                 $metodoSet2 = $this->getMetodo($obj3::CHAVE, false);
-                                $item->$metodoSet2($dados3);
+                                $obj->$metodoGet()->$metodoSet2($dados3);
+                            }
+                        } else {
+                            foreach ($obj->$metodoGet() as $item) {
+                                if ($item->$metodoGet2()) {
+                                    $dados3 = $this->PesquisaTodosNv4(
+                                        $item->$metodoGet(), $obj3::ENTIDADE, $obj2
+                                    );
+                                    $metodoSet2 = $this->getMetodo($obj3::CHAVE, false);
+                                    $item->$metodoSet2($dados3);
+                                }
                             }
                         }
                     }
@@ -321,6 +327,20 @@ class AbstractModel
             }
         }
         return $dados;
+    }
+
+    /**
+     * @param $Entidade
+     * Entidade que não serão rastreadas na montagem do objeto
+     * @return bool
+     */
+    private function validaEntidadeSemRastreio($Entidade)
+    {
+        $entidadeSemRastreio = [AcessoEntidade::ENTIDADE, AuditoriaEntidade::ENTIDADE];
+        if (in_array($Entidade, $entidadeSemRastreio)) {
+            return false;
+        }
+        return true;
     }
 
 }

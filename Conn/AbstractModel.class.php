@@ -331,11 +331,11 @@ class AbstractModel
 
     /**
      * @param $Entidade
-     * Entidade que não serão rastreadas na montagem do objeto
      * @return bool
      */
     private function validaEntidadeSemRastreio($Entidade)
     {
+        /** @var $entidadeSemRastreio $entidadeSemRastreio que não serão rastreadas na montagem do objeto*/
         $entidadeSemRastreio = [AcessoEntidade::ENTIDADE, AuditoriaEntidade::ENTIDADE];
         if (in_array($Entidade, $entidadeSemRastreio)) {
             return false;

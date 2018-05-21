@@ -1,7 +1,7 @@
 <?php
 
 /**
-     * AgendaValidador [ VALIDATOR ]
+ * PessoaValidador [ VALIDATOR ]
  * @copyright (c) 2017, Leo Bessa
  */
 class  PessoaValidador extends AbstractValidador

@@ -16,6 +16,7 @@ class ContatoEntidade extends ContatoEntidadeExtends
 	private $nu_tel2;
 	private $nu_tel3;
 	private $ds_email;
+    private $ds_site;
 	private $co_pessoa;
 
 	/**
@@ -123,6 +124,23 @@ class ContatoEntidade extends ContatoEntidadeExtends
 	public function setDsEmail($ds_email)
     {
         return $this->ds_email = $ds_email;
+    }
+
+    /**
+     * @return mixed $ds_site
+     */
+    public function getDsSite()
+    {
+        return $this->ds_site;
+    }
+
+    /**
+     * @param $ds_site
+     * @return mixed
+     */
+    public function setDsSite($ds_site)
+    {
+        return $this->ds_site = $ds_site;
     }
 
 	/**

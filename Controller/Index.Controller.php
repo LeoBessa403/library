@@ -233,7 +233,7 @@ class Index extends AbstractController
 
                 $session = new Session();
                 $session->setUser($usuarioAcesso);
-                Redireciona(ADMIN . '/Agenda/Calendario');
+                Redireciona(ADMIN . '/Index/index');
             else:
                 Redireciona(ADMIN . LOGIN . Valida::GeraParametro("acesso/A"));
             endif;

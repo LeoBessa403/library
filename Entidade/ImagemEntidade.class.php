@@ -14,6 +14,7 @@ class ImagemEntidade extends ImagemEntidadeExtends
 	private $co_imagem;
 	private $ds_caminho;
     private $co_usuario;
+    private $co_pessoa;
 
 	/**
      * @return array
@@ -83,6 +84,23 @@ class ImagemEntidade extends ImagemEntidadeExtends
 	public function setCoUsuario($co_usuario)
     {
         return $this->co_usuario = $co_usuario;
+    }
+
+    /**
+     * @return PessoaEntidade $co_pessoa
+     */
+    public function getCoPessoa()
+    {
+        return $this->co_pessoa;
+    }
+
+    /**
+     * @param $co_pessoa
+     * @return mixed
+     */
+    public function setCoPessoa($co_pessoa)
+    {
+        return $this->co_pessoa = $co_pessoa;
     }
 
 }

@@ -36,7 +36,7 @@ class TrafegoService extends AbstractService
         if ($rq !== false) {
             $geo = json_decode($rq);
         }
-        debug($geo->regionName);
+        debug($rq);
         $this->nu_ip = $ip;
         $this->ds_pais = (isset($geo->country)) ? $geo->country : 'Desconhecido';
         $this->ds_code_pais = (isset($geo->countryCode)) ? $geo->countryCode : 'Desconhecida';

@@ -22,6 +22,7 @@ class TrafegoService extends AbstractService
         $this->ObjetoModel = New TrafegoModel();
 
         $ip = filter_input(INPUT_SERVER, 'REMOTE_ADDR', FILTER_VALIDATE_IP);
+        debug($_SERVER);
 
         $url = "http://ip-api.com/json/{$ip}";
         $timeout = 3;

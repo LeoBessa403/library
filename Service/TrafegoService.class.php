@@ -25,16 +25,18 @@ class TrafegoService extends AbstractService
 
         $url = "http://ip-api.com/json/{$ip}";
         $timeout = 3;
-//        $ch = curl_init($url);
-//        curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
-//        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
-//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-//        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-type: application/json'));
-//        $rq = curl_exec($ch);
-//        curl_close($ch);
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-type: application/json'));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        $rq = curl_exec($ch);
+        curl_close($ch);
         $geo = array();
-        if ($url !== false) {
-            $geo = json_decode($url);
+        if ($rq !== false) {
+            $geo = json_decode($rq);
         }
         debug($geo);
         $this->nu_ip = $ip;

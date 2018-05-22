@@ -24,6 +24,7 @@ class TrafegoService extends AbstractService
         $ip = filter_input(INPUT_SERVER, 'REMOTE_ADDR', FILTER_VALIDATE_IP);
 
         $url = "http://ip-api.com/json/{$ip}";
+        debug($url);
         $timeout = 3;
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
@@ -38,7 +39,6 @@ class TrafegoService extends AbstractService
         if ($rq !== false) {
             $geo = json_decode($rq);
         }
-        debug($geo);
         $this->nu_ip = $ip;
         $this->ds_pais = (isset($geo->country)) ? $geo->country : 'Desconhecido';
         $this->ds_code_pais = (isset($geo->countryCode)) ? $geo->countryCode : 'Desconhecida';

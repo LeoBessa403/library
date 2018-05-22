@@ -73,7 +73,6 @@
 	define('DT_ATUALIZADO', 'dt_atualizado');
 	define('NU_VISITAS', 'nu_visitas');
 	define('DS_TITULO_URL_AMIGAVEL', 'ds_titulo_url_amigavel');
-	define('DS_TITULO', 'ds_titulo');
 	define('NU_VISUALIZACAO', 'nu_visualizacao');
 	define('NU_USUARIO', 'nu_usuario');
 	define('DS_ESTADO', 'ds_estado');

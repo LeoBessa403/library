@@ -22,7 +22,6 @@ class TrafegoService extends AbstractService
         $this->ObjetoModel = New TrafegoModel();
 
         $ip = filter_input(INPUT_SERVER, 'REMOTE_ADDR', FILTER_VALIDATE_IP);
-        debug($_SERVER);
 
         $url = "http://ip-api.com/json/{$ip}";
         $timeout = 3;
@@ -37,6 +36,7 @@ class TrafegoService extends AbstractService
         if ($rq !== false) {
             $geo = json_decode($rq);
         }
+        debug($geo->regionName);
         $this->nu_ip = $ip;
         $this->ds_pais = (isset($geo->country)) ? $geo->country : 'Desconhecido';
         $this->ds_code_pais = (isset($geo->countryCode)) ? $geo->countryCode : 'Desconhecida';

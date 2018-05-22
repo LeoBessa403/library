@@ -21,24 +21,22 @@ class TrafegoService extends AbstractService
         parent::__construct(TrafegoEntidade::ENTIDADE);
         $this->ObjetoModel = New TrafegoModel();
 
-        $ip = filter_input(INPUT_SERVER, 'REMOTE_ADDR', FILTER_VALIDATE_IP);
-
+        $ip = $_SERVER['REMOTE_ADDR'];
         $url = "http://ip-api.com/json/".$ip;
-        debug($url);
+
         $timeout = 3;
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-type: application/json'));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         $rq = curl_exec($ch);
         curl_close($ch);
         $geo = array();
         if ($rq !== false) {
             $geo = json_decode($rq);
         }
+
         $this->nu_ip = $ip;
         $this->ds_pais = (isset($geo->country)) ? $geo->country : 'Desconhecido';
         $this->ds_code_pais = (isset($geo->countryCode)) ? $geo->countryCode : 'Desconhecida';

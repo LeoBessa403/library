@@ -60,6 +60,24 @@
 	define('DS_LOGIN', 'ds_login');
 	define('DS_SENHA', 'ds_senha');
 	define('DS_CODE', 'ds_code');
+	define('CO_TRAFEGO', 'co_trafego');
+	define('NU_IP', 'nu_ip');
+	define('DS_PAIS', 'ds_pais');
+	define('DS_CODE_PAIS', 'ds_code_pais');
+	define('DS_UF', 'ds_uf');
+	define('DS_AGENTE', 'ds_agente');
+	define('DS_CIDADE', 'ds_cidade');
+	define('CO_PAGINA_VISITA', 'co_pagina_visita');
+	define('CO_PAGINA', 'co_pagina');
+	define('CO_VISITA', 'co_visita');
+	define('DT_ATUALIZADO', 'dt_atualizado');
+	define('NU_VISITAS', 'nu_visitas');
+	define('DS_TITULO_URL_AMIGAVEL', 'ds_titulo_url_amigavel');
+	define('DS_TITULO', 'ds_titulo');
+	define('NU_VISUALIZACAO', 'nu_visualizacao');
+	define('NU_USUARIO', 'nu_usuario');
+	define('DS_ESTADO', 'ds_estado');
+
 
 
 
@@ -77,6 +95,10 @@
     define('PESSOA_SERVICE', 'PessoaService');
     define('USUARIO_SERVICE', 'UsuarioService');
     define('USUARIO_PERFIL_SERVICE', 'UsuarioPerfilService');
+    define('TRAFEGO_SERVICE', 'TrafegoService');
+    define('PAGINA_SERVICE', 'PaginaService');
+    define('VISITA_SERVICE', 'VisitaService');
+    define('PAGINA_VISITA_SERVICE', 'PaginaVisitaService');
 
 
 

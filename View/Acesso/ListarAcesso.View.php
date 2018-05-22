@@ -39,21 +39,24 @@
                         </h2>
                         <?php
                         Modal::load();
-                        $arrColunas = array('Usuário', 'CPF', 'Status', 'Início', 'Fim', 'Navegador', 'S.O.', 'Dispositivo');
+                        $arrColunas = array('Usuário', 'CPF', 'Status', 'Início', 'Fim', 'Navegador', 'S.O.',
+                            'Dispositivo', 'Estado', 'Cidade');
                         $grid = new Grid();
                         $grid->setColunasIndeces($arrColunas);
                         $grid->criaGrid();
 
                         /** @var AcessoEntidade $res */
                         foreach ($result as $res):
-                            $grid->setColunas(strtoupper($res->getCoUsuario()->getCoPessoa()->getNoPessoa()));
+                            $grid->setColunas(Valida::Resumi(strtoupper($res->getCoUsuario()->getCoPessoa()->getNoPessoa()),25));
                             $grid->setColunas(Valida::MascaraCpf($res->getCoUsuario()->getCoPessoa()->getNuCpf()));
                             $grid->setColunas(FuncoesSistema::StatusAcesso($res->getTpSituacao()));
                             $grid->setColunas(Valida::DataShow($res->getDtInicioAcesso(), 'd/m/Y H:i:s'));
                             $grid->setColunas(Valida::DataShow($res->getDtFimAcesso(), 'd/m/Y H:i:s'));
-                            $grid->setColunas($res->getDsNavegador());
-                            $grid->setColunas($res->getDsSistemaOperacional());
-                            $grid->setColunas($res->getDsDispositivo());
+                            $grid->setColunas($res->getCoTrafego()->getDsNavegador());
+                            $grid->setColunas($res->getCoTrafego()->getDsSistemaOperacional());
+                            $grid->setColunas($res->getCoTrafego()->getDsDispositivo());
+                            $grid->setColunas($res->getCoTrafego()->getDsEstado());
+                            $grid->setColunas($res->getCoTrafego()->getDsCidade());
                             $grid->criaLinha($res->getCoAcesso());
                         endforeach;
                         $grid->finalizaGrid();

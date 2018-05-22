@@ -15,11 +15,9 @@ class AcessoEntidade extends AbstractEntidade
 	private $ds_session_id;
 	private $dt_inicio_acesso;
 	private $dt_fim_acesso;
-	private $ds_navegador;
-	private $ds_sistema_operacional;
-	private $ds_dispositivo;
 	private $tp_situacao;
 	private $co_usuario;
+	private $co_trafego;
 
 	/**
      * @return array
@@ -30,11 +28,9 @@ class AcessoEntidade extends AbstractEntidade
 			DS_SESSION_ID,
 			DT_INICIO_ACESSO,
 			DT_FIM_ACESSO,
-			DS_NAVEGADOR,
-            DS_SISTEMA_OPERACIONAL,
-            DS_DISPOSITIVO,
             TP_SITUACAO,
 			CO_USUARIO,
+			CO_TRAFEGO,
 		];
     }
 
@@ -149,51 +145,19 @@ class AcessoEntidade extends AbstractEntidade
     }
 
     /**
-     * @return mixed
+     * @return TrafegoEntidade $co_trafego
      */
-    public function getDsNavegador()
+    public function getCoTrafego()
     {
-        return $this->ds_navegador;
+        return $this->co_trafego;
     }
 
     /**
-     * @param mixed $ds_navegador
+     * @param mixed $co_trafego
      */
-    public function setDsNavegador($ds_navegador)
+    public function setCoTrafego($co_trafego)
     {
-        $this->ds_navegador = $ds_navegador;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getDsSistemaOperacional()
-    {
-        return $this->ds_sistema_operacional;
-    }
-
-    /**
-     * @param mixed $ds_sistema_operacional
-     */
-    public function setDsSistemaOperacional($ds_sistema_operacional)
-    {
-        $this->ds_sistema_operacional = $ds_sistema_operacional;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getDsDispositivo()
-    {
-        return $this->ds_dispositivo;
-    }
-
-    /**
-     * @param mixed $ds_dispositivo
-     */
-    public function setDsDispositivo($ds_dispositivo)
-    {
-        $this->ds_dispositivo = $ds_dispositivo;
+        $this->co_trafego = $co_trafego;
     }
 
 }

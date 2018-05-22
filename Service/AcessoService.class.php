@@ -116,17 +116,17 @@ class  AcessoService extends AbstractService
         $user_agent = $_SERVER['HTTP_USER_AGENT'];
 
         $browser_array = array(
-            'OPR' => 'Opera',
-            'Opera' => 'Opera',
             'Firefox' => 'Firefox',
-            'Netscape' => 'Netscape',
-            'Safari' => 'Safari',
-            'Mozilla' => 'Mozilla',
             'Chrome' => 'Chrome',
-            'Lynx' => 'Lynx',
-            'Edge' => 'Edge',
             'MSIE' => 'Internet Explorer',
             'Internet Explorer' => 'Internet Explorer',
+            'Edge' => 'Edge',
+            'Opera' => 'Opera',
+            'Mozilla' => 'Mozilla',
+            'Netscape' => 'Netscape',
+            'OPR' => 'Opera',
+            'Lynx' => 'Lynx',
+            'Safari' => 'Safari',
             'Trident.* rv' => 'Internet Explorer',
             'Ubuntu' => 'Ubuntu Web Browser',
             'mobile' => 'Handheld Browser'

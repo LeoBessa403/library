@@ -15,6 +15,7 @@ class FuncionalidadeEntidade extends AbstractEntidade
 	private $no_funcionalidade;
 	private $st_status;
 	private $co_perfil_funcionalidade;
+	private $co_ajuda;
 
 	/**
      * @return array
@@ -103,5 +104,23 @@ class FuncionalidadeEntidade extends AbstractEntidade
     {
         return $this->co_perfil_funcionalidade = $co_perfil_funcionalidade;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getCoAjuda()
+    {
+        return $this->co_ajuda;
+    }
+
+    /**
+     * @param mixed $co_ajuda
+     */
+    public function setCoAjuda($co_ajuda)
+    {
+        $this->co_ajuda = $co_ajuda;
+    }
+
+
 
 }

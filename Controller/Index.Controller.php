@@ -18,7 +18,7 @@ class Index extends AbstractController
             $usuarioService->salvaUsuario($_POST, $_FILES, true);
         } elseif (!empty($_POST[$id2])) {
             $PessoaValidador = new PessoaValidador();
-            /** @var InscricaoValidador $validador */
+            /** @var PessoaValidador $validador */
             $validador = $PessoaValidador->validarCPF($_POST);
             if ($validador[SUCESSO]) {
                 /** @var PessoaService $pessoaService */

@@ -23,7 +23,7 @@ class TrafegoService extends AbstractService
 
         $ip = filter_input(INPUT_SERVER, 'REMOTE_ADDR', FILTER_VALIDATE_IP);
 
-        $url = "http://ip-api.com/json/{$ip}";
+        $url = "http://ip-api.com/json/".$ip;
         debug($url);
         $timeout = 3;
         $ch = curl_init($url);

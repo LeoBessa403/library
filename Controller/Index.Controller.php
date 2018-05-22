@@ -79,7 +79,7 @@ class Index extends AbstractController
         if (!empty($_POST)) {
             $visivel = true;
             $PessoaValidador = new PessoaValidador();
-            /** @var InscricaoValidador $validador */
+            /** @var PessoaValidador $validador */
             $validador = $PessoaValidador->validarCPF($_POST);
             if ($validador[SUCESSO]) {
                 /** @var PessoaService $pessoaService */

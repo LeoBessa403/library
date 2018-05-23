@@ -25,6 +25,9 @@ define('VALIDA_LOGAR', '/acesso/valida');
 define('LOGADO', '/Index/Index');
 // Nome da View da Página de Erro Controller ou Action não encontrado. (Erro 404).
 define('ERRO_404', '404');
+// CONTROLLERS PARA NÃO SEGUIR PARA A AUDITORIA
+define('SEM_AUDITORIA', AcessoEntidade::TABELA . ', ' . TrafegoEntidade::TABELA . ', ' .
+    PaginaVisitaEntidade::TABELA. ', ' . PaginaEntidade::TABELA . ', ' . VisitaEntidade::TABELA);
 
 
 // CONFIGURAÇÕES DO SERVIDOR

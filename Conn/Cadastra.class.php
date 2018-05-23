@@ -9,7 +9,7 @@
 class Cadastra extends Conn
 {
 
-    private $tabela;
+    private $Tabela;
     private $dados;
     private $Result;
 
@@ -21,25 +21,26 @@ class Cadastra extends Conn
 
     /**
      * <b>Inseri:</b> Executa um cadastro simplificado no banco de dados utilizando prepared statements.
-     * Basta informar o nome da tabela e um array atribuitivo com nome da coluna e valor!
+     * Basta informar o nome da Tabela e um array atribuitivo com nome da coluna e valor!
      *
-     * @param STRING $Tabela = Informe o nome da tabela no banco!
+     * @param STRING $Tabela = Informe o nome da Tabela no banco!
      * @param ARRAY $Dados = Informe um array atribuitivo. <br>( Nome Da Coluna => Valor ).<br>
      * Ex.: ("nome" => "leo", "sobrenome" => "bessa").
      */
-    public function Cadastrar($tabela, array $dados)
+    public function Cadastrar($Tabela, array $dados)
     {
-        $this->tabela = (string)$tabela;
+        $this->Tabela = (string)$Tabela;
         $this->dados = $dados;
 
         $this->getSyntax();
         $this->Execute();
 
         // Auditoria
-        if (TABELA_AUDITORIA && $tabela != AcessoEntidade::TABELA):
+        $sem_auditoria = explode(', ', SEM_AUDITORIA);
+        if (TABELA_AUDITORIA && !in_array($this->Tabela, $sem_auditoria)):
             $co_registro = $this->Result;
             $auditoria = new Auditar();
-            $auditoria->Audita($this->tabela, $this->dados, AuditoriaEnum::INSERT, $co_registro);
+            $auditoria->Audita($this->Tabela, $this->dados, AuditoriaEnum::INSERT, $co_registro);
         endif;
     }
 
@@ -47,7 +48,7 @@ class Cadastra extends Conn
     {
         $Fileds = implode(', ', array_keys($this->dados));
         $Places = ':' . implode(', :', array_keys($this->dados));
-        $this->Create = "INSERT INTO {$this->tabela} ({$Fileds}) VALUES ({$Places})";
+        $this->Create = "INSERT INTO {$this->Tabela} ({$Fileds}) VALUES ({$Places})";
     }
 
     private function Execute()
@@ -59,7 +60,7 @@ class Cadastra extends Conn
         } catch (PDOException $e) {
             $this->Result = null;
             if (DEBUG){
-                Valida::Mensagem("Erro ao Cadastrar: na TABELA {$this->tabela} {$e->getMessage()}", 4);
+                Valida::Mensagem("Erro ao Cadastrar: na TABELA {$this->Tabela} {$e->getMessage()}", 4);
                 debug(10);
             }
         }

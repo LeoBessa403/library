@@ -52,4 +52,14 @@ abstract class Conn {
         return $conn;
     }
 
+    protected function liberaAuditoria($Tabela)
+    {
+        // Auditoria
+        $sem_auditoria = explode(', ', SEM_AUDITORIA);
+        if (TABELA_AUDITORIA && !in_array($Tabela, $sem_auditoria)) {
+            return true;
+        }
+        return false;
+    }
+
 }

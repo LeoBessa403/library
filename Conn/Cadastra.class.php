@@ -35,9 +35,7 @@ class Cadastra extends Conn
         $this->getSyntax();
         $this->Execute();
 
-        // Auditoria
-        $sem_auditoria = explode(', ', SEM_AUDITORIA);
-        if (TABELA_AUDITORIA && !in_array($this->Tabela, $sem_auditoria)):
+        if ($this->liberaAuditoria($this->Tabela)):
             $co_registro = $this->Result;
             $auditoria = new Auditar();
             $auditoria->Audita($this->Tabela, $this->dados, AuditoriaEnum::INSERT, $co_registro);

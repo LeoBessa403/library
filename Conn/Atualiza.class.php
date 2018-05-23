@@ -37,9 +37,7 @@ class Atualiza extends Conn
         $this->Dados = $Dados;
         $this->Termos = (string)$Termos;
 
-        // Auditoria
-        $sem_auditoria = explode(', ', SEM_AUDITORIA);
-        if (TABELA_AUDITORIA && !in_array($this->Tabela, $sem_auditoria)):
+        if ($this->liberaAuditoria($this->Tabela)):
             $auditoria = new Auditar();
             $auditoria->Audita($this->Tabela, $this->Dados, AuditoriaEnum::UPDATE, $co_registro, $Termos, $Valores);
         endif;

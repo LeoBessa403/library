@@ -32,9 +32,7 @@ class Deleta extends Conn
         $this->Tabela = (string)$Tabela;
         $this->Termos = (string)$Termos;
 
-        // Auditoria
-        $sem_auditoria = explode(', ', SEM_AUDITORIA);
-        if (TABELA_AUDITORIA && !in_array($this->Tabela, $sem_auditoria)):
+        if ($this->liberaAuditoria($this->Tabela)):
             $auditoria = new Auditar();
             $auditoria->Audita($this->Tabela, null, AuditoriaEnum::DELETE, $co_registro, $Termos, $Valores);
         endif;

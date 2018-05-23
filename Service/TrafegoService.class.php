@@ -141,7 +141,7 @@ class TrafegoService extends AbstractService
 
     private function getDispositivo()
     {
-        $device = filter_input(INPUT_SERVER, "HTTP_USER_AGENT", FILTER_DEFAULT);
+        $device = $_SERVER['HTTP_USER_AGENT'];
         $user_agents = array("iPhone", "iPad", "Android", "android", "webOS", "BlackBerry", "iPod", "Symbian", "IsGeneric");
 
         $deviceDetect = null;

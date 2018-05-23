@@ -534,7 +534,7 @@ class Valida
      */
     public static function RetiraMascara($valor)
     {
-        $valor = str_replace(array(".", ",", "/", "-", " ", "(", ")", 'R$'), "", $valor);
+        $valor = str_replace(array(".", ",", "/", "-", " ", "(", ")", 'R$', '_'), "", $valor);
         return $valor;
     }
 

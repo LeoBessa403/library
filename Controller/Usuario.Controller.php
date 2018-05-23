@@ -28,10 +28,12 @@ class Usuario extends AbstractController
         $id = "CadastroUsuario";
         $id2 = "ValidacaoPessoa";
         $idCoUsuario = false;
+        $cadastro = false;
 
         if (!empty($_POST[$id])):
             $usuarioService->salvaUsuario($_POST, $_FILES);
         elseif (!empty($_POST[$id2])) :
+            $cadastro = true;
             $PessoaValidador = new PessoaValidador();
             /** @var InscricaoValidador $validador */
             $validador = $PessoaValidador->validarCPF($_POST);
@@ -42,8 +44,10 @@ class Usuario extends AbstractController
                 $pessoa = $pessoaService->PesquisaUmQuando([
                     NU_CPF => Valida::RetiraMascara($_POST[NU_CPF])
                 ]);
-                if (!empty($pessoa->getCoUsuario())) {
-                    $idCoUsuario = $pessoa->getCoUsuario()->getCoUsuario();
+                if (count($pessoa)) {
+                    if (count($pessoa->getCoUsuario())) {
+                        $idCoUsuario = $pessoa->getCoUsuario()->getCoUsuario();
+                    }
                 }
             } else {
                 $session = new Session();
@@ -82,7 +86,12 @@ class Usuario extends AbstractController
             $res = $enderecoService->getArrayDadosEndereco($usuario->getCoPessoa()->getCoEndereco(), $res);
             $this->form = UsuarioForm::Cadastrar($res, false, 6);
         else:
-            $this->form = PessoaForm::ValidarCPF('Usuario/CadastroUsuario', 6);
+            if ($cadastro):
+                $res[NU_CPF] = $_POST[NU_CPF];
+                $this->form = UsuarioForm::Cadastrar($res, false, 6);
+            else:
+                $this->form = PessoaForm::ValidarCPF('Usuario/CadastroUsuario', 6);
+            endif;
         endif;
 
     }

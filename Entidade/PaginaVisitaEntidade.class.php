@@ -27,6 +27,14 @@ class PaginaVisitaEntidade extends AbstractEntidade
     }
 
     /**
+     * @return array $relacionamentos
+     */
+    public static function getRelacionamentos() {
+        $relacionamentos = Relacionamentos::getRelacionamentos();
+        return $relacionamentos[static::TABELA];
+    }
+
+    /**
      * @return int mixed
      */
     public function getCoPaginaVisita()

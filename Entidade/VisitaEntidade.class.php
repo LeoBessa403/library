@@ -31,6 +31,14 @@ class VisitaEntidade extends AbstractEntidade
     }
 
     /**
+     * @return array $relacionamentos
+     */
+    public static function getRelacionamentos() {
+        $relacionamentos = Relacionamentos::getRelacionamentos();
+        return $relacionamentos[static::TABELA];
+    }
+
+    /**
      * @return mixed
      */
     public function getCoVisita()

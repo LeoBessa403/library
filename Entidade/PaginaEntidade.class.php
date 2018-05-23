@@ -19,6 +19,7 @@ class PaginaEntidade extends AbstractEntidade
     private $nu_visualizacao;
     private $nu_usuario;
     private $co_pagina_visita;
+    private $st_edicao;
 
     /**
      * @return array
@@ -29,10 +30,19 @@ class PaginaEntidade extends AbstractEntidade
 			DT_CADASTRO,
 			DS_TITULO_URL_AMIGAVEL,
 			DS_TITULO,
+            ST_EDICAO,
 			DS_DESCRICAO,
             NU_USUARIO,
             NU_VISUALIZACAO,
 		];
+    }
+
+    /**
+     * @return array $relacionamentos
+     */
+    public static function getRelacionamentos() {
+        $relacionamentos = Relacionamentos::getRelacionamentos();
+        return $relacionamentos[static::TABELA];
     }
 
     /**
@@ -145,6 +155,22 @@ class PaginaEntidade extends AbstractEntidade
     public function setNuUsuario($nu_usuario)
     {
         $this->nu_usuario = $nu_usuario;
+    }
+
+    /**
+     * @return mixed $st_edicao
+     */
+    public function getStEdicao()
+    {
+        return $this->st_edicao;
+    }
+
+    /**
+     * @param mixed $st_edicao
+     */
+    public function setStEdicao($st_edicao)
+    {
+        $this->st_edicao = $st_edicao;
     }
 
     /**

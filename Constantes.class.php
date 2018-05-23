@@ -76,6 +76,8 @@
 	define('NU_VISUALIZACAO', 'nu_visualizacao');
 	define('NU_USUARIO', 'nu_usuario');
 	define('DS_ESTADO', 'ds_estado');
+	define('DS_TITULO', 'ds_titulo');
+	define('ST_EDICAO', 'st_edicao');
 
 
 

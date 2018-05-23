@@ -15,5 +15,17 @@ class  PaginaVisitaService extends AbstractService
         $this->ObjetoModel = New PaginaVisitaModel();
     }
 
+    public function salvaPaginaVisita($paginaVisita)
+    {
+        /** @var PaginaVisitaEntidade $paginaVisitaPesquisa */
+        $paginaVisitaPesquisa = $this->PesquisaUmQuando([
+            CO_VISITA => $paginaVisita[CO_VISITA],
+            CO_PAGINA => $paginaVisita[CO_PAGINA]
+        ]);
 
+        if (!count($paginaVisitaPesquisa)) {
+            return $this->Salva($paginaVisita);
+        }
+        return true;
+    }
 }

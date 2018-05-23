@@ -125,13 +125,8 @@ class Session
      * @param STRING $valor : atribui o valor para o Cookie
      * @param INT $time : Valor inteiro em minutos de duração para o Cookie, <i>Valor padrão 20</i>;
      */
-    public static function setCookie($name, $valor, $time)
+    public static function setCookie($name, $valor, $time = 20)
     {
-        if (is_int($time) && $time):
-            $time = $time;
-        else:
-            $time = 20;
-        endif;
         setcookie($name, $valor, (time() + ($time * 60)));
     }
 

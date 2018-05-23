@@ -17,14 +17,14 @@ if (isset($_GET['valida'])) {
          *****************************/
         case 'valcpf':
             $cpf = $_GET['cpf'];
-            echo $valida->ValCPF($cpf);
+            echo $valida->ValCPF(Valida::RetiraMascara($cpf));
             break;
         /*****************************
          * VALIDA CNPJ
          ****************************/
         case 'valcnpj':
             $cnpj = $_GET['cnpj'];
-            echo $valida->ValCNPJ($cnpj);
+            echo $valida->ValCNPJ(Valida::RetiraMascara($cnpj));
             break;
         /*****************************
          * VALIDA O EMAIL

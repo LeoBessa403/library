@@ -13,13 +13,10 @@ class PaginaEntidade extends AbstractEntidade
 
 	private $co_pagina;
     private $dt_cadastro;
-    private $ds_titulo;
-    private $ds_descricao;
     private $ds_titulo_url_amigavel;
     private $nu_visualizacao;
     private $nu_usuario;
     private $co_pagina_visita;
-    private $st_edicao;
 
     /**
      * @return array
@@ -29,9 +26,6 @@ class PaginaEntidade extends AbstractEntidade
 			CO_PAGINA,
 			DT_CADASTRO,
 			DS_TITULO_URL_AMIGAVEL,
-			DS_TITULO,
-            ST_EDICAO,
-			DS_DESCRICAO,
             NU_USUARIO,
             NU_VISUALIZACAO,
 		];
@@ -80,38 +74,6 @@ class PaginaEntidade extends AbstractEntidade
     /**
      * @return mixed
      */
-    public function getDsTitulo()
-    {
-        return $this->ds_titulo;
-    }
-
-    /**
-     * @param mixed $ds_titulo
-     */
-    public function setDsTitulo($ds_titulo)
-    {
-        $this->ds_titulo = $ds_titulo;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getDsDescricao()
-    {
-        return $this->ds_descricao;
-    }
-
-    /**
-     * @param mixed $ds_descricao
-     */
-    public function setDsDescricao($ds_descricao)
-    {
-        $this->ds_descricao = $ds_descricao;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getDsTituloUrlAmigavel()
     {
         return $this->ds_titulo_url_amigavel;
@@ -155,22 +117,6 @@ class PaginaEntidade extends AbstractEntidade
     public function setNuUsuario($nu_usuario)
     {
         $this->nu_usuario = $nu_usuario;
-    }
-
-    /**
-     * @return mixed $st_edicao
-     */
-    public function getStEdicao()
-    {
-        return $this->st_edicao;
-    }
-
-    /**
-     * @param mixed $st_edicao
-     */
-    public function setStEdicao($st_edicao)
-    {
-        $this->st_edicao = $st_edicao;
     }
 
     /**

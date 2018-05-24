@@ -17,6 +17,8 @@ class  PaginaVisitaService extends AbstractService
 
     public function salvaPaginaVisita($paginaVisita)
     {
+        /** @var PaginaService $paginaService */
+        $paginaService = $this->getService(PAGINA_SERVICE);
         /** @var PaginaVisitaEntidade $paginaVisitaPesquisa */
         $paginaVisitaPesquisa = $this->PesquisaUmQuando([
             CO_VISITA => $paginaVisita[CO_VISITA],
@@ -24,8 +26,12 @@ class  PaginaVisitaService extends AbstractService
         ]);
 
         if (!count($paginaVisitaPesquisa)) {
+            /** @var PaginaEntidade $pagina */
+            $pagina = $paginaService->PesquisaUmRegistro($paginaVisita[CO_PAGINA]);
+            $paginaEdita[NU_USUARIO] = $pagina->getNuUsuario() + 1;
+            $paginaService->Salva($paginaEdita, $paginaVisita[CO_PAGINA]);
             return $this->Salva($paginaVisita);
         }
-        return true;
+        return false;
     }
 }

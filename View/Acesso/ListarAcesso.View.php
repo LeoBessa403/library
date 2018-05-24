@@ -55,7 +55,7 @@
                             $grid->setColunas($res->getCoTrafego()->getDsNavegador());
                             $grid->setColunas($res->getCoTrafego()->getDsSistemaOperacional());
                             $grid->setColunas($res->getCoTrafego()->getDsDispositivo());
-                            $grid->setColunas($res->getCoTrafego()->getDsEstado());
+                            $grid->setColunas($res->getCoTrafego()->getDsUf());
                             $grid->setColunas($res->getCoTrafego()->getDsCidade());
                             $grid->criaLinha($res->getCoAcesso());
                         endforeach;

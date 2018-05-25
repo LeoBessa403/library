@@ -108,21 +108,29 @@ class Grafico
 
             /// Gráfico de Mapa
             case 3:
-                echo "google.charts.load('upcoming', {'packages': ['geochart']});
-                         google.charts.setOnLoadCallback(drawRegionsMap);
-
-                      function drawRegionsMap() {
-                         var data4 = google.visualization.arrayToDataTable([";
-                $this->MontaDados($this->Dados);
-                echo "]);
-                var options4 = { 
-                    region: 'BR',
-                    displayMode: 'markers',
-                    colorAxis: {colors: ['green', 'yellow']}
-                };
-                var chart4 = new google.visualization.GeoChart(document.getElementById('" . $this->Div . "'));
-                chart4.draw(data4, options4);
-                };";
+                echo " google.charts.load('current', {
+                        'packages': ['geochart'],
+                        // Note: you will need to get a mapsApiKey for your project.
+                        // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+                        'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
+                    });
+                    google.charts.setOnLoadCallback(drawMarkersMap);
+                
+                    function drawMarkersMap() {
+                        var data = google.visualization.arrayToDataTable([
+                        ";
+                        $this->MontaDados($this->Dados);
+                        echo "]);
+                        
+                        var options = {
+                            region: 'BR',
+                            displayMode: 'markers',
+                            colorAxis: {colors: ['YELLOW', 'green']}
+                        };
+                
+                        var chart = new google.visualization.GeoChart(document.getElementById('div_mapa'));
+                        chart.draw(data, options);
+                    }";
                 break;
 
             //Gráfico Pizza
@@ -176,9 +184,9 @@ class Grafico
         $i = 1;
         $result = '';
         foreach ($dados as $key => $valor) {
-            if($TipoPorcentagem){
+            if ($TipoPorcentagem) {
                 $result .= "['" . $key . "'," . $valor . "]";
-            }else{
+            } else {
                 $result .= $valor;
             }
             if ($i < $quant) {

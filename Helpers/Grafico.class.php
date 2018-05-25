@@ -124,7 +124,8 @@ class Grafico
                 
                         var options = {
                             region: 'BR',
-                            displayMode: 'markers',
+                            displayMode: 'regions',
+                            resolution: 'provinces',
                             colorAxis: {colors: ['green', 'blue']}
                         };
                 

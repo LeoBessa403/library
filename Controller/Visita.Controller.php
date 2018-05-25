@@ -12,9 +12,13 @@ class Visita extends AbstractController
         $visitasNavegador = $visitaService->visitasNavegador();
         $visitasCidade = $visitaService->visitasCidade();
 
-        $graficoDispositivo[] = "['Nº Dispositivos','Visitas']";
+        $color = ['green', 'black'];
+        $i = 0;
+        $graficoDispositivo[] = "['Nº Dispositivos','Visitas', { role: 'style' }]";
         foreach ($visitasDispositivo as $nDispositivo) {
-            $graficoDispositivo[] = "['" . $nDispositivo['ds_dispositivo'] . "'," . $nDispositivo['qt_dispositivo'] . "]";
+            $graficoDispositivo[] = "['" . $nDispositivo['ds_dispositivo'] . "'," . $nDispositivo['qt_dispositivo'] .
+                ", 'color: ".$color[$i]."']";
+            $i++;
         }
         $graficoSO[] = "['Visitas','Nº S.O.']";
         foreach ($visitasSO as $nDispositivo) {
@@ -29,23 +33,23 @@ class Visita extends AbstractController
             $graficoCidade[] = "['" . $nDispositivo['ds_cidade'] . "'," . $nDispositivo['qt_visitas'] . "]";
         }
 
-        // GRAFICO PIZZA
-        $grafico = new Grafico(Grafico::PIZZA, "Visitas/S.O.", "div_so");
-        $grafico->SetDados($graficoSO);
-        $grafico->GeraGrafico();
+//        // GRAFICO PIZZA
+//        $grafico = new Grafico(Grafico::PIZZA, "Visitas/S.O.", "div_so");
+//        $grafico->SetDados($graficoSO);
+//        $grafico->GeraGrafico();
+//
+//        $grafico = new Grafico(Grafico::COLUNA, "Visitas/Dispositivos", "div_dispositivo");
+//        $grafico->SetDados($graficoDispositivo);
+//        $grafico->GeraGrafico();
+//
+//        $grafico = new Grafico(Grafico::PIZZA, "Visitas/Navegador", "div_nav");
+//        $grafico->SetDados($graficoNavegador);
+//        $grafico->GeraGrafico();
 
-        $grafico = new Grafico(Grafico::COLUNA, "Visitas/Dispositivos", "div_dispositivo");
-        $grafico->SetDados($graficoDispositivo);
-        $grafico->GeraGrafico();
-
-        $grafico = new Grafico(Grafico::PIZZA, "Visitas/Navegador", "div_nav");
-        $grafico->SetDados($graficoNavegador);
-        $grafico->GeraGrafico();
-
-        // GRAFICO MAPA
-        $grafico = new Grafico(Grafico::MAPA, "Visitas/Cidade", "div_mapa");
-        $grafico->SetDados($graficoCidade);
-        $grafico->GeraGrafico();
+//        // GRAFICO MAPA
+//        $grafico = new Grafico(Grafico::MAPA, "Visitas/Cidade", "div_mapa");
+//        $grafico->SetDados($graficoCidade);
+//        $grafico->GeraGrafico();
     }
 
 }

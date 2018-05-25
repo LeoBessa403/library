@@ -46,10 +46,10 @@ class Visita extends AbstractController
 //        $grafico->SetDados($graficoNavegador);
 //        $grafico->GeraGrafico();
 
-//        // GRAFICO MAPA
-//        $grafico = new Grafico(Grafico::MAPA, "Visitas/Cidade", "div_mapa");
-//        $grafico->SetDados($graficoCidade);
-//        $grafico->GeraGrafico();
+        // GRAFICO MAPA
+        $grafico = new Grafico(Grafico::MAPA, "Visitas/Cidade", "div_mapa");
+        $grafico->SetDados($graficoCidade);
+        $grafico->GeraGrafico();
     }
 
 }

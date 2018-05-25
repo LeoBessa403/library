@@ -57,9 +57,9 @@ class  VisitaModel extends AbstractModel
             " inner join " . TrafegoEntidade::TABELA . " tr" .
             " on vs." . TrafegoEntidade::CHAVE . " = tr." . TrafegoEntidade::CHAVE;
 
-        $campos = " ds_cidade, SUM(nu_visitas) AS qt_visitas";
+        $campos = " ds_estado, SUM(nu_visitas) AS qt_visitas";
         $pesquisa = new Pesquisa();
-        $where = " GROUP BY ds_cidade";
+        $where = " GROUP BY ds_estado";
         $pesquisa->Pesquisar($tabela, $where, null, $campos);
         return $pesquisa->getResult();
     }

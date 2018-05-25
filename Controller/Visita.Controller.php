@@ -28,9 +28,9 @@ class Visita extends AbstractController
         foreach ($visitasNavegador as $nDispositivo) {
             $graficoNavegador[] = "['" . $nDispositivo['ds_navegador'] . "'," . $nDispositivo['qt_visitas'] . "]";
         }
-        $graficoCidade[] = "['Cidade','Visitas']";
+        $graficoCidade[] = "['Estado','Visitas']";
         foreach ($visitasCidade as $nDispositivo) {
-            $graficoCidade[] = "['" . $nDispositivo['ds_cidade'] . "'," . $nDispositivo['qt_visitas'] . "]";
+            $graficoCidade[] = "['" . $nDispositivo['ds_estado'] . "'," . $nDispositivo['qt_visitas'] . "]";
         }
 
 //        // GRAFICO PIZZA
@@ -47,9 +47,9 @@ class Visita extends AbstractController
 //        $grafico->GeraGrafico();
 
 //         GRAFICO MAPA
-//        $grafico = new Grafico(Grafico::MAPA, "Visitas/Cidade", "div_mapa");
-//        $grafico->SetDados($graficoCidade);
-//        $grafico->GeraGrafico();
+        $grafico = new Grafico(Grafico::MAPA, "Visitas/Cidade", "div_mapa");
+        $grafico->SetDados($graficoCidade);
+        $grafico->GeraGrafico();
     }
 
 }

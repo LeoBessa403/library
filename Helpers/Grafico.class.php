@@ -126,7 +126,7 @@ class Grafico
                             region: 'BR',
                             displayMode: 'regions',
                             resolution: 'provinces',
-                            colorAxis: {colors: ['green', 'blue']}
+                            colorAxis: {colors: ['yellow', 'green']}
                         };
                 
                         var chart = new google.visualization.GeoChart(document.getElementById('div_mapa'));

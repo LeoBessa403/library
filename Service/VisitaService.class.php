@@ -29,7 +29,6 @@ class  VisitaService extends AbstractService
         $trafegoService = $this->getService(TRAFEGO_SERVICE);
         $PDO->beginTransaction();
         $noCookie = Valida::ValNome(DESC . '-user');
-//        $session::FinalizaCookie($noCookie);
 
         if ($session::CheckCookie($noCookie)) {
             $coVisita = $session::getCookie($noCookie);
@@ -60,6 +59,26 @@ class  VisitaService extends AbstractService
         $visita[DT_ATUALIZADO] = Valida::DataHoraAtualBanco();
         $visita[NU_VISITAS] = 1;
         return $this->Salva($visita);
+    }
+
+    public function visitasDispositivo()
+    {
+        return $this->ObjetoModel->visitasDispositivo();
+    }
+
+    public function visitasSO()
+    {
+        return $this->ObjetoModel->visitasSO();
+    }
+
+    public function visitasNavegador()
+    {
+        return $this->ObjetoModel->visitasNavegador();
+    }
+
+    public function visitasCidade()
+    {
+        return $this->ObjetoModel->visitasCidade();
     }
 
 

@@ -34,17 +34,17 @@ class Visita extends AbstractController
         }
 
 //        // GRAFICO PIZZA
-//        $grafico = new Grafico(Grafico::PIZZA, "Visitas/S.O.", "div_so");
-//        $grafico->SetDados($graficoSO);
-//        $grafico->GeraGrafico();
-//
-//        $grafico = new Grafico(Grafico::COLUNA, "Visitas/Dispositivos", "div_dispositivo");
-//        $grafico->SetDados($graficoDispositivo);
-//        $grafico->GeraGrafico();
-//
-//        $grafico = new Grafico(Grafico::PIZZA, "Visitas/Navegador", "div_nav");
-//        $grafico->SetDados($graficoNavegador);
-//        $grafico->GeraGrafico();
+        $grafico = new Grafico(Grafico::PIZZA, "Visitas/S.O.", "div_so");
+        $grafico->SetDados($graficoSO);
+        $grafico->GeraGrafico();
+
+        $grafico = new Grafico(Grafico::COLUNA, "Visitas/Dispositivos", "div_dispositivo");
+        $grafico->SetDados($graficoDispositivo);
+        $grafico->GeraGrafico();
+
+        $grafico = new Grafico(Grafico::PIZZA, "Visitas/Navegador", "div_nav");
+        $grafico->SetDados($graficoNavegador);
+        $grafico->GeraGrafico();
 
 //         GRAFICO MAPA
         $grafico = new Grafico(Grafico::MAPA, "Visitas/Cidade", "div_mapa");

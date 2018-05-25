@@ -136,11 +136,12 @@ class Grafico
 
             //Gráfico Pizza
             case 4:
-                echo "google.load('visualization', '1', {packages:['corechart']});
-                google.setOnLoadCallback(drawChart2);
-                function drawChart2() {
-                var data2 = google.visualization.arrayToDataTable([
-                ";
+                echo "google.charts.load('current', {'packages':['corechart']});
+                      google.charts.setOnLoadCallback(drawChart2);
+                
+                      function drawChart2() {
+                
+                        var data2 = google.visualization.arrayToDataTable([";
                 $this->MontaDados($this->Dados);
                 echo "]);
                 var options2 = {
@@ -154,10 +155,10 @@ class Grafico
 
             /// Gráfico de Coluna
             case 5:
-                echo "google.load('visualization', '1', {packages:['corechart']});
-                google.setOnLoadCallback(drawChart5);
-                function drawChart5() {
-                  var data5 = google.visualization.arrayToDataTable([";
+                echo "google.charts.load('current', {packages:['corechart']});
+                    google.charts.setOnLoadCallback(drawChart);
+                    function drawChart() {
+                      var data5 = google.visualization.arrayToDataTable([";
                 $this->MontaDados($this->Dados);
                 echo "]);
                 var options5 = {

@@ -108,7 +108,7 @@ class Grafico
 
             /// Gráfico de Mapa
             case 3:
-                echo " google.charts.load('current', {
+                echo "google.charts.load('current', {
                         'packages': ['geochart'],
                         // Note: you will need to get a mapsApiKey for your project.
                         // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
@@ -118,14 +118,14 @@ class Grafico
                 
                     function drawMarkersMap() {
                         var data = google.visualization.arrayToDataTable([
-                        ";
-                        $this->MontaDados($this->Dados);
-                        echo "]);
-                        
+                            ";
+                            $this->MontaDados($this->Dados);
+                            echo "]);
+                
                         var options = {
                             region: 'BR',
                             displayMode: 'markers',
-                            colorAxis: {colors: ['YELLOW', 'green']}
+                            colorAxis: {colors: ['green', 'blue']}
                         };
                 
                         var chart = new google.visualization.GeoChart(document.getElementById('div_mapa'));
@@ -184,9 +184,9 @@ class Grafico
         $i = 1;
         $result = '';
         foreach ($dados as $key => $valor) {
-            if ($TipoPorcentagem) {
+            if($TipoPorcentagem){
                 $result .= "['" . $key . "'," . $valor . "]";
-            } else {
+            }else{
                 $result .= $valor;
             }
             if ($i < $quant) {

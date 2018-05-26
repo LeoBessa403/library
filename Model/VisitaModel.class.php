@@ -51,7 +51,7 @@ class  VisitaModel extends AbstractModel
         return $pesquisa->getResult();
     }
 
-    public function visitasCidade()
+    public function visitasEstado()
     {
         $tabela = VisitaEntidade::TABELA . " vs" .
             " inner join " . TrafegoEntidade::TABELA . " tr" .
@@ -60,6 +60,19 @@ class  VisitaModel extends AbstractModel
         $campos = " ds_estado, SUM(nu_visitas) AS qt_visitas";
         $pesquisa = new Pesquisa();
         $where = " GROUP BY ds_estado";
+        $pesquisa->Pesquisar($tabela, $where, null, $campos);
+        return $pesquisa->getResult();
+    }
+
+    public function visitasCidade()
+    {
+        $tabela = VisitaEntidade::TABELA . " vs" .
+            " inner join " . TrafegoEntidade::TABELA . " tr" .
+            " on vs." . TrafegoEntidade::CHAVE . " = tr." . TrafegoEntidade::CHAVE;
+
+        $campos = " ds_cidade, SUM(nu_visitas) AS qt_visitas";
+        $pesquisa = new Pesquisa();
+        $where = " GROUP BY ds_cidade";
         $pesquisa->Pesquisar($tabela, $where, null, $campos);
         return $pesquisa->getResult();
     }

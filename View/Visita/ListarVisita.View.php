@@ -28,17 +28,17 @@
                         Resumo das Visitas
                     </div>
                     <div class="panel-body">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="alert alert-warning fade in">
                                 <div id="div_so"></div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="alert alert-danger fade in">
                                 <div id="div_dispositivo"></div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="alert alert-success fade in">
                                 <div id="div_nav"></div>
                             </div>

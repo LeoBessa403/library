@@ -11,13 +11,14 @@ class Visita extends AbstractController
         $visitasSO = $visitaService->visitasSO();
         $visitasNavegador = $visitaService->visitasNavegador();
         $visitasCidade = $visitaService->visitasCidade();
+        $visitasEstado = $visitaService->visitasEstado();
 
         $color = ['green', 'black'];
         $i = 0;
         $graficoDispositivo[] = "['Nº Dispositivos','Visitas', { role: 'style' }]";
         foreach ($visitasDispositivo as $nDispositivo) {
             $graficoDispositivo[] = "['" . $nDispositivo['ds_dispositivo'] . "'," . $nDispositivo['qt_dispositivo'] .
-                ", 'color: ".$color[$i]."']";
+                ", 'color: " . $color[$i] . "']";
             $i++;
         }
         $graficoSO[] = "['Visitas','Nº S.O.']";
@@ -28,9 +29,17 @@ class Visita extends AbstractController
         foreach ($visitasNavegador as $nDispositivo) {
             $graficoNavegador[] = "['" . $nDispositivo['ds_navegador'] . "'," . $nDispositivo['qt_visitas'] . "]";
         }
-        $graficoCidade[] = "['Estado','Visitas']";
+        $color = ['gray', 'orange', 'red', 'pink', 'gray', 'green', 'yellow', 'red', 'pink', 'gray'];
+        $i = 0;
+        $graficoCidade[] = "['Cidade','Visitas', { role: 'style' }]";
         foreach ($visitasCidade as $nDispositivo) {
-            $graficoCidade[] = "['" . $nDispositivo['ds_estado'] . "'," . $nDispositivo['qt_visitas'] . "]";
+            $graficoCidade[] = "['" . $nDispositivo['ds_cidade'] . "'," . $nDispositivo['qt_visitas'] .
+                ", 'color: " . $color[$i] . "']";
+            $i++;
+        }
+        $graficoEstado[] = "['Estado','Visitas']";
+        foreach ($visitasEstado as $nDispositivo) {
+            $graficoEstado[] = "['" . $nDispositivo['ds_estado'] . "'," . $nDispositivo['qt_visitas'] . "]";
         }
 
 //        // GRAFICO PIZZA
@@ -46,9 +55,14 @@ class Visita extends AbstractController
         $grafico->SetDados($graficoNavegador);
         $grafico->GeraGrafico();
 
+
+        $grafico = new Grafico(Grafico::COLUNA, "Visitas/Cidade", "div_cidade");
+        $grafico->SetDados($graficoCidade);
+        $grafico->GeraGrafico();
+
 //         GRAFICO MAPA
         $grafico = new Grafico(Grafico::MAPA, "Visitas/Cidade", "div_mapa");
-        $grafico->SetDados($graficoCidade);
+        $grafico->SetDados($graficoEstado);
         $grafico->GeraGrafico();
     }
 

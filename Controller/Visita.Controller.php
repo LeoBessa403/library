@@ -2,6 +2,7 @@
 
 class Visita extends AbstractController
 {
+    public $visitasPagina;
 
     public function ListarVisita()
     {
@@ -12,6 +13,7 @@ class Visita extends AbstractController
         $visitasNavegador = $visitaService->visitasNavegador();
         $visitasCidade = $visitaService->visitasCidade();
         $visitasEstado = $visitaService->visitasEstado();
+        $this->visitasPagina = $visitaService->visitasPagina();
 
         $color = ['green', 'black'];
         $i = 0;

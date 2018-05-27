@@ -86,5 +86,10 @@ class  VisitaService extends AbstractService
         return $this->ObjetoModel->visitasEstado();
     }
 
+    public function visitasPagina()
+    {
+        return $this->ObjetoModel->visitasPagina();
+    }
+
 
 }

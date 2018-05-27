@@ -59,5 +59,45 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-external-link-square"></i>
+                        Páginas mais visitadas
+                    </div>
+                    <div class="panel-body">
+                        <?php
+                        $grid = new Grid();
+                        ?>
+                        <h2>
+                            <small>Páginas visitadas</small>
+                        </h2>
+                        <?php
+                        Modal::load();
+
+                        $arrColunas = array('Página', 'Nº de Visitas', 'Nº de Usuários');
+                        $grid->setColunasIndeces($arrColunas);
+                        $grid->criaGrid();
+                        $i=0;
+                        foreach ($visitasPagina as $visitaPagina):
+                            $link = '<a class="tooltips" 
+                                   href="'. HOME  . $visitaPagina[DS_TITULO_URL_AMIGAVEL] . '" 
+                                   data-original-title="Página Visitada"  target="_black"
+                                   data-placement="top">'.$visitaPagina[DS_TITULO_URL_AMIGAVEL].'</a>';
+
+                            $grid->setColunas($link);
+                            $grid->setColunas($visitaPagina[NU_VISUALIZACAO]);
+                            $grid->setColunas($visitaPagina[NU_USUARIO]);
+                            $grid->criaLinha($i);
+                            $i++;
+                        endforeach;
+                        $grid->finalizaGrid();
+                        ?>
+                    </div>
+                </div>
+                <!-- end: DYNAMIC TABLE PANEL -->
+            </div>
+        </div>
     </div>
 </div>

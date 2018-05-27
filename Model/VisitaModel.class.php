@@ -82,7 +82,13 @@ class  VisitaModel extends AbstractModel
         $campos = DS_TITULO_URL_AMIGAVEL .", ". NU_VISUALIZACAO .", ". NU_USUARIO;
         $pesquisa = new Pesquisa();
         $where = "WHERE ".DS_TITULO_URL_AMIGAVEL."  NOT LIKE '%img%' AND ".
-            DS_TITULO_URL_AMIGAVEL . " NOT LIKE '%images%' ORDER BY ". NU_VISUALIZACAO ." DESC";
+            DS_TITULO_URL_AMIGAVEL . " NOT LIKE '%images%' AND ".
+            DS_TITULO_URL_AMIGAVEL . " NOT LIKE '%.php%' AND ".
+            DS_TITULO_URL_AMIGAVEL . " NOT LIKE '%.html%' AND ".
+            DS_TITULO_URL_AMIGAVEL . " NOT LIKE '%NaoEncontrado%' AND ".
+            DS_TITULO_URL_AMIGAVEL . " NOT LIKE '%.js%'  AND ".
+            DS_TITULO_URL_AMIGAVEL . " NOT LIKE '%.json%'  AND ".
+            DS_TITULO_URL_AMIGAVEL . " NOT LIKE '%.ico%' ORDER BY ". NU_VISUALIZACAO ." DESC";
         $pesquisa->Pesquisar(PaginaEntidade::TABELA, $where, null, $campos);
         return $pesquisa->getResult();
     }

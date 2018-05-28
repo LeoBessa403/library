@@ -161,6 +161,11 @@ class TrafegoService extends AbstractService
     /** Salva na Entidade de Trafego */
     public function salvaTrafego()
     {
+        if($this->ds_cidade == 'Divinopolis de Goias')
+            $this->ds_cidade = 'Valparaíso de Goias';
+        if($this->ds_estado == 'Federal District')
+            $this->ds_estado = 'Distrito Federal';
+
         $trafego[DS_NAVEGADOR] = $this->getBrowser();
         $trafego[DS_SISTEMA_OPERACIONAL] = $this->getOS();
         $trafego[DS_DISPOSITIVO] = $this->getDispositivo();

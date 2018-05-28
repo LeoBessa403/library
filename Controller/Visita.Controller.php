@@ -3,6 +3,7 @@
 class Visita extends AbstractController
 {
     public $visitasPagina;
+    public $totalVisitasPagina;
 
     public function ListarVisita()
     {
@@ -14,6 +15,9 @@ class Visita extends AbstractController
         $visitasCidade = $visitaService->visitasCidade();
         $visitasEstado = $visitaService->visitasEstado();
         $this->visitasPagina = $visitaService->visitasPagina();
+        $totalVisitasPagina['total'] = $visitaService->totalVisitas();
+        $totalVisitasPagina['totalMesAtual'] = $visitaService->totalVisitasMesAtual();
+        $this->totalVisitasPagina = $totalVisitasPagina;
 
         $color = ['green', 'black'];
         $i = 0;

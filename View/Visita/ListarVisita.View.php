@@ -14,9 +14,46 @@
                     </li>
                 </ol>
                 <div class="page-header">
-                    <h1>Dados das Visitas</h1>
+                    <h1>Visitas ao Site</h1>
                 </div>
                 <!-- end: PAGE TITLE & BREADCRUMB -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-external-link-square"></i>
+                        Total de Visitas
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-sm-3">
+                            <div class="alert alert-block alert-success fade in">
+                                <h4 class="alert-heading"><i class="fa fa-group"></i> Usuários/Total</h4>
+                                <h2><?= $totalVisitasPagina['total']['usuarios']; ?></h2>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="alert alert-block alert-info fade in">
+                                <h4 class="alert-heading"><i class="fa fa-eye"></i> Visualizações/Total</h4>
+                                <h2><?= $totalVisitasPagina['total']['qt_visitas']; ?></h2>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="alert alert-block alert-warning fade in">
+                                <h4 class="alert-heading"><i class="fa fa-user"></i> Usuários/Mês</h4>
+                                <h2><?= $totalVisitasPagina['totalMesAtual']['usuarios']; ?></h2>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="alert alert-block alert-danger fade in">
+                                <h4 class="alert-heading"><i class="fa fa-eye-slash"></i> Visualizações/Mês</h4>
+                                <h2><?= $totalVisitasPagina['totalMesAtual']['qt_visitas']; ?></h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end: DYNAMIC TABLE PANEL -->
             </div>
         </div>
         <!-- end: PAGE HEADER -->
@@ -79,12 +116,12 @@
                         $arrColunas = array('Página', 'Nº de Visitas', 'Nº de Usuários');
                         $grid->setColunasIndeces($arrColunas);
                         $grid->criaGrid();
-                        $i=0;
+                        $i = 0;
                         foreach ($visitasPagina as $visitaPagina):
                             $link = '<a class="tooltips" 
-                                   href="'. HOME  . $visitaPagina[DS_TITULO_URL_AMIGAVEL] . '" 
+                                   href="' . HOME . $visitaPagina[DS_TITULO_URL_AMIGAVEL] . '" 
                                    data-original-title="Página Visitada"  target="_black"
-                                   data-placement="top">'.$visitaPagina[DS_TITULO_URL_AMIGAVEL].'</a>';
+                                   data-placement="top">' . $visitaPagina[DS_TITULO_URL_AMIGAVEL] . '</a>';
 
                             $grid->setColunas($link);
                             $grid->setColunas($visitaPagina[NU_VISUALIZACAO]);

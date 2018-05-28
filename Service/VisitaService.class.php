@@ -92,4 +92,16 @@ class  VisitaService extends AbstractService
     }
 
 
+    public function totalVisitas()
+    {
+        return $this->ObjetoModel->totalVisitas();
+    }
+
+
+    public function totalVisitasMesAtual()
+    {
+        return $this->ObjetoModel->totalVisitasMesAtual();
+    }
+
+
 }

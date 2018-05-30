@@ -19,7 +19,7 @@ class Seo
      */
     function __construct(UrlAmigavel $url)
     {
-        $this->geraUrl($url);
+        $this->geraUrl();
         if (!in_array($url::$controller, explode(', ', CONTROLLER_SEO))) {
             $this->geraTitulo($url);
             $this->geraDescricao($url);
@@ -62,11 +62,11 @@ class Seo
     }
 
     /**
-     * @param UrlAmigavel $url
+     *
      */
-    private function geraUrl(UrlAmigavel $url)
+    private function geraUrl()
     {
-        $this->Url = HOME . $url::$modulo . '/' . $url::$controller . '/' . $url::$action;
+        $this->Url = HOME . $_GET['url'];
     }
 
     /**

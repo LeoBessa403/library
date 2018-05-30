@@ -1,12 +1,6 @@
 <title><?= $seo->getTitulo(); ?></title>
     <meta name="description" content="<?= $seo->getDescricao(); ?>"/>
     <meta name="robots" content="index, follow"/>
-    <meta name="Abstract" content="<?= DESC; ?>"/>
-    <meta name="author" content="Leonardo Bessa"/>
-    <meta name="copyright" content="<?= DESC; ?>"/>
-    <meta name="language" content="pt-BR"/>
-    <meta name="country" content="BRA"/>
-    <meta name="currency" content="R$"/>
 
     <link rel="base" href="<?= HOME; ?>"/>
     <link rel="canonical" href="<?= $seo->getUrl(); ?>"/>
@@ -23,7 +17,11 @@
     <meta property="og:url" content="<?= $seo->getUrl(); ?>"/>
     <meta property="og:site_name" content="<?= DESC; ?>"/>
     <meta property="og:locale" content="pt_BR"/>
+    <meta property="article:author" content="https://www.facebook.com/leodjx" />
+    <meta property="article:publisher" content="https://www.facebook.com/leodjx" />
 
+    <meta property="twitter:card" content="summary_large_image"/>
+    <meta property="twitter:site" content="@gejdombosco" />
     <meta property="twitter:domain" content="<?= HOME; ?>"/>
     <meta property="twitter:title" content="<?= $seo->getTitulo(); ?>"/>
     <meta property="twitter:description" content="<?= $seo->getDescricao(); ?>"/>

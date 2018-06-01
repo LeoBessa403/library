@@ -18,7 +18,7 @@ class Grid {
     
     public function setColunas($valor,$QtdBotoes = 0) {
         if($QtdBotoes != 0):
-            self::$td .= '<td style="width: '.($QtdBotoes*42).'px">';
+            self::$td .= '<td style="width: '.($QtdBotoes*46).'px">';
         else:
             self::$td .= '<td>';
         endif;

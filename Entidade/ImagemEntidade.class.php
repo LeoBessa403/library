@@ -5,7 +5,7 @@
  * @copyright (c) 2017, Leo Bessa
  */
 
-class ImagemEntidade extends ImagemEntidadeExtends
+class ImagemEntidade extends AbstractEntidade
 {
 	const TABELA = 'TB_IMAGEM';
 	const ENTIDADE = 'ImagemEntidade';
@@ -13,8 +13,6 @@ class ImagemEntidade extends ImagemEntidadeExtends
 
 	private $co_imagem;
 	private $ds_caminho;
-    private $co_usuario;
-    private $co_pessoa;
 
 	/**
      * @return array
@@ -69,38 +67,5 @@ class ImagemEntidade extends ImagemEntidadeExtends
         return $this->ds_caminho = $ds_caminho;
     }
 
-	/**
-	* @return UsuarioEntidade $co_usuario
-     */
-	public function getCoUsuario()
-    {
-        return $this->co_usuario;
-    }
-
-	/**
-     * @param $co_usuario
-     * @return mixed
-     */
-	public function setCoUsuario($co_usuario)
-    {
-        return $this->co_usuario = $co_usuario;
-    }
-
-    /**
-     * @return PessoaEntidade $co_pessoa
-     */
-    public function getCoPessoa()
-    {
-        return $this->co_pessoa;
-    }
-
-    /**
-     * @param $co_pessoa
-     * @return mixed
-     */
-    public function setCoPessoa($co_pessoa)
-    {
-        return $this->co_pessoa = $co_pessoa;
-    }
 
 }

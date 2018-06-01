@@ -43,7 +43,7 @@ class  VisitaService extends AbstractService
             $coTrafego = $trafegoService->salvaTrafego();
             $coVisita = $this->salvaVisita($coTrafego);
             $retorno[SUCESSO] = $paginaService->salvaPagina($coVisita);
-            $session::setCookie($noCookie, $coVisita, 24 * 60);
+            $session::setCookie($noCookie, $coVisita, 48 * 60);
         }
         if ($retorno[SUCESSO]) {
             $PDO->commit();

@@ -329,12 +329,16 @@ class Valida
     public static function GetMiniatura($ImageUrl, $ImageDesc, $ImageW = null, $ImageH = null, $Classe = null)
     {
 
+        $classAdd = 'center-block';
+        if(UrlAmigavel::$modulo == ADMIN)
+            $classAdd = '';
+
         self::$Data = 'uploads/' . $ImageUrl;
 
         if (file_exists(self::$Data) && !is_dir(self::$Data)):
             $patch = HOME;
             $imagem = self::$Data;
-            return "<img src=\"{$patch}library/Helpers/Timthumb.class.php?src={$patch}{$imagem}&w={$ImageW}&h={$ImageH}&zc=3\" alt=\"{$ImageDesc}\" title=\"{$ImageDesc}\" class=\"center-block {$Classe}\" />";
+            return "<img src=\"{$patch}library/Helpers/Timthumb.class.php?src={$patch}{$imagem}&w={$ImageW}&h={$ImageH}&zc=3\" alt=\"{$ImageDesc}\" title=\"{$ImageDesc}\" class=\"{$classAdd} {$Classe}\" />";
         else:
             return false;
         endif;

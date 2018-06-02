@@ -39,7 +39,7 @@ class Auditar extends Conn
 
         if (!static::$coAuditoria) {
             $this->tabela = TABELA_AUDITORIA;
-            if (!empty($user)):
+            if (count($user)):
                 $dadosAuditoria[DS_PERFIL_USUARIO] = $user[md5('no_perfis')];
                 $dadosAuditoria[CO_USUARIO] = $user[md5(CAMPO_ID)];
             else:
@@ -81,7 +81,7 @@ class Auditar extends Conn
                 foreach ($result as $item) {
                     foreach ($item as $key => $value) {
                         $dadosAuditoriaItens[DS_ITEM_ANTERIOR] = $value;
-                        $dadosAuditoriaItens[DS_ITEM_ATUAL] = (!empty($dados[$key])) ? $dados[$key] : null;
+                        $dadosAuditoriaItens[DS_ITEM_ATUAL] = (count($dados[$key])) ? $dados[$key] : null;
                         $dadosAuditoriaItens[DS_CAMPO] = $key;
                         $this->dados = $dadosAuditoriaItens;
                         $this->getSyntax();

@@ -88,7 +88,7 @@ class Index extends AbstractController
                 $pessoa = $pessoaService->PesquisaUmQuando([
                     NU_CPF => Valida::RetiraMascara($_POST[NU_CPF])
                 ]);
-                if (!empty($pessoa)) {
+                if (count($pessoa)) {
                     if ($pessoa->getCoUsuario()) {
                         $email = new Email();
 

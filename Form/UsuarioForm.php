@@ -12,7 +12,7 @@ class UsuarioForm extends AbstractController
         /** @var Form $formulario */
         $formulario = new Form($id, ADMIN . "/" . UrlAmigavel::$controller
             . "/" . UrlAmigavel::$action, 'Cadastrar', $tamanho);
-        if (!empty($res[CO_USUARIO])):
+        if (count($res[CO_USUARIO])):
             $us = $_SESSION[SESSION_USER];
             $user = $us->getUser();
             $meusPerfis = $user[md5(CAMPO_PERFIL)];

@@ -87,8 +87,9 @@
                                                         <div class="tab-pane"
                                                              id="panel_tab<?php echo $auditoriaTabela->getCoAuditoriaTabela(); ?>">
                                                             Tabela:
-                                                            <b><?php echo str_replace(array('TB_', 'tb_'), '',
-                                                                    $auditoriaTabela->getNoTabela()); ?></b><br>
+                                                            <b><?php echo str_replace("_", " ",
+                                                                    str_replace(array('TB_', 'tb_'), '',
+                                                                        $auditoriaTabela->getNoTabela())); ?></b><br>
                                                             Ação Realizada: <b><?php
                                                                 echo AuditoriaEnum::getDescricaoValor(
                                                                     $auditoriaTabela->getTpOperacao()

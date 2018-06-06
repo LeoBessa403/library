@@ -165,9 +165,9 @@ class Session
     public static function FinalizaCookie($name)
     {
         if (self::CheckCookie($name)):
-            setcookie($name);
+            setcookie($name, '', (time() + 2));
         else:
-            Mensagem("O Cookie informado não existe!", 3);
+            Valida::Mensagem("O Cookie informado não existe!", 3);
         endif;
     }
 

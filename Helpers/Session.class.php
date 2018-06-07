@@ -135,12 +135,12 @@ class Session
      * @param STRING $name : O nome do Cookie a ser verificada
      * @return STRING O valor do Cookie pesquisado ou FALSE caso não existe ou tenha o valor em branco do Cookie
      */
-    public static function getCookie($name)
+    public static function getCookie($name = null)
     {
         if (self::CheckCookie($name)):
             return $_COOKIE[$name];
         else:
-            return false;
+            return $_COOKIE;
         endif;
     }
 
@@ -165,7 +165,7 @@ class Session
     public static function FinalizaCookie($name)
     {
         if (self::CheckCookie($name)):
-            setcookie($name, '', (time() + 2));
+            setcookie($name);
         else:
             Valida::Mensagem("O Cookie informado não existe!", 3);
         endif;

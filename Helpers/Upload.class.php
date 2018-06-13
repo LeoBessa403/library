@@ -47,13 +47,22 @@ class Upload
      */
     public function UploadImagens($Files, $Nome, $Folder = null, $Width = null)
     {
+        $Nome_Arquivo = [];
         for ($i = 0; $i < count($Files["name"]); $i++):
             if (count($Files["name"]) < 2):
-                $Arquivo['name'] = $Files['name'];
-                $Arquivo['type'] = $Files['type'];
-                $Arquivo['tmp_name'] = $Files['tmp_name'];
-                $Arquivo['error'] = $Files['error'];
-                $Arquivo['size'] = $Files['size'];
+                if(is_array($Files["name"])){
+                    $Arquivo['name'] = $Files['name'][0];
+                    $Arquivo['type'] = $Files['type'][0];
+                    $Arquivo['tmp_name'] = $Files['tmp_name'][0];
+                    $Arquivo['error'] = $Files['error'][0];
+                    $Arquivo['size'] = $Files['size'][0];
+                }else{
+                    $Arquivo['name'] = $Files['name'];
+                    $Arquivo['type'] = $Files['type'];
+                    $Arquivo['tmp_name'] = $Files['tmp_name'];
+                    $Arquivo['error'] = $Files['error'];
+                    $Arquivo['size'] = $Files['size'];
+                }
             else:
                 $Arquivo['name'] = $Files['name'][$i];
                 $Arquivo['type'] = $Files['type'][$i];
@@ -195,7 +204,6 @@ class Upload
         foreach ($Folder as $value) {
             $pasta .= $value . "/";
             if (!file_exists(self::$BaseDir . $pasta) && !is_dir(self::$BaseDir . $pasta)):
-//                debug(self::$BaseDir . $pasta);
                 mkdir(self::$BaseDir . $pasta, 0777);
             endif;
         }

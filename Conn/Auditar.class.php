@@ -81,7 +81,7 @@ class Auditar extends Conn
                 foreach ($result as $item) {
                     foreach ($item as $key => $value) {
                         $dadosAuditoriaItens[DS_ITEM_ANTERIOR] = $value;
-                        $dadosAuditoriaItens[DS_ITEM_ATUAL] = (count($dados[$key])) ? $dados[$key] : null;
+                        $dadosAuditoriaItens[DS_ITEM_ATUAL] = (!empty($dados[$key])) ? $dados[$key] : null;
                         $dadosAuditoriaItens[DS_CAMPO] = $key;
                         $this->dados = $dadosAuditoriaItens;
                         $this->getSyntax();

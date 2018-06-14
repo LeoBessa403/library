@@ -58,20 +58,20 @@ class Email
             $mail->Username = $this->Email_Remetente;
             $mail->Password = $this->Senha_Email_Remetente;
             $mail->SMTPDebug = 1;
-            $mail->From = utf8_encode($this->Email_Remetente);
+            $mail->From = utf8_decode($this->Email_Remetente);
             if($this->Email_ReplayTo){
-                $mail->FromName = utf8_encode($this->Nome_ReplayTo);
+                $mail->FromName = utf8_decode($this->Nome_ReplayTo);
             }else{
-                $mail->FromName = utf8_encode(DESC);
+                $mail->FromName = utf8_decode(DESC);
             }
-            $mail->Subject = utf8_encode($this->Titulo);
-            $mail->Body = utf8_encode($this->Mensagem);
+            $mail->Subject = utf8_decode($this->Titulo);
+            $mail->Body = utf8_decode($this->Mensagem);
             if($this->Email_ReplayTo)
-            $mail->addReplyTo(utf8_encode($this->Email_ReplayTo), $this->Nome_ReplayTo);
+            $mail->addReplyTo(utf8_decode($this->Email_ReplayTo), $this->Nome_ReplayTo);
             $mail->AltBody = 'Mensagem de Erro automática, favor não responder!'; // optional - MsgHTML will create an alternate automatically
             foreach ($this->Email_Destinatario as $nome => $email) {
                 if ($email) {
-                    $mail->AddAddress(utf8_encode($email), utf8_encode($nome));
+                    $mail->AddAddress(utf8_decode($email), utf8_decode($nome));
                     if ($mail->Send()) {
                         $this->Error = null;
                         $this->Result = true;

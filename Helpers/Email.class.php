@@ -59,7 +59,11 @@ class Email
             $mail->Password = $this->Senha_Email_Remetente;
             $mail->SMTPDebug = 1;
             $mail->From = utf8_decode($this->Email_Remetente);
-            $mail->FromName = utf8_decode(DESC);
+            if($this->Email_ReplayTo){
+                $mail->FromName = utf8_decode($this->Nome_ReplayTo);
+            }else{
+                $mail->FromName = utf8_decode(DESC);
+            }
             $mail->Subject = utf8_decode($this->Titulo);
             $mail->Body = utf8_decode($this->Mensagem);
             if($this->Email_ReplayTo)

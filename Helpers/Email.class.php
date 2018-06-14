@@ -21,6 +21,8 @@ class Email
     private $Senha_Email_Remetente;
     private $Titulo;
     private $Mensagem;
+    private $Email_ReplayTo;
+    private $Nome_ReplayTo;
 
     /**
      * Email constructor.
@@ -60,6 +62,8 @@ class Email
             $mail->FromName = utf8_decode(DESC);
             $mail->Subject = utf8_decode($this->Titulo);
             $mail->Body = utf8_decode($this->Mensagem);
+            if($this->Email_ReplayTo)
+            $mail->addReplyTo(utf8_decode($this->Email_ReplayTo), $this->Nome_ReplayTo);
             $mail->AltBody = 'Mensagem de Erro automática, favor não responder!'; // optional - MsgHTML will create an alternate automatically
             foreach ($this->Email_Destinatario as $nome => $email) {
                 if ($email) {
@@ -88,6 +92,26 @@ class Email
     public function setEmailDestinatario(Array $Email_Destinatario)
     {
         $this->Email_Destinatario = $Email_Destinatario;
+        return $this;
+    }
+
+    /**
+     * @param $Email_ReplayTo
+     * @return $this
+     */
+    public function setEmailReplayTo($Email_ReplayTo)
+    {
+        $this->Email_ReplayTo = $Email_ReplayTo;
+        return $this;
+    }
+
+    /**
+     * @param $Nome_ReplayTo
+     * @return $this
+     */
+    public function setNomeReplayTo($Nome_ReplayTo)
+    {
+        $this->Nome_ReplayTo = $Nome_ReplayTo;
         return $this;
     }
 

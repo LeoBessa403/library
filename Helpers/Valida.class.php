@@ -338,7 +338,7 @@ class Valida
         if (file_exists(self::$Data) && !is_dir(self::$Data)):
             $patch = HOME;
             $imagem = self::$Data;
-            return "<img src=\"{$patch}library/Helpers/Timthumb.class.php?src={$patch}{$imagem}&w={$ImageW}&h={$ImageH}&zc=3\" alt=\"{$ImageDesc}\" title=\"{$ImageDesc}\" class=\"{$classAdd} {$Classe}\" />";
+            return "<img itemprop=\"image\" src=\"{$patch}library/Helpers/Timthumb.class.php?src={$patch}{$imagem}&w={$ImageW}&h={$ImageH}&zc=3\" alt=\"{$ImageDesc}\" title=\"{$ImageDesc}\" class=\"{$classAdd} {$Classe}\" />";
         else:
             return false;
         endif;

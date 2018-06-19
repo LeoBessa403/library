@@ -75,7 +75,7 @@ class Seo
     private function geraTitulo(UrlAmigavel $url)
     {
         $this->Titulo = ($url::$controller == 'IndexWeb' || $url::$controller == '')
-            ? DESC . ' | ' . TITULO_SITE : $url::$controller . ' | ' . DESC;
+            ? DESC . ' | ' . TITULO_SITE : $url::$action . ' | ' . DESC;
     }
 
     /**
@@ -111,13 +111,21 @@ class Seo
             if (method_exists($controller, $metodo)):
                 $dadosSeo = $controller->$metodo();
                 if (!empty($dadosSeo)) {
-                    if($dadosSeo['imagem']){
+                    if(!empty($dadosSeo['imagem'])){
                         $this->Imagem = $dadosSeo['imagem'];
                     }else{
                         $this->geraImagem();
                     }
-                    $this->Descricao = Valida::Resumi(strip_tags($dadosSeo['descricao']), 150);
-                    $this->Titulo = $dadosSeo['titulo'] . ' | ' . DESC;
+                    if(!empty($dadosSeo['descricao'])){
+                        $this->Descricao = Valida::Resumi(strip_tags($dadosSeo['descricao']), 150);
+                    }else{
+                        $this->getDescricao();
+                    }
+                    if(!empty($dadosSeo['titulo'])){
+                        $this->Titulo = $dadosSeo['titulo'] . ' | ' . DESC;
+                    }else{
+                        $this->getTitulo();
+                    }
                 }
             endif;
         endif;

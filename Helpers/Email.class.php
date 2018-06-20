@@ -43,7 +43,8 @@ class Email
     public function Enviar()
     {
 
-        $compara = strstr(HOME, 'localhost');
+//        $compara = strstr(HOME, 'localhost');
+        $compara = null;
         if ($compara == null):
             /** @var PHPMailer $mail */
             $mail = $this->Mail;

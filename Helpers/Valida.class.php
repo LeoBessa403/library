@@ -611,7 +611,7 @@ class Valida
                 $mensagem = str_replace('%s', $parametros[$i], $msg) . $msgAux;
             }
         }
-        return $pre . $mensagem;
+        echo $pre . $mensagem;
     }
 
 

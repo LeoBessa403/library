@@ -55,7 +55,7 @@
 
 <!--Campanha E-mail // Adicionar grupo:-->
 <select id="sltGrupo" class="input-large">
-    <option value="todos"> Todos </option>
+    <option value="todos"> Todos</option>
     <option value="#"> Clientes que não agendam a mais de 1 mês</option>
     <option value="mulher"> Todas as Mulheres</option>
     <option value="homem"> Todos os Homens</option>
@@ -76,13 +76,13 @@
 
 <!--Entrada e saidas // tipagemBusca-->
 <select id="tipagem_busca" class="span1 add-on" style="height: 30px; width:180px;">
-    <option value="titulo"> Título </option>
-    <option value="categoria"> Categoria </option>
-    <option value="fornecedor"> Fornecedor </option>
-    <option value="observacao"> Observação </option>
-    <option value="centro_custo"> Centro de Custo </option>
-    <option value="forma_pagto"> Forma de Pagamento </option>
-    <option value="status"> Status </option>
+    <option value="titulo"> Título</option>
+    <option value="categoria"> Categoria</option>
+    <option value="fornecedor"> Fornecedor</option>
+    <option value="observacao"> Observação</option>
+    <option value="centro_custo"> Centro de Custo</option>
+    <option value="forma_pagto"> Forma de Pagamento</option>
+    <option value="status"> Status</option>
 </select>
 
 
@@ -91,4 +91,45 @@
     <option value="pagamento" selected="selected">Quitação</option>
     <option value="lancamento">Competência</option>
     <option value="vencimento">Vencimento</option>
+</select>
+
+
+<!--Pacote de Serviços // Comissão por serviços-->
+<select name="tipo_comissao" class="wdt100" style="width: 100%;margin-bottom: 0px;">
+    <option value="DESCONTO">Considerar valor com desconto</option>
+    <option value="SERVICO">Considerar valor do serviço</option>
+    <option value="SEM_COMISSAO">Não considerar</option>
+</select>
+
+
+<!--Caixa Suprimento / Categoria Receita-->
+<select name="categoria_id" id="categoria" class="input-medium" style="display: none;">
+    <option value="">Selecione...</option>
+    <optgroup label="Receitas">
+        <option nivel="2" value="3">Receitas de Vendas</option>
+        <option nivel="2" value="5">Outras Receitas</option>
+    </optgroup>
+    <optgroup label="Receitas > Outras Receitas">
+        <option nivel="3" value="8">Ajuste de Caixa</option>
+    </optgroup>
+</select>
+
+
+<!--Caixa Suprimento / Categoria Despesas-->
+<select name="categoria_id" id="categoria" class="input-medium" style="display: none;">
+    <option value="">Selecione...</option>
+    <optgroup label="Despesas">
+        <option nivel="2" value="15">Despesas Financeiras</option>
+        <option nivel="2" value="16">Outras Despesas</option>
+        <option nivel="2" value="17">Investimentos</option>
+        <option nivel="2" value="19">Despesas de Marketing</option>
+        <option nivel="2" value="22">Despesas Administrativas</option>
+    </optgroup>
+    <optgroup label="Despesas > Investimentos">
+        <option nivel="3" value="26">Aquisição de Equipamentos</option>
+        <option nivel="3" value="27">Reformas</option>
+    </optgroup>
+    <optgroup label="Despesas > Outras Despesas">
+        <option nivel="3" value="25">Ajuste de Caixa</option>
+    </optgroup>
 </select>

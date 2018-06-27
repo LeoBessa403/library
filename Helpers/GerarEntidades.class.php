@@ -187,10 +187,10 @@ class {$Entidade}Entidade extends AbstractEntidade
         }
         $ArquivoEntidade .= "\n\n";
         $ArquivoEntidade .= "\t/**
-     * @return array
-     */\n";
+    * @return array
+    */\n";
         $ArquivoEntidade .= "\tpublic static function getCampos() 
-        {
+    {
     \treturn [\n";
         foreach ($colunas as $coluna) {
             $ArquivoEntidade .= "\t\t\t" . strtoupper($coluna) . ",\n";
@@ -198,9 +198,9 @@ class {$Entidade}Entidade extends AbstractEntidade
         $ArquivoEntidade .= "\t\t];
     }\n\n";
         $ArquivoEntidade .= "\t/**\n\t* @return array \$relacionamentos
-     */\n";
+    */\n";
         $ArquivoEntidade .= "\tpublic static function getRelacionamentos() 
-        {
+    {
     \t\$relacionamentos = Relacionamentos::getRelacionamentos();\n\t\treturn \$relacionamentos[static::TABELA];\n\t}\n";
         $ArquivoEntidade .= "\n\n";
         foreach ($colunas as $coluna) {
@@ -215,7 +215,7 @@ class {$Entidade}Entidade extends AbstractEntidade
                 $ArquivoEntidade .= "\t* @return mixed \$$coluna";
             }
             $ArquivoEntidade .= "
-     */\n";
+    */\n";
             $ArquivoEntidade .= "\tpublic function {$metodoGet}()
     {
         return \$this->$coluna;
@@ -223,8 +223,8 @@ class {$Entidade}Entidade extends AbstractEntidade
             $metodoSet = $this->getMetodo($coluna, false);
             $ArquivoEntidade .= "\t/**\n\t* @param \$$coluna";
             $ArquivoEntidade .= "
-     * @return mixed
-     */\n";
+    * @return mixed
+    */\n";
             $ArquivoEntidade .= "\tpublic function {$metodoSet}(\$$coluna)
     {
         return \$this->$coluna = \$$coluna;
@@ -277,7 +277,7 @@ class {$Entidade}Entidade extends AbstractEntidade
     {
         if (!$ArquivoEntidade) return false;
         try {
-            $handle = fopen(PASTA_ENTIDADES . '/' . $Entidade . 'Entidade.class.php', 'w+');
+            $handle = fopen(PASTA_ENTIDADES . $Entidade . 'Entidade.class.php', 'w+');
             fwrite($handle, $ArquivoEntidade);
             fclose($handle);
         } catch (Exception $e) {
@@ -309,7 +309,7 @@ class  {$Entidade}Model extends AbstractModel
     {
         if (!$ArquivoModel) return false;
         try {
-            $handle = fopen(PASTA_MODEL . '/' . $Entidade . 'Model.class.php', 'w+');
+            $handle = fopen(PASTA_MODEL . $Entidade . 'Model.class.php', 'w+');
             fwrite($handle, $ArquivoModel);
             fclose($handle);
         } catch (Exception $e) {
@@ -384,7 +384,7 @@ class  {$Entidade}Service extends AbstractService
     {
         if (!$ArquivoService) return false;
         try {
-            $handle = fopen(PASTA_SEVICE . '/' . $Entidade . 'Service.class.php', 'w+');
+            $handle = fopen(PASTA_SEVICE . $Entidade . 'Service.class.php', 'w+');
             fwrite($handle, $ArquivoService);
             fclose($handle);
         } catch (Exception $e) {

@@ -3,6 +3,7 @@
 class AbstractModel
 {
     private $Entidade;
+    private $EntidadePesquisadas = [];
 
     public function __construct($Entidade)
     {
@@ -13,6 +14,7 @@ class AbstractModel
     public function getPDO()
     {
         $ObjetoPDO = NEW ObjetoPDO();
+        $this->EntidadePesquisadas = [];
         return $ObjetoPDO::$ObjetoPDO;
     }
 
@@ -72,6 +74,7 @@ class AbstractModel
                 $obj->$metodo($registro[$campo]);
             }
             $obj = $this->PesquisaInclusaoRelacionamento($Entidade, $obj);
+            $this->EntidadePesquisadas[] = $Entidade;
             $obj = $this->PesquisaTodosNv2($obj);
             return $obj;
         } else {
@@ -140,16 +143,20 @@ class AbstractModel
                     $novoMetodo = $this->getMetodo($obj::CHAVE);
                     $todos = null;
                     if (count($obj->$novoMetodo())) {
-                        if (is_array($obj->$novoMetodo())) {
-                            $indece = 0;
-                            foreach ($obj->$novoMetodo() as $novoRegistro) {
-                                $todos[$indece] = $this->PesquisaTodosNv1(
-                                    $campo['Entidade'], $campo['Campo'], $novoRegistro->$novoMetodo()
-                                );
-                                $indece++;
+                        if($this->validaEntidadeJaUtilizada($campo['Entidade'])){
+                            if (is_array($obj->$novoMetodo())) {
+                                $indece = 0;
+                                foreach ($obj->$novoMetodo() as $novoRegistro) {
+                                    $todos[$indece] = $this->PesquisaTodosNv1(
+                                        $campo['Entidade'], $campo['Campo'], $novoRegistro->$novoMetodo()
+                                    );
+                                    $indece++;
+                                }
+                            } else {
+                                $todos = $this->PesquisaTodosNv1($campo['Entidade'], $campo['Campo'], $obj->$novoMetodo());
                             }
-                        } else {
-                            $todos = $this->PesquisaTodosNv1($campo['Entidade'], $campo['Campo'], $obj->$novoMetodo());
+                        }else{
+                            $todos = $obj->$novoMetodo();
                         }
                     }
                     $obj->$metodoSet($todos);
@@ -192,11 +199,15 @@ class AbstractModel
                         foreach ($obj->$metodoGet() as $novoRegistro) {
                             if (count($novoRegistro)) {
                                 if ($novoRegistro->$metodoGet2()) {
-                                    $dados4 = $this->PesquisaUmRegistroNv3(
-                                        $novoRegistro->$metodoGet2(), $obj3::ENTIDADE
-                                    );
                                     $metodoSet2 = $this->getMetodo($obj3::CHAVE, false);
-                                    $obj->$metodoGet()[$indece]->$metodoSet2($dados4);
+                                    if($this->validaEntidadeJaUtilizada($campo['Entidade'])){
+                                        $dados4 = $this->PesquisaUmRegistroNv3(
+                                            $novoRegistro->$metodoGet2(), $obj3::ENTIDADE
+                                        );
+                                        $obj->$metodoGet()[$indece]->$metodoSet2($dados4);
+                                    }else{
+                                        $obj->$metodoGet()[$indece]->$metodoSet2($novoRegistro->$metodoGet2());
+                                    }
                                     $indece++;
                                 }
                             }
@@ -204,11 +215,15 @@ class AbstractModel
                     } else {
                         if ($obj->$metodoGet()) {
                             if ($obj->$metodoGet()->$metodoGet2()) {
-                                $dados3 = $this->PesquisaUmRegistroNv3(
-                                    $obj->$metodoGet()->$metodoGet2(), $obj3::ENTIDADE
-                                );
                                 $metodoSet2 = $this->getMetodo($obj3::CHAVE, false);
-                                $obj->$metodoGet()->$metodoSet2($dados3);
+                                if($this->validaEntidadeJaUtilizada($campo['Entidade'])){
+                                    $dados3 = $this->PesquisaUmRegistroNv3(
+                                        $obj->$metodoGet()->$metodoGet2(), $obj3::ENTIDADE
+                                    );
+                                    $obj->$metodoGet()->$metodoSet2($dados3);
+                                }else{
+                                    $obj->$metodoGet()->$metodoSet2($obj->$metodoGet()->$metodoGet2());
+                                }
                             }
                         }
                     }
@@ -216,20 +231,29 @@ class AbstractModel
                     if ($obj->$metodoGet()) {
                         if (!is_array($obj->$metodoGet())) {
                             if ($obj->$metodoGet()->$metodoGet2()) {
-                                $dados3 = $this->PesquisaTodosNv4(
-                                    $obj->$metodoGet()->$metodoGet(), $obj3::ENTIDADE, $obj2
-                                );
                                 $metodoSet2 = $this->getMetodo($obj3::CHAVE, false);
-                                $obj->$metodoGet()->$metodoSet2($dados3);
+                                if($this->validaEntidadeJaUtilizada($campo['Entidade'])){
+                                    $dados3 = $this->PesquisaTodosNv4(
+                                        $obj->$metodoGet()->$metodoGet(), $obj3::ENTIDADE, $obj2
+                                    );
+                                    $obj->$metodoGet()->$metodoSet2($dados3);
+                                }else{
+                                    $obj->$metodoGet()->$metodoSet2( $obj->$metodoGet()->$metodoGet());
+                                }
                             }
                         } else {
                             foreach ($obj->$metodoGet() as $item) {
                                 if ($item->$metodoGet2()) {
-                                    $dados3 = $this->PesquisaTodosNv4(
-                                        $item->$metodoGet(), $obj3::ENTIDADE, $obj2
-                                    );
                                     $metodoSet2 = $this->getMetodo($obj3::CHAVE, false);
-                                    $item->$metodoSet2($dados3);
+                                    if($this->validaEntidadeJaUtilizada($campo['Entidade'])){
+                                        $dados3 = $this->PesquisaTodosNv4(
+                                            $item->$metodoGet(), $obj3::ENTIDADE, $obj2
+                                        );
+                                        $item->$metodoSet2($dados3);
+                                    }else{
+                                        $item->$metodoSet2($item->$metodoGet());
+                                    }
+
                                 }
                             }
                         }
@@ -304,7 +328,6 @@ class AbstractModel
                 $metodo = $this->getMetodo($campo, false);
                 $obj->$metodo($entidade[$campo]);
             }
-            $obj = $this->PesquisaInclusaoRelacionamento($Entidade, $obj);
             $obj = $this->PesquisaTodosNv2($obj);
             $dados[] = $obj;
         }
@@ -341,6 +364,18 @@ class AbstractModel
             return false;
         }
         return true;
+    }
+
+    /**
+     * @param $Entidade
+     * @return bool
+     */
+    private function validaEntidadeJaUtilizada($Entidade)
+    {
+        if(!in_array($Entidade, $this->EntidadePesquisadas)){
+            return true;
+        }
+        return false;
     }
 
 }

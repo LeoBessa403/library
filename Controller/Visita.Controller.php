@@ -35,13 +35,15 @@ class Visita extends AbstractController
         foreach ($visitasNavegador as $nDispositivo) {
             $graficoNavegador[] = "['" . $nDispositivo['ds_navegador'] . "'," . $nDispositivo['qt_visitas'] . "]";
         }
-        $color = ['gray', 'orange', 'red', 'pink', 'gray', 'green', 'yellow', 'red', 'pink', 'gray'];
+        $color = ['gray', 'orange', 'red', 'pink', 'gray', 'green', 'yellow', 'red', 'pink'];
         $i = 0;
         $graficoCidade[] = "['Cidade','Visitas', { role: 'style' }]";
         foreach ($visitasCidade as $nDispositivo) {
             $graficoCidade[] = "['" . $nDispositivo['ds_cidade'] . "'," . $nDispositivo['qt_visitas'] .
                 ", 'color: " . $color[$i] . "']";
             $i++;
+            if($i > 8)
+                $i = 0;
         }
         $graficoEstado[] = "['Estado','Visitas']";
         foreach ($visitasEstado as $nDispositivo) {

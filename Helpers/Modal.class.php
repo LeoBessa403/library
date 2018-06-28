@@ -161,26 +161,6 @@ class Modal
         echo '<a data-toggle="modal" role="button" href="#' . $id . '" id="confirmacao"></a>';
     }
 
-    public static function cadastrando($form)
-    {
-        echo '<div class="modal in modal-overflow fade cadastrando" id="teste" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-header btn-success">
-                        <button type="button" class="close cancelar" data-dismiss="modal" aria-hidden="true">
-                                X
-                        </button>
-                        <h4 class="modal-title">Cadastro e edição do fluxo do caixa</h4>
-                </div>
-                <div class="modal-body">' .
-            $form
-            . '</div>
-                <div class="modal-footer">
-                        <button class="btn btn-success" data-dismiss="modal" id="">
-                                OK
-                        </button>
-                </div>
-        </div>';
-    }
-
     public static function aviso($id)
     {
         echo '<div class="modal in modal-overflow fade aviso" id="' . $id . '" tabindex="-1" role="dialog" aria-hidden="true">

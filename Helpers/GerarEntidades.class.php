@@ -13,6 +13,13 @@ class GerarEntidades
     var $relacionamentos;
     var $conn;
 
+    /** @var array Classes Padrões pra não criação das Entidades Models e Services */
+    protected static $CLASS_PADRAO = [
+        'tb_acesso', 'tb_auditoria', 'tb_auditoria_itens', 'tb_auditoria_tabela', 'tb_contato', 'tb_endereco',
+        'tb_funcionalidade', 'tb_imagem', 'tb_pagina', 'tb_pagina_visita', 'tb_perfil_funcionalidade',
+        'tb_perfil', 'tb_pessoa', 'tb_trafego', 'tb_usuario_perfil', 'tb_usuario', 'tb_visita'
+    ];
+
     public function __construct($tabelas = array())
     {
         $this->tabelas = $tabelas;
@@ -34,6 +41,7 @@ class GerarEntidades
                 $this->tabelas = [];
                 if ($result) {
                     while ($row = mysqli_fetch_row($result)) {
+                        if(!in_array($row[0], static::$CLASS_PADRAO))
                         $this->tabelas[] = $row[0];
                     }
                 }

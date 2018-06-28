@@ -285,9 +285,12 @@ class {$Entidade}Entidade extends AbstractEntidade
     {
         if (!$ArquivoEntidade) return false;
         try {
-            $handle = fopen(PASTA_ENTIDADES . $Entidade . 'Entidade.class.php', 'w+');
-            fwrite($handle, $ArquivoEntidade);
-            fclose($handle);
+            $arquivo = PASTA_ENTIDADES . $Entidade . 'Entidade.class.php';
+            if(!file_exists($arquivo)){
+                $handle = fopen($arquivo, 'w+');
+                fwrite($handle, $ArquivoEntidade);
+                fclose($handle);
+            }
         } catch (Exception $e) {
             var_dump($e->getMessage());
             return false;
@@ -317,9 +320,12 @@ class  {$Entidade}Model extends AbstractModel
     {
         if (!$ArquivoModel) return false;
         try {
-            $handle = fopen(PASTA_MODEL . $Entidade . 'Model.class.php', 'w+');
-            fwrite($handle, $ArquivoModel);
-            fclose($handle);
+            $arquivo = PASTA_MODEL . $Entidade . 'Model.class.php';
+            if(!file_exists($arquivo)) {
+                $handle = fopen($arquivo, 'w+');
+                fwrite($handle, $ArquivoModel);
+                fclose($handle);
+            }
         } catch (Exception $e) {
             var_dump($e->getMessage());
             return false;
@@ -369,7 +375,6 @@ class  {$Entidade}Model extends AbstractModel
 
     private function geraService($Entidade)
     {
-        if ($Entidade != 'Acesso') {
             $ArquivoService = "<?php\n
 /**
  * {$Entidade}Service.class [ SEVICE ]
@@ -385,16 +390,18 @@ class  {$Entidade}Service extends AbstractService
     }\n\n
 }";
             $this->saveService($ArquivoService, $Entidade);
-        }
     }
 
     protected function saveService($ArquivoService, $Entidade)
     {
         if (!$ArquivoService) return false;
         try {
-            $handle = fopen(PASTA_SEVICE . $Entidade . 'Service.class.php', 'w+');
-            fwrite($handle, $ArquivoService);
-            fclose($handle);
+            $arquivo = PASTA_SEVICE . $Entidade . 'Service.class.php';
+            if(!file_exists($arquivo)) {
+                $handle = fopen($arquivo, 'w+');
+                fwrite($handle, $ArquivoService);
+                fclose($handle);
+            }
         } catch (Exception $e) {
             var_dump($e->getMessage());
             return false;

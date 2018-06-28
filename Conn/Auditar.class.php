@@ -30,7 +30,7 @@ class Auditar extends Conn
      */
     public function Audita($tabela, array $dados = null, $operacao, $co_registro = null, $termos = null, $valores = null)
     {
-        if (isset($_SESSION[SESSION_USER]) && UrlAmigavel::$modulo == ADMIN):
+        if (isset($_SESSION[SESSION_USER]) && (UrlAmigavel::$modulo == ADMIN || $operacao == AuditoriaEnum::DELETE)):
             /** @var Session $us */
             $us = $_SESSION[SESSION_USER];
             $user = $us->getUser();

@@ -232,4 +232,50 @@ class Modal
         echo '<a data-toggle="modal" role="button" href="#foto_cliente" id="fotos"></a>';
     }
 
+    public static function DesativarInscricao($id)
+    {
+        echo '<div class="modal fade in modal-overflow inscricao_model" id="' . $id . '" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-header btn-bricky">
+                        <button type="button" class="close cancelar" data-dismiss="modal" aria-hidden="true">
+                                X
+                        </button>
+                        <h4 class="modal-title">Desativar Inscrição</h4>
+                </div>
+                <div class="modal-body">
+                        <b>Deseja Realmente Desativar essa Inscrição?</b>
+                </div>
+                <div class="modal-footer">
+                        <button aria-hidden="true" data-dismiss="modal" class="btn btn-bricky cancelar">
+                                Fechar
+                        </button>
+                        <button class="btn btn-success" data-dismiss="modal" id="" data-url-action="">
+                                OK
+                        </button>
+                </div>
+            </div>';
+    }
+
+    public static function AtivarInscricao($id)
+    {
+        echo '<div class="modal fade in modal-overflow inscricao_model" id="' . $id . '" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-header btn-success">
+                        <button type="button" class="close cancelar" data-dismiss="modal" aria-hidden="true">
+                                X
+                        </button>
+                        <h4 class="modal-title">Ativar Inscrição</h4>
+                </div>
+                <div class="modal-body">
+                        <b>Deseja Realmente Ativar essa Inscrição?</b>
+                </div>
+                <div class="modal-footer">
+                        <button aria-hidden="true" data-dismiss="modal" class="btn btn-bricky cancelar">
+                                Fechar
+                        </button>
+                        <button class="btn btn-success" data-dismiss="modal" id="" data-url-action="">
+                                OK
+                        </button>
+                </div>
+            </div>';
+    }
+
 }

@@ -579,9 +579,9 @@ class Valida
         }
     }
 
-    public static function geraBtnVoltar()
+    public static function geraBtnVoltar($parametros = null)
     {
-        echo '<a href="' . PASTAADMIN . UrlAmigavel::$controller . '/Listar' . UrlAmigavel::$controller . '"
+        echo '<a href="' . PASTAADMIN . UrlAmigavel::$controller . '/Listar' . UrlAmigavel::$controller .'/'. $parametros.'"
                class="btn btn-primary tooltips" data-original-title="Voltar" data-placement="top">
                 Voltar <i class="clip-arrow-right-2"></i>
             </a>';

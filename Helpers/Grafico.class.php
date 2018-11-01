@@ -91,8 +91,8 @@ class Grafico
 
             /// Gráfico de Linha
             case 2 :
-                echo "google.load('visualization', '1', {packages:['corechart']});
-                  google.setOnLoadCallback(drawChart);
+                echo "google.charts.load('current', {packages: ['corechart', 'line']});
+                  google.charts.setOnLoadCallback(drawChart);
 
                   function drawChart() {
                         var data = google.visualization.arrayToDataTable([";

@@ -20,7 +20,7 @@ class Backup
         $backupDate = fgets($backup);
         $dias = Valida::CalculaDiferencaDiasData(date("d/m/Y"), Valida::DataShow($backupDate));
 
-        if ($dias < 1 && PROD):
+        if ($dias < 1):
             $novaData = Valida::CalculaData(date("d/m/Y"), BACKUP, "+");
             $backupCheck = fopen('BancoDados/Backup.txt', "w");
             fwrite($backupCheck, Valida::DataDBDate($novaData));

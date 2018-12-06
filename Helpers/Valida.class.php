@@ -330,7 +330,7 @@ class Valida
     {
 
         $classAdd = 'center-block';
-        if(UrlAmigavel::$modulo == ADMIN)
+        if (UrlAmigavel::$modulo == ADMIN)
             $classAdd = '';
 
         self::$Data = 'uploads/' . $ImageUrl;
@@ -449,8 +449,6 @@ class Valida
 
         switch ($ext) {
             case 'jpg':
-                $img = imagecreatefromjpeg($tmp);
-                break;
             case 'jpeg':
                 $img = imagecreatefromjpeg($tmp);
                 break;
@@ -470,7 +468,7 @@ class Valida
         if (file_exists($arquivo)):
             unlink($arquivo);
         endif;
-
+        $ext = strtolower($ext);
 
         switch ($ext) {
             case 'jpg':
@@ -582,7 +580,7 @@ class Valida
     public static function geraBtnVoltar($parametros = null)
     {
         $link = ($parametros) ? $parametros : UrlAmigavel::$controller . '/Listar' . UrlAmigavel::$controller;
-        echo '<a href="' . PASTAADMIN . $link.'"
+        echo '<a href="' . PASTAADMIN . $link . '"
                class="btn btn-primary tooltips" data-original-title="Voltar" data-placement="top">
                 Voltar <i class="clip-arrow-right-2"></i>
             </a>';
@@ -590,9 +588,9 @@ class Valida
 
     public static function geraBtnNovo($parametros = null)
     {
-        echo '<a href="' . PASTAADMIN . UrlAmigavel::$controller . '/Cadastro' . UrlAmigavel::$controller .'/'. $parametros.'"
-               class="btn btn-green tooltips" data-original-title="Criar '.UrlAmigavel::$controller .'" data-placement="top">
-               <i class="fa fa-plus"></i> Criar '.UrlAmigavel::$controller .'
+        echo '<a href="' . PASTAADMIN . UrlAmigavel::$controller . '/Cadastro' . UrlAmigavel::$controller . '/' . $parametros . '"
+               class="btn btn-green tooltips" data-original-title="Criar ' . UrlAmigavel::$controller . '" data-placement="top">
+               <i class="fa fa-plus"></i> Criar ' . UrlAmigavel::$controller . '
             </a>';
     }
 

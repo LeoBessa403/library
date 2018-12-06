@@ -472,8 +472,6 @@ class Valida
 
         switch ($ext) {
             case 'jpg':
-                imagejpeg($nova, PASTAUPLOADS . $nome_foto . "." . $ext, 100);
-                break;
             case 'jpeg':
                 imagejpeg($nova, PASTAUPLOADS . $nome_foto . "." . $ext, 100);
                 break;

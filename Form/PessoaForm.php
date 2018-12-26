@@ -8,11 +8,12 @@ class PessoaForm extends AbstractController
 
         /** @var Form $formulario */
         $formulario = new Form($id, UrlAmigavel::$modulo . "/" . UrlAmigavel::$controller
-            . "/" . UrlAmigavel::$action, 'Validar', $tamanho);
+            . "/" . UrlAmigavel::$action, 'Verificar', $tamanho);
 
         $formulario
             ->setId(NU_CPF)
             ->setClasses("cpf ob")
+            ->setInfo("Verificação de dados já existentes")
             ->setTamanhoInput(12)
             ->setLabel("CPF")
             ->CriaInpunt();

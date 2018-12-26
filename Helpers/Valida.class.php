@@ -596,6 +596,7 @@ class Valida
      * @param $mensagem
      * @param array $parametros
      * @param string $whatsapp
+     * @return string
      */
     public static function geraLinkWhatSapp($mensagem, array $parametros = [], $whatsapp = WHATSAPP)
     {
@@ -608,7 +609,7 @@ class Valida
                 $mensagem = str_replace('%s', $parametros[$i], $msg) . $msgAux;
             }
         }
-        echo $pre . $mensagem;
+        return $pre . $mensagem;
     }
 
 

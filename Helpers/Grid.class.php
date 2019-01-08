@@ -77,8 +77,8 @@ class Grid {
     }
     
     
-    public function criaGrid($id = 1, $dateTable = true) {
-        $this->gerarBtnExportar();
+    public function criaGrid($id = 1, $dateTable = true, $btnExportar = true) {
+        ($btnExportar) ? $this->gerarBtnExportar() : null;
         $class = ($dateTable) ? 'table ' : '';
         echo '<div class="table-responsive">
                 <table class="'.$class.'table-striped table-bordered table-hover table-full-width" id="sample_'.$id.'"

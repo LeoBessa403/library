@@ -243,6 +243,14 @@ class Modal
                 </div>
                 <div class="modal-body">
                         <b>Deseja Realmente Desativar essa Inscrição?</b>
+                        </br></br>
+                        <div class="form-group">
+                            <label for="ds_observacao" class="control-label"> 
+                            Motivo da Desativação <span class="symbol required"></span>
+                            </label>
+                            <textarea id="ds_observacao" name="ds_observacao" style="resize: none;"
+                             class="form-control ob"></textarea>
+                         </div>
                 </div>
                 <div class="modal-footer">
                         <button aria-hidden="true" data-dismiss="modal" class="btn btn-bricky cancelar">

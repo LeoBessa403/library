@@ -180,7 +180,7 @@ class AbstractValidador
     public function ValidaCampoArquivo($arquivo, $labelCampo)
     {
         $this->iniciaRetorno();
-        if ($arquivo["tmp_name"]) {
+        if ($arquivo["tmp_name"] && $arquivo["tmp_name"] != '') {
             $this->retorno[SUCESSO][] = true;
         } else {
             $this->retorno[SUCESSO][] = false;

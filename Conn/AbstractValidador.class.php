@@ -115,8 +115,8 @@ class AbstractValidador
                     if (strlen($validador) == 1) {
                         $validador = preg_replace('/[^A-Z]/', '', $dado);
                         if (strlen($validador) == 1) {
-                            if(strlen($dado) >= $qtdCaracteres)
-                            $validador = true;
+                            if (strlen($dado) >= $qtdCaracteres)
+                                $validador = true;
                         }
                     }
                 }

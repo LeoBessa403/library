@@ -292,6 +292,25 @@ class Valida
     }
 
     /**
+     * <b>Calcula a Idade em Anos</b>
+     * @param STRING $dtNascimento = Data Formato do banco ou Formato de Visualização (d/m/Y)
+     * @param STRING $label = Se quer com o Sufixo (Anos)
+     * @return INT = Anos da data de nascimento ate a data atual.
+     */
+    public static function CalculaIdadeAtual($dtNascimento, $label = null)
+    {
+        $dtNascimento = implode('/', array_reverse(explode('-', $dtNascimento)));
+        $Data1 = explode('/', $dtNascimento);
+        $Data2 = explode('/', date('d/m/Y'));
+        $Data1 = mktime(0, 0, 0, $Data1[1], $Data1[0], $Data1[2]);
+        $Data2 = mktime(0, 0, 0, $Data2[1], $Data2[0], $Data2[2]);
+        $Diferenca = $Data2 - $Data1; //CALCULA-SE A DIFERENÇA EM SEGUNDOS
+        $anos = intval(($Diferenca / (60 * 60 * 24)) / 365);
+        $anos = (!$label) ? $anos . ' Anos' : $anos;
+        return $anos; //CALCULA-SE A DIFERENÇA EM DIAS
+    }
+
+    /**
      * <b>Limpa conteúdo da Variável:</b>
      */
     public static function LimpaVariavel($var)

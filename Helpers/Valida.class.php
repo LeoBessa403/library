@@ -213,18 +213,21 @@ class Valida
      */
     public static function DataShow($data, $formato = NULL)
     {
-        self::$Format = explode(' ', $data);
-        self::$Data = explode('-', self::$Format[0]);
+        self::$Data = null;
+        if($data != '0000-00-00'){
+            self::$Format = explode(' ', $data);
+            self::$Data = explode('-', self::$Format[0]);
 
-        if (empty(self::$Format[1])):
-            self::$Format[1] = date('H:i:s');
-        endif;
-        if (!$formato):
-            $formato = "d/m/Y";
-        endif;
+            if (empty(self::$Format[1])):
+                self::$Format[1] = date('H:i:s');
+            endif;
+            if (!$formato):
+                $formato = "d/m/Y";
+            endif;
 
-        self::$Data = self::$Data[2] . '-' . self::$Data[1] . '-' . self::$Data[0] . ' ' . self::$Format[1];
-        self::$Data = date($formato, strtotime(self::$Data));
+            self::$Data = self::$Data[2] . '-' . self::$Data[1] . '-' . self::$Data[0] . ' ' . self::$Format[1];
+            self::$Data = date($formato, strtotime(self::$Data));
+        }
         return self::$Data;
     }
 

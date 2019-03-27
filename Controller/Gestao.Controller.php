@@ -103,7 +103,7 @@ class Gestao extends AbstractController
         }
         $ArquivoConstante .= "\n";
         try {
-            $handle = fopen(PASTA_RAIZ . 'library/Config.Padrao.php', 'w+');
+            $handle = fopen(PASTA_RAIZ . ADMIN . '/Config.Padrao.php', 'w+');
             fwrite($handle, $ArquivoConstante);
             fclose($handle);
         } catch (Exception $e) {
@@ -119,7 +119,7 @@ class Gestao extends AbstractController
     public function ResetConfigGestao()
     {
         try {
-            $handle = fopen(PASTA_RAIZ . 'library/Config.Padrao.php', 'w+');
+            $handle = fopen(PASTA_RAIZ . ADMIN . '/Config.Padrao.php', 'w+');
             fwrite($handle, '');
             fclose($handle);
             /** @var Session $session */

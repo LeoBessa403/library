@@ -14,12 +14,12 @@ else:
 endif;
 servidor_inicial();
 
-if (file_exists( "library/Config.Padrao.php")):
-    include  "library/Config.Padrao.php";
-elseif (file_exists("../library/Config.Padrao.php")):
-    include "../library/Config.Padrao.php";
+if (file_exists(ADMIN . "/Config.Padrao.php")):
+    include ADMIN . "/Config.Padrao.php";
+elseif (file_exists("../" . ADMIN . "/Config.Padrao.php")):
+    include "../" . ADMIN . "/Config.Padrao.php";
 else:
-    include "../../library/Config.Padrao.php";
+    include "../../" . ADMIN . "/Config.Padrao.php";
 endif;
 
 if (file_exists(ADMIN . "/Class/Constantes.class.php")):

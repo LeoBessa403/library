@@ -1102,7 +1102,7 @@ class Valida
         if($dados['esforcoRestante'] == 0){
             $horas = $dados['esforcoRestante'];
         }else{
-            $horas = Valida::FormataMoeda(($dados['esforcoRestante'] * 20) / 60); // 20 Minutos por ponto de esforço
+            $horas = intval(($dados['esforcoRestante'] * 20) / 60); // 20 Minutos por ponto de esforço
         }
         $linhas = fopen('versao.txt', "a+");
         $versoes = fgets($linhas);
@@ -1110,12 +1110,14 @@ class Valida
         $mediaDia = ($versao[5]) ? Valida::FormataMoeda($versao[5]): 0;
         if($dados['esforcoRestante'] == 0 || $mediaDia == 0){
             $dias = 0;
+            $diaAux = 0;
             $semanas = 0;
         }else{
-            $dias = Valida::FormataMoeda(($dados['esforcoRestante'] / $mediaDia));
-            $semanas = Valida::FormataMoeda($dias / 7);
+            $diaAux = ($dados['esforcoRestante'] / $mediaDia);
+            $dias = intval(($dados['esforcoRestante'] / $mediaDia));
+            $semanas = intval($diaAux / 7);
         }
-        $dataPrevista = Valida::CalculaData(Date('d/m/Y'), $dias, '+');
+        $dataPrevista = Valida::CalculaData(Date('d/m/Y'), $diaAux, '+');
 
         $estatisticas['barra'] = $dado['barra'];
         $estatisticas['percentual'] = $dado['percentual'];

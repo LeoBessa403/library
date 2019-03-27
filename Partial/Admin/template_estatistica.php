@@ -36,19 +36,19 @@ $estatisticas = Valida::getDadosEstatistica($dados);
 </div>
 <div class="col-sm-3">
     <div class="alert alert-block alert-danger fade in">
-        <h4 class="alert-heading"><i class="clip-clock"></i> Horas</h4>
+        <h4 class="alert-heading"><i class="clip-clock"></i> Horas Restantes</h4>
         <h2><?= $estatisticas['horas']; ?></h2>
     </div>
 </div>
 <div class="col-sm-3">
     <div class="alert alert-block alert-success fade in">
-        <h4 class="alert-heading"><i class="clip-calendar"></i> Dias</h4>
+        <h4 class="alert-heading"><i class="clip-calendar"></i> Dias Restantes</h4>
         <h2><?= $estatisticas['dias']; ?></h2>
     </div>
 </div>
 <div class="col-sm-3">
     <div class="alert alert-block alert-warning fade in">
-        <h4 class="alert-heading"><i class="fa fa-moon-o"></i> Semanas</h4>
+        <h4 class="alert-heading"><i class="fa fa-moon-o"></i> Semanas Restantes</h4>
         <h2><?= $estatisticas['semanas']; ?></h2>
     </div>
 </div>

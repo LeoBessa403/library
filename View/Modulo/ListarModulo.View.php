@@ -70,14 +70,16 @@
                             if ($res->getCoSessao()) {
                                 /** @var SessaoEntidade $sessao */
                                 foreach ($res->getCoSessao() as $sessao) {
-                                    /** @var HistoriaEntidade $historia */
-                                    foreach ($sessao->getCoHistoria() as $historia) {
+                                    if($sessao->getCoHistoria()){
                                         /** @var HistoriaEntidade $historia */
-                                        $historia = $historiaService->PesquisaUmRegistro($historia->getCoHistoria());
-                                        $dados['esforco'] = $dados['esforco'] +
-                                            $historia->getCoUltimoHistoricoHistoria()->getNuEsforco();
-                                        $dados['esforcoRestante'] = $dados['esforcoRestante'] +
-                                            $historia->getCoUltimoHistoricoHistoria()->getNuEsforcoRestante();
+                                        foreach ($sessao->getCoHistoria() as $historia) {
+                                            /** @var HistoriaEntidade $historia */
+                                            $historia = $historiaService->PesquisaUmRegistro($historia->getCoHistoria());
+                                            $dados['esforco'] = $dados['esforco'] +
+                                                $historia->getCoUltimoHistoricoHistoria()->getNuEsforco();
+                                            $dados['esforcoRestante'] = $dados['esforcoRestante'] +
+                                                $historia->getCoUltimoHistoricoHistoria()->getNuEsforcoRestante();
+                                        }
                                     }
                                 }
                             }

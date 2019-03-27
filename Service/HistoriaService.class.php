@@ -101,6 +101,7 @@ class  HistoriaService extends AbstractService
         $priEsfRes = true;
         $esforco = 0;
         $esforcoRestante = 0;
+
         foreach ($evolucao as $item) {
             if (empty($esforcoHistoria[$item[CO_HISTORIA]])) {
                 $priEsf = true;
@@ -132,14 +133,19 @@ class  HistoriaService extends AbstractService
         self::$dados['esforco'] = $esforco;
         self::$dados['esforcoRestante'] = $esforcoRestante;
 
-        if ($preProj) {
+        if ($preProj && $graficoEvolucao) {
             $dataPrevistas = array_keys($graficoEvolucao);
             $diasNecessario = Valida::CalculaDiferencaDiasData(
                 $dataPrevistas[0],
                 $dataPrevistas[count($dataPrevistas) - 1]
             );
-            $esforcoAlcancado = $esforco - $esforcoRestante;
-            $mediaDia = $esforcoAlcancado / $diasNecessario;
+            if($diasNecessario > 0){
+                $esforcoAlcancado = $esforco - $esforcoRestante;
+                $mediaDia = $esforcoAlcancado / $diasNecessario;
+            }else{
+                $mediaDia = 0;
+            }
+
             $linhas = fopen('versao.txt', "a+");
             $versoes = fgets($linhas);
             $versao = explode('//', $versoes);

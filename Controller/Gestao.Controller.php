@@ -136,6 +136,14 @@ class Gestao extends AbstractController
 
     public function PreProjetoGestao()
     {
+        /** @var ProjetoService $projetoService */
+        $projetoService = $this->getService(PROJETO_SERVICE);
+        $meuProjeto = $projetoService->PesquisaTodos();
+        if (!$meuProjeto) {
+            $projeto[NO_PROJETO] = DESC_SIS;
+            $projetoService->salvaProjeto($projeto);
+        }
+
         /** @var HistoriaService $historiaService */
         $historiaService = $this->getService(HISTORIA_SERVICE);
         /** @var HistoricoHistoriaService $historicoHistoriaService */
@@ -143,7 +151,7 @@ class Gestao extends AbstractController
 
         $histHistorias = $historicoHistoriaService->PesquisaAvancada([]);
 
-        $historiaService->motaGraficoEvolucao($histHistorias,true);
+        $historiaService->motaGraficoEvolucao($histHistorias, true);
 
         $this->dados = $historiaService::$dados;
     }

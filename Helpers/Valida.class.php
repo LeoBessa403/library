@@ -1099,22 +1099,31 @@ class Valida
     public static function getDadosEstatistica($dados)
     {
         $dado = self::getBarraProgresso($dados);
-        $horas = ($dados['esforcoRestante'] * 20) / 60; // 20 Minutos por ponto de esforço
+        if($dados['esforcoRestante'] == 0){
+            $horas = $dados['esforcoRestante'];
+        }else{
+            $horas = Valida::FormataMoeda(($dados['esforcoRestante'] * 20) / 60); // 20 Minutos por ponto de esforço
+        }
         $linhas = fopen('versao.txt', "a+");
         $versoes = fgets($linhas);
         $versao = explode('//', $versoes);
-        $mediaDia = $versao[5];
-        $dias = ($dados['esforcoRestante'] / $mediaDia);
-        $semanas = $dias / 7;
+        $mediaDia = ($versao[5]) ? Valida::FormataMoeda($versao[5]): 0;
+        if($dados['esforcoRestante'] == 0 || $mediaDia == 0){
+            $dias = 0;
+            $semanas = 0;
+        }else{
+            $dias = Valida::FormataMoeda(($dados['esforcoRestante'] / $mediaDia));
+            $semanas = Valida::FormataMoeda($dias / 7);
+        }
         $dataPrevista = Valida::CalculaData(Date('d/m/Y'), $dias, '+');
 
         $estatisticas['barra'] = $dado['barra'];
         $estatisticas['percentual'] = $dado['percentual'];
-        $estatisticas['dias'] = Valida::FormataMoeda($dias);
-        $estatisticas['horas'] = Valida::FormataMoeda($horas);
-        $estatisticas['semanas'] = Valida::FormataMoeda($semanas);
+        $estatisticas['dias'] = $dias;
+        $estatisticas['horas'] = $horas;
+        $estatisticas['semanas'] = $semanas;
         $estatisticas['dataPrevista'] = $dataPrevista;
-        $estatisticas['pontosDia'] = Valida::FormataMoeda($mediaDia);
+        $estatisticas['pontosDia'] = $mediaDia;
 
         return $estatisticas;
     }

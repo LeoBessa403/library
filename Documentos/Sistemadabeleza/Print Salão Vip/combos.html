@@ -1,0 +1,135 @@
+<br/><br/><label>Bloquear Horário // Período:</label><br/>
+<select name="periodo" id="" class="input-medium wdt100">
+    <option value="0" selected="selected">Apenas este dia</option>
+    <option value="7">Uma semana</option>
+    <option value="15">15 dias</option>
+    <option value="30">30 dias</option>
+    <option value="60">60 dias</option>
+    <option value="365">1 ano</option>
+    <option value="1825">indeterminado</option>
+    <option value="escolher">Escolher uma data</option>
+</select>
+
+
+<br/><br/><label>Novo Profissional // Cargo:</label><br/>
+<select name="cargo" id="cargo" class="wdt100">
+    <option value="">Selecione</option>
+    <option value="Assistente">Assistente</option>
+    <option value="Acupunturista">Acupunturista</option>
+    <option value="Administrativo">Administrativo</option>
+    <option value="Auxiliar de serviços gerais">Auxiliar de serviços gerais</option>
+    <option value="Barbeiro">Barbeiro</option>
+    <option value="Caixa">Caixa</option>
+    <option value="Cabeleireiro">Cabeleireiro</option>
+    <option value="Café">Café</option>
+    <option value="Colorista">Colorista</option>
+    <option value="Copeira">Copeira</option>
+    <option value="Consultor">Consultor</option>
+    <option value="Cirurgião Plástico">Cirurgião Plástico</option>
+    <option value="Depilador">Depilador</option>
+    <option value="Designer de sobrancelhas">Designer de sobrancelhas</option>
+    <option value="Estoquista">Estoquista</option>
+    <option value="Esteticista">Esteticista</option>
+    <option value="Faxineira">Faxineira</option>
+    <option value="Freelancer">Freelancer</option>
+    <option value="Fisioterapeuta">Fisioterapeuta</option>
+    <option value="Financeiro">Financeiro</option>
+    <option value="Gerente">Gerente</option>
+    <option value="Gestor">Gestor</option>
+    <option value="Marketing">Marketing</option>
+    <option value="Manicure">Manicure</option>
+    <option value="Manobrista">Manobrista</option>
+    <option value="Manutenção">Manutenção</option>
+    <option value="Maquiador">Maquiador</option>
+    <option value="Massagista">Massagista</option>
+    <option value="Micropigmentador">Micropigmentador</option>
+    <option value="Nutricionista">Nutricionista</option>
+    <option value="Pedicure">Pedicure</option>
+    <option value="Podologista">Podologista</option>
+    <option value="Recepcionista">Recepcionista</option>
+    <option value="Terapeuta">Terapeuta</option>
+    <option value="Tatuador">Tatuador</option>
+    <option value="Vendedor">Vendedor</option>
+</select>
+
+
+<br/><br/><label>Campanha E-mail // Adicionar grupo:</label><br/>
+<select id="sltGrupo" class="input-large">
+    <option value="todos"> Todos</option>
+    <option value="#"> Clientes que não agendam a mais de 1 mês</option>
+    <option value="mulher"> Todas as Mulheres</option>
+    <option value="homem"> Todos os Homens</option>
+    <option value="dia"> Aniversariantes do Dia</option>
+    <option value="mes"> Aniversariantes do Mês</option>
+</select>
+
+
+<br/><br/><label>Comissões / Impressão do resumo</label><br/>
+<select id="selectRecibosSimples">
+    <option value="recibo_resumido" selected="">Recibo Resumido</option>
+    <option value="recibo_padrao">Recibo Padrão</option>
+    <option value="recibo_completo">Recibo Completo</option>
+    <option value="consumo_de_produtos">Consumo de Produtos</option>
+    <option value="descontos">Descontos</option>
+</select>
+
+
+<br/><br/><label>Entrada e saidas // tipagemBusca</label><br/>
+<select id="tipagem_busca" class="span1 add-on" style="height: 30px; width:180px;">
+    <option value="titulo"> Título</option>
+    <option value="categoria"> Categoria</option>
+    <option value="fornecedor"> Fornecedor</option>
+    <option value="observacao"> Observação</option>
+    <option value="centro_custo"> Centro de Custo</option>
+    <option value="forma_pagto"> Forma de Pagamento</option>
+    <option value="status"> Status</option>
+</select>
+
+
+<br/><br/><label>Entrada e saidas // Tipo de data</label><br/>
+<select name="tipo_data" class="inpuBusca slc-tipo-data" style="width:100px">
+    <option value="pagamento" selected="selected">Quitação</option>
+    <option value="lancamento">Competência</option>
+    <option value="vencimento">Vencimento</option>
+</select>
+
+
+<br/><br/><label>Pacote de Serviços // Comissão por serviços</label><br/>
+<select name="tipo_comissao">
+    <option value="DESCONTO">Considerar valor com desconto</option>
+    <option value="SERVICO">Considerar valor do serviço</option>
+    <option value="SEM_COMISSAO">Não considerar</option>
+</select>
+
+
+<br/><br/><label>Caixa Suprimento / Categoria Receita</label><br/>
+<select name="categoria_id" id="categoria33" class="input-medium">
+    <option value="">Selecione...</option>
+    <optgroup label="Receitas">
+        <option nivel="2" value="3">Receitas de Vendas</option>
+        <option nivel="2" value="5">Outras Receitas</option>
+    </optgroup>
+    <optgroup label="Receitas > Outras Receitas">
+        <option nivel="3" value="8">Ajuste de Caixa</option>
+    </optgroup>
+</select>
+
+
+<br/><br/><label>Caixa Suprimento / Categoria Despesas</label><br/>
+<select name="categoria_id" id="categoria2" class="input-medium">
+    <option value="">Selecione...</option>
+    <optgroup label="Despesas">
+        <option nivel="2" value="15">Despesas Financeiras</option>
+        <option nivel="2" value="16">Outras Despesas</option>
+        <option nivel="2" value="17">Investimentos</option>
+        <option nivel="2" value="19">Despesas de Marketing</option>
+        <option nivel="2" value="22">Despesas Administrativas</option>
+    </optgroup>
+    <optgroup label="Despesas > Investimentos">
+        <option nivel="3" value="26">Aquisição de Equipamentos</option>
+        <option nivel="3" value="27">Reformas</option>
+    </optgroup>
+    <optgroup label="Despesas > Outras Despesas">
+        <option nivel="3" value="25">Ajuste de Caixa</option>
+    </optgroup>
+</select>

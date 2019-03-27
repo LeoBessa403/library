@@ -20,7 +20,8 @@
                     </h1>
                     <span class="pull-right" style="float: right; margin-right: 10px; margin-top: -30px;">
                         <?php
-                        echo '<a href="' . PASTAADMIN . UrlAmigavel::$controller . '/Listar' . UrlAmigavel::$controller . '"
+                        echo '<a href="' . PASTAADMIN . UrlAmigavel::$controller . '/ListarHistoria/' . Valida::GeraParametro(
+                                CO_SESSAO . "/" . $historia->getCoSessao()->getCoSessao()) . '"
                                class="btn btn-primary tooltips" data-original-title="Voltar" data-placement="top">
                                 Voltar <i class="clip-arrow-right-2"></i>
                             </a>';
@@ -43,9 +44,9 @@
                         $historia = $historia;
                         $nome = $historia->getDsTitulo();
                         $historicos = $historia->getCoHistoricoHistoria();
-                        $voltar = '/ListarHistoria/'. Valida::GeraParametro(
+                        $voltar = '/ListarHistoria/' . Valida::GeraParametro(
                                 CO_SESSAO . "/" . $historia->getCoSessao()->getCoSessao());
-                        require_once PARTIAL_LIBRARY. 'Admin/historico.php';
+                        require_once PARTIAL_LIBRARY . 'Admin/historico.php';
                         ?>
                     </div>
                 </div>

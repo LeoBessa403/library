@@ -51,7 +51,7 @@
 
     <style>
         body.login.example1 {
-            background: url("<?= PASTAADMIN; ?>imagens/bg (<?= rand(1, NUM_BG_IMAGENS); ?>).jpg") rgba(0, 0, 0, 0) top center !important;
+            background: url("<?= PASTAADMIN; ?>Imagens/bg (<?= rand(1, NUM_BG_IMAGENS); ?>).jpg") rgba(0, 0, 0, 0) top center !important;
             background-size: auto !important;
         }
     </style>

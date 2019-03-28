@@ -427,8 +427,9 @@ class Form
             $form = '<div class="input-group ' . self::$id . '">';
             // VERIFICA O LADO DO ÍCONE
             if (self::$lado == "esq"):
-                $form .= '<span class="input-group-addon" style="height: 34px;">'
-                    . '<i class="' . self::$icon . '"></i></span>';
+                $form .= '<span class="input-group-addon" style="height: 34px;">';
+                $form .= (self::$icon != "%") ? '<i class="' . self::$icon . '"></i>' : self::$icon;
+                $form .= '</span>';
             endif;
         endif;
         //VERIFICA SE TEM PLACEHOLDER
@@ -448,8 +449,9 @@ class Form
         if (self::$icon != ""):
             // VERIFICA SE O ÍCONE É DO LADO DIREITO
             if (self::$lado == "dir"):
-                $form .= '<span class="input-group-addon">'
-                    . '<i class="' . self::$icon . '"></i></span>';
+                $form .= '<span class="input-group-addon" style="height: 34px;">';
+                $form .= (self::$icon != '%') ? '<i class="' . self::$icon . '"></i>' : self::$icon;
+                $form .= '</span>';
             endif;
 
             // FECHA DIV DO ÍCONE

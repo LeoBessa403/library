@@ -402,11 +402,11 @@ $(function () {
         valor = valor.val().replace(/[^,.]+/g, '');
         $(this).val(valor);
     });
-    $(".porcentagem").maskMoney({
+    $(".porc-decimal").maskMoney({
         symbol: '',
         showSymbol: false,
-        thousands: '.',
-        decimal: ',',
+        thousands: '',
+        decimal: '.',
         reverse: true,
         symbolStay: true
     }).focusout(function () {
@@ -419,6 +419,8 @@ $(function () {
         valor = valor.val().replace(/[^,.]+/g, '');
         $(this).val(valor);
     }).attr('maxlength', 5);
+
+    $(".porc-int").mask('99').attr('maxlength', 2).attr('placeholder', 0);
 
     $(".formulario").submit(function () {
         var obrigatorios = campoObrigatorio();

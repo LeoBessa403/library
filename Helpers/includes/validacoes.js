@@ -406,7 +406,7 @@ $(function () {
         symbol: '',
         showSymbol: false,
         thousands: '',
-        decimal: '.',
+        decimal: ',',
         reverse: true,
         symbolStay: true
     }).focusout(function () {

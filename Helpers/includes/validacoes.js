@@ -420,7 +420,7 @@ $(function () {
         $(this).val(valor);
     }).attr('maxlength', 5);
 
-    $(".porc-int").mask('99').attr('maxlength', 2).attr('placeholder', 0);
+    $(".porc-int").mask('9?9').attr('maxlength', 2).attr('placeholder', 0);
 
     $(".formulario").submit(function () {
         var obrigatorios = campoObrigatorio();

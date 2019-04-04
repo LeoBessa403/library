@@ -107,7 +107,6 @@ class AbstractModel
                     $pesquisa = new Pesquisa();
                     $where = $pesquisa->getClausula($pesquisando);
                     $pesquisa->Pesquisar($NovaEntidade::TABELA, $where);
-
                     $obj2 = new $NovaEntidade();
                     if ($pesquisa->getResult()) {
                         $registro = $pesquisa->getResult()[0];

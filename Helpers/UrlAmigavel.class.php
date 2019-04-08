@@ -25,7 +25,7 @@ class UrlAmigavel
     public static $ACESSO_PERMITIDO = ['Acessar', 'Registrar', 'RecuperarSenha', 'AtivacaoUsuario'];
 
     /**
-     * RealizaÃ§Ã£o a gestã£o da dos controladores e metodos a serem executados
+     * Realização a gestã£o da dos controladores e metodos a serem executados
      * e pega os ParÃ¢metos via GET!
      */
     public function __construct()
@@ -70,9 +70,9 @@ class UrlAmigavel
 
     /**
      * <b>pegaControllerAction:</b> Gerencia e inicia o controlador e metodo a ser executado
-     * INCLUDE Retorna a inclusÃ£o do arquivo solicitado.
-     * Valor padÃ£o para Controller (INDEX) e metodo (INDEX)
-     * Realiza a InclusÃ£o da View com o mesmo nome da action dentro da Pasta View.
+     * INCLUDE Retorna a inclusão do arquivo solicitado.
+     * Valor padrão para Controller (INDEX) e metodo (INDEX)
+     * Realiza a Inclusão da View com o mesmo nome da action dentro da Pasta View.
      * Ex.: <br>Nome do Arquivo <b>cadastro.View.php</b>
      */
     public function pegaControllerAction()

@@ -60,7 +60,10 @@ class  PerfilAssinanteService extends AbstractService
         if ($retorno[SUCESSO]) {
             $PDO->commit();
         } else {
-            $session->setSession(MENSAGEM, 'Não foi possível Salvar o Perfil');
+            Notificacoes::geraMensagem(
+                'Não foi possível realizar a ação',
+                TiposMensagemEnum::ERRO
+            );
             $PDO->rollBack();
         }
         return $retorno;

@@ -255,8 +255,10 @@ class  UsuarioService extends AbstractService
                 }
             endif;
         } else {
-            $session = new Session();
-            $session->setSession(MENSAGEM, $validador[MSG]);
+            Notificacoes::geraMensagem(
+                $validador[MSG],
+                TiposMensagemEnum::ALERTA
+            );
             $retorno = $validador;
         }
 
@@ -284,7 +286,10 @@ class  UsuarioService extends AbstractService
             $session->setSession(ST_TROCA_SENHA, "OK");
             $this->Salva($usuario, $idCoUsuario);
         } else {
-            $session->setSession(MENSAGEM, $validador[MSG]);
+            Notificacoes::geraMensagem(
+                $validador[MSG],
+                TiposMensagemEnum::ALERTA
+            );
             $retorno = $validador;
         }
 

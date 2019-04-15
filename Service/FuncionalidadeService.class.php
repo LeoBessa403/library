@@ -90,7 +90,10 @@ class  FuncionalidadeService extends AbstractService
         if ($retorno[SUCESSO]) {
             $PDO->commit();
         } else {
-            $session->setSession(MENSAGEM, 'Não foi possível Salvar a Funcionalidade');
+            Notificacoes::geraMensagem(
+                'Não foi possível Salvar a Funcionalidade',
+                TiposMensagemEnum::ERRO
+            );
             $PDO->rollBack();
         }
         return $retorno;

@@ -57,8 +57,10 @@ class Index extends AbstractController
                 }
                 $this->form = UsuarioForm::CadastroUsuario($res, 25);
             } else {
-                $session = new Session();
-                $session->setSession(MENSAGEM, $validador[MSG]);
+                Notificacoes::geraMensagem(
+                    $validador[MSG],
+                    TiposMensagemEnum::ALERTA
+                );
                 $this->form = PessoaForm::ValidarCPF(CONTROLLER_INICIAL_ADMIN . '/Acessar',4);
             }
         } else {

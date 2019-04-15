@@ -75,7 +75,10 @@ class  HistoriaService extends AbstractService
 
         } else {
             $session = new Session();
-            $session->setSession(MENSAGEM, $validador[MSG]);
+            Notificacoes::geraMensagem(
+                $validador[MSG],
+                TiposMensagemEnum::ALERTA
+            );
             $retorno = $validador;
         }
         return $retorno;

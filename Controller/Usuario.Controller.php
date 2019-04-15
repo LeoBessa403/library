@@ -47,8 +47,10 @@ class Usuario extends AbstractController
                     }
                 }
             } else {
-                $session = new Session();
-                $session->setSession(MENSAGEM, $validador[MSG]);
+                Notificacoes::geraMensagem(
+                    $validador[MSG],
+                    TiposMensagemEnum::ALERTA
+                );
                 $this->form = PessoaForm::ValidarCPF('Usuario/CadastroUsuario', 4);
             }
         endif;

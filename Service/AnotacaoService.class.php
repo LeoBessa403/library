@@ -38,8 +38,10 @@ class  AnotacaoService extends AbstractService
                 $retorno[SUCESSO] = $this->Salva($anotacao);
             endif;
         } else {
-            $session = new Session();
-            $session->setSession(MENSAGEM, $validador[MSG]);
+            Notificacoes::geraMensagem(
+                $validador[MSG],
+                TiposMensagemEnum::ALERTA
+            );
             $retorno = $validador;
         }
         return $retorno;

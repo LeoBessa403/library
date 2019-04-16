@@ -61,13 +61,13 @@ class Backup
              * Iterate tables
              */
             foreach ($tables as $table) {
-
+                $table = strtoupper($table);
                 $result = mysqli_query($this->conn, 'SELECT * FROM ' . $table);
                 $numFields = mysqli_num_fields($result);
 
                 $sql .= 'DROP TABLE IF EXISTS ' . $table . ';';
                 $row2 = mysqli_fetch_row(mysqli_query($this->conn, 'SHOW CREATE TABLE ' . $table));
-                $sql .= "\n\n\n" . $row2[1] . ";\n\n\n";
+                $sql .= "\n\n\n" . str_replace(strtolower($row2[0]),$row2[0],$row2[1]) . ";\n\n\n";
 
                 for ($i = 0; $i < $numFields; $i++) {
                     while ($row = mysqli_fetch_row($result)) {

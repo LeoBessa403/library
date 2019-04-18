@@ -673,7 +673,7 @@ class Valida
      */
     public static function geraBtn($descricao, $action, $class = 'btn-success', $id = 'novoId', $icon = 'fa fa-plus')
     {
-        echo '<a href="' . $action . '" id="' . $id . '"
+        echo '<a href="' . PASTAADMIN . UrlAmigavel::$controller . '/' . $action . '" id="' . $id . '"
                class="btn ' . $class . ' tooltips" data-original-title="' . $descricao . '" data-placement="top">
                <i class="' . $icon . '"></i> ' . $descricao . '
             </a>';

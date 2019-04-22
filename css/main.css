@@ -5707,3 +5707,11 @@ td.column-right {
 .icheckbox_square-purple, .icheckbox_square-green {
     margin: 0 !important;
 }
+
+.table2 {
+    margin-bottom: 30px;
+}
+
+.table2 td, .table2 th {
+    padding: 8px;
+}

@@ -12,8 +12,8 @@ $estatisticas = Valida::getDadosEstatistica($dados);
 </div>
 <div class="col-sm-3">
     <div class="alert alert-block alert-warning fade in">
-        <h4 class="alert-heading"><i class="fa fa-calendar"></i> Data de Termino</h4>
-        <h2><?= $estatisticas['dataPrevista']; ?></h2>
+        <h4 class="alert-heading"><i class="clip-brightness-medium"></i> Média Projeto Pontos / Dia</h4>
+        <h2><?= $estatisticas['pontosDia']; ?></h2>
     </div>
 </div>
 <div class="col-sm-3">
@@ -30,8 +30,8 @@ $estatisticas = Valida::getDadosEstatistica($dados);
 </div>
 <div class="col-sm-3">
     <div class="alert alert-block alert-info fade in">
-        <h4 class="alert-heading"><i class="clip-brightness-medium"></i> Média Projeto Pontos / Dia</h4>
-        <h2><?= $estatisticas['pontosDia']; ?></h2>
+        <h4 class="alert-heading"><i class="fa fa-calendar"></i> Data de Termino</h4>
+        <h2><?= $estatisticas['dataPrevista']; ?></h2>
     </div>
 </div>
 <div class="col-sm-3">

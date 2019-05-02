@@ -706,8 +706,8 @@ class Valida
     public static function getImgSistema($tamanho = 50)
     {
         return '
-        <img src="' . TIMTHUMB . '?src=' . PASTA_LIBRARY .
-            '/Images/logo_padrao.jpg&w=' . $tamanho . '&h=' . $tamanho . '"
+        <img src="' . TIMTHUMB . '?src=' . PASTAADMIN .
+            'Imagens/padrao.jpg&w=' . $tamanho . '&h=' . $tamanho . '"
                                 alt="' . DESC . '" title="' . DESC . '" class="circle-img" />
         ';
     }

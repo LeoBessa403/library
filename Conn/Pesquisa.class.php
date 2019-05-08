@@ -91,7 +91,7 @@ class Pesquisa extends Conn
                             case 'in':
                                 if ($tipo == 'st' || $tipo == 'tp') {
                                     $pesquisa[] = $operador[1] . " in ('" . $value . "')";
-                                } elseif ($tipo == 'co' || $tipo == 'sg') {
+                                } elseif ($tipo == 'co' || $tipo == 'sg' || $tipo == 'nu') {
                                     $pesquisa[] = $operador[1] . " in (" . $value . ")";
                                 }
                                 break;
@@ -128,8 +128,6 @@ class Pesquisa extends Conn
                     } else {
                         switch ($tipo) {
                             case 'st':
-                                $pesquisa[] = $key . " in ('" . $value . "')";
-                                break;
                             case 'tp':
                                 $pesquisa[] = $key . " in ('" . $value . "')";
                                 break;
@@ -137,18 +135,12 @@ class Pesquisa extends Conn
                                 $pesquisa[] = $key . " = '" . $value . "'";
                                 break;
                             case 'co':
-                                $pesquisa[] = $key . " in (" . $value . ")";
-                                break;
                             case 'sg':
+                            case 'nu':
                                 $pesquisa[] = $key . " in (" . $value . ")";
                                 break;
                             case 'no':
-                                $pesquisa[] = $key . " like '%" . $value . "%'";
-                                break;
                             case 'ds':
-                                $pesquisa[] = $key . " like '%" . $value . "%'";
-                                break;
-                            case 'nu':
                                 $pesquisa[] = $key . " like '%" . $value . "%'";
                                 break;
                             default:

@@ -1161,4 +1161,17 @@ class Valida
         $dado['percentual'] = Valida::FormataMoeda($progresso);
         return $dado;
     }
+
+    /**
+     * @param $data
+     * @return array|STRING
+     */
+    public static function getAniversario($data)
+    {
+        $niver = Valida::DataShow($data,'d/M');
+        $niver = explode('/',$niver);
+        $mes_extenso = Valida::getMesesHistorico();
+        $niver = $niver[0] . ' de ' . $mes_extenso[$niver[1]];
+        return $niver;
+    }
 }

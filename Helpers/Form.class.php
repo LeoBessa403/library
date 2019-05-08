@@ -607,7 +607,7 @@ class Form
                 self::$options[0] . '" data-off-label="' . self::$options[1] . '" data-on="' .
                 $cor[self::$options[2]] . '" data-off="' . $cor[self::$options[3]] . '">
                                             <input type="checkbox" ' . $verifcaChecked . ' 
-                  id="' .self::$id . '" name="' . self::$id . '"  class="' . self::$classes . '" />
+                  id="' . self::$id . '" name="' . self::$id . '"  class="' . self::$classes . '" />
                 </div>';
         else:
             foreach (self::$label_options as $key => $op):
@@ -757,21 +757,24 @@ class Form
     {
         self::$form = '<form action="' . HOME . self::$action . '" role="form" id="' . self::$idForm . '" name="' .
             self::$idForm . '" method="post"  enctype="multipart/form-data" class="formulario">                                                         
-                            <div class="col-md-12">' .
+                            <div class="row col-md-12" style="float: none;">' .
             self::$form
-            . '</div>
-                                <button data-style="zoom-out" class="btn btn-success ladda-button" type="submit" value="' .
-            Form::$idForm . '" name="' . Form::$idForm . '">
-                                    <span class="ladda-label"> Pesquisar </span>
-                                    <i class="fa fa-save"></i>
-                                    <span class="ladda-spinner"></span>
-                                </button>
-                                <button data-style="expand-right" class="btn btn-danger ladda-button" type="reset">
-                                    <span class="ladda-label"> Limpar </span>
-                                    <i class="fa fa-ban"></i>
-                                    <span class="ladda-spinner"></span>
-                                </button>
-                        </form>';
+            . '<div class="row col-md-12" style="display: block; padding-right: 0">
+                             <button data-style="zoom-out" class="btn btn-success pull-right ladda-button" type="submit" value="' .
+            Form::$idForm . '" name="' . Form::$idForm . '" style="margin-right: -10px; margin-left: 10px; margin-top: 8px;">
+                                <span class="ladda-label"> Pesquisar </span>
+                                <i class="fa fa-save"></i>
+                                <span class="ladda-spinner"></span>
+                            </button> 
+                            <button data-style="expand-right" class="btn btn-danger pull-right ladda-button" 
+                            type="reset" style="margin-top: 8px;">
+                                <span class="ladda-label"> Limpar </span>
+                                <i class="fa fa-ban"></i>
+                                <span class="ladda-spinner"></span>
+                            </button>
+                    </div>
+                    </div>
+            </form>';
 
         return self::$form;
     }

@@ -89,10 +89,10 @@ class Pesquisa extends Conn
                     if (!empty($operador[1])) {
                         switch ($operador[0]) {
                             case 'in':
-                                if ($tipo == 'st' || $tipo == 'tp') {
-                                    $pesquisa[] = $operador[1] . " in ('" . $value . "')";
-                                } elseif ($tipo == 'co' || $tipo == 'sg' || $tipo == 'nu') {
+                                if ($tipo == 'co' || $tipo == 'sg' || $tipo == 'nu') {
                                     $pesquisa[] = $operador[1] . " in (" . $value . ")";
+                                }else{
+                                    $pesquisa[] = $operador[1] . " in ('" . $value . "')";
                                 }
                                 break;
                             case '=':

@@ -838,9 +838,9 @@ class Valida
             'Jun' => 'Junho',
             'Jul' => 'Julho',
             'Aug' => 'Agosto',
-            'Nov' => 'Novembro',
             'Sep' => 'Setembro',
             'Oct' => 'Outubro',
+            'Nov' => 'Novembro',
             'Dec' => 'Dezembro'
         );
 

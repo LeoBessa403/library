@@ -15,7 +15,7 @@ class AcessoForm
             ->setLabel("Nome do Usuário")
             ->setClasses("multipla")
             ->setInfo("Pode selecionar vários USUÁRIOS.")
-            ->setType("select")
+            ->setType(TiposCampoEnum::SELECT)
             ->setOptions($usuarios)
             ->CriaInpunt();
 

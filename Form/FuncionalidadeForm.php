@@ -17,7 +17,7 @@ class FuncionalidadeForm
             ->setLabel("Apresentar no Menu?")
             ->setClasses($res[ST_MENU])
             ->setId(ST_MENU)
-            ->setType("checkbox")
+            ->setType(TiposCampoEnum::CHECKBOX)
             ->setTamanhoInput(6)
             ->setOptions($label_options2)
             ->CriaInpunt();
@@ -27,7 +27,7 @@ class FuncionalidadeForm
             ->setLabel("Nova Controller?")
             ->setClasses($res['nova_controller'])
             ->setId('nova_controller')
-            ->setType("checkbox")
+            ->setType(TiposCampoEnum::CHECKBOX)
             ->setTamanhoInput(6)
             ->setOptions($label_options2)
             ->CriaInpunt();
@@ -39,7 +39,7 @@ class FuncionalidadeForm
                 NO_CONTROLLER,
                 ControllerEntidade::CHAVE
             )
-            ->setType("select")
+            ->setType(TiposCampoEnum::SELECT)
             ->setLabel("Controller da Action")
             ->setClasses("ob")
             ->CriaInpunt();
@@ -74,13 +74,13 @@ class FuncionalidadeForm
             ->setLabel("Perfis")
             ->setClasses("multipla")
             ->setInfo("Perfis que podem acessar a funcionalidade.")
-            ->setType("select")
+            ->setType(TiposCampoEnum::SELECT)
             ->setOptions($perfis)
             ->CriaInpunt();
 
         if (!empty($res[CO_FUNCIONALIDADE])):
             $formulario
-                ->setType("hidden")
+                ->setType(TiposCampoEnum::HIDDEN)
                 ->setId(CO_FUNCIONALIDADE)
                 ->setValues($res[CO_FUNCIONALIDADE])
                 ->CriaInpunt();

@@ -15,7 +15,7 @@ class GestaoForm
             ->setLabel("Entidades")
             ->setClasses("multipla")
             ->setInfo("Pode selecionar várias TABELAS.")
-            ->setType("select")
+            ->setType(TiposCampoEnum::SELECT)
             ->setOptions($tabelas)
             ->CriaInpunt();
 
@@ -32,7 +32,7 @@ class GestaoForm
         $formulario
             ->setLabel("Gerar Backup")
             ->setId(ST_STATUS)
-            ->setType("checkbox")
+            ->setType(TiposCampoEnum::CHECKBOX)
             ->setTamanhoInput(12)
             ->setOptions($label_options2)
             ->CriaInpunt();
@@ -52,7 +52,7 @@ class GestaoForm
             ->setLabel("Projeto possui site?")
             ->setId('TEM_SITE')
             ->setClasses($res['TEM_SITE'])
-            ->setType("checkbox")
+            ->setType(TiposCampoEnum::CHECKBOX)
             ->setTamanhoInput(3)
             ->setOptions($label_options2)
             ->CriaInpunt();
@@ -62,7 +62,7 @@ class GestaoForm
             ->setLabel("Modulo assinante?")
             ->setId('MODULO_ASSINANTE')
             ->setClasses($res['MODULO_ASSINANTE'])
-            ->setType("checkbox")
+            ->setType(TiposCampoEnum::CHECKBOX)
             ->setTamanhoInput(3)
             ->setOptions($label_options2)
             ->CriaInpunt();
@@ -72,7 +72,7 @@ class GestaoForm
             ->setLabel("Logar com email?")
             ->setId('LOGAR_EMAIL')
             ->setClasses($res['LOGAR_EMAIL'])
-            ->setType("checkbox")
+            ->setType(TiposCampoEnum::CHECKBOX)
             ->setTamanhoInput(3)
             ->setOptions($label_options2)
             ->CriaInpunt();
@@ -82,7 +82,7 @@ class GestaoForm
             ->setLabel("Tabela para auditoria?")
             ->setId('TABELA_AUDITORIA')
             ->setClasses($res['TABELA_AUDITORIA'])
-            ->setType("checkbox")
+            ->setType(TiposCampoEnum::CHECKBOX)
             ->setTamanhoInput(3)
             ->setOptions($label_options2)
             ->CriaInpunt();
@@ -108,7 +108,7 @@ class GestaoForm
             ->CriaInpunt();
 
         $formulario
-            ->setType('textarea')
+            ->setType(TiposCampoEnum::TEXTAREA)
             ->setId('DESC_SITE')
             ->setClasses('ob')
             ->setLabel("Descrição padrão do site")
@@ -279,7 +279,7 @@ class GestaoForm
             ->setLabel("Tabelas do Banco")
             ->setClasses("multipla")
             ->setInfo("Pode selecionar várias TABELAS.")
-            ->setType("select")
+            ->setType(TiposCampoEnum::SELECT)
             ->setOptions($tabelas)
             ->CriaInpunt();
 

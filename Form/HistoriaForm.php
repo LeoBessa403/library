@@ -29,7 +29,7 @@ class HistoriaForm
             ->CriaInpunt();
 
         $formulario
-            ->setType("textarea")
+            ->setType(TiposCampoEnum::TEXTAREA)
             ->setClasses("ckeditor")
             ->setId(DS_OBSERVACAO)
             ->setLabel("Descrição da História")
@@ -39,7 +39,7 @@ class HistoriaForm
         $formulario
             ->setLabel("Total do Esforço")
             ->setId(NU_ESFORCO)
-            ->setType("select")
+            ->setType(TiposCampoEnum::SELECT)
             ->setTamanhoInput(6)
             ->setOptions($label_options)
             ->CriaInpunt();
@@ -52,14 +52,14 @@ class HistoriaForm
             ->CriaInpunt();
 
         $formulario
-            ->setType("hidden")
+            ->setType(TiposCampoEnum::HIDDEN)
             ->setId(CO_SESSAO)
             ->setValues($res[CO_SESSAO])
             ->CriaInpunt();
 
         if (!empty($res[CO_HISTORIA])):
             $formulario
-                ->setType("hidden")
+                ->setType(TiposCampoEnum::HIDDEN)
                 ->setId(CO_HISTORIA)
                 ->setValues($res[CO_HISTORIA])
                 ->CriaInpunt();

@@ -29,14 +29,14 @@ class SessaoForm
             ->CriaInpunt();
 
         $formulario
-            ->setType("hidden")
+            ->setType(TiposCampoEnum::HIDDEN)
             ->setId(CO_MODULO)
             ->setValues($res[CO_MODULO])
             ->CriaInpunt();
 
         if (!empty($res[CO_SESSAO])):
             $formulario
-                ->setType("hidden")
+                ->setType(TiposCampoEnum::HIDDEN)
                 ->setId(CO_SESSAO)
                 ->setValues($res[CO_SESSAO])
                 ->CriaInpunt();

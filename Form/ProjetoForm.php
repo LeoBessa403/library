@@ -25,7 +25,7 @@ class ProjetoForm
 
         if (!empty($res[CO_PROJETO])):
             $formulario
-                ->setType("hidden")
+                ->setType(TiposCampoEnum::HIDDEN)
                 ->setId(CO_PROJETO)
                 ->setValues($res[CO_PROJETO])
                 ->CriaInpunt();

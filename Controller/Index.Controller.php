@@ -440,7 +440,7 @@ class Index extends AbstractController
 //        $formulario
 //            ->setLabel("Status do Membro")
 //            ->setId("st_status")
-//            ->setType("select")
+//            ->setType(TiposCampoEnum::SELECT)
 //            ->setOptions($label_options)
 //            ->CriaInpunt();
 //

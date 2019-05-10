@@ -66,7 +66,7 @@ class UsuarioForm extends AbstractController
             ->setLabel("Sexo")
             ->setId(ST_SEXO)
             ->setClasses("ob")
-            ->setType("select")
+            ->setType(TiposCampoEnum::SELECT)
             ->setTamanhoInput(6)
             ->setOptions($label_options)
             ->CriaInpunt();
@@ -128,7 +128,7 @@ class UsuarioForm extends AbstractController
         $formulario
             ->setTamanhoInput(8)
             ->setId(SG_UF)
-            ->setType("select")
+            ->setType(TiposCampoEnum::SELECT)
             ->setClasses("ob")
             ->setLabel("Estado")
             ->setOptions($options)
@@ -138,7 +138,7 @@ class UsuarioForm extends AbstractController
             ->setId(DS_SENHA)
             ->setClasses("ob senha")
             ->setTamanhoInput(6)
-            ->setType("password")
+            ->setType(TiposCampoEnum::PASSWORD)
             ->setLabel("Senha")
             ->CriaInpunt();
 
@@ -146,7 +146,7 @@ class UsuarioForm extends AbstractController
             ->setId("ds_senha_confirma")
             ->setClasses("ob confirma-senha")
             ->setTamanhoInput(6)
-            ->setType("password")
+            ->setType(TiposCampoEnum::PASSWORD)
             ->setLabel("Confirmação da Senha")
             ->CriaInpunt();
 
@@ -159,7 +159,7 @@ class UsuarioForm extends AbstractController
                     ->setClasses("multipla")
                     ->setTamanhoInput(8)
                     ->setInfo("Pode selecionar vários perfis.")
-                    ->setType("select")
+                    ->setType(TiposCampoEnum::SELECT)
                     ->setOptions($label_options_perfis)
                     ->CriaInpunt();
 
@@ -176,7 +176,7 @@ class UsuarioForm extends AbstractController
                     ->setClasses($checked)
                     ->setId(ST_STATUS)
                     ->setInfo("Para Ativar e Desativar Usuários do Sistema.")
-                    ->setType("checkbox")
+                    ->setType(TiposCampoEnum::CHECKBOX)
                     ->setTamanhoInput(4)
                     ->setOptions($label_options2)
                     ->CriaInpunt();
@@ -202,14 +202,14 @@ class UsuarioForm extends AbstractController
 
         $formulario
             ->setId(DS_CAMINHO)
-            ->setType("singlefile")
+            ->setType(TiposCampoEnum::SINGLEFILE)
             ->setInfo("Caso queira troca de foto")
             ->setLabel("Foto de Perfil")
             ->CriaInpunt();
 
         if (!empty($res[CO_USUARIO])):
             $formulario
-                ->setType("hidden")
+                ->setType(TiposCampoEnum::HIDDEN)
                 ->setId(CO_USUARIO)
                 ->setValues($res[CO_USUARIO])
                 ->CriaInpunt();
@@ -217,7 +217,7 @@ class UsuarioForm extends AbstractController
 
         if (!empty($res[CO_ENDERECO])):
             $formulario
-                ->setType("hidden")
+                ->setType(TiposCampoEnum::HIDDEN)
                 ->setId(CO_ENDERECO)
                 ->setValues($res[CO_ENDERECO])
                 ->CriaInpunt();
@@ -225,7 +225,7 @@ class UsuarioForm extends AbstractController
 
         if (!empty($res[CO_CONTATO])):
             $formulario
-                ->setType("hidden")
+                ->setType(TiposCampoEnum::HIDDEN)
                 ->setId(CO_CONTATO)
                 ->setValues($res[CO_CONTATO])
                 ->CriaInpunt();
@@ -233,7 +233,7 @@ class UsuarioForm extends AbstractController
 
         if (!empty($res[CO_IMAGEM])):
             $formulario
-                ->setType("hidden")
+                ->setType(TiposCampoEnum::HIDDEN)
                 ->setId(CO_IMAGEM)
                 ->setValues($res[CO_IMAGEM])
                 ->CriaInpunt();
@@ -241,7 +241,7 @@ class UsuarioForm extends AbstractController
 
         if (!empty($res[CO_PESSOA])):
             $formulario
-                ->setType("hidden")
+                ->setType(TiposCampoEnum::HIDDEN)
                 ->setId(CO_PESSOA)
                 ->setValues($res[CO_PESSOA])
                 ->CriaInpunt();
@@ -272,7 +272,7 @@ class UsuarioForm extends AbstractController
             ->CriaInpunt();
 
         $formulario
-            ->setType("hidden")
+            ->setType(TiposCampoEnum::HIDDEN)
             ->setId(NU_CPF)
             ->setValues($res[NU_CPF])
             ->CriaInpunt();
@@ -303,7 +303,7 @@ class UsuarioForm extends AbstractController
             ->setLabel("Sexo")
             ->setId(ST_SEXO)
             ->setClasses("ob")
-            ->setType("select")
+            ->setType(TiposCampoEnum::SELECT)
             ->setOptions($label_options)
             ->CriaInpunt();
 
@@ -344,7 +344,7 @@ class UsuarioForm extends AbstractController
         $options = EnderecoService::montaComboEstadosDescricao();
         $formulario
             ->setId(SG_UF)
-            ->setType("select")
+            ->setType(TiposCampoEnum::SELECT)
             ->setLabel("Estado")
             ->setOptions($options)
             ->CriaInpunt();
@@ -406,7 +406,7 @@ class UsuarioForm extends AbstractController
             ->setId(DS_SENHA)
             ->setClasses("ob senha")
             ->setTamanhoInput(6)
-            ->setType("password")
+            ->setType(TiposCampoEnum::PASSWORD)
             ->setLabel("Senha")
             ->CriaInpunt();
 
@@ -414,13 +414,13 @@ class UsuarioForm extends AbstractController
             ->setId("ds_senha_confirma")
             ->setClasses("ob confirma-senha")
             ->setTamanhoInput(6)
-            ->setType("password")
+            ->setType(TiposCampoEnum::PASSWORD)
             ->setLabel("Confirmação da Senha")
             ->CriaInpunt();
 
         $formulario
             ->setId(DS_CAMINHO)
-            ->setType("singlefile")
+            ->setType(TiposCampoEnum::SINGLEFILE)
             ->setLabel("Foto de Perfil")
             ->CriaInpunt();
 
@@ -442,7 +442,7 @@ class UsuarioForm extends AbstractController
             ->setId(DS_SENHA)
             ->setClasses("ob senha")
             ->setTamanhoInput(6)
-            ->setType("password")
+            ->setType(TiposCampoEnum::PASSWORD)
             ->setLabel("Senha")
             ->CriaInpunt();
 
@@ -450,12 +450,12 @@ class UsuarioForm extends AbstractController
             ->setId("ds_senha_confirma")
             ->setClasses("ob confirma-senha")
             ->setTamanhoInput(6)
-            ->setType("password")
+            ->setType(TiposCampoEnum::PASSWORD)
             ->setLabel("Confirmação da Senha")
             ->CriaInpunt();
 
         $formulario
-            ->setType("hidden")
+            ->setType(TiposCampoEnum::HIDDEN)
             ->setId(CO_USUARIO)
             ->setValues($idUsuario)
             ->CriaInpunt();

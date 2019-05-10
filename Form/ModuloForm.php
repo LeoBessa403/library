@@ -29,14 +29,14 @@ class ModuloForm
             ->CriaInpunt();
 
         $formulario
-            ->setType("hidden")
+            ->setType(TiposCampoEnum::HIDDEN)
             ->setId(CO_PROJETO)
             ->setValues($res[CO_PROJETO])
             ->CriaInpunt();
 
         if (!empty($res[CO_MODULO])):
             $formulario
-                ->setType("hidden")
+                ->setType(TiposCampoEnum::HIDDEN)
                 ->setId(CO_MODULO)
                 ->setValues($res[CO_MODULO])
                 ->CriaInpunt();

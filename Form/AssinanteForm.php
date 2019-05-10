@@ -50,7 +50,7 @@ class AssinanteForm
         $options = AssinanteService::montaComboMatriz($coAssinante);
         $formulario
             ->setId(CO_ASSINANTE_MATRIZ)
-            ->setType("select")
+            ->setType(TiposCampoEnum::SELECT)
             ->setLabel("Matriz")
             ->setOptions($options)
             ->CriaInpunt();
@@ -58,7 +58,7 @@ class AssinanteForm
 
         if (!empty($res[CO_ASSINANTE])):
             $formulario
-                ->setType("hidden")
+                ->setType(TiposCampoEnum::HIDDEN)
                 ->setId(CO_ASSINANTE)
                 ->setValues($res[CO_ASSINANTE])
                 ->CriaInpunt();
@@ -102,7 +102,7 @@ class AssinanteForm
         $options = PlanoService::montaComboPlanosAtivos();
         $formulario
             ->setId(CO_PLANO)
-            ->setType("select")
+            ->setType(TiposCampoEnum::SELECT)
             ->setLabel("Plano")
             ->setClasses("ob")
             ->setOptions($options)
@@ -111,7 +111,7 @@ class AssinanteForm
 
         if (!empty($res[CO_ASSINANTE])):
             $formulario
-                ->setType("hidden")
+                ->setType(TiposCampoEnum::HIDDEN)
                 ->setId(CO_ASSINANTE)
                 ->setValues($res[CO_ASSINANTE])
                 ->CriaInpunt();
@@ -162,7 +162,7 @@ class AssinanteForm
             ->CriaInpunt();
 
         $formulario
-            ->setType("textarea")
+            ->setType(TiposCampoEnum::TEXTAREA)
             ->setId(DS_OBSERVACAO)
             ->setLabel("Descrição")
             ->CriaInpunt();
@@ -205,7 +205,7 @@ class AssinanteForm
         $options = EnderecoService::montaComboEstadosDescricao();
         $formulario
             ->setId(SG_UF)
-            ->setType("select")
+            ->setType(TiposCampoEnum::SELECT)
             ->setLabel("Estado")
             ->setOptions($options)
             ->CriaInpunt();
@@ -254,7 +254,7 @@ class AssinanteForm
         $options = TipoEstabelecimentoEnum::$descricao;
         $formulario
             ->setId(TP_ESTABELECIMENTO)
-            ->setType("select")
+            ->setType(TiposCampoEnum::SELECT)
             ->setLabel("Tipo de estabelecimento")
             ->setOptions($options)
             ->CriaInpunt();
@@ -262,7 +262,7 @@ class AssinanteForm
         $options = TipoAtendimentoEnum::$descricao;
         $formulario
             ->setId(TP_ATENDIMENTO)
-            ->setType("select")
+            ->setType(TiposCampoEnum::SELECT)
             ->setLabel("Atendimento")
             ->setOptions($options)
             ->CriaInpunt();
@@ -270,7 +270,7 @@ class AssinanteForm
         $options = TipoGeneroEspecializadoEnum::$descricao;
         $formulario
             ->setId(TP_GENERO_ESPECIALIZADO)
-            ->setType("select")
+            ->setType(TiposCampoEnum::SELECT)
             ->setLabel("Genero Especializado")
             ->setOptions($options)
             ->CriaInpunt();
@@ -278,7 +278,7 @@ class AssinanteForm
         $options = TipoEstacionamentoEnum::$descricao;
         $formulario
             ->setId(TP_ESTACIONAMENTO)
-            ->setType("select")
+            ->setType(TiposCampoEnum::SELECT)
             ->setLabel("Estacionamento")
             ->setOptions($options)
             ->CriaInpunt();
@@ -288,7 +288,7 @@ class AssinanteForm
             ->setLabel("Lanchonete")
             ->setClasses($res[ST_LANCHONETE])
             ->setId(ST_LANCHONETE)
-            ->setType("checkbox")
+            ->setType(TiposCampoEnum::CHECKBOX)
             ->setOptions($label_options2)
             ->CriaInpunt();
 
@@ -297,7 +297,7 @@ class AssinanteForm
             ->setLabel("Televisão")
             ->setClasses($res[ST_TELEVISAO])
             ->setId(ST_TELEVISAO)
-            ->setType("checkbox")
+            ->setType(TiposCampoEnum::CHECKBOX)
             ->setOptions($label_options2)
             ->CriaInpunt();
 
@@ -306,7 +306,7 @@ class AssinanteForm
             ->setLabel("Wi-Fi")
             ->setClasses($res[ST_WIFI])
             ->setId(ST_WIFI)
-            ->setType("checkbox")
+            ->setType(TiposCampoEnum::CHECKBOX)
             ->setOptions($label_options2)
             ->CriaInpunt();
 
@@ -315,7 +315,7 @@ class AssinanteForm
             ->setLabel("Acesso Deficiente")
             ->setClasses($res[ST_ACESSO_DEFICIENTE])
             ->setId(ST_ACESSO_DEFICIENTE)
-            ->setType("checkbox")
+            ->setType(TiposCampoEnum::CHECKBOX)
             ->setOptions($label_options2)
             ->CriaInpunt();
 
@@ -324,7 +324,7 @@ class AssinanteForm
             ->setLabel("Jogos")
             ->setClasses($res[ST_JOGOS])
             ->setId(ST_JOGOS)
-            ->setType("checkbox")
+            ->setType(TiposCampoEnum::CHECKBOX)
             ->setOptions($label_options2)
             ->CriaInpunt();
 
@@ -387,7 +387,7 @@ class AssinanteForm
 
         $formulario
             ->setId(DS_CAMINHO)
-            ->setType("singlefile")
+            ->setType(TiposCampoEnum::SINGLEFILE)
             ->setInfo("Foto da fachada do estabelecimento")
             ->setLabel("Foto Principal / Logo")
             ->CriaInpunt();
@@ -395,14 +395,14 @@ class AssinanteForm
         $formulario
             ->setId(CO_IMAGEM_ASSINANTE)
             ->setLabel("Galeria de Fotos do Estabelecimento")
-            ->setType("file")
+            ->setType(TiposCampoEnum::FILE)
             ->setClasses("multipla")
             ->setLimite(5)
             ->setInfo("Pode enviar até 5 Fotos")
             ->CriaInpunt();
 
         $formulario
-            ->setType("hidden")
+            ->setType(TiposCampoEnum::HIDDEN)
             ->setId('imagem_logo')
             ->setValues($res['imagem_logo'])
             ->CriaInpunt();

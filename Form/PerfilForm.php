@@ -23,13 +23,13 @@ class PerfilForm
             ->setLabel("Funcionalidades")
             ->setClasses("multipla")
             ->setInfo("Funcionalidades que o perfil tem acesso.")
-            ->setType("select")
+            ->setType(TiposCampoEnum::SELECT)
             ->setOptions($funcs)
             ->CriaInpunt();
 
         if ($res):
             $formulario
-                ->setType("hidden")
+                ->setType(TiposCampoEnum::HIDDEN)
                 ->setId(CO_PERFIL)
                 ->setValues($res[CO_PERFIL])
                 ->CriaInpunt();

@@ -19,7 +19,7 @@ class PlanoForm
             ->setLabel("Plano Ativo")
             ->setClasses($res[ST_STATUS])
             ->setId(ST_STATUS)
-            ->setType("checkbox")
+            ->setType(TiposCampoEnum::CHECKBOX)
             ->setTamanhoInput(12)
             ->setOptions($label_options2)
             ->CriaInpunt();
@@ -34,7 +34,7 @@ class PlanoForm
         $formulario
             ->setLabel("Meses Ativo")
             ->setId(NU_MES_ATIVO)
-            ->setType("select")
+            ->setType(TiposCampoEnum::SELECT)
             ->setClasses("ob")
             ->setTamanhoInput(8)
             ->setOptions($label_options)
@@ -56,13 +56,13 @@ class PlanoForm
                 NO_MODULO,
                 ModuloEntidade::CHAVE
             )
-            ->setType("select")
+            ->setType(TiposCampoEnum::SELECT)
             ->setLabel("Módulos do plano")
             ->setClasses("ob multipla")
             ->CriaInpunt();
 
         $formulario
-            ->setType("textarea")
+            ->setType(TiposCampoEnum::TEXTAREA)
             ->setId(DS_OBSERVACAO)
             ->setLabel("Observação")
             ->CriaInpunt();
@@ -70,7 +70,7 @@ class PlanoForm
 
         if (!empty($res[CO_PLANO])):
             $formulario
-                ->setType("hidden")
+                ->setType(TiposCampoEnum::HIDDEN)
                 ->setId(CO_PLANO)
                 ->setValues($res[CO_PLANO])
                 ->CriaInpunt();

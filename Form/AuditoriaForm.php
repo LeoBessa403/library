@@ -16,7 +16,7 @@ class AuditoriaForm
             ->setLabel("Nome do Usuário")
             ->setClasses("multipla")
             ->setInfo("Pode selecionar vários USUÁRIOS.")
-            ->setType("select")
+            ->setType(TiposCampoEnum::SELECT)
             ->setOptions($usuarios)
             ->CriaInpunt();
 
@@ -26,7 +26,7 @@ class AuditoriaForm
             ->setLabel("Entidade")
             ->setClasses("multipla")
             ->setInfo("Pode selecionar várias TABELAS.")
-            ->setType("select")
+            ->setType(TiposCampoEnum::SELECT)
             ->setOptions($tabelas)
             ->CriaInpunt();
 

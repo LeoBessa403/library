@@ -29,21 +29,21 @@ class AnotacaoForm
             ->CriaInpunt();
 
         $formulario
-            ->setType("textarea")
+            ->setType(TiposCampoEnum::TEXTAREA)
             ->setClasses("ckeditor")
             ->setId(DS_OBSERVACAO)
             ->setLabel("Descrição da Anotação")
             ->CriaInpunt();
 
         $formulario
-            ->setType("hidden")
+            ->setType(TiposCampoEnum::HIDDEN)
             ->setId(CO_HISTORIA)
             ->setValues($res[CO_HISTORIA])
             ->CriaInpunt();
 
         if (!empty($res[CO_ANOTACAO])):
             $formulario
-                ->setType("hidden")
+                ->setType(TiposCampoEnum::HIDDEN)
                 ->setId(CO_ANOTACAO)
                 ->setValues($res[CO_ANOTACAO])
                 ->CriaInpunt();

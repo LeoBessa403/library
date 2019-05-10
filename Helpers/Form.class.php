@@ -150,6 +150,17 @@ class Form
     }
 
     /**
+     * <b>setIntervalo:</b> Da um Limite Mínimo e máximo da seleção do Slider
+     * @param STRING $intervalo Limite Mínimo e máximo da seleção do Slider.
+     * @return $this
+     */
+    public function setIntervalo($intervalo)
+    {
+        self::$place = explode('-', $intervalo);
+        return $this;
+    }
+
+    /**
      * <b>setInfo:</b> Atribui o tipo do Input, Valor padrão (TEXT)
      * @param STRING $info : password, file, select, textarea, radio, checkbox, hidden e o text.
      * @return $this
@@ -392,6 +403,9 @@ class Form
             case TiposCampoEnum::COLOR:
                 $form .= $this->getCampoColor();
                 break;
+            case TiposCampoEnum::SLIDER:
+                $form .= $this->getCampoSlider();
+                break;
         }
         return $form;
     }
@@ -433,7 +447,7 @@ class Form
             endif;
         endif;
         //VERIFICA SE TEM PLACEHOLDER
-        if (self::$place != ""):
+        if (self::$place != "" && self::$type != TiposCampoEnum::SLIDER):
             self::$place = ' placeholder="' . self::$place . '"';
         endif;
         return $form;
@@ -666,6 +680,29 @@ class Form
 											<input class="color" id="' . self::$id . '" name="' .
             self::$id . '" value="' . $valor . '" type="hidden" />
                                         </div>';
+        return $form;
+    }
+
+    /**
+     * Criaos campos Slider
+     */
+    protected function getCampoSlider()
+    {
+        $form = '<div class="sliders" style="margin-top: 12px;">
+                    <div id="' . self::$id . '" class="slider-teal slider_basico"></div>';
+        $valor1 = 0;
+        $valor2 = 100;
+        if (!empty(self::$place[0])) {
+            $valor1 = self::$place[0];
+        }
+        if (!empty(self::$place[1])) {
+            $valor2 = self::$place[1];
+        }
+        $form .= ' <input id="' . self::$id . '1" name="' . self::$id . '1" value="' . $valor1 . '" 
+                 class="slider_min" data-min="' . ($valor1 - 5) . '" type="hidden" />';
+        $form .= ' <input id="' . self::$id . '2" name="' . self::$id . '2" value="' . $valor2 . '" 
+                 class="slider_max"  data-max="' . ($valor2 + 5) . '"type="hidden" />';
+        $form .= '</div>';
         return $form;
     }
 

@@ -121,7 +121,7 @@ var UISliders = function () {
     return {
         init: function () {
             runRangeSliders();
-            runKnob();
+            // runKnob();
         }
     };
 }();

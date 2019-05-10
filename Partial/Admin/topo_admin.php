@@ -75,6 +75,7 @@ $user = $us->getUser();
     <!-- start: CSS REQUIRED FOR UPLOAD -->
     <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>plugins/bootstrap-fileupload/bootstrap-fileupload.min.css">
     <!-- start: CSS REQUIRED FOR CHECK -->
+    <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>plugins/jQRangeSlider/css/classic-min.css">
     <link rel="stylesheet"
           href="<?= PASTA_LIBRARY; ?>plugins/bootstrap-switch/static/stylesheets/bootstrap-switch.css">
     <!-- start: CSS REQUIRED FOR CHECK -->

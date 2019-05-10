@@ -179,7 +179,7 @@ $(function () {
         $('#' + id).parent(".form-group").addClass('has-error').removeClass('has-success');
         $('#' + id).parents('#form-group-' + id).addClass('has-error');
         $('span#' + id + '-info').text(msg).prepend('<i class="fa clip-cancel-circle-2"></i> ');
-        if(id == "ds_caminho"){
+        if (id == "ds_caminho") {
             var element = $("label[for='" + id + "']").parent(".form-group");
             element.addClass('has-error').removeClass('has-success');
             element.children('.fileupload').children('.thumbnail').addClass('form-control');
@@ -191,7 +191,7 @@ $(function () {
         $('#' + id).parent(".form-group").addClass('has-success').removeClass('has-error');
         $('#' + id).parents('#form-group-' + id).addClass('has-success').removeClass('has-error');
         $('span#' + id + '-info').text(msg).prepend('<i class="fa clip-checkmark-circle-2"></i> ');
-        if(id == "ds_caminho"){
+        if (id == "ds_caminho") {
             var element = $("label[for='" + id + "']").parent(".form-group");
             element.addClass('has-success').removeClass('has-error');
             element.children('.fileupload').children('.thumbnail').removeClass('form-control');
@@ -203,7 +203,7 @@ $(function () {
         $('#' + id).parent(".form-group").removeClass('has-success').removeClass('has-error');
         $('#' + id).parents('#form-group-' + id).removeClass('has-success').removeClass('has-error');
         $('span#' + id + '-info').text(".");
-        if(id == "ds_caminho"){
+        if (id == "ds_caminho") {
             var element = $("label[for='" + id + "']").parent(".form-group");
             element.removeClass('has-error has-success');
             element.children('.fileupload').children('.thumbnail').removeClass('form-control');
@@ -396,7 +396,7 @@ $(function () {
         }
     }).keyup(function () {
         var valor = $(this).val().replace(/[^0-9]+/g, '');
-        if(valor != '000'){
+        if (valor != '000') {
             validaOK(id, "Campo Obrigatório OK!");
         }
         valor = valor.val().replace(/[^,.]+/g, '');
@@ -421,6 +421,45 @@ $(function () {
     }).attr('maxlength', 5);
 
     $(".porc-int").mask('9?9').attr('maxlength', 2).attr('placeholder', 0);
+
+    // CAMPO SLIDER
+    var sliderValoresMin = $(".slider_basico").parents('.sliders').children('.slider_min');
+    var sliderValoresMax = $(".slider_basico").parents('.sliders').children('.slider_max');
+
+    $(".slider_basico").rangeSlider({
+        defaultValues: {
+            min: sliderValoresMin.val(),
+            max: sliderValoresMax.val()
+        },
+        bounds: {
+            min: parseInt(sliderValoresMin.attr('data-min')),
+            max: parseInt(sliderValoresMax.attr('data-max'))
+        },
+        valueLabels: "change",
+        delayOut: 1000,
+        formatter: function (val) {
+            var value = Math.round(val * 5) / 5,
+                decimal = value - Math.round(val);
+            return value - decimal;
+        }
+    }).bind("valuesChanged", function (e, data) {
+        atualizaRangeSlider($(this), data);
+    });
+
+    function atualizaRangeSlider(e, data) {
+        var min = calculaSlider(data.values.min);
+        var max = calculaSlider(data.values.max);
+        e.parents('.sliders').children('.slider_min').val(min);
+        e.parents('.sliders').children('.slider_max').val(max);
+        e.parents('.form-group').children('.control-label').children('span').empty();
+        e.parents('.form-group').children('.control-label').append('<span> de <b>' + min + '</b> a <b>' + max + '</b></span>');
+    }
+
+    function calculaSlider(valor) {
+        var value = Math.round(valor * 5) / 5,
+            decimal = value - Math.round(valor);
+        return value - decimal;
+    }
 
     $(".formulario").submit(function () {
         var obrigatorios = campoObrigatorio();
@@ -535,12 +574,12 @@ $(function () {
     $(window).load(function () {
         var itens = 0;
         $(".notifica li").each(function () {
-            if($(this).children('li')){
+            if ($(this).children('li')) {
                 itens++;
             }
         });
         $("span .nu_notificacoes").text(itens);
-        if(itens > 0){
+        if (itens > 0) {
             $("#notif").addClass('pulse');
         }
 

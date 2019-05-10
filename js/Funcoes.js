@@ -16,6 +16,7 @@ var Funcoes = function () {
                 $("#ds_class_icon").removeClass('ob');
             }
         }
+
         disabilitaCamposnovaController();
 
         $("#nova_controller").change(function () {
@@ -24,12 +25,12 @@ var Funcoes = function () {
 
         // Botão Reset
         $('#config').click(function () {
-           $("#model_confirmacao").click();
-           return false;
+            $("#model_confirmacao").click();
+            return false;
         });
 
         $('#btn-success-Config').click(function () {
-            location.href=$('#config').attr('href');
+            location.href = $('#config').attr('href');
         });
     };
     return {
@@ -62,5 +63,6 @@ var Funcoes = function () {
         MSG_CONFIRMACAO: "CONFIRMAÇÃO"
 
     };
-}();
+};
+();
 

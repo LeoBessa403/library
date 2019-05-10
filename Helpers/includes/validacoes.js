@@ -422,7 +422,7 @@ $(function () {
 
     $(".porc-int").mask('9?9').attr('maxlength', 2).attr('placeholder', 0);
 
-    // CAMPO SLIDER
+    ///// START CAMPO SLIDER  /////
     var sliderValoresMin = $(".slider_basico").parents('.sliders').children('.slider_min');
     var sliderValoresMax = $(".slider_basico").parents('.sliders').children('.slider_max');
 
@@ -460,6 +460,7 @@ $(function () {
             decimal = value - Math.round(valor);
         return value - decimal;
     }
+    ///// END CAMPO SLIDER  /////
 
     $(".formulario").submit(function () {
         var obrigatorios = campoObrigatorio();

@@ -63,6 +63,4 @@ var Funcoes = function () {
         MSG_CONFIRMACAO: "CONFIRMAÇÃO"
 
     };
-};
-();
-
+}();

@@ -350,7 +350,7 @@ class Form
             // VERIFICA SE TEM OBRIGATORIEDADE O CAMPO.
             $obrigatoriedade = $this->verificaObrigatoriedade();
             // INICIA O GRUPO DO INPUT
-            self::$form .= '<div class="form-group">'
+            self::$form .= '<div class="form-group ' . self::$id . '_parent">'
                 . '<label for="' . self::$id . '" class="control-label">'
                 . ' ' . self::$label . $obrigatoriedade . ''
                 . '</label>';

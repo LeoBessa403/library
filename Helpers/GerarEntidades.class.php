@@ -119,7 +119,8 @@ class GerarEntidades
 
     private function getEntidade($Entidade)
     {
-        $Entidade = str_replace(array('tb_', 'co_'), '', $Entidade);
+        $Entidade = '*/*' . $Entidade;
+        $Entidade = str_replace(array('*/*tb_', '*/*co_'), '', $Entidade);
         $Entidade = str_replace('_', ' ', $Entidade);
         $Entidade = ucwords($Entidade);
         $Entidade = str_replace(' ', '', $Entidade);

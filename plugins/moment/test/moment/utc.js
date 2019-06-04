@@ -1,17 +1,17 @@
 var moment = require("../../moment");
 
 exports.utc = {
-    setUp : function (cb) {
+    setUp: function (cb) {
         moment.lang('en');
         cb();
     },
 
-    tearDown : function (cb) {
+    tearDown: function (cb) {
         moment.lang('en');
         cb();
     },
 
-    "utc and local" : function (test) {
+    "utc and local": function (test) {
         test.expect(7);
 
         var m = moment(Date.UTC(2011, 1, 2, 3, 4, 5, 6)), zone, expected;
@@ -37,7 +37,7 @@ exports.utc = {
         test.done();
     },
 
-    "creating with utc" : function (test) {
+    "creating with utc": function (test) {
         test.expect(7);
 
         var diff = moment.utc().valueOf() - moment().valueOf(), m;
@@ -61,7 +61,7 @@ exports.utc = {
         test.done();
     },
 
-    "creating with utc without timezone" : function (test) {
+    "creating with utc without timezone": function (test) {
         test.expect(4);
 
         var m = moment.utc("2012-01-02T08:20:00");
@@ -75,7 +75,7 @@ exports.utc = {
         test.done();
     },
 
-    "cloning with utc" : function (test) {
+    "cloning with utc": function (test) {
         test.expect(4);
 
         var m = moment.utc("2012-01-02T08:20:00");
@@ -89,7 +89,7 @@ exports.utc = {
         test.done();
     },
 
-    "weekday with utc" : function (test) {
+    "weekday with utc": function (test) {
         test.expect(1);
 
         test.equal(

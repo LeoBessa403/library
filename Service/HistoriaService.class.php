@@ -142,10 +142,10 @@ class  HistoriaService extends AbstractService
                 $dataPrevistas[0],
                 $dataPrevistas[count($dataPrevistas) - 1]
             );
-            if($diasNecessario > 0){
+            if ($diasNecessario > 0) {
                 $esforcoAlcancado = $esforco - $esforcoRestante;
                 $mediaDia = $esforcoAlcancado / $diasNecessario;
-            }else{
+            } else {
                 $mediaDia = 0;
             }
 

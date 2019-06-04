@@ -119,7 +119,7 @@ class FormAssistente extends Form
                         ' . self::$titulo . '
                     </div>
                     <div class="panel-body">
-                        <form action="'. HOME . self::$action . '"
+                        <form action="' . HOME . self::$action . '"
                               role="form" class="smart-wizard form-horizontal formulario"
                               method="post" enctype="multipart/form-data"
                               id="' . self::$idForm . '" name="' . self::$idForm . '">

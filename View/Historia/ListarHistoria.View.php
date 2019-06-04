@@ -1,9 +1,10 @@
 <style>
-    .btn-dark-grey{
+    .btn-dark-grey {
         position: absolute;
         margin-left: 3px;
     }
-    .qtd{
+
+    .qtd {
         float: right;
         top: -6px;
         left: -4px;
@@ -63,7 +64,7 @@
                                      <i class="fa fa-clipboard"></i>
                                  </a> ';
                             if (!empty($res->getCoAnotacao())) {
-                                $acao .= ' <span class="qtd badge badge-danger"> '.count($res->getCoAnotacao()).' </span>';
+                                $acao .= ' <span class="qtd badge badge-danger"> ' . count($res->getCoAnotacao()) . ' </span>';
                             }
                             $acao .= ' <a href="' . PASTAADMIN . 'Historia/HistoricoHistoria/' .
                                 Valida::GeraParametro(CO_HISTORIA . "/" . $res->getCoHistoria()) . '" 
@@ -83,7 +84,7 @@
                             $barra = $barra['barra'];
 
                             $grid->setColunas($res->getDsTitulo());
-                            $grid->setColunas(Valida::DataShow($res->getDtAtualizado(),'d/m/Y H:i'));
+                            $grid->setColunas(Valida::DataShow($res->getDtAtualizado(), 'd/m/Y H:i'));
                             $grid->setColunas(Valida::SituacaoHistoria($res->getStSituacao()));
                             $grid->setColunas($res->getCoUltimoHistoricoHistoria()->getNuEsforco());
                             $grid->setColunas(($res->getCoUltimoHistoricoHistoria()->getNuEsforcoRestante())

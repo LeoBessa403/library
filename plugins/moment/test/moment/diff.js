@@ -25,15 +25,15 @@ function dstForYear(year) {
         current.add(1, 'hour');
         if (last.zone() !== current.zone()) {
             return {
-                moment : last,
-                diff : (current.zone() - last.zone()) / 60
+                moment: last,
+                diff: (current.zone() - last.zone()) / 60
             };
         }
     }
 }
 
 exports.diff = {
-    "diff" : function (test) {
+    "diff": function (test) {
         test.expect(5);
 
         test.equal(moment(1000).diff(0), 1000, "1 second - 0 = 1000");
@@ -47,7 +47,7 @@ exports.diff = {
         test.done();
     },
 
-    "diff key after" : function (test) {
+    "diff key after": function (test) {
         test.expect(10);
 
         test.equal(moment([2010]).diff([2011], 'years'), -1, "year diff");
@@ -63,7 +63,7 @@ exports.diff = {
         test.done();
     },
 
-    "diff key before" : function (test) {
+    "diff key before": function (test) {
         test.expect(10);
 
         test.equal(moment([2011]).diff([2010], 'years'), 1, "year diff");
@@ -79,7 +79,7 @@ exports.diff = {
         test.done();
     },
 
-    "diff key before singular" : function (test) {
+    "diff key before singular": function (test) {
         test.expect(10);
 
         test.equal(moment([2011]).diff([2010], 'year'), 1, "year diff singular");
@@ -95,7 +95,7 @@ exports.diff = {
         test.done();
     },
 
-    "diff key before abbreviated" : function (test) {
+    "diff key before abbreviated": function (test) {
         test.expect(10);
 
         test.equal(moment([2011]).diff([2010], 'y'), 1, "year diff abbreviated");
@@ -111,14 +111,14 @@ exports.diff = {
         test.done();
     },
 
-    "diff month" : function (test) {
+    "diff month": function (test) {
         test.expect(1);
 
         test.equal(moment([2011, 0, 31]).diff([2011, 2, 1], 'months'), -1, "month diff");
         test.done();
     },
 
-    "diff across DST" : function (test) {
+    "diff across DST": function (test) {
         var dst = dstForYear(2012), a, b, daysInMonth;
         if (!dst) {
             console.log("No DST?");
@@ -131,33 +131,33 @@ exports.diff = {
         a = dst.moment;
         b = a.clone().utc().add(12, 'hours').local();
         daysInMonth = (a.daysInMonth() + b.daysInMonth()) / 2;
-        equal(test, b.diff(a, 'ms', true), 12 * 60 * 60 * 1000,                         "ms diff across DST");
-        equal(test, b.diff(a, 's', true),  12 * 60 * 60,                                "second diff across DST");
-        equal(test, b.diff(a, 'm', true),  12 * 60,                                     "minute diff across DST");
-        equal(test, b.diff(a, 'h', true),  12,                                          "hour diff across DST");
-        equal(test, b.diff(a, 'd', true),  (12 - dst.diff) / 24,                        "day diff across DST");
-        equal(test, b.diff(a, 'w', true),  (12 - dst.diff) / 24 / 7,                    "week diff across DST");
-        equal(test, b.diff(a, 'M', true),  (12 - dst.diff) / 24 / daysInMonth,          "month diff across DST");
-        equal(test, b.diff(a, 'y', true),  (12 - dst.diff) / 24 / daysInMonth / 12,     "year diff across DST");
+        equal(test, b.diff(a, 'ms', true), 12 * 60 * 60 * 1000, "ms diff across DST");
+        equal(test, b.diff(a, 's', true), 12 * 60 * 60, "second diff across DST");
+        equal(test, b.diff(a, 'm', true), 12 * 60, "minute diff across DST");
+        equal(test, b.diff(a, 'h', true), 12, "hour diff across DST");
+        equal(test, b.diff(a, 'd', true), (12 - dst.diff) / 24, "day diff across DST");
+        equal(test, b.diff(a, 'w', true), (12 - dst.diff) / 24 / 7, "week diff across DST");
+        equal(test, b.diff(a, 'M', true), (12 - dst.diff) / 24 / daysInMonth, "month diff across DST");
+        equal(test, b.diff(a, 'y', true), (12 - dst.diff) / 24 / daysInMonth / 12, "year diff across DST");
 
 
         a = dst.moment;
         b = a.clone().utc().add(12 + dst.diff, 'hours').local();
         daysInMonth = (a.daysInMonth() + b.daysInMonth()) / 2;
 
-        equal(test, b.diff(a, 'ms', true), (12 + dst.diff) * 60 * 60 * 1000,   "ms diff across DST");
-        equal(test, b.diff(a, 's', true),  (12 + dst.diff) * 60 * 60,          "second diff across DST");
-        equal(test, b.diff(a, 'm', true),  (12 + dst.diff) * 60,               "minute diff across DST");
-        equal(test, b.diff(a, 'h', true),  (12 + dst.diff),                    "hour diff across DST");
-        equal(test, b.diff(a, 'd', true),  12 / 24,                            "day diff across DST");
-        equal(test, b.diff(a, 'w', true),  12 / 24 / 7,                        "week diff across DST");
-        equal(test, b.diff(a, 'M', true),  12 / 24 / daysInMonth,              "month diff across DST");
-        equal(test, b.diff(a, 'y', true),  12 / 24 / daysInMonth / 12,         "year diff across DST");
+        equal(test, b.diff(a, 'ms', true), (12 + dst.diff) * 60 * 60 * 1000, "ms diff across DST");
+        equal(test, b.diff(a, 's', true), (12 + dst.diff) * 60 * 60, "second diff across DST");
+        equal(test, b.diff(a, 'm', true), (12 + dst.diff) * 60, "minute diff across DST");
+        equal(test, b.diff(a, 'h', true), (12 + dst.diff), "hour diff across DST");
+        equal(test, b.diff(a, 'd', true), 12 / 24, "day diff across DST");
+        equal(test, b.diff(a, 'w', true), 12 / 24 / 7, "week diff across DST");
+        equal(test, b.diff(a, 'M', true), 12 / 24 / daysInMonth, "month diff across DST");
+        equal(test, b.diff(a, 'y', true), 12 / 24 / daysInMonth / 12, "year diff across DST");
 
         test.done();
     },
 
-    "diff overflow" : function (test) {
+    "diff overflow": function (test) {
         test.expect(4);
 
         test.equal(moment([2011]).diff([2010], 'months'), 12, "month diff");
@@ -167,7 +167,7 @@ exports.diff = {
         test.done();
     },
 
-    "diff between utc and local" : function (test) {
+    "diff between utc and local": function (test) {
         test.expect(7);
 
         test.equal(moment([2012]).utc().diff([2011], 'years'), 1, "year diff");
@@ -181,7 +181,7 @@ exports.diff = {
         test.done();
     },
 
-    "diff floored" : function (test) {
+    "diff floored": function (test) {
         test.expect(7);
 
         test.equal(moment([2010, 0, 1, 23]).diff([2010], 'day'), 0, "23 hours = 0 days");
@@ -195,7 +195,7 @@ exports.diff = {
         test.done();
     },
 
-    "year diffs include dates" : function (test) {
+    "year diffs include dates": function (test) {
         test.expect(1);
 
         test.ok(moment([2012, 1, 19]).diff(moment([2002, 1, 20]), 'years', true) < 10, "year diff should include date of month");
@@ -203,7 +203,7 @@ exports.diff = {
         test.done();
     },
 
-    "month diffs" : function (test) {
+    "month diffs": function (test) {
         test.expect(8);
 
         // due to floating point math errors, these tests just need to be accurate within 0.00000001
@@ -219,7 +219,7 @@ exports.diff = {
         test.done();
     },
 
-    "year diffs" : function (test) {
+    "year diffs": function (test) {
         test.expect(10);
 
         // due to floating point math errors, these tests just need to be accurate within 0.00000001

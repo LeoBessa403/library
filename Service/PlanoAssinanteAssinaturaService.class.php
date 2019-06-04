@@ -103,7 +103,7 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
         $AssinanteService = $this->getService(ASSINANTE_SERVICE);
         $filiais = $assinante->getFiliaisMatriz();
         $assFilial[DT_EXPIRACAO] = $dtExpiracao;
-        if(!empty($filiais)){
+        if (!empty($filiais)) {
             /** @var AssinanteFilialEntidade $filial */
             foreach ($filiais as $filial) {
                 $AssinanteService->Salva($assFilial, $filial->getCoAssinante());

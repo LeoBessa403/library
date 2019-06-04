@@ -17,7 +17,7 @@ class  EmpresaValidador extends AbstractValidador
         $this->retorno[DADOS][] = $this->ValidaCampoObrigatorioDescricao(
             $dados[NO_PESSOA], 2, 'Nome Fantasia'
         );
-        if(empty($dados[NU_CNPJ])){
+        if (empty($dados[NU_CNPJ])) {
             $this->retorno[DADOS][] = $this->ValidaCampoObrigatorioValido(
                 $dados[NU_CNPJ], AbstractValidador::VALIDACAO_CNPJ, 'CNPJ'
             );

@@ -77,6 +77,7 @@ class Assinante extends AbstractController
             Redireciona(UrlAmigavel::$modulo . '/' . UrlAmigavel::$controller . '/AssinanteNaoEncontrado/');
         }
     }
+
     public static function getReferenciaPagamentoAssinante($coPlano)
     {
         /** @var PlanoService $planoService */
@@ -84,7 +85,7 @@ class Assinante extends AbstractController
         if ($coPlano) {
             /** @var PlanoEntidade $plano */
             $plano = $planoService->PesquisaUmRegistro($coPlano);
-        }else{
+        } else {
             return null;
         }
         /** @var PagSeguro $pag */

@@ -1,7 +1,7 @@
 var moment = require("../../moment");
 
 exports.lang = {
-    "library getter" : function (test) {
+    "library getter": function (test) {
         test.expect(7);
 
         moment.lang('en');
@@ -28,12 +28,12 @@ exports.lang = {
         test.done();
     },
 
-    "library ensure inheritance" : function (test) {
+    "library ensure inheritance": function (test) {
         test.expect(2);
 
         moment.lang('made-up', {
             // I put them out of order
-            months : "February_March_April_May_June_July_August_September_October_November_December_January".split("_")
+            months: "February_March_April_May_June_July_August_September_October_November_December_January".split("_")
             // the rest of the properties should be inherited.
         });
 
@@ -43,26 +43,26 @@ exports.lang = {
         test.done();
     },
 
-    "library ensure inheritance LT L LL LLL LLLL" : function (test) {
+    "library ensure inheritance LT L LL LLL LLLL": function (test) {
         test.expect(5);
 
         var lang = 'test-inherit-lt';
 
         moment.lang(lang, {
-            longDateFormat : {
-                LT : "-[LT]-",
-                L : "-[L]-",
-                LL : "-[LL]-",
-                LLL : "-[LLL]-",
-                LLLL : "-[LLLL]-"
+            longDateFormat: {
+                LT: "-[LT]-",
+                L: "-[L]-",
+                LL: "-[LL]-",
+                LLL: "-[LLL]-",
+                LLLL: "-[LLLL]-"
             },
-            calendar : {
-                sameDay : '[sameDay] LT',
-                nextDay : '[nextDay] L',
-                nextWeek : '[nextWeek] LL',
-                lastDay : '[lastDay] LLL',
-                lastWeek : '[lastWeek] LLLL',
-                sameElse : 'L'
+            calendar: {
+                sameDay: '[sameDay] LT',
+                nextDay: '[nextDay] L',
+                nextWeek: '[nextWeek] LL',
+                lastDay: '[lastDay] LLL',
+                lastWeek: '[lastWeek] LLLL',
+                sameElse: 'L'
             }
         });
 
@@ -77,7 +77,7 @@ exports.lang = {
         test.done();
     },
 
-    "library langData" : function (test) {
+    "library langData": function (test) {
         test.expect(3);
         moment.lang('en');
 
@@ -90,7 +90,7 @@ exports.lang = {
         test.done();
     },
 
-    "instance lang method" : function (test) {
+    "instance lang method": function (test) {
         test.expect(3);
         moment.lang('en');
 
@@ -101,7 +101,7 @@ exports.lang = {
         test.done();
     },
 
-    "instance lang persists with manipulation" : function (test) {
+    "instance lang persists with manipulation": function (test) {
         test.expect(3);
         moment.lang('en');
 
@@ -112,7 +112,7 @@ exports.lang = {
         test.done();
     },
 
-    "instance lang persists with cloning" : function (test) {
+    "instance lang persists with cloning": function (test) {
         test.expect(2);
         moment.lang('en');
 
@@ -126,29 +126,29 @@ exports.lang = {
         test.done();
     },
 
-    "duration lang method" : function (test) {
+    "duration lang method": function (test) {
         test.expect(3);
         moment.lang('en');
 
-        test.equal(moment.duration({seconds:  44}).humanize(), 'a few seconds', 'Normally default to global');
-        test.equal(moment.duration({seconds:  44}).lang('es').humanize(), 'unos segundos', 'Use the instance specific language');
-        test.equal(moment.duration({seconds:  44}).humanize(), 'a few seconds', 'Using an instance specific language does not affect other durations');
+        test.equal(moment.duration({seconds: 44}).humanize(), 'a few seconds', 'Normally default to global');
+        test.equal(moment.duration({seconds: 44}).lang('es').humanize(), 'unos segundos', 'Use the instance specific language');
+        test.equal(moment.duration({seconds: 44}).humanize(), 'a few seconds', 'Using an instance specific language does not affect other durations');
 
         test.done();
     },
 
-    "duration lang persists with cloning" : function (test) {
+    "duration lang persists with cloning": function (test) {
         test.expect(1);
         moment.lang('en');
 
-        var a = moment.duration({seconds:  44}).lang('es'),
+        var a = moment.duration({seconds: 44}).lang('es'),
             b = moment.duration(a);
 
         test.equal(b.humanize(), 'unos segundos', 'using moment.duration()');
         test.done();
     },
 
-    "instance lang used with from" : function (test) {
+    "instance lang used with from": function (test) {
         test.expect(2);
         moment.lang('en');
 
@@ -161,7 +161,7 @@ exports.lang = {
         test.done();
     },
 
-    "month name callback function" : function (test) {
+    "month name callback function": function (test) {
         test.expect(3);
 
         function fakeReplace(m, format) {
@@ -175,11 +175,11 @@ exports.lang = {
         }
 
         moment.lang('made-up-2', {
-            months : fakeReplace,
-            monthsShort : fakeReplace,
-            weekdays : fakeReplace,
-            weekdaysShort : fakeReplace,
-            weekdaysMin : fakeReplace
+            months: fakeReplace,
+            monthsShort: fakeReplace,
+            weekdays: fakeReplace,
+            weekdaysShort: fakeReplace,
+            weekdaysMin: fakeReplace
         });
 
         test.equal(moment().format('[test] dd ddd dddd MMM MMMM'), 'test test test test test test', 'format month name function should be able to access the format string');
@@ -189,17 +189,17 @@ exports.lang = {
         test.done();
     },
 
-    "changing parts of a language config" : function (test) {
+    "changing parts of a language config": function (test) {
         test.expect(2);
 
         moment.lang('partial-lang', {
-            months : 'a b c d e f g h i j k l'.split(' ')
+            months: 'a b c d e f g h i j k l'.split(' ')
         });
 
         test.equal(moment([2011, 0, 1]).format('MMMM'), 'a', 'should be able to set language values when creating the language');
 
         moment.lang('partial-lang', {
-            monthsShort : 'A B C D E F G H I J K L'.split(' ')
+            monthsShort: 'A B C D E F G H I J K L'.split(' ')
         });
 
         test.equal(moment([2011, 0, 1]).format('MMMM MMM'), 'a A', 'should be able to set language values after creating the language');
@@ -207,12 +207,12 @@ exports.lang = {
         test.done();
     },
 
-    "start/endOf week feature for first-day-is-monday langs" : function (test) {
+    "start/endOf week feature for first-day-is-monday langs": function (test) {
         test.expect(2);
 
         moment.lang('monday-lang', {
-            week : {
-                dow : 1 // Monday is the first day of the week
+            week: {
+                dow: 1 // Monday is the first day of the week
             }
         });
 
@@ -223,12 +223,12 @@ exports.lang = {
         test.done();
     },
 
-    "meridiem parsing" : function (test) {
+    "meridiem parsing": function (test) {
         test.expect(2);
 
         moment.lang('meridiem-parsing', {
-            meridiemParse : /[bd]/i,
-            isPM : function (input) {
+            meridiemParse: /[bd]/i,
+            isPM: function (input) {
                 return input === 'b';
             }
         });

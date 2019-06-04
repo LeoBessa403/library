@@ -26,7 +26,7 @@ class GestaoForm
     {
         $id = "GerarBackup";
 
-        $formulario = new Form($id, null, 'Gerar',3);
+        $formulario = new Form($id, null, 'Gerar', 3);
 
         $label_options2 = array("<i class='fa fa-check fa-white'></i>", "<i class='fa fa-times fa-white'></i>", "verde", "vermelho");
         $formulario
@@ -267,7 +267,7 @@ class GestaoForm
     {
         $id = "LimparBanco";
 
-        $formulario = new Form($id, null, 'Limpar Banco',6);
+        $formulario = new Form($id, null, 'Limpar Banco', 6);
 
         $tabelas = [
             1 => 'Acesso',
@@ -295,5 +295,6 @@ class GestaoForm
         return $formulario->finalizaForm();
     }
 }
+
 ?>
    

@@ -109,7 +109,7 @@
                                                             $grid->criaGrid(
                                                                 $auditoriaTabela->getCoAuditoriaTabela(), false
                                                             );
-                                                            if($auditoriaTabela->getCoAuditoriaItens()){
+                                                            if ($auditoriaTabela->getCoAuditoriaItens()) {
                                                                 /** @var AuditoriaItensEntidade $item */
                                                                 foreach ($auditoriaTabela->getCoAuditoriaItens() as $item):
                                                                     $grid->setColunas(

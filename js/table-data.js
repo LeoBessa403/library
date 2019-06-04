@@ -11,7 +11,7 @@ var TableData = function () {
             "oLanguage": {
                 "sLengthMenu": "Registros _MENU_",
                 "sSearch": "",
-                "sInfoFiltered" :"(Filtrado(s) de _MAX_ no total)",
+                "sInfoFiltered": "(Filtrado(s) de _MAX_ no total)",
                 "oPaginate": {
                     "sPrevious": "",
                     "sNext": ""

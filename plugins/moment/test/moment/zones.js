@@ -1,17 +1,17 @@
 var moment = require("../../moment");
 
 exports.zones = {
-    setUp : function (cb) {
+    setUp: function (cb) {
         moment.lang('en');
         cb();
     },
 
-    tearDown : function (cb) {
+    tearDown: function (cb) {
         moment.lang('en');
         cb();
     },
 
-    "set zone" : function (test) {
+    "set zone": function (test) {
         var zone = moment();
 
         zone.zone(0);
@@ -26,7 +26,7 @@ exports.zones = {
         test.done();
     },
 
-    "set zone shorthand" : function (test) {
+    "set zone shorthand": function (test) {
         var zone = moment();
 
         zone.zone(1);
@@ -50,7 +50,7 @@ exports.zones = {
         test.done();
     },
 
-    "set zone with string" : function (test) {
+    "set zone with string": function (test) {
         var zone = moment();
 
         zone.zone("+00:00");
@@ -65,7 +65,7 @@ exports.zones = {
         test.done();
     },
 
-    "change hours when changing the zone" : function (test) {
+    "change hours when changing the zone": function (test) {
         var zone = moment.utc([2000, 0, 1, 6]);
 
         zone.zone(0);
@@ -80,7 +80,7 @@ exports.zones = {
         test.done();
     },
 
-    "change minutes when changing the zone" : function (test) {
+    "change minutes when changing the zone": function (test) {
         var zone = moment.utc([2000, 0, 1, 6, 31]);
 
         zone.zone(0);
@@ -98,7 +98,7 @@ exports.zones = {
         test.done();
     },
 
-    "distance from the unix epoch" : function (test) {
+    "distance from the unix epoch": function (test) {
         var zoneA = moment(),
             zoneB = moment(zoneA),
             zoneC = moment(zoneA),
@@ -120,7 +120,7 @@ exports.zones = {
         test.done();
     },
 
-    "update offset after changing any values" : function (test) {
+    "update offset after changing any values": function (test) {
         var oldOffset = moment.updateOffset,
             m = moment.utc([2000, 6, 1]);
 
@@ -153,7 +153,7 @@ exports.zones = {
         test.done();
     },
 
-    "getters and setters" : function (test) {
+    "getters and setters": function (test) {
         var a = moment([2011, 5, 20]);
 
         test.equal(a.clone().zone(120).year(2012).year(), 2012, "should get and set year correctly");
@@ -166,31 +166,31 @@ exports.zones = {
         test.done();
     },
 
-    "getters" : function (test) {
+    "getters": function (test) {
         var a = moment.utc([2012, 0, 1, 0, 0, 0]);
 
-        test.equal(a.clone().zone(120).year(),  2011, "should get year correctly");
-        test.equal(a.clone().zone(120).month(),   11, "should get month correctly");
-        test.equal(a.clone().zone(120).date(),    31, "should get date correctly");
-        test.equal(a.clone().zone(120).hour(),    22, "should get hour correctly");
-        test.equal(a.clone().zone(120).minute(),   0, "should get minute correctly");
+        test.equal(a.clone().zone(120).year(), 2011, "should get year correctly");
+        test.equal(a.clone().zone(120).month(), 11, "should get month correctly");
+        test.equal(a.clone().zone(120).date(), 31, "should get date correctly");
+        test.equal(a.clone().zone(120).hour(), 22, "should get hour correctly");
+        test.equal(a.clone().zone(120).minute(), 0, "should get minute correctly");
 
-        test.equal(a.clone().zone(-120).year(),  2012, "should get year correctly");
-        test.equal(a.clone().zone(-120).month(),    0, "should get month correctly");
-        test.equal(a.clone().zone(-120).date(),     1, "should get date correctly");
-        test.equal(a.clone().zone(-120).hour(),     2, "should get hour correctly");
-        test.equal(a.clone().zone(-120).minute(),   0, "should get minute correctly");
+        test.equal(a.clone().zone(-120).year(), 2012, "should get year correctly");
+        test.equal(a.clone().zone(-120).month(), 0, "should get month correctly");
+        test.equal(a.clone().zone(-120).date(), 1, "should get date correctly");
+        test.equal(a.clone().zone(-120).hour(), 2, "should get hour correctly");
+        test.equal(a.clone().zone(-120).minute(), 0, "should get minute correctly");
 
-        test.equal(a.clone().zone(-90).year(),  2012, "should get year correctly");
-        test.equal(a.clone().zone(-90).month(),    0, "should get month correctly");
-        test.equal(a.clone().zone(-90).date(),     1, "should get date correctly");
-        test.equal(a.clone().zone(-90).hour(),     1, "should get hour correctly");
-        test.equal(a.clone().zone(-90).minute(),  30, "should get minute correctly");
+        test.equal(a.clone().zone(-90).year(), 2012, "should get year correctly");
+        test.equal(a.clone().zone(-90).month(), 0, "should get month correctly");
+        test.equal(a.clone().zone(-90).date(), 1, "should get date correctly");
+        test.equal(a.clone().zone(-90).hour(), 1, "should get hour correctly");
+        test.equal(a.clone().zone(-90).minute(), 30, "should get minute correctly");
 
         test.done();
     },
 
-    "from" : function (test) {
+    "from": function (test) {
         var zoneA = moment(),
             zoneB = moment(zoneA).zone(720),
             zoneC = moment(zoneA).zone(360),
@@ -204,7 +204,7 @@ exports.zones = {
         test.done();
     },
 
-    "diff" : function (test) {
+    "diff": function (test) {
         var zoneA = moment(),
             zoneB = moment(zoneA).zone(720),
             zoneC = moment(zoneA).zone(360),
@@ -226,7 +226,7 @@ exports.zones = {
         test.done();
     },
 
-    "unix offset and timestamp" : function (test) {
+    "unix offset and timestamp": function (test) {
         var zoneA = moment(),
             zoneB = moment(zoneA).zone(720),
             zoneC = moment(zoneA).zone(360),
@@ -243,16 +243,16 @@ exports.zones = {
         test.done();
     },
 
-    "cloning" : function (test) {
-        test.equal(moment().zone(120).clone().zone(),   120, "explicit cloning should retain the zone");
+    "cloning": function (test) {
+        test.equal(moment().zone(120).clone().zone(), 120, "explicit cloning should retain the zone");
         test.equal(moment().zone(-120).clone().zone(), -120, "explicit cloning should retain the zone");
-        test.equal(moment(moment().zone(120)).zone(),   120, "implicit cloning should retain the zone");
+        test.equal(moment(moment().zone(120)).zone(), 120, "implicit cloning should retain the zone");
         test.equal(moment(moment().zone(-120)).zone(), -120, "implicit cloning should retain the zone");
 
         test.done();
     },
 
-    "start of / end of" : function (test) {
+    "start of / end of": function (test) {
         var a = moment.utc([2010, 1, 2, 0, 0, 0]).zone(450);
 
         test.equal(a.clone().startOf('day').hour(), 0, "start of day should work on moments with a zone");
@@ -266,16 +266,16 @@ exports.zones = {
         test.done();
     },
 
-    "reset zone with moment#utc" : function (test) {
+    "reset zone with moment#utc": function (test) {
         var a = moment.utc([2012]).zone(480);
 
-        test.equal(a.clone().hour(),      16, "different zone should have different hour");
+        test.equal(a.clone().hour(), 16, "different zone should have different hour");
         test.equal(a.clone().utc().hour(), 0, "calling moment#utc should reset the offset");
 
         test.done();
     },
 
-    "reset zone with moment#local" : function (test) {
+    "reset zone with moment#local": function (test) {
         var a = moment([2012]).zone(480);
 
         test.equal(a.clone().local().hour(), 0, "calling moment#local should reset the offset");
@@ -283,7 +283,7 @@ exports.zones = {
         test.done();
     },
 
-    "toDate" : function (test) {
+    "toDate": function (test) {
         var zoneA = new Date(),
             zoneB = moment(zoneA).zone(720).toDate(),
             zoneC = moment(zoneA).zone(360).toDate(),
@@ -296,7 +296,7 @@ exports.zones = {
         test.done();
     },
 
-    "same / before / after" : function (test) {
+    "same / before / after": function (test) {
         var zoneA = moment().utc(),
             zoneB = moment(zoneA).zone(120),
             zoneC = moment(zoneA).zone(-120);
@@ -326,7 +326,7 @@ exports.zones = {
         test.done();
     },
 
-    "add / subtract over dst" : function (test) {
+    "add / subtract over dst": function (test) {
         var oldOffset = moment.updateOffset,
             m = moment.utc([2000, 2, 31, 3]);
 
@@ -369,7 +369,7 @@ exports.zones = {
         test.done();
     },
 
-    "isDST" : function (test) {
+    "isDST": function (test) {
         var oldOffset = moment.updateOffset;
 
         moment.updateOffset = function (mom) {
@@ -380,8 +380,8 @@ exports.zones = {
             }
         };
 
-        test.ok(!moment().month(0).isDST(),  "Jan should not be summer dst");
-        test.ok(moment().month(6).isDST(),   "Jul should be summer dst");
+        test.ok(!moment().month(0).isDST(), "Jan should not be summer dst");
+        test.ok(moment().month(6).isDST(), "Jul should be summer dst");
         test.ok(!moment().month(11).isDST(), "Dec should not be summer dst");
 
         moment.updateOffset = function (mom) {
@@ -392,7 +392,7 @@ exports.zones = {
             }
         };
 
-        test.ok(moment().month(0).isDST(),  "Jan should be winter dst");
+        test.ok(moment().month(0).isDST(), "Jan should be winter dst");
         test.ok(!moment().month(6).isDST(), "Jul should not be winter dst");
         test.ok(moment().month(11).isDST(), "Dec should be winter dst");
 
@@ -401,23 +401,23 @@ exports.zones = {
         test.done();
     },
 
-    "zone names" : function (test) {
+    "zone names": function (test) {
         test.expect(8);
 
-        test.equal(moment().zoneAbbr(),   "", "Local zone abbr should be empty");
-        test.equal(moment().format('z'),  "", "Local zone formatted abbr should be empty");
-        test.equal(moment().zoneName(),   "", "Local zone name should be empty");
+        test.equal(moment().zoneAbbr(), "", "Local zone abbr should be empty");
+        test.equal(moment().format('z'), "", "Local zone formatted abbr should be empty");
+        test.equal(moment().zoneName(), "", "Local zone name should be empty");
         test.equal(moment().format('zz'), "", "Local zone formatted name should be empty");
 
-        test.equal(moment.utc().zoneAbbr(),   "UTC", "UTC zone abbr should be UTC");
-        test.equal(moment.utc().format('z'),  "UTC", "UTC zone formatted abbr should be UTC");
-        test.equal(moment.utc().zoneName(),   "Coordinated Universal Time", "UTC zone abbr should be Coordinated Universal Time");
+        test.equal(moment.utc().zoneAbbr(), "UTC", "UTC zone abbr should be UTC");
+        test.equal(moment.utc().format('z'), "UTC", "UTC zone formatted abbr should be UTC");
+        test.equal(moment.utc().zoneName(), "Coordinated Universal Time", "UTC zone abbr should be Coordinated Universal Time");
         test.equal(moment.utc().format('zz'), "Coordinated Universal Time", "UTC zone formatted abbr should be Coordinated Universal Time");
 
         test.done();
     },
 
-    "hours alignment with UTC" : function (test) {
+    "hours alignment with UTC": function (test) {
         test.expect(4);
 
         test.equals(moment().zone(120).hasAlignedHourOffset(), true);
@@ -428,7 +428,7 @@ exports.zones = {
         test.done();
     },
 
-    "hours alignment with other zone" : function (test) {
+    "hours alignment with other zone": function (test) {
         test.expect(16);
 
         var m = moment().zone(120);
@@ -463,7 +463,7 @@ exports.zones = {
         test.done();
     },
 
-    "parse zone" : function (test) {
+    "parse zone": function (test) {
         test.expect(2);
         var m = moment("2013-01-01T00:00:00-13:00").parseZone();
         test.equal(m.zone(), 13 * 60);
@@ -471,7 +471,7 @@ exports.zones = {
         test.done();
     },
 
-    "parse zone static" : function (test) {
+    "parse zone static": function (test) {
         test.expect(2);
         var m = moment.parseZone("2013-01-01T00:00:00-13:00");
         test.equal(m.zone(), 13 * 60);

@@ -91,7 +91,7 @@ class Pesquisa extends Conn
                             case 'in':
                                 if ($tipo == 'co' || $tipo == 'sg' || $tipo == 'nu') {
                                     $pesquisa[] = $operador[1] . " in (" . $value . ")";
-                                }else{
+                                } else {
                                     $pesquisa[] = $operador[1] . " in ('" . $value . "')";
                                 }
                                 break;

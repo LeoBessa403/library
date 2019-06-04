@@ -7,11 +7,11 @@
 
 class PaginaEntidade extends AbstractEntidade
 {
-	const TABELA = 'TB_PAGINA';
-	const ENTIDADE = 'PaginaEntidade';
-	const CHAVE = CO_PAGINA;
+    const TABELA = 'TB_PAGINA';
+    const ENTIDADE = 'PaginaEntidade';
+    const CHAVE = CO_PAGINA;
 
-	private $co_pagina;
+    private $co_pagina;
     private $dt_cadastro;
     private $ds_titulo_url_amigavel;
     private $nu_visualizacao;
@@ -21,20 +21,22 @@ class PaginaEntidade extends AbstractEntidade
     /**
      * @return array
      */
-	public static function getCampos() {
-    	return [
-			CO_PAGINA,
-			DT_CADASTRO,
-			DS_TITULO_URL_AMIGAVEL,
+    public static function getCampos()
+    {
+        return [
+            CO_PAGINA,
+            DT_CADASTRO,
+            DS_TITULO_URL_AMIGAVEL,
             NU_USUARIO,
             NU_VISUALIZACAO,
-		];
+        ];
     }
 
     /**
      * @return array $relacionamentos
      */
-    public static function getRelacionamentos() {
+    public static function getRelacionamentos()
+    {
         $relacionamentos = Relacionamentos::getRelacionamentos();
         return $relacionamentos[static::TABELA];
     }

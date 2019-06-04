@@ -42,7 +42,7 @@ class Visita extends AbstractController
             $graficoCidade[] = "['" . $nDispositivo['ds_cidade'] . "'," . $nDispositivo['qt_visitas'] .
                 ", 'color: " . $color[$i] . "']";
             $i++;
-            if($i > 8)
+            if ($i > 8)
                 $i = 0;
         }
         $graficoEstado[] = "['Estado','Visitas']";

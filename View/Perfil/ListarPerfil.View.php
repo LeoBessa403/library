@@ -39,7 +39,7 @@
                         $grid = new Grid();
                         $grid->setColunasIndeces($arrColunas);
                         $grid->criaGrid();
-                        if(AssinanteService::getCoAssinanteLogado()){
+                        if (AssinanteService::getCoAssinanteLogado()) {
                             /** @var PerfilAssinanteEntidade $res */
                             foreach ($result as $res):
                                 $acao = '<a href="' . PASTAADMIN . 'Perfil/CadastroPerfil/' .
@@ -65,10 +65,10 @@
                                 $grid->criaLinha($res->getCoPerfilAssinante());
 
                             endforeach;
-                        }else{
+                        } else {
                             /** @var PerfilEntidade $res */
                             foreach ($result as $res):
-                                if($res->getCoPerfil() != 1){
+                                if ($res->getCoPerfil() != 1) {
                                     $acao = '<a href="' . PASTAADMIN . 'Perfil/CadastroPerfil/' .
                                         Valida::GeraParametro(CO_PERFIL . "/" . $res->getCoPerfil()) . '" class="btn btn-primary tooltips" 
                                     data-original-title="Editar Registro" data-placement="top">

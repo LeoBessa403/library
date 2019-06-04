@@ -4,7 +4,8 @@ exports.is_moment = {
     "is moment object": function (test) {
         test.expect(11);
 
-        var MyObj = function () {};
+        var MyObj = function () {
+        };
         MyObj.prototype.toDate = function () {
             return new Date();
         };

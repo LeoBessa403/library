@@ -19,6 +19,7 @@ var $pageArea;
                     func.apply(obj, args);
                 timeout = null;
             }
+
             if (timeout)
                 clearTimeout(timeout);
             else if (execAsap)
@@ -534,7 +535,7 @@ var Main = function () {
                 var back_color = $(this).parents('.input-group').children('.color-back');
                 var input_color = $(this).parents('.input-group').children('.color');
                 input_color.val(e.color);
-                back_color.css('background',e.color);
+                back_color.css('background', e.color);
             });
         // };
     };

@@ -7,48 +7,50 @@
 
 class TrafegoEntidade extends AbstractEntidade
 {
-	const TABELA = 'TB_TRAFEGO';
-	const ENTIDADE = 'TrafegoEntidade';
-	const CHAVE = CO_TRAFEGO;
+    const TABELA = 'TB_TRAFEGO';
+    const ENTIDADE = 'TrafegoEntidade';
+    const CHAVE = CO_TRAFEGO;
 
-	private $co_trafego;
-	private $ds_navegador;
-	private $ds_sistema_operacional;
-	private $ds_dispositivo;
-	private $nu_ip;
-	private $ds_pais;
-	private $ds_code_pais;
-	private $ds_uf;
-	private $ds_cidade;
-	private $ds_agente;
-	private $ds_estado;
+    private $co_trafego;
+    private $ds_navegador;
+    private $ds_sistema_operacional;
+    private $ds_dispositivo;
+    private $nu_ip;
+    private $ds_pais;
+    private $ds_code_pais;
+    private $ds_uf;
+    private $ds_cidade;
+    private $ds_agente;
+    private $ds_estado;
 
-	/**
+    /**
      * @return array
      */
-	public static function getCampos() {
-    	return [
+    public static function getCampos()
+    {
+        return [
             CO_TRAFEGO,
-			NU_IP,
-			DS_PAIS,
-			DS_CODE_PAIS,
-			DS_NAVEGADOR,
+            NU_IP,
+            DS_PAIS,
+            DS_CODE_PAIS,
+            DS_NAVEGADOR,
             DS_SISTEMA_OPERACIONAL,
             DS_DISPOSITIVO,
             DS_UF,
-			DS_AGENTE,
-			DS_ESTADO,
-			DS_CIDADE,
-		];
+            DS_AGENTE,
+            DS_ESTADO,
+            DS_CIDADE,
+        ];
     }
 
-	/**
-	* @return array $relacionamentos
+    /**
+     * @return array $relacionamentos
      */
-	public static function getRelacionamentos() {
-    	$relacionamentos = Relacionamentos::getRelacionamentos();
-		return $relacionamentos[static::TABELA];
-	}
+    public static function getRelacionamentos()
+    {
+        $relacionamentos = Relacionamentos::getRelacionamentos();
+        return $relacionamentos[static::TABELA];
+    }
 
     /**
      * @return int mixed

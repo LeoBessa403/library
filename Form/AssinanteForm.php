@@ -124,7 +124,7 @@ class AssinanteForm
     {
         $id = "DadosComplementares";
 
-        $formulario = new FormAssistente($id, null, null, null , "Dados Complementares");
+        $formulario = new FormAssistente($id, null, null, null, "Dados Complementares");
         $formulario->setValor($res);
 
         // Aba 1

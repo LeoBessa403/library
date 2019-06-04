@@ -1,7 +1,7 @@
 var moment = require("../../moment");
 
 exports.format = {
-    "format YY" : function (test) {
+    "format YY": function (test) {
         test.expect(1);
 
         var b = moment(new Date(2009, 1, 14, 15, 25, 50, 125));
@@ -9,7 +9,7 @@ exports.format = {
         test.done();
     },
 
-    "format escape brackets" : function (test) {
+    "format escape brackets": function (test) {
         test.expect(9);
 
         moment.lang('en');
@@ -27,7 +27,7 @@ exports.format = {
         test.done();
     },
 
-    "format milliseconds" : function (test) {
+    "format milliseconds": function (test) {
         test.expect(6);
         var b = moment(new Date(2009, 1, 14, 15, 25, 50, 123));
         test.equal(b.format('S'), '1', 'Deciseconds');
@@ -40,7 +40,7 @@ exports.format = {
         test.done();
     },
 
-    "format timezone" : function (test) {
+    "format timezone": function (test) {
         test.expect(2);
 
         var b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
@@ -53,7 +53,7 @@ exports.format = {
         test.done();
     },
 
-    "format multiple with zone" : function (test) {
+    "format multiple with zone": function (test) {
         test.expect(1);
 
         var b = moment('2012-10-08 -1200', ['YYYY-MM-DD HH:mm ZZ', 'YYYY-MM-DD ZZ', 'YYYY-MM-DD']);
@@ -61,7 +61,7 @@ exports.format = {
         test.done();
     },
 
-    "isDST" : function (test) {
+    "isDST": function (test) {
         test.expect(2);
 
         var janOffset = new Date(2011, 0, 1).getTimezoneOffset(),
@@ -87,7 +87,7 @@ exports.format = {
         test.done();
     },
 
-    "unix timestamp" : function (test) {
+    "unix timestamp": function (test) {
         test.expect(5);
 
         var m = moment('1234567890.123', 'X');
@@ -98,11 +98,11 @@ exports.format = {
 
         m = moment(1234567890.123, 'X');
         test.equals(m.format('X'), '1234567890', 'unix timestamp as integer');
-        
+
         test.done();
     },
 
-    "zone" : function (test) {
+    "zone": function (test) {
         test.expect(3);
 
         if (moment().zone() > 0) {
@@ -123,25 +123,25 @@ exports.format = {
         test.done();
     },
 
-    "default format" : function (test) {
+    "default format": function (test) {
         test.expect(1);
         var isoRegex = /\d{4}.\d\d.\d\dT\d\d.\d\d.\d\d[\+\-]\d\d:\d\d/;
         test.ok(isoRegex.exec(moment().format()), "default format (" + moment().format() + ") should match ISO");
         test.done();
     },
 
-    "escaping quotes" : function (test) {
+    "escaping quotes": function (test) {
         test.expect(4);
         moment.lang('en');
         var date = moment([2012, 0]);
         test.equal(date.format('MMM \'YY'), "Jan '12", "Should be able to format with single parenthesis");
-        test.equal(date.format('MMM "YY'),  'Jan "12', "Should be able to format with double parenthesis");
-        test.equal(date.format("MMM 'YY"),  "Jan '12", "Should be able to format with single parenthesis");
+        test.equal(date.format('MMM "YY'), 'Jan "12', "Should be able to format with double parenthesis");
+        test.equal(date.format("MMM 'YY"), "Jan '12", "Should be able to format with single parenthesis");
         test.equal(date.format("MMM \"YY"), 'Jan "12', "Should be able to format with double parenthesis");
         test.done();
     },
 
-    "toJSON" : function (test) {
+    "toJSON": function (test) {
         var supportsJson = typeof JSON !== "undefined" && JSON.stringify && JSON.stringify.call,
             date = moment("2012-10-09T21:30:40.678+0100");
 
@@ -151,21 +151,21 @@ exports.format = {
 
         if (supportsJson) {
             test.equal(JSON.stringify({
-                date : date
+                date: date
             }), '{"date":"2012-10-09T20:30:40.678Z"}', "should output ISO8601 on JSON.stringify");
         }
 
         test.done();
     },
 
-    "toISOString" : function (test) {
+    "toISOString": function (test) {
         var date = moment.utc("2012-10-09T20:30:40.678");
 
         test.equal(date.toISOString(), "2012-10-09T20:30:40.678Z", "should output ISO8601 on moment.fn.toISOString");
         test.done();
     },
 
-    "weeks format" : function (test) {
+    "weeks format": function (test) {
 
         // http://en.wikipedia.org/wiki/ISO_week_date
         var cases = {
@@ -195,7 +195,7 @@ exports.format = {
         test.done();
     },
 
-    "iso week year formats" : function (test) {
+    "iso week year formats": function (test) {
 
         // http://en.wikipedia.org/wiki/ISO_week
         var cases = {
@@ -229,7 +229,7 @@ exports.format = {
         test.done();
     },
 
-    "week year formats" : function (test) {
+    "week year formats": function (test) {
 
         // http://en.wikipedia.org/wiki/ISO_week
         var cases = {
@@ -264,36 +264,36 @@ exports.format = {
         test.done();
     },
 
-    "iso weekday formats" : function (test) {
+    "iso weekday formats": function (test) {
         test.expect(7);
 
-        test.equal(moment([1985, 1,  4]).format('E'), '1', "Feb  4 1985 is Monday    -- 1st day");
+        test.equal(moment([1985, 1, 4]).format('E'), '1', "Feb  4 1985 is Monday    -- 1st day");
         test.equal(moment([2029, 8, 18]).format('E'), '2', "Sep 18 2029 is Tuesday   -- 2nd day");
         test.equal(moment([2013, 3, 24]).format('E'), '3', "Apr 24 2013 is Wednesday -- 3rd day");
-        test.equal(moment([2015, 2,  5]).format('E'), '4', "Mar  5 2015 is Thursday  -- 4th day");
-        test.equal(moment([1970, 0,  2]).format('E'), '5', "Jan  2 1970 is Friday    -- 5th day");
+        test.equal(moment([2015, 2, 5]).format('E'), '4', "Mar  5 2015 is Thursday  -- 4th day");
+        test.equal(moment([1970, 0, 2]).format('E'), '5', "Jan  2 1970 is Friday    -- 5th day");
         test.equal(moment([2001, 4, 12]).format('E'), '6', "May 12 2001 is Saturday  -- 6th day");
-        test.equal(moment([2000, 0,  2]).format('E'), '7', "Jan  2 2000 is Sunday    -- 7th day");
+        test.equal(moment([2000, 0, 2]).format('E'), '7', "Jan  2 2000 is Sunday    -- 7th day");
 
         test.done();
     },
 
-    "weekday formats" : function (test) {
+    "weekday formats": function (test) {
         test.expect(7);
 
         moment.lang('dow: 3,doy: 5', {week: {dow: 3, doy: 5}});
-        test.equal(moment([1985, 1,  6]).format('e'), '0', "Feb  6 1985 is Wednesday -- 0th day");
+        test.equal(moment([1985, 1, 6]).format('e'), '0', "Feb  6 1985 is Wednesday -- 0th day");
         test.equal(moment([2029, 8, 20]).format('e'), '1', "Sep 20 2029 is Thursday  -- 1st day");
         test.equal(moment([2013, 3, 26]).format('e'), '2', "Apr 26 2013 is Friday    -- 2nd day");
-        test.equal(moment([2015, 2,  7]).format('e'), '3', "Mar  7 2015 is Saturday  -- 3nd day");
-        test.equal(moment([1970, 0,  4]).format('e'), '4', "Jan  4 1970 is Sunday    -- 4th day");
+        test.equal(moment([2015, 2, 7]).format('e'), '3', "Mar  7 2015 is Saturday  -- 3nd day");
+        test.equal(moment([1970, 0, 4]).format('e'), '4', "Jan  4 1970 is Sunday    -- 4th day");
         test.equal(moment([2001, 4, 14]).format('e'), '5', "May 14 2001 is Monday    -- 5th day");
-        test.equal(moment([2000, 0,  4]).format('e'), '6', "Jan  4 2000 is Tuesday   -- 6th day");
+        test.equal(moment([2000, 0, 4]).format('e'), '6', "Jan  4 2000 is Tuesday   -- 6th day");
 
         test.done();
     },
 
-    "toString is just human readable format" : function (test) {
+    "toString is just human readable format": function (test) {
         test.expect(1);
 
         var b = moment(new Date(2009, 1, 5, 15, 25, 50, 125));
@@ -301,24 +301,28 @@ exports.format = {
         test.done();
     },
 
-    "toJSON skips postformat" : function (test) {
+    "toJSON skips postformat": function (test) {
         test.expect(1);
 
-        moment.lang('postformat', {postformat: function (s) { s.replace(/./g, 'X'); }});
+        moment.lang('postformat', {
+            postformat: function (s) {
+                s.replace(/./g, 'X');
+            }
+        });
         test.equal(moment.utc([2000, 0, 1]).toJSON(), "2000-01-01T00:00:00.000Z", "toJSON doesn't postformat");
         moment.lang('postformat', null);
         test.done();
     },
 
-    "calendar day timezone" : function (test) {
+    "calendar day timezone": function (test) {
         test.expect(10);
 
         var zones = [60, -60, 90, -90, 360, -360, 720, -720],
-            b = moment().utc().startOf('day').subtract({ m : 1 }),
-            c = moment().local().startOf('day').subtract({ m : 1 });
+            b = moment().utc().startOf('day').subtract({m: 1}),
+            c = moment().local().startOf('day').subtract({m: 1});
 
         zones.forEach(function (z) {
-            var a = moment().zone(z).startOf('day').subtract({ m: 1 });
+            var a = moment().zone(z).startOf('day').subtract({m: 1});
             test.equal(moment(a).zone(z).calendar(), "Yesterday at 11:59 PM", "Yesterday at 11:59 PM, not Today, or the wrong time");
         });
 

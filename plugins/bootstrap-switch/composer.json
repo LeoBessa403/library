@@ -1,6 +1,6 @@
 {
-  "name"        : "nostalgiaz/bootstrap-switch",
-  "description" : "Unofficial bootstrap switch",
+  "name": "nostalgiaz/bootstrap-switch",
+  "description": "Unofficial bootstrap switch",
   "type": "component",
   "keywords": [
     "JavaScript"

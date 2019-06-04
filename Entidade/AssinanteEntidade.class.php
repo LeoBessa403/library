@@ -279,7 +279,6 @@ class AssinanteEntidade extends AssinanteEntidadeExtends
     }
 
 
-
     /**
      * @return ImagemAssinanteEntidade $co_facilidade_beneficio
      */

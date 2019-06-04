@@ -20,7 +20,7 @@ var ImageCropping = function () {
     };
     // Simple event handler, called from onChange and onSelect
     // event handlers, as per the Jcrop invocation above
-   var showCoords = function(c) {
+    var showCoords = function (c) {
         $('#x1').val(c.x);
         $('#y1').val(c.y);
         $('#x2').val(c.x2);
@@ -29,7 +29,7 @@ var ImageCropping = function () {
         $('#h').val(c.h);
     };
 
-    var clearCoords = function() {
+    var clearCoords = function () {
         $('#coords input').val('');
     };
     var runPreviewPane = function () {
@@ -65,7 +65,7 @@ var ImageCropping = function () {
                     marginTop: '-' + Math.round(ry * c.y) + 'px'
                 });
             }
-        };
+        }
     };
     var runAnimationsTransitions = function () {
         $('#target3').Jcrop({
@@ -130,6 +130,7 @@ var ImageCropping = function () {
                 $o.append(c);
             return $o;
         }
+
         var a_count = 1;
         // Create animation buttons
         for (i in ac) {
@@ -154,10 +155,11 @@ var ImageCropping = function () {
                 color: ((i == 'K') || (i == 'R')) ? 'white' : 'black'
             }).click(setoptHandler('bgColor', bgc[i])), ' ');
         }
+
         // Function to insert named sections into interface
         function insertSection(k, v) {
             $('#interface').prepend($('<fieldset></fieldset>').attr('id', k).append($('<legend></legend>').append(v), '<div class="btn-toolbar"><div class="btn-group"></div></div>'));
-        };
+        }
         // Handler for option-setting buttons
         function setoptHandler(k, v) {
             return function (e) {
@@ -168,7 +170,7 @@ var ImageCropping = function () {
                 jcrop_api.setOptions(opt);
                 return false;
             };
-        };
+        }
         // Handler for animation buttons
         function animHandler(v) {
             return function (e) {
@@ -178,7 +180,7 @@ var ImageCropping = function () {
                 });
                 return false;
             };
-        };
+        }
         $('#bgo_buttons .btn:first,#bgc_buttons .btn:last').addClass('active');
         $('#interface').show();
     };

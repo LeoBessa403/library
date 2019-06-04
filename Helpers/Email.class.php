@@ -60,14 +60,14 @@ class Email
             $mail->SMTPDebug = 1;
             $mail->From = utf8_decode($this->Email_Remetente);
 
-            if($this->Email_ReplayTo){
+            if ($this->Email_ReplayTo) {
                 $mail->FromName = $this->Nome_ReplayTo;
-            }else{
+            } else {
                 $mail->FromName = DESC;
             }
             $mail->Subject = $this->Titulo;
             $mail->Body = $this->Mensagem;
-            if($this->Email_ReplayTo)
+            if ($this->Email_ReplayTo)
                 $mail->addReplyTo(utf8_decode($this->Email_ReplayTo), $this->Nome_ReplayTo);
             $mail->AltBody = 'Mensagem de Erro automática, favor não responder!'; // optional - MsgHTML will create an alternate automatically
             foreach ($this->Email_Destinatario as $nome => $email) {

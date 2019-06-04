@@ -24,7 +24,7 @@
       display: none;
     }
   }
-  
+
   /* toolbar */
   .note-toolbar {
     padding-left: 5px;
@@ -33,7 +33,7 @@
     background-color: @background-color;
     border-bottom: 1px solid @border-color;
 
-    &>.btn-group {
+    & > .btn-group {
       margin-top: 5px;
       margin-left: 0;
       margin-right: 5px;
@@ -45,7 +45,7 @@
         padding: 5px;
         .note-dimension-picker {
           font-size: 18px;
-           .note-dimension-picker-mousecatcher {
+          .note-dimension-picker-mousecatcher {
             position: absolute !important;
             z-index: 3;
             width: 10em;
@@ -69,13 +69,13 @@
         }
       }
     }
-    
+
     .note-style {
       h1, h2, h3, h4, h5, h6, blockquote {
         margin: 0;
       }
     }
-    
+
     .note-fontsize {
       button {
         height: 26px;
@@ -101,13 +101,13 @@
         }
       }
     }
-    
+
     .note-para {
       .dropdown-menu {
         min-width: 153px;
         padding: 5px;
       }
-      
+
       li:first-child {
         margin-bottom: 5px;
       }
@@ -128,7 +128,7 @@
       }
     }
   }
-  
+
   // popover
   .note-popover .popover {
     max-width: none;
@@ -140,10 +140,10 @@
         max-width: 200px;
         overflow: hidden;
         text-overflow: ellipsis;
-        white-space: nowrap;    /* for FF */ 
+        white-space: nowrap; /* for FF */
         vertical-align: middle; /* for FF */
       }
-      .btn-group+.btn-group {
+      .btn-group + .btn-group {
         margin-left: 5px;
       }
     }
@@ -159,7 +159,9 @@
       position: absolute;
       display: none;
       border: 1px solid black;
-      &>div { position: absolute; }
+      & > div {
+        position: absolute;
+      }
 
       .note-control-selection-bg {
         width: 100%;
@@ -226,7 +228,7 @@
 
   /* dialog */
   .note-dialog {
-    &>div {
+    & > div {
       display: none; /* BS2's hide pacth. */
     }
     .note-image-dialog {
@@ -296,14 +298,14 @@
       }
     }
   }
-  
+
   /* editable */
   .note-editable {
     padding: 10px;
     overflow: scroll;
     outline: none;
   }
-  
+
   /* dropdown-menu for toolbar and popover */
   .dropdown-menu {
     min-width: 90px;
@@ -313,8 +315,14 @@
     &.right {
       right: 0;
       left: auto;
-      &::before { right: 9px; left: auto !important;  }
-      &::after { right: 10px; left: auto !important;  }
+      &::before {
+        right: 9px;
+        left: auto !important;
+      }
+      &::after {
+        right: 10px;
+        left: auto !important;
+      }
     }
 
     /* dropdown-menu for selectbox */
@@ -326,13 +334,13 @@
       visibility: visible;
     }
   }
-  
+
   /* buttons for toolbar and popover */
   .btn-sm {
     min-height: 33px;
     font-size: 14px;
   }
-  
+
   /* color palette for toolbar and popover */
   .note-color-palette {
     line-height: 1;

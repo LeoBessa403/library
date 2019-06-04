@@ -1,33 +1,29 @@
-.demo_container
-{
-    margin-top:100px;
+.demo_container {
+    margin-top: 100px;
 }
 
-.bp-show-case
-{
-    width:100%;
-    margin-left:auto;
-    margin-right:auto;
+.bp-show-case {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.pageItemWithPointerCursor
-{
-    cursor:pointer;
+.pageItemWithPointerCursor {
+    cursor: pointer;
 }
 
-#bp-brand
-{
-    float:right;
+#bp-brand {
+    float: right;
     -webkit-transition: all .4s linear;
     -moz-transition: all .4s linear;
     transition: all .4s linear;
     color: #333;
 }
 
-#bp-brand:hover
-{
-    color:#fff;
+#bp-brand:hover {
+    color: #fff;
 }
+
 .bp-docs-example {
     position: relative;
     margin: 15px 0;
@@ -55,67 +51,55 @@
     border-radius: 4px 0 4px 0;
 }
 
-.bp-example-docs-option-attr
-{
-    color:#e2803b;
+.bp-example-docs-option-attr {
+    color: #e2803b;
 }
 
-.bp-example-docs-option-value
-{
-    color:#3387bf
+.bp-example-docs-option-value {
+    color: #3387bf
 }
 
-.pointer-cursor
-{
+.pointer-cursor {
     cursor: pointer;
 }
 
-.bp-docs-anchor
-{
-    color:white;
+.bp-docs-anchor {
+    color: white;
 }
 
-#page-changed-select
-{
-    width:50px;
+#page-changed-select {
+    width: 50px;
     vertical-align: baseline;
 }
 
-#show-page-select
-{
-    width:50px;
-    margin-right:50px;
+#show-page-select {
+    width: 50px;
+    margin-right: 50px;
     vertical-align: baseline;
 }
 
-#bp-docs-structure-illustration
-{
+#bp-docs-structure-illustration {
     text-align: center;
 }
 
-#bp-docs-options-table thead
-{
+#bp-docs-options-table thead {
     font-weight: bold;
 }
 
-.bp-docs-method-table-name-cell
-{
-    color:#e2803b;
+.bp-docs-method-table-name-cell {
+    color: #e2803b;
 }
 
-.bp-docs-method-table-parameter-cell
-{
+.bp-docs-method-table-parameter-cell {
     font-style: italic;
 }
 
-.bp-docs-event-table-name-cell
-{
-    width:100px;
+.bp-docs-event-table-name-cell {
+    width: 100px;
 
-    color:#e2803b;
+    color: #e2803b;
 }
 
-.bp-docs-event-table-signature-cell
-{
-    width:300px;
+.bp-docs-event-table-signature-cell {
+    width: 300px;
 }

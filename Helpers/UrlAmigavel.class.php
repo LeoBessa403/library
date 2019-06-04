@@ -203,10 +203,10 @@ class UrlAmigavel
                     endif;
                 endforeach;
             }
-            if(($titulo == 'Assinante' || $titulo == 'Plano') && (!MODULO_ASSINANTE)){
+            if (($titulo == 'Assinante' || $titulo == 'Plano') && (!MODULO_ASSINANTE)) {
                 $tem = false;
             }
-            if($titulo == 'Visita' && !TEM_SITE){
+            if ($titulo == 'Visita' && !TEM_SITE) {
                 $tem = false;
             }
             if ($tem):

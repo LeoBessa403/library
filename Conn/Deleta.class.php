@@ -111,7 +111,7 @@ class Deleta extends Conn
             $this->Result = true;
         } catch (PDOException $e) {
             $this->Result = null;
-            if (DEBUG){
+            if (DEBUG) {
                 echo "Erro ao Deletar na TABELA {$this->Tabela}: {$e->getMessage()}</br>{$this->getSql()}";
                 debug(10);
             }

@@ -1,22 +1,22 @@
 module('Events', {
-    setup: function(){
+    setup: function () {
         this.input = $('<input type="text" value="31-03-2011">')
-                        .appendTo('#qunit-fixture')
-                        .datepicker({format: "dd-mm-yyyy"})
-                        .focus(); // Activate for visibility checks
-        this.dp = this.input.data('datepicker')
+            .appendTo('#qunit-fixture')
+            .datepicker({format: "dd-mm-yyyy"})
+            .focus(); // Activate for visibility checks
+        this.dp = this.input.data('datepicker');
         this.picker = this.dp.picker;
     },
-    teardown: function(){
+    teardown: function () {
         this.picker.remove();
     }
 });
 
-test('Selecting a year from decade view triggers changeYear', function(){
+test('Selecting a year from decade view triggers changeYear', function () {
     var target,
         triggered = 0;
 
-    this.input.on('changeYear', function(){
+    this.input.on('changeYear', function () {
         triggered++;
     });
 
@@ -51,11 +51,11 @@ test('Selecting a year from decade view triggers changeYear', function(){
     equal(triggered, 1);
 });
 
-test('Navigating forward/backward from month view triggers changeYear', function(){
+test('Navigating forward/backward from month view triggers changeYear', function () {
     var target,
         triggered = 0;
 
-    this.input.on('changeYear', function(){
+    this.input.on('changeYear', function () {
         triggered++;
     });
 
@@ -82,11 +82,11 @@ test('Navigating forward/backward from month view triggers changeYear', function
     equal(triggered, 2);
 });
 
-test('Selecting a month from year view triggers changeMonth', function(){
+test('Selecting a month from year view triggers changeMonth', function () {
     var target,
         triggered = 0;
 
-    this.input.on('changeMonth', function(){
+    this.input.on('changeMonth', function () {
         triggered++;
     });
 
@@ -110,11 +110,11 @@ test('Selecting a month from year view triggers changeMonth', function(){
     equal(triggered, 1);
 });
 
-test('Navigating forward/backward from month view triggers changeMonth', function(){
+test('Navigating forward/backward from month view triggers changeMonth', function () {
     var target,
         triggered = 0;
 
-    this.input.on('changeMonth', function(){
+    this.input.on('changeMonth', function () {
         triggered++;
     });
 
@@ -134,15 +134,15 @@ test('Navigating forward/backward from month view triggers changeMonth', functio
     equal(triggered, 2);
 });
 
-test('format() returns a formatted date string', function(){
+test('format() returns a formatted date string', function () {
     var target,
         error, out;
 
-    this.input.on('changeDate', function(e){
-        try{
+    this.input.on('changeDate', function (e) {
+        try {
             out = e.format();
         }
-        catch(e){
+        catch (e) {
             error = e;
         }
     });
@@ -153,19 +153,19 @@ test('format() returns a formatted date string', function(){
 
     datesEqual(this.dp.viewDate, UTCDate(2011, 2, 14));
     datesEqual(this.dp.date, UTCDate(2011, 2, 14));
-    equal(error, undefined)
+    equal(error, undefined);
     equal(out, '14-03-2011');
 });
 
-test('format(altformat) returns a formatted date string', function(){
+test('format(altformat) returns a formatted date string', function () {
     var target,
         error, out;
 
-    this.input.on('changeDate', function(e){
-        try{
+    this.input.on('changeDate', function (e) {
+        try {
             out = e.format('m/d/yy');
         }
-        catch(e){
+        catch (e) {
             error = e;
         }
     });
@@ -176,18 +176,18 @@ test('format(altformat) returns a formatted date string', function(){
 
     datesEqual(this.dp.viewDate, UTCDate(2011, 2, 14));
     datesEqual(this.dp.date, UTCDate(2011, 2, 14));
-    equal(error, undefined)
+    equal(error, undefined);
     equal(out, '3/14/11');
 });
 
-test('Clear button: triggers change and changeDate events', function(){
+test('Clear button: triggers change and changeDate events', function () {
     this.input = $('<input type="text" value="31-03-2011">')
-                    .appendTo('#qunit-fixture')
-                    .datepicker({
-                        format: "dd-mm-yyyy",
-                        clearBtn: true
-                    })
-                    .focus(); // Activate for visibility checks
+        .appendTo('#qunit-fixture')
+        .datepicker({
+            format: "dd-mm-yyyy",
+            clearBtn: true
+        })
+        .focus(); // Activate for visibility checks
     this.dp = this.input.data('datepicker');
     this.picker = this.dp.picker;
 
@@ -196,10 +196,10 @@ test('Clear button: triggers change and changeDate events', function(){
         triggered_changeDate = 0;
 
     this.input.on({
-        changeDate: function(){
+        changeDate: function () {
             triggered_changeDate++;
         },
-        change: function(){
+        change: function () {
             triggered_change++;
         }
     });

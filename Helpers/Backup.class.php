@@ -18,7 +18,7 @@ class Backup
      */
     function __construct($validar = true)
     {
-        if($validar){
+        if ($validar) {
             $backup = fopen('BancoDados/Backup.txt', "a+");
             $backupDate = fgets($backup);
             $dias = Valida::CalculaDiferencaDiasData(date("d/m/Y"), Valida::DataShow($backupDate));
@@ -26,7 +26,7 @@ class Backup
             if ($dias < 1):
                 $this->gerarBackup();
             endif;
-        }else{
+        } else {
             $this->gerarBackup();
         }
     }
@@ -53,7 +53,7 @@ class Backup
                 $tables = is_array($tables) ? $tables : explode(',', $tables);
             }
 
-            $sql = "-- Atualizado em: " . Valida::DataAtual() . "\n-- AMBIENTE: " . HOME . "\n-- BANCO: " . DBSA ."\n\n";
+            $sql = "-- Atualizado em: " . Valida::DataAtual() . "\n-- AMBIENTE: " . HOME . "\n-- BANCO: " . DBSA . "\n\n";
             $sql .= 'CREATE DATABASE IF NOT EXISTS ' . DBSA . ";\n\n";
             $sql .= 'USE ' . DBSA . ";\n\n";
 
@@ -67,7 +67,7 @@ class Backup
 
                 $sql .= 'DROP TABLE IF EXISTS ' . $table . ';';
                 $row2 = mysqli_fetch_row(mysqli_query($this->conn, 'SHOW CREATE TABLE ' . $table));
-                $sql .= "\n\n\n" . str_replace(strtolower($row2[0]),$row2[0],$row2[1]) . ";\n\n\n";
+                $sql .= "\n\n\n" . str_replace(strtolower($row2[0]), $row2[0], $row2[1]) . ";\n\n\n";
 
                 for ($i = 0; $i < $numFields; $i++) {
                     while ($row = mysqli_fetch_row($result)) {
@@ -111,7 +111,7 @@ class Backup
         if (!$sql) return false;
         try {
             $handle = fopen(PASTABACKUP . 'Backup-' . Valida::ValNome(DESC) . '.sql', 'w+');
-            fwrite($handle,  $sql);
+            fwrite($handle, $sql);
             fclose($handle);
         } catch (Exception $e) {
             Notificacoes::geraMensagem(
@@ -134,7 +134,7 @@ class Backup
         $versaoNova = explode('.', $versao[2]);
         $nova = $versaoNova[0] . '.' . $versaoNova[1] . '.' . ($versaoNova[2] + 1);
         $versao[2] = $nova;
-        $versaoAtualizada = implode('//',$versao);
+        $versaoAtualizada = implode('//', $versao);
         $backupVersao = fopen('versao.txt', "w");
         fwrite($backupVersao, $versaoAtualizada);
         fclose($backupVersao);
@@ -146,7 +146,7 @@ class Backup
     private function limpaArquivoAtualizacaoBanco()
     {
         $AtualizaArqBanco = fopen('BancoDados/Atualizacao.sql', "w");
-        fwrite($AtualizaArqBanco,  "");
+        fwrite($AtualizaArqBanco, "");
         fclose($AtualizaArqBanco);
     }
 

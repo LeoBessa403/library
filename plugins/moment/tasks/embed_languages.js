@@ -1,4 +1,3 @@
-
 module.exports = function (grunt) {
 
     grunt.registerTask('embed_languages', function () {

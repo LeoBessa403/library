@@ -22,7 +22,7 @@ class TrafegoService extends AbstractService
         $this->ObjetoModel = New TrafegoModel();
 
         $ip = $_SERVER['REMOTE_ADDR'];
-        $url = "http://ip-api.com/json/".$ip;
+        $url = "http://ip-api.com/json/" . $ip;
 
         $timeout = 3;
         $ch = curl_init($url);
@@ -162,9 +162,9 @@ class TrafegoService extends AbstractService
     /** Salva na Entidade de Trafego */
     public function salvaTrafego()
     {
-        if($this->ds_cidade == 'Divinopolis de Goias')
+        if ($this->ds_cidade == 'Divinopolis de Goias')
             $this->ds_cidade = 'Valparaíso de Goias';
-        if($this->ds_estado == 'Federal District')
+        if ($this->ds_estado == 'Federal District')
             $this->ds_estado = 'Distrito Federal';
 
         $trafego[DS_NAVEGADOR] = $this->getBrowser();
@@ -184,7 +184,7 @@ class TrafegoService extends AbstractService
     /** Salva na Entidade de Trafego */
     public function validaPaisTrafego()
     {
-        if($this->ds_code_pais == 'BR' || !PROD){
+        if ($this->ds_code_pais == 'BR' || !PROD) {
             return true;
         }
         return false;

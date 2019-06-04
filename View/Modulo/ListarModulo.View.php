@@ -70,7 +70,7 @@
                             if ($res->getCoSessao()) {
                                 /** @var SessaoEntidade $sessao */
                                 foreach ($res->getCoSessao() as $sessao) {
-                                    if($sessao->getCoHistoria()){
+                                    if ($sessao->getCoHistoria()) {
                                         /** @var HistoriaEntidade $historia */
                                         foreach ($sessao->getCoHistoria() as $historia) {
                                             /** @var HistoriaEntidade $historia */

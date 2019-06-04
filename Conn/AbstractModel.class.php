@@ -142,7 +142,7 @@ class AbstractModel
                     $novoMetodo = $this->getMetodo($obj::CHAVE);
                     $todos = null;
                     if (count($obj->$novoMetodo())) {
-                        if($this->validaEntidadeJaUtilizada($campo['Entidade'])){
+                        if ($this->validaEntidadeJaUtilizada($campo['Entidade'])) {
                             if (is_array($obj->$novoMetodo())) {
                                 $indece = 0;
                                 foreach ($obj->$novoMetodo() as $novoRegistro) {
@@ -154,7 +154,7 @@ class AbstractModel
                             } else {
                                 $todos = $this->PesquisaTodosNv1($campo['Entidade'], $campo['Campo'], $obj->$novoMetodo());
                             }
-                        }else{
+                        } else {
                             $todos = $obj->$novoMetodo();
                         }
                     }
@@ -188,7 +188,7 @@ class AbstractModel
     {
         $campos = $obj2::getRelacionamentos();
         foreach ($campos as $campo) {
-                if ($this->validaEntidadeSemRastreio($campo['Entidade'])) {
+            if ($this->validaEntidadeSemRastreio($campo['Entidade'])) {
                 $obj3 = new $campo['Entidade']();
                 $metodoGet = $this->getMetodo($obj2::CHAVE);
                 $metodoGet2 = $this->getMetodo($obj3::CHAVE);
@@ -199,12 +199,12 @@ class AbstractModel
                             if (count($novoRegistro)) {
                                 if ($novoRegistro->$metodoGet2()) {
                                     $metodoSet2 = $this->getMetodo($obj3::CHAVE, false);
-                                    if($this->validaEntidadeJaUtilizada($campo['Entidade'])){
+                                    if ($this->validaEntidadeJaUtilizada($campo['Entidade'])) {
                                         $dados4 = $this->PesquisaUmRegistroNv3(
                                             $novoRegistro->$metodoGet2(), $obj3::ENTIDADE
                                         );
                                         $obj->$metodoGet()[$indece]->$metodoSet2($dados4);
-                                    }else{
+                                    } else {
                                         $obj->$metodoGet()[$indece]->$metodoSet2($novoRegistro->$metodoGet2());
                                     }
                                     $indece++;
@@ -215,12 +215,12 @@ class AbstractModel
                         if ($obj->$metodoGet()) {
                             if ($obj->$metodoGet()->$metodoGet2()) {
                                 $metodoSet2 = $this->getMetodo($obj3::CHAVE, false);
-                                if($this->validaEntidadeJaUtilizada($campo['Entidade'])){
+                                if ($this->validaEntidadeJaUtilizada($campo['Entidade'])) {
                                     $dados3 = $this->PesquisaUmRegistroNv3(
                                         $obj->$metodoGet()->$metodoGet2(), $obj3::ENTIDADE
                                     );
                                     $obj->$metodoGet()->$metodoSet2($dados3);
-                                }else{
+                                } else {
                                     $obj->$metodoGet()->$metodoSet2($obj->$metodoGet()->$metodoGet2());
                                 }
                             }
@@ -231,25 +231,25 @@ class AbstractModel
                         if (!is_array($obj->$metodoGet())) {
                             if ($obj->$metodoGet()->$metodoGet2()) {
                                 $metodoSet2 = $this->getMetodo($obj3::CHAVE, false);
-                                if($this->validaEntidadeJaUtilizada($campo['Entidade'])){
+                                if ($this->validaEntidadeJaUtilizada($campo['Entidade'])) {
                                     $dados3 = $this->PesquisaTodosNv4(
                                         $obj->$metodoGet()->$metodoGet(), $obj3::ENTIDADE, $obj2
                                     );
                                     $obj->$metodoGet()->$metodoSet2($dados3);
-                                }else{
-                                    $obj->$metodoGet()->$metodoSet2( $obj->$metodoGet()->$metodoGet());
+                                } else {
+                                    $obj->$metodoGet()->$metodoSet2($obj->$metodoGet()->$metodoGet());
                                 }
                             }
                         } else {
                             foreach ($obj->$metodoGet() as $item) {
                                 if ($item->$metodoGet2()) {
                                     $metodoSet2 = $this->getMetodo($obj3::CHAVE, false);
-                                    if($this->validaEntidadeJaUtilizada($campo['Entidade'])){
+                                    if ($this->validaEntidadeJaUtilizada($campo['Entidade'])) {
                                         $dados3 = $this->PesquisaTodosNv4(
                                             $item->$metodoGet(), $obj3::ENTIDADE, $obj2
                                         );
                                         $item->$metodoSet2($dados3);
-                                    }else{
+                                    } else {
                                         $item->$metodoSet2($item->$metodoGet());
                                     }
 
@@ -357,7 +357,7 @@ class AbstractModel
      */
     private function validaEntidadeSemRastreio($Entidade)
     {
-        /** @var $entidadeSemRastreio $entidadeSemRastreio que não serão rastreadas na montagem do objeto*/
+        /** @var $entidadeSemRastreio $entidadeSemRastreio que não serão rastreadas na montagem do objeto */
         $entidadeSemRastreio = [AcessoEntidade::ENTIDADE, AuditoriaEntidade::ENTIDADE];
         if (in_array($Entidade, $entidadeSemRastreio)) {
             return false;
@@ -371,7 +371,7 @@ class AbstractModel
      */
     private function validaEntidadeJaUtilizada($Entidade)
     {
-        if(!in_array($Entidade, $this->EntidadePesquisadas)){
+        if (!in_array($Entidade, $this->EntidadePesquisadas)) {
             return true;
         }
         return false;

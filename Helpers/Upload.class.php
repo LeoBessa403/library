@@ -50,13 +50,13 @@ class Upload
         $Nome_Arquivo = [];
         for ($i = 0; $i < count($Files["name"]); $i++):
             if (count($Files["name"]) < 2):
-                if(is_array($Files["name"])){
+                if (is_array($Files["name"])) {
                     $Arquivo['name'] = $Files['name'][0];
                     $Arquivo['type'] = $Files['type'][0];
                     $Arquivo['tmp_name'] = $Files['tmp_name'][0];
                     $Arquivo['error'] = $Files['error'][0];
                     $Arquivo['size'] = $Files['size'][0];
-                }else{
+                } else {
                     $Arquivo['name'] = $Files['name'];
                     $Arquivo['type'] = $Files['type'];
                     $Arquivo['tmp_name'] = $Files['tmp_name'];
@@ -202,7 +202,7 @@ class Upload
         $Folder = explode("/", $Folder);
         $pasta = "";
         foreach ($Folder as $value) {
-            if($value){
+            if ($value) {
                 $pasta .= $value . "/";
                 if (!file_exists(self::$BaseDir . $pasta) && !is_dir(self::$BaseDir . $pasta)):
                     mkdir(self::$BaseDir . $pasta, 0777);

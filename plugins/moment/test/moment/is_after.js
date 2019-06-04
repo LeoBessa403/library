@@ -1,7 +1,7 @@
 var moment = require("../../moment");
 
 exports.is_after = {
-    "is after without units" : function (test) {
+    "is after without units": function (test) {
         test.expect(17);
 
         var m = moment(new Date(2011, 3, 2, 3, 4, 5, 10)), mCopy = moment(m);
@@ -25,7 +25,7 @@ exports.is_after = {
         test.done();
     },
 
-    "is after year" : function (test) {
+    "is after year": function (test) {
         test.expect(11);
 
         var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)), mCopy = moment(m);
@@ -43,7 +43,7 @@ exports.is_after = {
         test.done();
     },
 
-    "is after month" : function (test) {
+    "is after month": function (test) {
         test.expect(13);
 
         var m = moment(new Date(2011, 2, 3, 4, 5, 6, 7)), mCopy = moment(m);
@@ -63,7 +63,7 @@ exports.is_after = {
         test.done();
     },
 
-    "is after day" : function (test) {
+    "is after day": function (test) {
         test.expect(15);
 
         var m = moment(new Date(2011, 3, 2, 3, 4, 5, 6)), mCopy = moment(m);
@@ -85,7 +85,7 @@ exports.is_after = {
         test.done();
     },
 
-    "is after hour" : function (test) {
+    "is after hour": function (test) {
         test.expect(16);
 
         var m = moment(new Date(2011, 3, 2, 3, 4, 5, 6)), mCopy = moment(m);
@@ -108,7 +108,7 @@ exports.is_after = {
         test.done();
     },
 
-    "is after minute" : function (test) {
+    "is after minute": function (test) {
         test.expect(18);
 
         var m = moment(new Date(2011, 3, 2, 3, 4, 5, 6)), mCopy = moment(m);
@@ -133,7 +133,7 @@ exports.is_after = {
         test.done();
     },
 
-    "is after second" : function (test) {
+    "is after second": function (test) {
         test.expect(20);
 
         var m = moment(new Date(2011, 3, 2, 3, 4, 5, 10)), mCopy = moment(m);
@@ -160,7 +160,7 @@ exports.is_after = {
         test.done();
     },
 
-    "is after millisecond" : function (test) {
+    "is after millisecond": function (test) {
         test.expect(18);
 
         var m = moment(new Date(2011, 3, 2, 3, 4, 5, 10)), mCopy = moment(m);

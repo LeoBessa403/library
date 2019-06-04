@@ -3,7 +3,7 @@
 var moment = require("../../moment");
 
 exports.normalizeUnits = {
-    "normalize units" : function (test) {
+    "normalize units": function (test) {
         test.expect(45);
         var fullKeys = ["year", "month", "isoweek", "week", "day", "hour", "minute", "second", "millisecond"],
             aliases = ["y", "M", "W", "w", "d", "h", "m", "s", "ms"],

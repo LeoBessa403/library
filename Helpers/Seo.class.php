@@ -111,19 +111,19 @@ class Seo
             if (method_exists($controller, $metodo)):
                 $dadosSeo = $controller->$metodo();
                 if (!empty($dadosSeo)) {
-                    if(!empty($dadosSeo['imagem'])){
+                    if (!empty($dadosSeo['imagem'])) {
                         $this->Imagem = $dadosSeo['imagem'];
-                    }else{
+                    } else {
                         $this->geraImagem();
                     }
-                    if(!empty($dadosSeo['descricao'])){
+                    if (!empty($dadosSeo['descricao'])) {
                         $this->Descricao = Valida::Resumi(strip_tags($dadosSeo['descricao']), 150);
-                    }else{
+                    } else {
                         $this->getDescricao();
                     }
-                    if(!empty($dadosSeo['titulo'])){
+                    if (!empty($dadosSeo['titulo'])) {
                         $this->Titulo = $dadosSeo['titulo'] . ' | ' . DESC;
-                    }else{
+                    } else {
                         $this->getTitulo();
                     }
                 }

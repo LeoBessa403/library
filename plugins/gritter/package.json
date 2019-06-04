@@ -13,21 +13,23 @@
     },
     "main": "js/jquery.gritter.js",
     "shim": {
-      "deps": ["jquery"],
+      "deps": [
+        "jquery"
+      ],
       "exports": "Gritter"
     }
   },
   "maintainers": [
     {
-      "name": "Jordan Boesch",      
-      "web": "http://boedesign.com" 
-    } 
+      "name": "Jordan Boesch",
+      "web": "http://boedesign.com"
+    }
   ],
   "contributors": [
     {
-      "name": "Jordan Boesch",      
-      "web": "http://boedesign.com" 
-    } 
+      "name": "Jordan Boesch",
+      "web": "http://boedesign.com"
+    }
   ],
   "licenses": [
     {
@@ -37,10 +39,12 @@
   ],
   "repositories": [
     {
-      "type": "git", 
+      "type": "git",
       "url": "https://github.com/jboesch/Gritter.git"
     }
   ],
   "github": "https://github.com/jboesch/Gritter",
-  "categories": ["UI"]  
+  "categories": [
+    "UI"
+  ]
 }

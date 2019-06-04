@@ -49,7 +49,7 @@ class  PerfilAssinanteService extends AbstractService
         endif;
         if ($coPerfil) {
             $perfilFunc[CO_PERFIL_ASSINANTE] = $coPerfil;
-            if($dados[CO_FUNCIONALIDADE]){
+            if ($dados[CO_FUNCIONALIDADE]) {
                 foreach ($dados[CO_FUNCIONALIDADE] as $coFuncionalidade) {
                     $perfilFunc[CO_FUNCIONALIDADE] = $coFuncionalidade;
                     $perfilFuncionalidadeService->Salva($perfilFunc);

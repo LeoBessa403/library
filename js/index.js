@@ -3,7 +3,7 @@ var Index = function () {
     var runChart1 = function () {
         function randValue() {
             return (Math.floor(Math.random() * (1 + 40 - 20))) + 20;
-        };
+        }
         var pageviews = [
             [1, randValue()],
             [2, randValue()],
@@ -124,6 +124,7 @@ var Index = function () {
                 opacity: 0.80
             }).appendTo("body").fadeIn(200);
         }
+
         var previousPoint = null;
         $("#placeholder-h1").bind("plothover", function (event, pos, item) {
             $("#x").text(pos.x.toFixed(2));
@@ -207,6 +208,7 @@ var Index = function () {
             }
             return res;
         }
+
         // Set up the control widget
         var updateInterval = 30;
         $("#updateInterval").val(updateInterval).change(function () {
@@ -244,6 +246,7 @@ var Index = function () {
             plot.draw();
             setTimeout(update, updateInterval);
         }
+
         update();
     };
     // function to initiate Sparkline
@@ -299,7 +302,8 @@ var Index = function () {
                     }
                     var aArgs = Array.prototype.slice.call(arguments, 1),
                         fToBind = this,
-                        fNOP = function () {}, fBound = function () {
+                        fNOP = function () {
+                        }, fBound = function () {
                             return fToBind.apply(this instanceof fNOP && oThis ? this : oThis, aArgs.concat(Array.prototype.slice.call(arguments)));
                         };
                     fNOP.prototype = this.prototype;
@@ -317,7 +321,7 @@ var Index = function () {
             lineWidth: 3,
             barColor: '#35aa47',
             size: 70
-            
+
         });
     };
     // function to initiate Full Calendar

@@ -460,6 +460,7 @@ $(function () {
             decimal = value - Math.round(valor);
         return value - decimal;
     }
+
     ///// END CAMPO SLIDER  /////
 
     $(".formulario").submit(function () {

@@ -19,7 +19,7 @@
                 <div class="page-header">
                     <h1>Gestão
                         <small>Arquivo de Configuração Padrão</small>
-                        <?php Valida::geraBtn('Reset Config', 'ResetConfigGestao' , 'btn-info', 'config'); ?>
+                        <?php Valida::geraBtn('Reset Config', 'ResetConfigGestao', 'btn-info', 'config'); ?>
                     </h1>
                 </div>
                 <!-- end: PAGE TITLE & BREADCRUMB -->
@@ -27,7 +27,7 @@
         </div>
         <?php
         Modal::load();
-        Modal::modelConfirmacao("Config",'Deseja realmete Resetar o CONFIG?', null,'');
+        Modal::modelConfirmacao("Config", 'Deseja realmete Resetar o CONFIG?', null, '');
         ?>
         <div class="row">
             <?php

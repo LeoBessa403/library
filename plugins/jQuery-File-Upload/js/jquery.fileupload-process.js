@@ -103,11 +103,11 @@
                     prefix = this.prefix === true ? action : this.prefix;
                 $.each(this, function (key, value) {
                     if ($.type(value) === 'string' &&
-                            value.charAt(0) === '@') {
+                        value.charAt(0) === '@') {
                         settings[key] = options[
-                            value.slice(1) || (prefix ? prefix +
-                                key.charAt(0).toUpperCase() + key.slice(1) : key)
-                        ];
+                        value.slice(1) || (prefix ? prefix +
+                            key.charAt(0).toUpperCase() + key.slice(1) : key)
+                            ];
                     } else {
                         settings[key] = value;
                     }

@@ -1,5 +1,6 @@
 <li class="dropdown" xmlns="http://www.w3.org/1999/html">
-    <a class="dropdown-toggle" data-close-others="true" data-hover="dropdown" data-toggle="dropdown" href="#" id="notif">
+    <a class="dropdown-toggle" data-close-others="true" data-hover="dropdown" data-toggle="dropdown" href="#"
+       id="notif">
         <i class="fa-envelope fa"></i>
         <span class="badge"><span class="nu_notificacoes">0</span></span>
     </a>
@@ -46,7 +47,7 @@
                                         <span class="author">Dados Complementares</span>
                                         <span class="preview"><b>Preencha os seus dados complementares para
                                                 completar as informações para sua página! Acesse no Menu.</br>
-                                        <big>Assinante >> DadosComplementares</big></b></span>
+                                                <big>Assinante >> DadosComplementares</big></b></span>
                                     </div>
                                 </div>
                             </a>

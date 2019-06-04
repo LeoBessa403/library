@@ -7,7 +7,8 @@ include_once 'library/Partial/AcessoPermitido/topo_inicial.php';
         <p>
             Por Favor! Entre com o E-Mail para recuperar sua senha.
         </p>
-        <form class="form-login" action="../Index/RecuperarSenha" method="post" id="RecuperarSenha" name="RecuperarSenha">
+        <form class="form-login" action="../Index/RecuperarSenha" method="post" id="RecuperarSenha"
+              name="RecuperarSenha">
             <?php
             if (!empty($visivel)):
                 Notificacoes::mesagens($msg, $class);
@@ -16,7 +17,8 @@ include_once 'library/Partial/AcessoPermitido/topo_inicial.php';
             <fieldset>
                 <div class="form-group">
 							<span class="input-icon">
-								<input type="text" class="form-control email ob" name="ds_email" id="ds_email" placeholder="E-Mail">
+								<input type="text" class="form-control email ob" name="ds_email" id="ds_email"
+                                       placeholder="E-Mail">
 								<i class="fa fa-envelope"></i> </span>
                 </div>
                 <div class="new-account" style="text-align: center;">

@@ -25,7 +25,7 @@ class  PaginaService extends AbstractService
                 'jpg', 'jpeg', 'ico', 'xml', 'png', 'php', 'js', 'css', 'phtml', 'html', 'htm', 'sql', 'json', 'pdf',
                 'txt', 'map', 'git', 'env', 'ini', 'asp', 'api', 'zip', 'rar', 'tar', '7z', 'gz'
             ];
-            if(!in_array($extArq, $arrNotExt)){
+            if (!in_array($extArq, $arrNotExt)) {
                 /** @var PaginaVisitaService $paginaVisitaService */
                 $paginaVisitaService = $this->getService(PAGINA_VISITA_SERVICE);
                 /** @var PaginaEntidade $paginaPesquisa */

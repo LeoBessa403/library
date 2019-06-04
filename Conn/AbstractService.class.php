@@ -11,7 +11,7 @@ class AbstractService extends AbstractModel
     {
         return new $service();
     }
-    
+
     public function getDados($dados, $entidade)
     {
         $abstractEntidade = new AbstractEntidade();

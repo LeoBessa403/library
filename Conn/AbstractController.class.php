@@ -1,6 +1,6 @@
 <?php
 
-class AbstractController 
+class AbstractController
 {
 
     public function getService($service)

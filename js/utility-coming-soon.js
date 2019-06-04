@@ -29,6 +29,7 @@ var ComingSoon = function () {
         if (options) {
             $.extend(settings, options);
         }
+
         //main countdown function
         function countdown_proc() {
             eventDate = Date.parse(settings['date']) / 1000;
@@ -87,6 +88,7 @@ var ComingSoon = function () {
                 clearInterval(interval);
             }
         }
+
         //run the function
         countdown_proc();
         //loop the function

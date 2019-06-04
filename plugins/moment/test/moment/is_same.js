@@ -1,7 +1,7 @@
 var moment = require("../../moment");
 
 exports.is_same = {
-    "is same without units" : function (test) {
+    "is same without units": function (test) {
         test.expect(17);
 
         var m = moment(new Date(2011, 3, 2, 3, 4, 5, 10)), mCopy = moment(m);
@@ -25,7 +25,7 @@ exports.is_same = {
         test.done();
     },
 
-    "is same year" : function (test) {
+    "is same year": function (test) {
         test.expect(9);
 
         var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)), mCopy = moment(m);
@@ -41,7 +41,7 @@ exports.is_same = {
         test.done();
     },
 
-    "is same month" : function (test) {
+    "is same month": function (test) {
         test.expect(10);
 
         var m = moment(new Date(2011, 2, 3, 4, 5, 6, 7)), mCopy = moment(m);
@@ -58,7 +58,7 @@ exports.is_same = {
         test.done();
     },
 
-    "is same day" : function (test) {
+    "is same day": function (test) {
         test.expect(11);
 
         var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)), mCopy = moment(m);
@@ -76,7 +76,7 @@ exports.is_same = {
         test.done();
     },
 
-    "is same hour" : function (test) {
+    "is same hour": function (test) {
         test.expect(12);
 
         var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)), mCopy = moment(m);
@@ -95,7 +95,7 @@ exports.is_same = {
         test.done();
     },
 
-    "is same minute" : function (test) {
+    "is same minute": function (test) {
         test.expect(13);
 
         var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)), mCopy = moment(m);
@@ -115,7 +115,7 @@ exports.is_same = {
         test.done();
     },
 
-    "is same second" : function (test) {
+    "is same second": function (test) {
         test.expect(14);
 
         var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)), mCopy = moment(m);
@@ -136,7 +136,7 @@ exports.is_same = {
         test.done();
     },
 
-    "is same millisecond" : function (test) {
+    "is same millisecond": function (test) {
         test.expect(18);
 
         var m = moment(new Date(2011, 3, 2, 3, 4, 5, 10)), mCopy = moment(m);

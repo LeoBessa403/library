@@ -262,7 +262,7 @@ class UsuarioForm extends AbstractController
 
         // Aba 1
         $formulario
-            ->criaAba("Pessoa", "Informações Pessoais",12);
+            ->criaAba("Pessoa", "Informações Pessoais", 12);
 
         $formulario
             ->setId('cpf')
@@ -312,7 +312,7 @@ class UsuarioForm extends AbstractController
 
         // Aba 2
         $formulario
-            ->criaAba("Endereço", "Informações de Endereço",12);
+            ->criaAba("Endereço", "Informações de Endereço", 12);
 
         $formulario
             ->setId(NU_CEP)
@@ -354,7 +354,7 @@ class UsuarioForm extends AbstractController
 
         // Aba 3
         $formulario
-            ->criaAba("Contatos", "Informações de Contatos",12);
+            ->criaAba("Contatos", "Informações de Contatos", 12);
 
         $formulario
             ->setId(NU_TEL1)
@@ -400,7 +400,7 @@ class UsuarioForm extends AbstractController
 
         // Aba 2
         $formulario
-            ->criaAba("Usuário", "Dados do Usuário",12);
+            ->criaAba("Usuário", "Dados do Usuário", 12);
 
         $formulario
             ->setId(DS_SENHA)

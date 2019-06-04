@@ -1101,20 +1101,20 @@ class Valida
     public static function getDadosEstatistica($dados)
     {
         $dado = self::getBarraProgresso($dados);
-        if($dados['esforcoRestante'] == 0){
+        if ($dados['esforcoRestante'] == 0) {
             $horas = $dados['esforcoRestante'];
-        }else{
+        } else {
             $horas = intval(($dados['esforcoRestante'] * 20) / 60); // 20 Minutos por ponto de esforço
         }
         $linhas = fopen('versao.txt', "a+");
         $versoes = fgets($linhas);
         $versao = explode('//', $versoes);
-        $mediaDia = ($versao[5]) ? Valida::FormataMoeda($versao[5]): 0;
-        if($dados['esforcoRestante'] == 0 || $mediaDia == 0){
+        $mediaDia = ($versao[5]) ? Valida::FormataMoeda($versao[5]) : 0;
+        if ($dados['esforcoRestante'] == 0 || $mediaDia == 0) {
             $dias = 0;
             $diaAux = 0;
             $semanas = 0;
-        }else{
+        } else {
             $diaAux = ($dados['esforcoRestante'] / $mediaDia);
             $dias = intval(($dados['esforcoRestante'] / $mediaDia));
             $semanas = intval($diaAux / 7);
@@ -1168,8 +1168,8 @@ class Valida
      */
     public static function getAniversario($data)
     {
-        $niver = Valida::DataShow($data,'d/M');
-        $niver = explode('/',$niver);
+        $niver = Valida::DataShow($data, 'd/M');
+        $niver = explode('/', $niver);
         $mes_extenso = Valida::getMesesHistorico();
         $niver = $niver[0] . ' de ' . $mes_extenso[$niver[1]];
         return $niver;

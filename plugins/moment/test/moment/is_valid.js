@@ -1,7 +1,7 @@
 var moment = require("../../moment");
 
 exports.is_valid = {
-    "array bad month" : function (test) {
+    "array bad month": function (test) {
         test.expect(2);
 
         test.equal(moment([2010, -1]).isValid(), false, 'month -1');
@@ -10,7 +10,7 @@ exports.is_valid = {
         test.done();
     },
 
-    "array good month" : function (test) {
+    "array good month": function (test) {
         test.expect(24);
 
         for (var i = 0; i < 12; i++) {
@@ -21,7 +21,7 @@ exports.is_valid = {
         test.done();
     },
 
-    "array bad date" : function (test) {
+    "array bad date": function (test) {
         test.expect(4);
 
         test.equal(moment([2010, 0, 0]).isValid(), false, 'date 0');
@@ -33,7 +33,7 @@ exports.is_valid = {
         test.done();
     },
 
-    "array bad date leap year" : function (test) {
+    "array bad date leap year": function (test) {
         test.expect(8);
 
         test.equal(moment([2010, 1, 29]).isValid(), false, '2010 feb 29');
@@ -49,7 +49,7 @@ exports.is_valid = {
         test.done();
     },
 
-    "string + formats bad date" : function (test) {
+    "string + formats bad date": function (test) {
         test.expect(9);
 
         test.equal(moment('2020-00-00', ['YYYY-MM-DD', 'DD-MM-YYYY']).isValid(), false, 'invalid on all in array');
@@ -66,14 +66,14 @@ exports.is_valid = {
         test.done();
     },
 
-    "string nonsensical" : function (test) {
+    "string nonsensical": function (test) {
         test.expect(1);
 
         test.equal(moment('fail').isValid(), false, 'string "fail"');
         test.done();
     },
 
-    "string nonsensical with format" : function (test) {
+    "string nonsensical with format": function (test) {
         test.expect(2);
 
         test.equal(moment('fail', "MM-DD-YYYY").isValid(), false, 'string "fail" with format "MM-DD-YYYY"');
@@ -81,7 +81,7 @@ exports.is_valid = {
         test.done();
     },
 
-    "string with bad month name" : function (test) {
+    "string with bad month name": function (test) {
         test.expect(2);
 
         moment.lang('en');
@@ -92,7 +92,7 @@ exports.is_valid = {
         test.done();
     },
 
-    "string with spaceless format" : function (test) {
+    "string with spaceless format": function (test) {
         test.expect(1);
 
         test.equal(moment('10Sep2001', 'DDMMMYYYY').isValid(), true, "Parsing 10Sep2001 should result in a valid date");
@@ -100,7 +100,7 @@ exports.is_valid = {
         test.done();
     },
 
-    "invalid string iso 8601" : function (test) {
+    "invalid string iso 8601": function (test) {
 
         var tests = [
             '2010-00-00',
@@ -120,7 +120,7 @@ exports.is_valid = {
         test.done();
     },
 
-    "invalid string iso 8601 + timezone" : function (test) {
+    "invalid string iso 8601 + timezone": function (test) {
 
         var tests = [
             '2010-00-00+00:00',
@@ -141,7 +141,7 @@ exports.is_valid = {
         test.done();
     },
 
-    "valid string iso 8601 + timezone" : function (test) {
+    "valid string iso 8601 + timezone": function (test) {
         var tests = [
             '2010-01-01',
             '2010-01-30',
@@ -162,7 +162,7 @@ exports.is_valid = {
         test.done();
     },
 
-    "invalidAt" : function (test) {
+    "invalidAt": function (test) {
         test.expect(7);
         test.equal(moment([2000, 12]).invalidAt(), 1, 'month 12 is invalid: 0-11');
         test.equal(moment([2000, 1, 30]).invalidAt(), 2, '30 is not a valid february day');
@@ -174,7 +174,7 @@ exports.is_valid = {
         test.done();
     },
 
-    "valid Unix timestamp" : function (test) {
+    "valid Unix timestamp": function (test) {
         test.expect(21);
         test.equal(moment(1371065286, "X").isValid(), true, 'number integer');
         test.equal(moment(1379066897.0, "X").isValid(), true, 'number whole 1dp');
@@ -200,7 +200,7 @@ exports.is_valid = {
         test.done();
     },
 
-    "invalid Unix timestamp" : function (test) {
+    "invalid Unix timestamp": function (test) {
         test.expect(8);
         test.equal(moment(undefined, "X").isValid(), false, 'undefined');
         test.equal(moment("undefined", "X").isValid(), false, 'string undefined');

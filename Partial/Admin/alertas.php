@@ -9,7 +9,7 @@ if ($user[md5(ST_TROCA_SENHA)] == SimNaoEnum::NAO && empty($session->CheckSessio
     Notificacoes::notificacao($dados);
 
 }
-if(!empty($user[md5('status_sistema')])){
+if (!empty($user[md5('status_sistema')])) {
     if ($user[md5('status_sistema')] == StatusSistemaEnum::PENDENTE) {
         $difDatas = Valida::CalculaDiferencaDiasData(date('d/m/Y'), $user[md5(DT_EXPIRACAO)]);
 

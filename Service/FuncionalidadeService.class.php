@@ -23,13 +23,13 @@ class  FuncionalidadeService extends AbstractService
         $todasFunc = array();
         $bloqueioFunc = array();
         $coAssinante = AssinanteService::getCoAssinanteLogado();
-        if($coAssinante){
-            $bloqueioFunc = array(0,1,2,3,4,7,8,9);
+        if ($coAssinante) {
+            $bloqueioFunc = array(0, 1, 2, 3, 4, 7, 8, 9);
         }
         /** @var FuncionalidadeEntidade $func */
         foreach ($funcionalidades as $func) :
             $coController = ($func->getCoController()) ? $func->getCoController()->getCoController() : 0;
-            if(!in_array($coController,$bloqueioFunc)){
+            if (!in_array($coController, $bloqueioFunc)) {
                 $todasFunc[$func->getCoFuncionalidade()] = $func->getNoFuncionalidade();
             }
         endforeach;
@@ -78,7 +78,7 @@ class  FuncionalidadeService extends AbstractService
             endif;
         endif;
         if ($coFuncionalidade) {
-            if(!empty($dados[CO_PERFIL])){
+            if (!empty($dados[CO_PERFIL])) {
                 $perfilFunc[CO_FUNCIONALIDADE] = $coFuncionalidade;
                 foreach ($dados[CO_PERFIL] as $coPerfil) {
                     $perfilFunc[CO_PERFIL] = $coPerfil;

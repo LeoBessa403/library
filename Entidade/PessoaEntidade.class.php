@@ -7,19 +7,19 @@
 
 class PessoaEntidade extends PessoaEntidadeExtends
 {
-	const TABELA = 'TB_PESSOA';
-	const ENTIDADE = 'PessoaEntidade';
-	const CHAVE = CO_PESSOA;
+    const TABELA = 'TB_PESSOA';
+    const ENTIDADE = 'PessoaEntidade';
+    const CHAVE = CO_PESSOA;
 
-	private $co_pessoa;
-	private $nu_cpf;
-	private $no_pessoa;
-	private $nu_rg;
-	private $dt_cadastro;
-	private $dt_nascimento;
-	private $st_sexo;
-	private $co_endereco;
-	private $co_usuario;
+    private $co_pessoa;
+    private $nu_cpf;
+    private $no_pessoa;
+    private $nu_rg;
+    private $dt_cadastro;
+    private $dt_nascimento;
+    private $st_sexo;
+    private $co_endereco;
+    private $co_usuario;
     private $co_contato;
     private $co_imagem;
     private $co_assinante;
@@ -27,179 +27,181 @@ class PessoaEntidade extends PessoaEntidadeExtends
     /**
      * @return array
      */
-	public static function getCampos() {
-    	return [
-			CO_PESSOA,
-			NU_CPF,
-			NO_PESSOA,
-			NU_RG,
-			DT_CADASTRO,
-			DT_NASCIMENTO,
-			ST_SEXO,
-			CO_CONTATO,
-			CO_ENDERECO,
+    public static function getCampos()
+    {
+        return [
+            CO_PESSOA,
+            NU_CPF,
+            NO_PESSOA,
+            NU_RG,
+            DT_CADASTRO,
+            DT_NASCIMENTO,
+            ST_SEXO,
+            CO_CONTATO,
+            CO_ENDERECO,
             CO_IMAGEM,
-		];
+        ];
     }
 
-	/**
-	* @return array $relacionamentos
+    /**
+     * @return array $relacionamentos
      */
-	public static function getRelacionamentos() {
-    	$relacionamentos = Relacionamentos::getRelacionamentos();
-		return $relacionamentos[static::TABELA];
-	}
+    public static function getRelacionamentos()
+    {
+        $relacionamentos = Relacionamentos::getRelacionamentos();
+        return $relacionamentos[static::TABELA];
+    }
 
 
-	/**
-	* @return int $co_pessoa
+    /**
+     * @return int $co_pessoa
      */
-	public function getCoPessoa()
+    public function getCoPessoa()
     {
         return $this->co_pessoa;
     }
 
-	/**
-	* @param $co_pessoa
+    /**
+     * @param $co_pessoa
      * @return mixed
      */
-	public function setCoPessoa($co_pessoa)
+    public function setCoPessoa($co_pessoa)
     {
         return $this->co_pessoa = $co_pessoa;
     }
 
-	/**
-	* @return mixed $nu_cpf
+    /**
+     * @return mixed $nu_cpf
      */
-	public function getNuCpf()
+    public function getNuCpf()
     {
         return $this->nu_cpf;
     }
 
-	/**
-	* @param $nu_cpf
+    /**
+     * @param $nu_cpf
      * @return mixed
      */
-	public function setNuCpf($nu_cpf)
+    public function setNuCpf($nu_cpf)
     {
         return $this->nu_cpf = $nu_cpf;
     }
 
-	/**
-	* @return mixed $no_pessoa
+    /**
+     * @return mixed $no_pessoa
      */
-	public function getNoPessoa()
+    public function getNoPessoa()
     {
         return $this->no_pessoa;
     }
 
-	/**
-	* @param $no_pessoa
+    /**
+     * @param $no_pessoa
      * @return mixed
      */
-	public function setNoPessoa($no_pessoa)
+    public function setNoPessoa($no_pessoa)
     {
         return $this->no_pessoa = $no_pessoa;
     }
 
-	/**
-	* @return mixed $nu_rg
+    /**
+     * @return mixed $nu_rg
      */
-	public function getNuRg()
+    public function getNuRg()
     {
         return $this->nu_rg;
     }
 
-	/**
-	* @param $nu_rg
+    /**
+     * @param $nu_rg
      * @return mixed
      */
-	public function setNuRg($nu_rg)
+    public function setNuRg($nu_rg)
     {
         return $this->nu_rg = $nu_rg;
     }
 
-	/**
-	* @return mixed $dt_cadastro
+    /**
+     * @return mixed $dt_cadastro
      */
-	public function getDtCadastro()
+    public function getDtCadastro()
     {
         return $this->dt_cadastro;
     }
 
-	/**
-	* @param $dt_cadastro
+    /**
+     * @param $dt_cadastro
      * @return mixed
      */
-	public function setDtCadastro($dt_cadastro)
+    public function setDtCadastro($dt_cadastro)
     {
         return $this->dt_cadastro = $dt_cadastro;
     }
 
-	/**
-	* @return mixed $dt_nascimento
+    /**
+     * @return mixed $dt_nascimento
      */
-	public function getDtNascimento()
+    public function getDtNascimento()
     {
         return $this->dt_nascimento;
     }
 
-	/**
-	* @param $dt_nascimento
+    /**
+     * @param $dt_nascimento
      * @return mixed
      */
-	public function setDtNascimento($dt_nascimento)
+    public function setDtNascimento($dt_nascimento)
     {
         return $this->dt_nascimento = $dt_nascimento;
     }
 
-	/**
-	* @return mixed $st_sexo
+    /**
+     * @return mixed $st_sexo
      */
-	public function getStSexo()
+    public function getStSexo()
     {
         return $this->st_sexo;
     }
 
-	/**
-	* @param $st_sexo
+    /**
+     * @param $st_sexo
      * @return mixed
      */
-	public function setStSexo($st_sexo)
+    public function setStSexo($st_sexo)
     {
         return $this->st_sexo = $st_sexo;
     }
 
-	/**
-	* @return EnderecoEntidade $co_endereco
+    /**
+     * @return EnderecoEntidade $co_endereco
      */
-	public function getCoEndereco()
+    public function getCoEndereco()
     {
         return $this->co_endereco;
     }
 
-	/**
-	* @param $co_endereco
+    /**
+     * @param $co_endereco
      * @return mixed
      */
-	public function setCoEndereco($co_endereco)
+    public function setCoEndereco($co_endereco)
     {
         return $this->co_endereco = $co_endereco;
     }
 
-	/**
-	* @return UsuarioEntidade $co_usuario
+    /**
+     * @return UsuarioEntidade $co_usuario
      */
-	public function getCoUsuario()
+    public function getCoUsuario()
     {
         return $this->co_usuario;
     }
 
-	/**
+    /**
      * @param $co_usuario
      * @return mixed
      */
-	public function setCoUsuario($co_usuario)
+    public function setCoUsuario($co_usuario)
     {
         return $this->co_usuario = $co_usuario;
     }

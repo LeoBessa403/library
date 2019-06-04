@@ -186,9 +186,9 @@ class Grafico
         $i = 1;
         $result = '';
         foreach ($dados as $key => $valor) {
-            if($TipoPorcentagem){
+            if ($TipoPorcentagem) {
                 $result .= "['" . $key . "'," . $valor . "]";
-            }else{
+            } else {
                 $result .= $valor;
             }
             if ($i < $quant) {

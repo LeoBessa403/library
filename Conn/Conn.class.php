@@ -72,12 +72,12 @@ abstract class Conn
      */
     protected function gravaAtualizacaoBanco($sql, $dados, $co_registro = null)
     {
-        if($sql) {
+        if ($sql) {
             foreach ($dados as $chave => $valor) {
                 $sql = str_replace(':' . $chave, '"' . $valor . '"', $sql);
             }
-            if($co_registro){
-                $sql = str_replace(':codigo',  $co_registro , $sql);
+            if ($co_registro) {
+                $sql = str_replace(':codigo', $co_registro, $sql);
             }
             $AtualizaArqBanco = fopen(PASTABACKUP . 'Atualizacao.sql', "a+");
             fwrite($AtualizaArqBanco, $sql . ";\n\n");

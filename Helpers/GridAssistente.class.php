@@ -50,7 +50,7 @@ class GridAssistente
         self::$gridAssistente .= '<div class="form-group col-sm-12">
                 <div class="col-sm-12">
                     <table class="table-striped table-bordered table-hover table-full-width table-nodatable"
-                           id="'.$id.'" style="width: 100%" cellpadding="5" cellspacing="5">
+                           id="' . $id . '" style="width: 100%" cellpadding="5" cellspacing="5">
                         <thead>
                         <tr style="background-color: #99ccff; color: #000;" role="row">';
         if (is_array(self::$colunas)):

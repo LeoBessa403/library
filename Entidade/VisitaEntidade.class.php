@@ -7,11 +7,11 @@
 
 class VisitaEntidade extends AbstractEntidade
 {
-	const TABELA = 'TB_VISITA';
-	const ENTIDADE = 'VisitaEntidade';
-	const CHAVE = CO_VISITA;
+    const TABELA = 'TB_VISITA';
+    const ENTIDADE = 'VisitaEntidade';
+    const CHAVE = CO_VISITA;
 
-	private $co_visita;
+    private $co_visita;
     private $dt_realizado;
     private $dt_atualizado;
     private $nu_visitas;
@@ -21,19 +21,21 @@ class VisitaEntidade extends AbstractEntidade
     /**
      * @return array
      */
-	public static function getCampos() {
-    	return [
-			CO_VISITA,
-			DT_REALIZADO,
-			DT_ATUALIZADO,
-			NU_VISITAS,
-		];
+    public static function getCampos()
+    {
+        return [
+            CO_VISITA,
+            DT_REALIZADO,
+            DT_ATUALIZADO,
+            NU_VISITAS,
+        ];
     }
 
     /**
      * @return array $relacionamentos
      */
-    public static function getRelacionamentos() {
+    public static function getRelacionamentos()
+    {
         $relacionamentos = Relacionamentos::getRelacionamentos();
         return $relacionamentos[static::TABELA];
     }

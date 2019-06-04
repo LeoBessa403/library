@@ -36,7 +36,7 @@
                 <div class="pull-right">
                     <!-- end: DYNAMIC TABLE PANEL -->
                     <?php Valida::geraBtnVoltar('Sessao/ListarSessao/' . Valida::GeraParametro(
-                    CO_MODULO . "/" . $coModulo)); ?>
+                            CO_MODULO . "/" . $coModulo)); ?>
                 </div>
                 <br><br><br>
                 <!-- end: DYNAMIC TABLE PANEL -->

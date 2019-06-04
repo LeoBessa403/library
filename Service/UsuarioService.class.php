@@ -168,7 +168,7 @@ class  UsuarioService extends AbstractService
                     if ($ok):
                         if (!empty($dados['ds_perfil'])) {
                             foreach ($dados['ds_perfil'] as $perfil) {
-                                if($perfil != 3){
+                                if ($perfil != 3) {
                                     if (AssinanteService::getCoAssinanteLogado()) {
                                         $usuarioPerfil[CO_PERFIL_ASSINANTE] = $perfil;
                                     } else {
@@ -234,7 +234,7 @@ class  UsuarioService extends AbstractService
                     if (!$resgistrar):
                         if (!empty($dados['ds_perfil'])) {
                             foreach ($dados['ds_perfil'] as $perfil) {
-                                if($perfil != 3){
+                                if ($perfil != 3) {
                                     if (AssinanteService::getCoAssinanteLogado()) {
                                         $usuarioPerfil[CO_PERFIL_ASSINANTE] = $perfil;
                                     } else {

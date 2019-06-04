@@ -1,7 +1,7 @@
 var moment = require("../../moment");
 
 exports.add = {
-    "add short" : function (test) {
+    "add short": function (test) {
         test.expect(12);
 
         var a = moment(), b, c;
@@ -32,7 +32,7 @@ exports.add = {
         test.done();
     },
 
-    "add long" : function (test) {
+    "add long": function (test) {
         test.expect(8);
 
         var a = moment();
@@ -55,7 +55,7 @@ exports.add = {
         test.done();
     },
 
-    "add long singular" : function (test) {
+    "add long singular": function (test) {
         test.expect(8);
 
         var a = moment();
@@ -78,7 +78,7 @@ exports.add = {
         test.done();
     },
 
-    "add string long" : function (test) {
+    "add string long": function (test) {
         test.expect(9);
 
         var a = moment(), b;
@@ -104,7 +104,7 @@ exports.add = {
         test.done();
     },
 
-    "add string long singular" : function (test) {
+    "add string long singular": function (test) {
         test.expect(9);
 
         var a = moment(), b;
@@ -130,7 +130,7 @@ exports.add = {
         test.done();
     },
 
-    "add string short" : function (test) {
+    "add string short": function (test) {
         test.expect(8);
 
         var a = moment();
@@ -153,7 +153,7 @@ exports.add = {
         test.done();
     },
 
-    "add string long reverse args" : function (test) {
+    "add string long reverse args": function (test) {
         test.expect(8);
 
         var a = moment();
@@ -176,7 +176,7 @@ exports.add = {
         test.done();
     },
 
-    "add string long singular reverse args" : function (test) {
+    "add string long singular reverse args": function (test) {
         test.expect(8);
 
         var a = moment();
@@ -199,7 +199,7 @@ exports.add = {
         test.done();
     },
 
-    "add string short reverse args" : function (test) {
+    "add string short reverse args": function (test) {
         test.expect(8);
 
         var a = moment();
@@ -222,7 +222,7 @@ exports.add = {
         test.done();
     },
 
-    "add across DST" : function (test) {
+    "add across DST": function (test) {
         test.expect(3);
 
         var a = moment(new Date(2011, 2, 12, 5, 0, 0)),

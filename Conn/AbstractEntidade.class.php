@@ -26,7 +26,7 @@ class AbstractEntidade
                 $resultado[$campo] = trim(Valida::RetiraMascara($resultado[$campo]));
             }
             if (is_array($resultado[$campo])) {
-                $resultado[$campo] = implode(', ',$resultado[$campo]);
+                $resultado[$campo] = implode(', ', $resultado[$campo]);
             }
             if ($campo == DT_CADASTRO) {
                 $resultado[$campo] = Valida::DataHoraAtualBanco();

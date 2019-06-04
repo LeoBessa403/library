@@ -5701,9 +5701,10 @@ td.column-right {
     font-weight: bolder;
 }
 
-.box-shadow{
+.box-shadow {
     box-shadow: 2px 2px 20px black !important;
 }
+
 .icheckbox_square-purple, .icheckbox_square-green {
     margin: 0 !important;
 }

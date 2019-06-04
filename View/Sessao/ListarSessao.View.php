@@ -64,7 +64,7 @@
                             // Monta Barra de Progresso
                             $dados['esforco'] = 0;
                             $dados['esforcoRestante'] = 0;
-                            if($res->getCoHistoria()){
+                            if ($res->getCoHistoria()) {
                                 /** @var HistoriaEntidade $historia */
                                 foreach ($res->getCoHistoria() as $historia) {
                                     $dados['esforco'] = $dados['esforco'] +

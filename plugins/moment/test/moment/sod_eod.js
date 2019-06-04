@@ -1,17 +1,17 @@
 var moment = require("../../moment");
 
 exports.end_start_of = {
-    setUp : function (cb) {
+    setUp: function (cb) {
         moment.lang('en');
         cb();
     },
 
-    tearDown : function (cb) {
+    tearDown: function (cb) {
         moment.lang('en');
         cb();
     },
 
-    "start of year" : function (test) {
+    "start of year": function (test) {
         test.expect(9);
 
         var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('year'),
@@ -29,7 +29,7 @@ exports.end_start_of = {
         test.done();
     },
 
-    "end of year" : function (test) {
+    "end of year": function (test) {
         test.expect(9);
 
         var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('year'),
@@ -47,7 +47,7 @@ exports.end_start_of = {
         test.done();
     },
 
-    "start of month" : function (test) {
+    "start of month": function (test) {
         test.expect(9);
 
         var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('month'),
@@ -65,7 +65,7 @@ exports.end_start_of = {
         test.done();
     },
 
-    "end of month" : function (test) {
+    "end of month": function (test) {
         test.expect(9);
 
         var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('month'),
@@ -83,7 +83,7 @@ exports.end_start_of = {
         test.done();
     },
 
-    "start of week" : function (test) {
+    "start of week": function (test) {
         test.expect(10);
 
         var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('week'),
@@ -102,7 +102,7 @@ exports.end_start_of = {
         test.done();
     },
 
-    "end of week" : function (test) {
+    "end of week": function (test) {
         test.expect(10);
 
         var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('week'),
@@ -121,7 +121,7 @@ exports.end_start_of = {
         test.done();
     },
 
-    "start of iso-week" : function (test) {
+    "start of iso-week": function (test) {
         test.expect(10);
 
         var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('isoWeek'),
@@ -140,7 +140,7 @@ exports.end_start_of = {
         test.done();
     },
 
-    "end of iso-week" : function (test) {
+    "end of iso-week": function (test) {
         test.expect(10);
 
         var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('isoWeek'),
@@ -159,7 +159,7 @@ exports.end_start_of = {
         test.done();
     },
 
-    "start of day" : function (test) {
+    "start of day": function (test) {
         test.expect(9);
 
         var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('day'),
@@ -177,7 +177,7 @@ exports.end_start_of = {
         test.done();
     },
 
-    "end of day" : function (test) {
+    "end of day": function (test) {
         test.expect(9);
 
         var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('day'),
@@ -195,7 +195,7 @@ exports.end_start_of = {
         test.done();
     },
 
-    "start of hour" : function (test) {
+    "start of hour": function (test) {
         test.expect(9);
 
         var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('hour'),
@@ -213,7 +213,7 @@ exports.end_start_of = {
         test.done();
     },
 
-    "end of hour" : function (test) {
+    "end of hour": function (test) {
         test.expect(9);
 
         var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('hour'),
@@ -231,7 +231,7 @@ exports.end_start_of = {
         test.done();
     },
 
-    "start of minute" : function (test) {
+    "start of minute": function (test) {
         test.expect(9);
 
         var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('minute'),
@@ -249,7 +249,7 @@ exports.end_start_of = {
         test.done();
     },
 
-    "end of minute" : function (test) {
+    "end of minute": function (test) {
         test.expect(9);
 
         var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('minute'),
@@ -267,7 +267,7 @@ exports.end_start_of = {
         test.done();
     },
 
-    "start of second" : function (test) {
+    "start of second": function (test) {
         test.expect(9);
 
         var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('second'),
@@ -285,7 +285,7 @@ exports.end_start_of = {
         test.done();
     },
 
-    "end of second" : function (test) {
+    "end of second": function (test) {
         test.expect(9);
 
         var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('second'),

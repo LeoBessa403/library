@@ -1,7 +1,8 @@
 <?php
 
 
-class ObjetoPDO extends Conn {
+class ObjetoPDO extends Conn
+{
 
     public static $ObjetoPDO;
 
@@ -11,7 +12,8 @@ class ObjetoPDO extends Conn {
     }
 
     /** Retorna um objeto PDO Singleton Pattern. */
-    protected function getConexao() {
+    protected function getConexao()
+    {
         self::$ObjetoPDO = self::getConn();
     }
 

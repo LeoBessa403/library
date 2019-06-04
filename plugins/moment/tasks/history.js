@@ -26,14 +26,14 @@ function makeBar(length) {
 }
 
 function normalize() {
-    var i, 
+    var i,
         max = 0,
         max2 = 0;
-    for (i = 0; i < count; i ++) {
+    for (i = 0; i < count; i++) {
         max = Math.max(max, outputs[i].gzip);
         max2 = Math.max(max2, outputs[i].original);
     }
-    for (i = 0; i < count; i ++) {
+    for (i = 0; i < count; i++) {
         outputs[i].bargraph = makeBar((outputs[i].gzip / max) * 80);
         outputs[i].bargraph2 = makeBar((outputs[i].original / max2) * 80);
     }
@@ -41,7 +41,7 @@ function normalize() {
 
 function display() {
     var i;
-    for (i = 0; i < count; i ++) {
+    for (i = 0; i < count; i++) {
         console.log(outputs[i].version + ' ' + outputs[i].gzip + ' ' + outputs[i].original);
         console.log('gzip ' + outputs[i].bargraph);
         console.log('orig ' + outputs[i].bargraph2);
@@ -54,24 +54,24 @@ function getSizeAtVersion(version, path) {
         op = {},
 
         req = https.request({
-        host: 'raw.github.com',
-        port: 443,
-        path: '/timrwood/moment/' + version + path
-    }, function (res) {
-        res.setEncoding('utf8');
-        res.on('data', function (chunk) {
-            data += chunk;
-        });
-        res.on('end', function (e) {
-            zlib.gzip(data, function (error, result) {
-                op.version = version;
-                op.gzip = result.length;
-                op.original = data.length;
-                resolved ++;
-                check();
+            host: 'raw.github.com',
+            port: 443,
+            path: '/timrwood/moment/' + version + path
+        }, function (res) {
+            res.setEncoding('utf8');
+            res.on('data', function (chunk) {
+                data += chunk;
+            });
+            res.on('end', function (e) {
+                zlib.gzip(data, function (error, result) {
+                    op.version = version;
+                    op.gzip = result.length;
+                    op.original = data.length;
+                    resolved++;
+                    check();
+                });
             });
         });
-    });
 
     req.on('error', function (e) {
         console.log('problem with request: ' + e.message);
@@ -95,7 +95,7 @@ function getRemote() {
 }
 
 function getLocal() {
-    count ++;
+    count++;
     var op = {};
     outputs.push(op);
     fs.readFile(path.normalize(__dirname + '/../min/moment.min.js'), 'utf8', function (err, data) {
@@ -106,12 +106,11 @@ function getLocal() {
             op.version = '.next';
             op.gzip = result.length;
             op.original = data.length;
-            resolved ++;
+            resolved++;
             check();
         });
     });
 }
-
 
 
 module.exports = function (grunt) {

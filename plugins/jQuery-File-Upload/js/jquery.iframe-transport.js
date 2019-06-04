@@ -64,11 +64,11 @@
                     counter += 1;
                     iframe = $(
                         '<iframe src="javascript:false;" name="iframe-transport-' +
-                            counter + '"></iframe>'
+                        counter + '"></iframe>'
                     ).bind('load', function () {
                         var fileInputClones,
                             paramNames = $.isArray(options.paramName) ?
-                                    options.paramName : [options.paramName];
+                                options.paramName : [options.paramName];
                         iframe
                             .unbind('load')
                             .bind('load', function () {
@@ -117,7 +117,7 @@
                             });
                         }
                         if (options.fileInput && options.fileInput.length &&
-                                options.type === 'POST') {
+                            options.type === 'POST') {
                             fileInputClones = options.fileInput.clone();
                             // Insert a clone for each file input field:
                             options.fileInput.after(function (index) {
@@ -193,8 +193,8 @@
             'iframe xml': function (iframe) {
                 var xmlDoc = iframe && iframe[0];
                 return xmlDoc && $.isXMLDoc(xmlDoc) ? xmlDoc :
-                        $.parseXML((xmlDoc.XMLDocument && xmlDoc.XMLDocument.xml) ||
-                            $(xmlDoc.body).html());
+                    $.parseXML((xmlDoc.XMLDocument && xmlDoc.XMLDocument.xml) ||
+                        $(xmlDoc.body).html());
             },
             'iframe script': function (iframe) {
                 return iframe && $.globalEval($(iframe[0].body).text());

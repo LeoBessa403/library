@@ -9,5 +9,5 @@ $historico = $historico;
         ); ?></b></br>
     Esforço: <b><?= $historico->getNuEsforco(); ?></b></br>
     Esforço Restante: <b><?= ($historico->getNuEsforcoRestante())
-        ? $historico->getNuEsforcoRestante() : 0;?></b></br>
+            ? $historico->getNuEsforcoRestante() : 0; ?></b></br>
 </div>

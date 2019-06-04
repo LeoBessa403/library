@@ -8,22 +8,22 @@ var stable = '1.7.1',
 
 function getVersion(path, cb) {
     var data = '',
-        
+
         req = https.request({
-        host: 'raw.github.com',
-        port: 443,
-        path: '/timrwood/moment/' + path
-    }, function (res) {
-        res.setEncoding('utf8');
-        res.on('data', function (chunk) {
-            data += chunk;
-        });
-        res.on('end', function (e) {
-            zlib.gzip(data, function (error, result) {
-                cb(data.length, result.length);
+            host: 'raw.github.com',
+            port: 443,
+            path: '/timrwood/moment/' + path
+        }, function (res) {
+            res.setEncoding('utf8');
+            res.on('data', function (chunk) {
+                data += chunk;
+            });
+            res.on('end', function (e) {
+                zlib.gzip(data, function (error, result) {
+                    cb(data.length, result.length);
+                });
             });
         });
-    });
     req.on('error', function (e) {
         console.log('problem with request: ' + e.message);
     });

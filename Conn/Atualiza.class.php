@@ -34,7 +34,7 @@ class Atualiza extends Conn
     public function Atualizar($Tabela, array $Dados, $Termos, $Valores, $co_registro)
     {
         $this->Tabela = (string)$Tabela;
-        if(!empty($Dados[DT_CADASTRO])){
+        if (!empty($Dados[DT_CADASTRO])) {
             unset($Dados[DT_CADASTRO]);
         }
         $this->Dados = $Dados;
@@ -125,7 +125,7 @@ class Atualiza extends Conn
             $this->Result = true;
         } catch (PDOException $e) {
             $this->Result = null;
-            if (DEBUG){
+            if (DEBUG) {
                 Notificacoes::mesagens(
                     "Erro ao Atualizar na TABELA {$this->Tabela}: {$e->getMessage()}</br>{$this->getSql()}",
                     TiposMensagemEnum::ERRO);

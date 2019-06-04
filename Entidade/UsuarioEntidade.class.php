@@ -28,7 +28,8 @@ class UsuarioEntidade extends UsuarioEntidadeExtends
     /**
      * @return array
      */
-    public static function getCampos() {
+    public static function getCampos()
+    {
         return [
             CO_USUARIO,
             DS_SENHA,
@@ -45,7 +46,8 @@ class UsuarioEntidade extends UsuarioEntidadeExtends
     /**
      * @return array $relacionamentos
      */
-    public static function getRelacionamentos() {
+    public static function getRelacionamentos()
+    {
         $relacionamentos = Relacionamentos::getRelacionamentos();
         return $relacionamentos[static::TABELA];
     }

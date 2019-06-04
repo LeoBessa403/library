@@ -43,7 +43,7 @@
                         $assinante = $assinante;
                         $nome = $assinante->getCoEmpresa()->getNoFantasia();
                         $historicos = $assinante->getCoPlanoAssinanteAssinatura();
-                        require_once PARTIAL_LIBRARY. 'Admin/historico.php';
+                        require_once PARTIAL_LIBRARY . 'Admin/historico.php';
                         ?>
                     </div>
                 </div>

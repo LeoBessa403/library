@@ -59,7 +59,7 @@ exports.week_year = {
         test.equal(moment([2005, 11, 25]).weekYear(), 2005);
         test.equal(moment([2005, 11, 26]).weekYear(), 2006);
         test.equal(moment([2006, 11, 31]).weekYear(), 2006);
-        test.equal(moment([2007,  0,  1]).weekYear(), 2007);
+        test.equal(moment([2007, 0, 1]).weekYear(), 2007);
         test.equal(moment([2007, 11, 30]).weekYear(), 2007);
         test.equal(moment([2007, 11, 31]).weekYear(), 2008);
         test.equal(moment([2008, 11, 28]).weekYear(), 2008);

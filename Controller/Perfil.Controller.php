@@ -7,13 +7,13 @@ class Perfil extends AbstractController
     function ListarPerfil()
     {
         $coAssinante = AssinanteService::getCoAssinanteLogado();
-        if($coAssinante){
+        if ($coAssinante) {
             /** @var PerfilAssinanteService $perfilAssinanteService */
             $perfilAssinanteService = $this->getService(PERFIL_ASSINANTE_SERVICE);
             $this->result = $perfilAssinanteService->PesquisaTodos([
                 CO_ASSINANTE => $coAssinante
             ]);
-        }else{
+        } else {
             /** @var PerfilService $perfilService */
             $perfilService = $this->getService(PERFIL_SERVICE);
             $this->result = $perfilService->PesquisaTodos();
@@ -31,13 +31,13 @@ class Perfil extends AbstractController
         $id = "cadastroPerfil";
 
         if (!empty($_POST[$id])):
-            if(AssinanteService::getCoAssinanteLogado()){
+            if (AssinanteService::getCoAssinanteLogado()) {
                 $retorno = $perfilAssinanteService->salvaPerfilAssinante($_POST);
-            }else{
+            } else {
                 $retorno = $perfilService->salvaPerfil($_POST);
             }
-            if($retorno[SUCESSO]){
-                Redireciona(UrlAmigavel::$modulo.'/'.UrlAmigavel::$controller.'/ListarPerfil/');
+            if ($retorno[SUCESSO]) {
+                Redireciona(UrlAmigavel::$modulo . '/' . UrlAmigavel::$controller . '/ListarPerfil/');
             }
         endif;
 
@@ -45,11 +45,11 @@ class Perfil extends AbstractController
         $res = array();
         $res[CO_PERFIL] = null;
         $coAssinante = AssinanteService::getCoAssinanteLogado();
-        if($coAssinante){
+        if ($coAssinante) {
             /** @var PerfilAssinanteEntidade $perfil */
             $perfil = $perfilAssinanteService->PesquisaUmRegistro($coPerfil);
             $res[CO_PERFIL] = $perfil->getCoPerfilAssinante();
-        }elseif($coPerfil) {
+        } elseif ($coPerfil) {
             /** @var PerfilEntidade $perfil */
             $perfil = $perfilService->PesquisaUmRegistro($coPerfil);
             $res[CO_PERFIL] = $perfil->getCoPerfil();

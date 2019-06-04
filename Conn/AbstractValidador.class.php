@@ -120,7 +120,7 @@ class AbstractValidador
                 break;
             case static::VALIDACAO_SENHA:
                 $tamanho = strlen($dado);
-                if($tamanho >= $qtdCaracteres) {
+                if ($tamanho >= $qtdCaracteres) {
                     $forca = 0;
                     if (($tamanho >= 4) && ($tamanho <= 7)) {
                         $forca += 10;
@@ -139,8 +139,8 @@ class AbstractValidador
                     if (preg_replace('/^[a-zA-Z0-9]+/', '', $dado)) {
                         $forca += 25;
                     }
-                    if($forca >= 30)
-                    $validador = true;
+                    if ($forca >= 30)
+                        $validador = true;
                 }
 
                 break;

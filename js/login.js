@@ -152,7 +152,9 @@ var Login = function () {
             runForgotValidator();
             runRegisterValidator();
             // ABRE MODAL DE LOAD DO SISTEMA
-            setTimeout(function(){  $("#sumir").fadeOut("slow");  },  7000 ); 
+            setTimeout(function () {
+                $("#sumir").fadeOut("slow");
+            }, 7000);
         }
     };
 }();

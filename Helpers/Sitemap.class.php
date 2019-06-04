@@ -54,7 +54,7 @@ class Sitemap
         $this->Sitemap .= '</url>' . "\r\n";
 
 
-        if(file_exists('sitemap.php')){
+        if (file_exists('sitemap.php')) {
             require_once 'sitemap.php';
         }
 

@@ -41,7 +41,7 @@
                         <?php
                         $nome = $plano->getNoPlano();
                         $historicos = $plano->getCoPlanoAssinante();
-                        require_once PARTIAL_LIBRARY. 'Admin/historico.php';
+                        require_once PARTIAL_LIBRARY . 'Admin/historico.php';
                         ?>
                     </div>
                 </div>

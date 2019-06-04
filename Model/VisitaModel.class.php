@@ -98,7 +98,7 @@ class  VisitaModel extends AbstractModel
 
     public function totalVisitasMesAtual()
     {
-        $proximoMes  = date("Y-m",strtotime(date("Y-m-d", strtotime(date("Y-m-d"))) . " +1 month"));
+        $proximoMes = date("Y-m", strtotime(date("Y-m-d", strtotime(date("Y-m-d"))) . " +1 month"));
         $campos = "count(co_visita) as usuarios, sum(nu_visitas) as qt_visitas";
         $pesquisa = new Pesquisa();
         $where = 'WHERE dt_atualizado BETWEEN "' . date('Y-m') .

@@ -85,18 +85,18 @@
                     settings = this.options,
                     file = data.files[data.index];
                 if ($.type(options.maxNumberOfFiles) === 'number' &&
-                        (settings.getNumberOfFiles() || 0) + data.files.length >
-                            options.maxNumberOfFiles) {
+                    (settings.getNumberOfFiles() || 0) + data.files.length >
+                    options.maxNumberOfFiles) {
                     file.error = settings.i18n('maxNumberOfFiles');
                 } else if (options.acceptFileTypes &&
-                        !(options.acceptFileTypes.test(file.type) ||
+                    !(options.acceptFileTypes.test(file.type) ||
                         options.acceptFileTypes.test(file.name))) {
                     file.error = settings.i18n('acceptFileTypes');
                 } else if (options.maxFileSize && file.size >
-                        options.maxFileSize) {
+                    options.maxFileSize) {
                     file.error = settings.i18n('maxFileSize');
                 } else if ($.type(file.size) === 'number' &&
-                        file.size < options.minFileSize) {
+                    file.size < options.minFileSize) {
                     file.error = settings.i18n('minFileSize');
                 } else {
                     delete file.error;

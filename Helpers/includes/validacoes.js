@@ -480,6 +480,28 @@ $(function () {
             Funcoes.Informativo("Existe(em) campo(s) obrigatório(s) em branco, favor verificar!");
             return false;
         }
+        $.ajax({
+            url: urlValida,
+            data: {valida: "ajax", data: $(this).serialize()},
+            type: "POST",
+            dataType: "json",
+            contentType: false,
+            cache: false,
+            processData:false,
+            beforeSend: function () {
+                $('.img-load').fadeIn('slow');
+            },
+            success: function (data) {
+                // $('.img-load').fadeOut('fast');
+                Funcoes.Informativo(data);
+                return false;
+            },
+            error: function (e) {
+                Funcoes.Erro(e.preventDefault());
+            }
+        });
+
+        return false;
     });
 
     //CAMPO OBRIGATÓRIO

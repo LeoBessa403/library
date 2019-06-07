@@ -745,6 +745,8 @@ class Form
                             <div class="col-md-12">' .
             self::$form
             . '<div class="col-md-12" style="display: block; padding: 0;">
+                     <img src="' . PASTA_LIBRARY .'images/loading.gif" class="img-load pull-right"
+                     style="margin: 15px 0 0 10px; display: none;"/>
                         <button data-style="zoom-out" class="btn btn-success pull-right ladda-button" type="submit" 
                  value="' . self::$idForm . '" name="' . self::$idForm . '" style="margin-top: 8px; margin-left: 10px;">
                             <span class="ladda-label"> ' . self::$botao . ' </span>

@@ -9,9 +9,9 @@ else:
 endif;
 $valida = new Valida();
 
-if (isset($_GET['valida'])) {
+if (isset($_POST['valida'])) {
 
-    switch ($_GET['valida']) {
+    switch ($_POST['valida']) {
         /*****************************
          * VALIDA O CPF
          *****************************/
@@ -49,6 +49,12 @@ if (isset($_GET['valida'])) {
         case 'msg_valida':
             $msg = new Mensagens();
             echo $msg->$_GET['msg'];
+            break;     break;
+        /*****************************
+         * Executa os ajax
+         *****************************/
+        case 'ajax':
+            debug($_FILES);
             break;
 
 ////////////////////////////////////////////////////////////////////////

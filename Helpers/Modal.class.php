@@ -333,8 +333,13 @@ class Modal
             </div>';
     }
 
-    public static function Cadastro($action = null)
+    public static function Cadastro($action = null, $titulo = 'Cadastro', $class = 'green', $icon = 'fa fa-plus')
     {
+        echo '<a data-toggle="modal" role="button" class="btn btn-' . $class . ' tooltips acao"
+                           id="btn-' . $action . '" href="#' . $action . '" >
+                            <i class="' . $icon . '"></i> ' . $titulo . '
+                        </a>
+                        ';
         $action = ($action) ? $action : UrlAmigavel::$action;
         $app = new UrlAmigavel::$controller();
         if (method_exists($app, $action)):
@@ -342,14 +347,14 @@ class Modal
         endif;
         extract((array)$app);
         $arquivo_include = UrlAmigavel::$modulo . "/View/" . UrlAmigavel::$controller . "/" . $action . '.View.php';
-        echo '<div class="modal fade in modal-overflow j_cadastro" id="' .  $action . '" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-header btn-success">
+        echo '<div class="modal fade in modal-overflow j_cadastro" id="' . $action . '" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-header btn-green">
                         <button type="button" class="close cancelar" data-dismiss="modal" aria-hidden="true">
                                 X
                         </button>
-                        <h4 class="modal-title">Título da modal</h4>
+                        <h4 class="modal-title">' . $titulo . '</h4>
                 </div>
-                <div class="modal-body" style="padding: 10px 0 0;">
+                <div class="modal-body" style="padding: 0;">
                         ';
         if (file_exists($arquivo_include) && !is_dir($arquivo_include)) {
             include $arquivo_include;

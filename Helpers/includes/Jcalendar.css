@@ -5,6 +5,7 @@
     padding: .2em .2em 0;
     display: none;
     border-radius: 8px;
+    z-index: 1070 !important;
 }
 
 .ui-datepicker .ui-datepicker-header {

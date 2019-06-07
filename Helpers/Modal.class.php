@@ -348,7 +348,7 @@ class Modal
         extract((array)$app);
         $arquivo_include = UrlAmigavel::$modulo . "/View/" . UrlAmigavel::$controller . "/" . $action . '.View.php';
         echo '<div class="modal fade in modal-overflow j_cadastro" id="' . $action . '" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-header btn-green">
+                <div class="modal-header btn-light-grey">
                         <button type="button" class="close cancelar" data-dismiss="modal" aria-hidden="true">
                                 X
                         </button>

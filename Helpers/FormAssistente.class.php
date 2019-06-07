@@ -46,7 +46,7 @@ class FormAssistente extends Form
      * @param $segundaColuna : Segunda coluna da aba a da direita
      * @return string Abas.
      */
-    public function criaAba($titulo, $subTitulo, $tamanhoForm = 6, $primeiraColuna = 3, $segundaColuna = 9)
+    public function criaAba($titulo, $subTitulo, $tamanhoForm = 12, $primeiraColuna = 3, $segundaColuna = 9)
     {
         self::$colEsquerda = $primeiraColuna;
         self::$colDireita = $segundaColuna;

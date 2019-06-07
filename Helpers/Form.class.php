@@ -50,7 +50,7 @@ class Form
         self::$options = array();
         self::$label_options = array();
         self::$form = "";
-        self::$tamanhoForm = ($tamanhoForm) ? $tamanhoForm : 6;
+        self::$tamanhoForm = ($tamanhoForm) ? $tamanhoForm : 12;
         self::$tamanho = "";
         self::$action = ($action) ? $action : ADMIN . "/" . UrlAmigavel::$controller . "/" . UrlAmigavel::$action;
         self::$botao = ($botao) ? $botao : "Salvar";
@@ -732,17 +732,13 @@ class Form
 
     /**
      * <b>finalizaForm:</b> Fecha o formulário
-     * @param bool $link
-     * @param bool $btnVoltar
-     * @param null $titulo
      * @return STRING com o fechamento do FORM.
      */
-    public function finalizaForm($link = false, $btnVoltar = true, $titulo = null)
+    public function finalizaForm()
     {
         self::$form = '<div class="col-md-' . self::$tamanhoForm . '">							
                 <div class="panel panel-box">
                         <div class="panel-body">
-                 <h2 style="margin: 0 0 15px;"><small>' . $titulo . '</small></h2>
                             <form action="' . HOME . self::$action . '" role="form" 
                             id="' . self::$idForm . '" name="' . self::$idForm . '" method="post" 
                             enctype="multipart/form-data" class="formulario">                                                         
@@ -755,26 +751,12 @@ class Form
                             <i class="fa fa-save"></i>
                             <span class="ladda-spinner"></span>
                         </button>
-                        <button data-style="expand-right" class="btn btn-danger ladda-button pull-right" type="reset" style="margin-top: 8px;">
+                        <button data-style="expand-right" class="btn btn-primary ladda-button pull-right" 
+                        type="reset" style="margin-top: 8px;">
                             <span class="ladda-label"> Limpar </span>
                             <i class="fa fa-ban"></i>
                             <span class="ladda-spinner"></span>
                         </button>';
-        if ($btnVoltar) {
-            if (!$link) {
-                $link = UrlAmigavel::$modulo;
-                $link .= (UrlAmigavel::$modulo == ADMIN)
-                    ? '/' . UrlAmigavel::$controller . '/Listar' . UrlAmigavel::$controller
-                    : '';
-            } else {
-                $link = UrlAmigavel::$modulo . '/' . $link;
-            }
-            self::$form .= '<a href="' . HOME . $link . '"
-                           class="btn pull-left btn-primary tooltips" data-original-title="Voltar" data-placement="top"
-                           style="margin-top: 10px;">
-                            Voltar <i class="clip-arrow-right-2"></i>
-                         </a>';
-        }
 
         self::$form .= '</div>
                     </div>

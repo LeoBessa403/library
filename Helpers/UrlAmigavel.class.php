@@ -154,7 +154,7 @@ class UrlAmigavel
         elseif (file_exists("library/" . $arquivo_include) && !is_dir("library/" . $arquivo_include)):
             include "library/" . $arquivo_include;
         else:
-            Notificacoes::mesagens("A View <b>" . self::$modulo . "/" . self::$controller . "/" .
+            Notificacoes::mesagens("A View <b>" . self::$modulo . "/View/" . self::$controller . "/" .
                 $actAux . ".View.php</b> não foi encontrada!",
                 TiposMensagemEnum::ERRO);
         endif;

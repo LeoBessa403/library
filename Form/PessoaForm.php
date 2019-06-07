@@ -2,7 +2,7 @@
 
 class PessoaForm extends AbstractController
 {
-    public static function ValidarCPF($link, $tamanho = 12)
+    public static function ValidarCPF($tamanho = 12)
     {
         $id = "ValidacaoPessoa";
 
@@ -18,7 +18,7 @@ class PessoaForm extends AbstractController
             ->setLabel("CPF")
             ->CriaInpunt();
 
-        return $formulario->finalizaForm($link);
+        return $formulario->finalizaForm();
     }
 
 }

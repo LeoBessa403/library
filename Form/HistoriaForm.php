@@ -65,8 +65,7 @@ class HistoriaForm
                 ->CriaInpunt();
         endif;
 
-        return $formulario->finalizaForm('Historia/ListarHistoria/' .
-            Valida::GeraParametro(CO_SESSAO . "/" . $res[CO_SESSAO]));
+        return $formulario->finalizaForm();
     }
 }
 

@@ -333,4 +333,33 @@ class Modal
             </div>';
     }
 
+    public static function Cadastro($action = null)
+    {
+        $action = ($action) ? $action : UrlAmigavel::$action;
+        $app = new UrlAmigavel::$controller();
+        if (method_exists($app, $action)):
+            $app->$action();
+        endif;
+        extract((array)$app);
+        $arquivo_include = UrlAmigavel::$modulo . "/View/" . UrlAmigavel::$controller . "/" . $action . '.View.php';
+        echo '<div class="modal fade in modal-overflow j_cadastro" id="' .  $action . '" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-header btn-success">
+                        <button type="button" class="close cancelar" data-dismiss="modal" aria-hidden="true">
+                                X
+                        </button>
+                        <h4 class="modal-title">Título da modal</h4>
+                </div>
+                <div class="modal-body" style="padding: 10px 0 0;">
+                        ';
+        if (file_exists($arquivo_include) && !is_dir($arquivo_include)) {
+            include $arquivo_include;
+        } else {
+            Notificacoes::mesagens("A View <b>" . UrlAmigavel::$modulo . "/View/" . UrlAmigavel::$controller . "/" .
+                $action . ".View.php</b> não foi encontrada!",
+                TiposMensagemEnum::ERRO);
+        }
+        echo '</div>
+            </div>';
+    }
+
 }

@@ -42,8 +42,7 @@ class ModuloForm
                 ->CriaInpunt();
         endif;
 
-        return $formulario->finalizaForm('Modulo/ListarModulo/' .
-            Valida::GeraParametro(CO_PROJETO . "/" . $res[CO_PROJETO]));
+        return $formulario->finalizaForm();
     }
 }
 

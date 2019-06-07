@@ -9,9 +9,9 @@ else:
 endif;
 $valida = new Valida();
 
-if (isset($_POST['valida'])) {
+if (isset($_GET['valida'])) {
 
-    switch ($_POST['valida']) {
+    switch ($_GET['valida']) {
         /*****************************
          * VALIDA O CPF
          *****************************/
@@ -54,7 +54,7 @@ if (isset($_POST['valida'])) {
          * Executa os ajax
          *****************************/
         case 'ajax':
-            debug($_FILES);
+            echo 'ola 33';
             break;
 
 ////////////////////////////////////////////////////////////////////////

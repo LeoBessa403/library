@@ -482,12 +482,12 @@ $(function () {
         }
         $.ajax({
             url: urlValida,
-            data: {valida: "ajax", data: $(this).serialize()},
-            type: "POST",
+            data: {valida: "ajax", data: ""},
+            type: "GET",
             dataType: "json",
-            contentType: false,
-            cache: false,
-            processData:false,
+            // contentType: false,
+            // cache: false,
+            // processData:false,
             beforeSend: function () {
                 $('.img-load').fadeIn('slow');
             },

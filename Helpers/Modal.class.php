@@ -333,6 +333,31 @@ class Modal
             </div>';
     }
 
+    public static function modelConfirmacao($id, $msg, $codigo, $action)
+    {
+        echo '<div class="modal fade in modal-overflow model_confirmacao" id="' . $id . '" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-header btn-success">
+                        <button type="button" class="close cancelar" data-dismiss="modal" aria-hidden="true">
+                                X
+                        </button>
+                        <h4 class="modal-title">Confirmação</h4>
+                </div>
+                <div class="modal-body">
+                        <b>' . $msg . '</b>
+                </div>
+                <div class="modal-footer">
+                        <button aria-hidden="true" data-dismiss="modal" class="btn btn-bricky cancelar">
+                                Fechar
+                        </button>
+                        <button class="btn btn-success" data-dismiss="modal" id="btn-success-' . $id . '" data-url-action="' . $action . '">
+                                OK
+                        </button>
+                        <input type="hidden" name="codigo" id="codigo" value="' . $codigo . '" />
+                </div>
+            </div>';
+        echo '<a data-toggle="modal" role="button" href="#' . $id . '" id="model_confirmacao"></a>';
+    }
+
     public static function Cadastro($action = null, $titulo = 'Cadastro', $class = 'green', $icon = 'fa fa-plus')
     {
         echo '<a data-toggle="modal" role="button" class="btn btn-' . $class . ' tooltips acao"

@@ -104,12 +104,12 @@ class Cpdf
     public $currentLineStyle = '';
 
     /**
-     * @var array Current line transparency (partial graphics state)
+     * @var array Current line transparency (Partial graphics state)
      */
     public $currentLineTransparency = array("mode" => "Normal", "opacity" => 1.0);
 
     /**
-     * array Current fill transparency (partial graphics state)
+     * array Current fill transparency (Partial graphics state)
      */
     public $currentFillTransparency = array("mode" => "Normal", "opacity" => 1.0);
 

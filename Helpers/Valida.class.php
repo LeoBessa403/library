@@ -1003,7 +1003,7 @@ class Valida
         return $codigo;
     }
 
-    public static function SituacaoUsuario($st)
+    public static function SituacaoAtivoInativo($st)
     {
 
         switch ($st) {

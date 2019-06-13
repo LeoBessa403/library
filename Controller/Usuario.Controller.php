@@ -163,7 +163,7 @@ class Usuario extends AbstractController
         foreach ($result as $value) {
             $res[$i][NO_PESSOA] = $value->getCoPessoa()->getNoPessoa();
             $res[$i][NU_CPF] = Valida::MascaraCpf($value->getCoPessoa()->getNuCpf());
-            $res[$i][ST_STATUS] = Valida::SituacaoUsuario($value->getStStatus());
+            $res[$i][ST_STATUS] = Valida::SituacaoAtivoInativo($value->getStStatus());
             $i++;
         }
         $Colunas = array('Nome', 'CPF', 'Status');

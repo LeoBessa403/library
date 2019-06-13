@@ -1630,7 +1630,7 @@ class Style
      * exactly this order, separate by space. Multiple fonts separated by comma:
      * font-style, font-variant, font-weight, font-size, line-height, font-family
      *
-     * Other than with border and list, existing partial attributes should
+     * Other than with border and list, existing Partial attributes should
      * reset when starting here, even when not mentioned.
      * If individual attribute is !important and explicite or implicite replacement is not,
      * keep individual attribute
@@ -1807,7 +1807,7 @@ class Style
         //$border_spec = str_replace(",", " ", $border_spec); // Why did we have this ?? rbg(10, 102, 10) > rgb(10  102  10)
         $arr = explode(" ", $border_spec);
 
-        // FIXME: handle partial values
+        // FIXME: handle Partial values
 
         //For consistency of individal and combined properties, and with ie8 and firefox3
         //reset all attributes, even if only partially given

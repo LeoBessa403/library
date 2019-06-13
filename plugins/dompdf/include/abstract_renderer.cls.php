@@ -138,7 +138,7 @@ abstract class Abstract_Renderer
 
         $bg_y = round($bg_y + $style->length_in_pt($style->border_top_width) * DOMPDF_DPI / 72);
 
-        //clip background to the image area on partial repeat. Nothing to do if img off area
+        //clip background to the image area on Partial repeat. Nothing to do if img off area
         //On repeat, normalize start position to the tile at immediate left/top or 0/0 of area
         //On no repeat with positive offset: move size/start to have offset==0
         //Handle x/y Dimensions separately

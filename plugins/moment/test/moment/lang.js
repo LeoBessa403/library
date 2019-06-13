@@ -192,13 +192,13 @@ exports.lang = {
     "changing parts of a language config": function (test) {
         test.expect(2);
 
-        moment.lang('partial-lang', {
+        moment.lang('Partial-lang', {
             months: 'a b c d e f g h i j k l'.split(' ')
         });
 
         test.equal(moment([2011, 0, 1]).format('MMMM'), 'a', 'should be able to set language values when creating the language');
 
-        moment.lang('partial-lang', {
+        moment.lang('Partial-lang', {
             monthsShort: 'A B C D E F G H I J K L'.split(' ')
         });
 

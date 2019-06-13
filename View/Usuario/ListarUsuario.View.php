@@ -66,7 +66,7 @@
                             $grid->setColunas(strtoupper($res->getCoPessoa()->getNoPessoa()));
                             $grid->setColunas(Valida::MascaraCpf($res->getCoPessoa()->getNuCpf()));
                             $grid->setColunas($perfis[$res->getCoUsuario()]);
-                            $grid->setColunas(Valida::SituacaoUsuario($res->getStStatus()));
+                            $grid->setColunas(Valida::SituacaoAtivoInativo($res->getStStatus()));
                             $grid->setColunas($acao, 2);
                             $grid->criaLinha($res->getCoUsuario());
                         endforeach;

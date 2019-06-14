@@ -49,7 +49,8 @@ class AnotacaoForm
                 ->CriaInpunt();
         endif;
 
-        return $formulario->finalizaForm();
+        return $formulario->finalizaForm('Anotacao/ListarAnotacao/' .
+            Valida::GeraParametro(CO_HISTORIA . "/" . $res[CO_HISTORIA]));
     }
 }
 

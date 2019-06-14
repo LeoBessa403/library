@@ -42,7 +42,8 @@ class SessaoForm
                 ->CriaInpunt();
         endif;
 
-        return $formulario->finalizaForm();
+        return $formulario->finalizaForm('Sessao/ListarSessao/' .
+            Valida::GeraParametro(CO_MODULO . "/" . $res[CO_MODULO]));
     }
 }
 

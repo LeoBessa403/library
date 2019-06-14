@@ -7,6 +7,7 @@ class UsuarioForm extends AbstractController
     {
         $id = "CadastroUsuario";
         $meusPerfis = array();
+        $link = UrlAmigavel::$controller . '/Listar' . UrlAmigavel::$controller;
 
         /** @var Form $formulario */
         $formulario = new Form($id, ADMIN . "/" . UrlAmigavel::$controller
@@ -246,7 +247,7 @@ class UsuarioForm extends AbstractController
                 ->CriaInpunt();
         endif;
 
-        return $formulario->finalizaForm();
+        return $formulario->finalizaForm($link);
     }
 
     public static function CadastroUsuario($res = false, $tamanho = 6)

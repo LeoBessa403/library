@@ -84,7 +84,6 @@ $url->pegaControllerAction();
     jQuery(document).ready(function () {
         Funcoes.init();
         Main.init();
-        UISliders.init();
         TableData.init();
         Calendar.init();
         FormWizard.init();

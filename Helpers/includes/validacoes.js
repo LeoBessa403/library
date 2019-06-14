@@ -422,46 +422,6 @@ $(function () {
 
     $(".porc-int").mask('9?9').attr('maxlength', 2).attr('placeholder', 0);
 
-    ///// START CAMPO SLIDER  /////
-    var sliderValoresMin = $(".slider_basico").parents('.sliders').children('.slider_min');
-    var sliderValoresMax = $(".slider_basico").parents('.sliders').children('.slider_max');
-
-    $(".slider_basico").rangeSlider({
-        defaultValues: {
-            min: sliderValoresMin.val(),
-            max: sliderValoresMax.val()
-        },
-        bounds: {
-            min: parseInt(sliderValoresMin.attr('data-min')),
-            max: parseInt(sliderValoresMax.attr('data-max'))
-        },
-        valueLabels: "change",
-        delayOut: 1000,
-        formatter: function (val) {
-            var value = Math.round(val * 5) / 5,
-                decimal = value - Math.round(val);
-            return value - decimal;
-        }
-    }).bind("valuesChanged", function (e, data) {
-        atualizaRangeSlider($(this), data);
-    });
-
-    function atualizaRangeSlider(e, data) {
-        var min = calculaSlider(data.values.min);
-        var max = calculaSlider(data.values.max);
-        e.parents('.sliders').children('.slider_min').val(min);
-        e.parents('.sliders').children('.slider_max').val(max);
-        e.parents('.form-group').children('.control-label').children('span').empty();
-        e.parents('.form-group').children('.control-label').append('<span> de <b>' + min + '</b> a <b>' + max + '</b></span>');
-    }
-
-    function calculaSlider(valor) {
-        var value = Math.round(valor * 5) / 5,
-            decimal = value - Math.round(valor);
-        return value - decimal;
-    }
-
-    ///// END CAMPO SLIDER  /////
 
     $(".formulario").submit(function () {
         var obrigatorios = campoObrigatorio();
@@ -651,5 +611,46 @@ $(function () {
             scrollTop: 0
         }, "slow");
     }
+
+    ///// START CAMPO SLIDER  /////
+    var sliderValoresMin = $(".slider_basico").parents('.sliders').children('.slider_min');
+    var sliderValoresMax = $(".slider_basico").parents('.sliders').children('.slider_max');
+
+    $(".slider_basico").rangeSlider({
+        defaultValues: {
+            min: sliderValoresMin.val(),
+            max: sliderValoresMax.val()
+        },
+        bounds: {
+            min: parseInt(sliderValoresMin.attr('data-min')),
+            max: parseInt(sliderValoresMax.attr('data-max'))
+        },
+        valueLabels: "change",
+        delayOut: 1000,
+        formatter: function (val) {
+            var value = Math.round(val * 5) / 5,
+                decimal = value - Math.round(val);
+            return value - decimal;
+        }
+    }).bind("valuesChanged", function (e, data) {
+        atualizaRangeSlider($(this), data);
+    });
+
+    function atualizaRangeSlider(e, data) {
+        var min = calculaSlider(data.values.min);
+        var max = calculaSlider(data.values.max);
+        e.parents('.sliders').children('.slider_min').val(min);
+        e.parents('.sliders').children('.slider_max').val(max);
+        e.parents('.form-group').children('.control-label').children('span').empty();
+        e.parents('.form-group').children('.control-label').append('<span> de <b>' + min + '</b> a <b>' + max + '</b></span>');
+    }
+
+    function calculaSlider(valor) {
+        var value = Math.round(valor * 5) / 5,
+            decimal = value - Math.round(valor);
+        return value - decimal;
+    }
+
+    ///// END CAMPO SLIDER  /////
 
 });

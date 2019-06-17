@@ -190,7 +190,8 @@ class UrlAmigavel
         }
         /** @var ControllerEntidade $controller */
         foreach ($controllers as $controller) {
-            $titulo = $controller->getNoController();
+            $label = $controller->getNoController();
+            $titulo = ucwords(Valida::ValNome($label));
             $tem = false;
             if (!empty($controller->getCoFuncionalidade())) {
                 /** @var FuncionalidadeEntidade $func */
@@ -216,7 +217,7 @@ class UrlAmigavel
                     echo '<li>';
                 endif;
                 echo '<a href="javascript:void(0)"><i class="' . $controller->getDsClassIcon() . '"></i>
-                                       <span class="title"> ' . $titulo . ' </span><i class="icon-arrow"></i>
+                                       <span class="title"> ' . $label . ' </span><i class="icon-arrow"></i>
                                        <span class="selected"></span>
                                </a>
                                <ul class="sub-menu" style="display: none;">';

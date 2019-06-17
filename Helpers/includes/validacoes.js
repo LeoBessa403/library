@@ -395,6 +395,7 @@ $(function () {
             $(this).val("");
         }
     }).keyup(function () {
+        var id = $(this).attr("id");
         var valor = $(this).val().replace(/[^0-9]+/g, '');
         if (valor != '000') {
             validaOK(id, "Campo Obrigatório OK!");

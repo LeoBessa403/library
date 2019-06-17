@@ -209,7 +209,7 @@
         } else if (jQuery && !jQuery.fn.sparkline) {
             factory(jQuery);
         }
-    };
+    });
     (function ($) {
         'use strict';
 
@@ -3068,5 +3068,5 @@
             }
         });
 
-    }))
+    })
 }(document, Math));

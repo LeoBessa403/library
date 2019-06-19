@@ -646,7 +646,7 @@ class Form
                     $verifcaChecked = "";
                 endif;
                 $form .= " <input id='" . self::$id . "'" . $verifcaChecked . " name='" .
-                    self::$id . "' value='" . $key . "'  class='flat-black " . self::$classes .
+                    self::$id . "[]' value='" . $key . "'  class='flat-black " . self::$classes .
                     "' type='" . self::$type . "' />"
                     . $op . '&nbsp;&nbsp;';
                 $form .= $verifcaInputs['fim'];

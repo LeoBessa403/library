@@ -236,6 +236,7 @@ class UrlAmigavel
                        </li>';
             endif;
         }
+        echo '<li><a href="javascript:void(0)"></a></li>';
         echo '</ul>';
 
     }

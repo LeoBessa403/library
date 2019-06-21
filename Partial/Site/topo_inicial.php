@@ -37,7 +37,7 @@
     <!-- start: CSS REQUIRED Gritter -->
     <link rel="stylesheet" href="<?= PASTAADMIN; ?>plugins/gritter/css/jquery.gritter.css">
     <!-- start: CSS REQUIRED FOR THIS PAGE ONLY -->
-    <link rel="shortcut icon" href="<?= PASTASITE; ?>img/favicon.ico"/>
+    <link rel="shortcut icon" href="<?php echo PASTAADMIN; ?>Imagens/favicon.ico"/>
     <!-- end: MAIN CSS -->
     <!-- start: CSS REQUIRED FOR SELECT -->
     <link rel="stylesheet" href="<?= PASTAADMIN; ?>plugins/select2/select2.css">

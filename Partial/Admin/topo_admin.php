@@ -83,7 +83,7 @@ $user = $us->getUser();
     <!-- start: CSS REQUIRED Gritter -->
     <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>plugins/gritter/css/jquery.gritter.css">
     <!-- end: CSS REQUIRED FOR THIS PAGE ONLY -->
-    <link rel="shortcut icon" href="<?= PASTA_LIBRARY; ?>img/favicon.ico"/>
+    <link rel="shortcut icon" href="<?php echo PASTAADMIN; ?>Imagens/favicon.ico"/>
     <!-- SCRIPT GERAR GRAFICOS -->
     <script type="text/javascript" src="<?= INCLUDES; ?>gera-grafico.js"></script>
 </head>

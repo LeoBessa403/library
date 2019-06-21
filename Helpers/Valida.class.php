@@ -438,6 +438,17 @@ class Valida
     }
 
     /**
+     * <b>FORMATA A PORCENTAGEM DECIMAL:</b> Ao executar este HELPER, ele automaticamente
+     * Formata para o valor percentual (FLOAT).
+     * @param STRING $valor
+     * @return STRING
+     */
+    public static function FormataPorcentagemDecimal($valor)
+    {
+        return number_format(trim($valor), 2, '.', '');
+    }
+
+    /**
      * <b>Valida se o o usuário está logado no sistema:</b> Verifica se existe a Session do usuário apos o login.
      * Caso não exista a Session ele será Redirecionada para a tela de login "Definida nas configurações
      * do sistema de Login!".

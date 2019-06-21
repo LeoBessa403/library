@@ -625,26 +625,23 @@ class Form
                 </div>';
         else:
             foreach (self::$label_options as $key => $op):
-                $valor = "";
+                $verifcaChecked = "";
                 if (is_array(self::$valor) && !empty(self::$valor)):
                     if (!empty(self::$valor[self::$id])):
-                        $valor = self::$valor[self::$id];
+                        foreach (self::$valor[self::$id] as $option) {
+                            if ($option == $key):
+                                $verifcaChecked = " checked='checked'";
+                            endif;
+                        }
                     endif;
                 else:
                     if (!empty(self::$valor)):
-                        $valor = self::$valor;
                         self::$valor = "";
                     endif;
                 endif;
-
                 $verifcaInputs = $this->verificaInline();
-
                 $form .= $verifcaInputs['inicio'];
-                if ($valor == $key):
-                    $verifcaChecked = " checked='checked'";
-                else:
-                    $verifcaChecked = "";
-                endif;
+
                 $form .= " <input id='" . self::$id . "'" . $verifcaChecked . " name='" .
                     self::$id . "[]' value='" . $key . "'  class='flat-black " . self::$classes .
                     "' type='" . self::$type . "' />"

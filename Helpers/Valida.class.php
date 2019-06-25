@@ -917,7 +917,7 @@ class Valida
         return $op;
     }
 
-    public static function GeraCodigo($blocosLetrasEnumeros = 2, $sequenciaNumeros = 1, $sequenciaLetras = 3)
+    public static function GeraCodigo($blocosLetrasEnumeros = 2, $sequenciaLetras = 3, $sequenciaNumeros = 1)
     {
         $codigo = '';
         for ($p = 0; $p < $blocosLetrasEnumeros; $p++) {

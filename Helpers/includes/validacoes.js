@@ -425,6 +425,7 @@ $(function () {
 
 
     $(".formulario").submit(function () {
+        $('.img-load').fadeIn('slow');
         var obrigatorios = campoObrigatorio();
         var validacao = "";
         $(".go-top,.alert .close").click();
@@ -435,10 +436,12 @@ $(function () {
         if (obrigatorios == true) {
             if (validacao == "error") {
                 Funcoes.Alerta("Existe(em) campo(s) inválido(s), favor verificar!");
+                $('.img-load').fadeOut('fast');
                 return false;
             }
         } else {
             Funcoes.Informativo("Existe(em) campo(s) obrigatório(s) em branco, favor verificar!");
+            $('.img-load').fadeOut('fast');
             return false;
         }
         //****** IMPLEMENTAÇÃO DO AJAX ENVIO DE FORMULÁRIO **** ///

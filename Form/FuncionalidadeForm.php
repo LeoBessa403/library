@@ -48,11 +48,13 @@ class FuncionalidadeForm
             ->setId(NO_CONTROLLER)
             ->setClasses("ob")
             ->setLabel("Nome Nova Controller")
+            ->setTamanhoInput(6)
             ->CriaInpunt();
 
         $formulario
             ->setId(DS_CLASS_ICON)
             ->setClasses("ob")
+            ->setTamanhoInput(6)
             ->setLabel("Classe do Ícone")
             ->CriaInpunt();
 

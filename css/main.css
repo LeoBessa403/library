@@ -4717,6 +4717,12 @@ ul#countdown li p.timeRefDays, ul#countdown li p.timeRefHours, ul#countdown li p
     color: #000 !important;
 }
 
+.label-red, .badge-red {
+    background-color: #bd362f !important;
+    border-color: #bd362f !important;
+    color: #000 !important;
+}
+
 /* ---------------------------------------------------------------------- */
 /*	Lock Screen
 /* ---------------------------------------------------------------------- */

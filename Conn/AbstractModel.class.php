@@ -137,7 +137,9 @@ class AbstractModel
                         $dados2 = $this->PesquisaUmRegistroNv2($obj->$metodoGet(), $campo['Entidade']);
                         $obj->$metodoSet($dados2);
                     }
-                    $this->PesquisaTodosNv3($obj, $obj2);
+                    if ($campo['Entidade'] != AssinanteEntidade::ENTIDADE &&
+                        $campo['Entidade'] != UsuarioEntidade::ENTIDADE)
+                        $this->PesquisaTodosNv3($obj, $obj2);
                 } else {
                     $novoMetodo = $this->getMetodo($obj::CHAVE);
                     $todos = null;

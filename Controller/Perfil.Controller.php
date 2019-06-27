@@ -45,7 +45,7 @@ class Perfil extends AbstractController
         $res = array();
         $res[CO_PERFIL] = null;
         $coAssinante = AssinanteService::getCoAssinanteLogado();
-        if ($coAssinante) {
+        if ($coAssinante && $coPerfil) {
             /** @var PerfilAssinanteEntidade $perfil */
             $perfil = $perfilAssinanteService->PesquisaUmRegistro($coPerfil);
             $res[CO_PERFIL] = $perfil->getCoPerfilAssinante();

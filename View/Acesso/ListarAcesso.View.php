@@ -47,8 +47,13 @@
 
                         /** @var AcessoEntidade $res */
                         foreach ($result as $res):
-                            $grid->setColunas(Valida::Resumi(strtoupper($res->getCoUsuario()->getCoPessoa()->getNoPessoa()), 25));
-                            $grid->setColunas(Valida::MascaraCpf($res->getCoUsuario()->getCoPessoa()->getNuCpf()));
+                            /** @var PessoaEntidade $pessoa */
+                            $pessoa = UsuarioService::getPessoaCoUsuario($res->getCoUsuario()->getCoUsuario());
+                            $grid->setColunas(Valida::Resumi(
+                                strtoupper(UsuarioService::getNoPessoaCoUsuario(
+                                    $res->getCoUsuario()->getCoUsuario())
+                                ), 25));
+                            $grid->setColunas(Valida::MascaraCpf($pessoa->getNuCpf()));
                             $grid->setColunas(Valida::StatusAcesso($res->getTpSituacao()));
                             $grid->setColunas(Valida::DataShow($res->getDtInicioAcesso(), 'd/m/Y H:i:s'));
                             $grid->setColunas(Valida::DataShow($res->getDtFimAcesso(), 'd/m/Y H:i:s'));

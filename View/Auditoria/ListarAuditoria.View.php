@@ -57,7 +57,8 @@
                                                 <i class="icon-arrow"></i>
                                                 <?php echo $auditoria->getDtRealizado() . '  //  ';
                                                 echo ($auditoria->getDsPerfilUsuario() != 'Via Site')
-                                                    ? $auditoria->getCoUsuario()->getCoPessoa()->getNoPessoa()
+                                                    ? UsuarioService::getNoPessoaCoUsuario(
+                                                        $auditoria->getCoUsuario()->getCoUsuario())
                                                     : $auditoria->getDsPerfilUsuario(); ?>
                                             </a></h4>
                                     </div>

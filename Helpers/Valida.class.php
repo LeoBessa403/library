@@ -488,23 +488,19 @@ class Valida
                 endif;
                 $perfilFuncionalidade = new PerfilFuncionalidadeModel();
                 $dados[CO_PERFIL] = $meusPerfis;
-                $meusPerfis = $perfilFuncionalidade->PesquisaTodos($dados);
-
-                $funcionalidades = array();
-                /** @var FuncionalidadeEntidade $func */
-                foreach ($meusPerfis as $func) {
-                    $funcionalidades[] = $func->getCoFuncionalidade()->getCoFuncionalidade();
-                }
+                $funcionalidades = $perfilFuncionalidade->PesquisaPerfis($dados);
 
                 $funcionalidadeModel = new FuncionalidadeModel();
                 $data[DS_ACTION] = $action;
                 /** @var FuncionalidadeEntidade $funcionalidade */
                 $funcionalidade = $funcionalidadeModel->PesquisaUmQuando($data);
+                $coFuncinalidade = $funcionalidade->getCoFuncionalidade();
 
                 if (!empty($funcionalidades) && !empty($funcionalidade)):
-                    if (in_array($funcionalidade->getCoFuncionalidade(), $funcionalidades)):
-                        return true;
-                    endif;
+                    foreach ($funcionalidades as $func) {
+                        if ($func[CO_FUNCIONALIDADE] == $coFuncinalidade)
+                            return true;
+                    }
                 endif;
             endif;
         endif;

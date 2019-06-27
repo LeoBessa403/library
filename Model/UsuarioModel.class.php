@@ -84,4 +84,32 @@ class  UsuarioModel extends AbstractModel
         return $usuario;
     }
 
+    public function getNoPessoaCoUsuario($coUsuario)
+    {
+        $tabela = UsuarioEntidade::TABELA . " usu" .
+            " inner join " . PessoaEntidade::TABELA . " pes" .
+            " on usu." . PessoaEntidade::CHAVE . " = pes." . PessoaEntidade::CHAVE;
+
+        $campos = "pes.". NO_PESSOA;
+        $pesquisa = new Pesquisa();
+        $where = $pesquisa->getClausula([CO_USUARIO => $coUsuario]);
+        $pesquisa->Pesquisar($tabela, $where, null, $campos);
+        return $pesquisa->getResult()[0][NO_PESSOA];
+    }
+
+    public function getPessoaCoUsuario($coUsuario)
+    {
+        $tabela = UsuarioEntidade::TABELA . " usu" .
+            " inner join " . PessoaEntidade::TABELA . " pes" .
+            " on usu." . PessoaEntidade::CHAVE . " = pes." . PessoaEntidade::CHAVE;
+
+        $campos = "usu.*";
+        $pesquisa = new Pesquisa();
+        $where = $pesquisa->getClausula([CO_USUARIO => $coUsuario]);
+        $pesquisa->Pesquisar($tabela, $where, null, $campos);
+        /** @var UsuarioEntidade $usuario */
+        $usuario = $this->getUmObjeto(UsuarioEntidade::ENTIDADE, $pesquisa->getResult());
+        return $usuario->getCoPessoa();
+    }
+
 }

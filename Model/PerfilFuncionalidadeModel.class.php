@@ -12,5 +12,14 @@ class  PerfilFuncionalidadeModel extends AbstractModel
         parent::__construct(PerfilFuncionalidadeEntidade::ENTIDADE);
     }
 
+    public function PesquisaPerfis($perfis)
+    {
+        $campos = FuncionalidadeEntidade::CHAVE;
+        $pesquisa = new Pesquisa();
+        $where = $pesquisa->getClausula($perfis);
+        $pesquisa->Pesquisar( PerfilFuncionalidadeEntidade::TABELA, $where, null, $campos);
+        return $pesquisa->getResult();
+    }
+
 
 }

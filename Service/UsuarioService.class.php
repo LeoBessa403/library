@@ -31,6 +31,18 @@ class  UsuarioService extends AbstractService
         return (!empty($user[md5(CO_USUARIO)])) ? $user[md5(CO_USUARIO)] : null;
     }
 
+    public static function getNoPessoaCoUsuario($coUsuario)
+    {
+        $UsuarioModel = new UsuarioModel();
+        return $UsuarioModel->getNoPessoaCoUsuario($coUsuario);
+    }
+
+    public static function getPessoaCoUsuario($coUsuario)
+    {
+        $UsuarioModel = new UsuarioModel();
+        return $UsuarioModel->getPessoaCoUsuario($coUsuario);
+    }
+
     public function PesquisaAvancada($Condicoes)
     {
         return $this->ObjetoModel->PesquisaAvancada($Condicoes);

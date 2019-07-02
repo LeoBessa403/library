@@ -63,7 +63,6 @@ $url->pegaControllerAction();
 <script src="<?= PASTA_LIBRARY; ?>plugins/fullcalendar/fullcalendar/fullcalendar.js"></script>
 <script src="<?= PASTA_LIBRARY; ?>plugins/bootstrap-modal/js/bootstrap-modal.js"></script>
 <script src="<?= PASTA_LIBRARY; ?>plugins/bootstrap-modal/js/bootstrap-modalmanager.js"></script>
-<script src="<?= PASTA_LIBRARY; ?>js/index.js"></script>
 <script src="<?= PASTA_LIBRARY; ?>plugins/select2/select2.min.js"></script>
 <script src="<?= PASTA_LIBRARY; ?>plugins/bootstrap-fileupload/bootstrap-fileupload.js"></script>
 <script src="<?= PASTA_LIBRARY; ?>plugins/bootstrap-switch/static/js/bootstrap-switch.min.js"></script>
@@ -73,23 +72,20 @@ $url->pegaControllerAction();
 <script src="<?= PASTA_LIBRARY; ?>plugins/ckeditor/ckeditor.js"></script>
 <script src="<?= PASTA_LIBRARY; ?>plugins/ckeditor/adapters/jquery.js"></script>
 <script src="<?= PASTA_LIBRARY; ?>js/Funcoes.js"></script>
-<script src="<?= PASTA_LIBRARY; ?>js/FullCalendar.js"></script>
 <script src="<?= PASTA_LIBRARY; ?>plugins/jQuery-Smart-Wizard/js/jquery.smartWizard.js"></script>
 <script src="<?= PASTA_LIBRARY; ?>js/form-wizard.js"></script>
 <script src="<?= PASTA_LIBRARY; ?>plugins/jQRangeSlider/jQAllRangeSliders-min.js"></script>
 <script src="<?= PASTA_LIBRARY; ?>js/ui-sliders.js"></script>
-<?php carregaJs($url); ?>
 <!-- end: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
 <script>
     jQuery(document).ready(function () {
         Funcoes.init();
         Main.init();
         TableData.init();
-        Calendar.init();
         FormWizard.init();
-        Index.init();
     });
 </script>
+<?php carregaJs($url); ?>
 <!-- Carrega DIVs dos Alertas e Notificações   -->
 <?php include_once 'alertas.php'; ?>
 </body>

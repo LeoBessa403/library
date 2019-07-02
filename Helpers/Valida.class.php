@@ -826,7 +826,7 @@ class Valida
      */
     public static function getCoresHistorico()
     {
-        $cores = array('green', 'teal', 'bricky', 'purple', '');
+        $cores = array('green', 'teal', 'bricky', 'purple', 'default');
         return $cores;
     }
 

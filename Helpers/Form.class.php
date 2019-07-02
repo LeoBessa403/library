@@ -770,6 +770,9 @@ class Form
                            style="margin-top: 10px;">
                             Voltar <i class="clip-arrow-right-2"></i>
                          </a>';
+        }else{
+            self::$form .= '<button type="button" class="btn pull-left btn-primary" data-dismiss="modal" style="margin-top: 10px;">
+                            Fechar <i class="clip-close"></i></button>';
         }
 
         self::$form .= '</div>

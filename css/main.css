@@ -1501,7 +1501,7 @@ ul.main-navigation-menu > li > a {
     padding: 10px 15px;
     position: relative;
     text-decoration: none;
-    border-bottom: 1px solid #DDDDDD;
+    /*border-bottom: 1px solid #DDDDDD;*/
     border-top: 1px solid #FFFFFF;
 }
 
@@ -1556,6 +1556,11 @@ ul.main-navigation-menu li > ul.sub-menu > li {
     margin-right: 0;
     margin-top: 1px !important;
     padding: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+ul.main-navigation-menu li > ul.sub-menu > li:first-child {
+    border-top: none;
 }
 
 ul.main-navigation-menu li > ul.sub-menu > li > a {

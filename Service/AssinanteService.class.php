@@ -240,24 +240,4 @@ class  AssinanteService extends AbstractService
         return $statusSis;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getComboNuProfissionais()
-    {
-        /** @var AssinanteEntidade $assinante */
-        $assinante = $this->getAssinanteLogado();
-        $combo = [
-            '' => Mensagens::MSG_SEM_ITEM_SELECIONADO
-        ];
-        $nuProf = 0;
-        if (!empty($assinante)) {
-            $nuProf = $assinante->getUltimoCoPlanoAssinante()->getNuProfissionais();
-        }
-        for ($i = 1; $i <= $nuProf; $i++) {
-            $combo[$i] = $i;
-        }
-        return $combo;
-    }
-
 }

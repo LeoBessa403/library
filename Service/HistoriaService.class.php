@@ -137,13 +137,29 @@ class  HistoriaService extends AbstractService
         self::$dados['esforcoRestante'] = $esforcoRestante;
 
         if ($preProj && $graficoEvolucao) {
-            $dataPrevistas = array_keys($graficoEvolucao);
-            $diasNecessario = Valida::CalculaDiferencaDiasData(
-                $dataPrevistas[0],
-                $dataPrevistas[count($dataPrevistas) - 1]
-            );
+            $diasNecessario = 0;
+            $esforcoEstimado1 = 0;
+            $esforcoEstimado2 = 0;
+            $i = 1;
+            $qtd = count($graficoEvolucao);
+            foreach ($graficoEvolucao as $data => $esforcos) {
+                $diferenca = Valida::CalculaDiferencaDiasData(
+                    $data,
+                    date('d/m/Y')
+                );
+                if ($diferenca <= 30) {
+                    if ($diasNecessario < $diferenca) {
+                        $diasNecessario = $diferenca;
+                        $esforcoEstimado1 = $esforcos[NU_ESFORCO] - $esforcos[NU_ESFORCO_RESTANTE];
+                    }
+                    if ($i == $qtd)
+                        $esforcoEstimado2 = $esforcos[NU_ESFORCO] - $esforcos[NU_ESFORCO_RESTANTE];
+                }
+                $i++;
+            }
+
             if ($diasNecessario > 0) {
-                $esforcoAlcancado = $esforco - $esforcoRestante;
+                $esforcoAlcancado = $esforcoEstimado2 - $esforcoEstimado1;
                 $mediaDia = $esforcoAlcancado / $diasNecessario;
             } else {
                 $mediaDia = 0;

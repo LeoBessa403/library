@@ -160,7 +160,7 @@ class  HistoriaService extends AbstractService
 
             if ($diasNecessario > 0) {
                 $esforcoAlcancado = $esforcoEstimado2 - $esforcoEstimado1;
-                $mediaDia = $esforcoAlcancado / $diasNecessario;
+                $mediaDia = $esforcoAlcancado / 30;
             } else {
                 $mediaDia = 0;
             }

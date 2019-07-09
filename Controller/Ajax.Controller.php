@@ -2,7 +2,7 @@
 /* 
  * Controller résponsavel para receber e passar dados para controller responsável.
  */
-include "../../library/Config.inc.php";
+include "../Config.inc.php";
 
 if (isset($_REQUEST['acao'])) {
 

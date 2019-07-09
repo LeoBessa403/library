@@ -59,6 +59,32 @@ var Funcoes = function () {
         LimiteImagens: function () {
             Funcoes.Alerta("Quantidade Acima da Permitida! Permitido Somente <b>" + limite + " Foto(s)</b>.")
         },
+        Ajax: function (controller, codigo) {
+            //VARIÁVEL GLOBAL
+            var variaveis = constantes();
+            var urlValida = variaveis['HOME'] + 'admin/Controller/Ajax.Controller.php?acao=Ajax';
+            var retornoAjax;
+            $.ajax({
+                url: urlValida,
+                data: {controller: controller, codigo: codigo},
+                type: "POST",
+                dataType: "json",
+                async: false,
+                beforeSend: function () {
+                    $("#load").click();
+                },
+                success: function (data) {
+                    retornoAjax = data;
+                },
+                error: function (e) {
+                    Funcoes.Erro(e.preventDefault());
+                },
+                complete: function () {
+                    $("#carregando .cancelar").click();
+                }
+            });
+            return retornoAjax;
+        },
 
         MSG_CONFIRMACAO: "CONFIRMAÇÃO"
 

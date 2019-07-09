@@ -1181,4 +1181,16 @@ class Valida
         $niver = $niver[0] . ' de ' . $mes_extenso[$niver[1]];
         return $niver;
     }
+    /**
+     * @param $dados
+     * @return array
+     */
+    public static function montaArrayAjax($dados)
+    {
+        $data = [];
+        foreach ($dados as $valor) {
+            $data[str_replace("[]", "", $valor['name'])] = $valor['value'];
+        }
+        return $data;
+    }
 }

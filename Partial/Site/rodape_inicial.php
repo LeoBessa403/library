@@ -18,16 +18,7 @@ if (TEM_SITE) {
 <!--[if gte IE 9]><!-->
 <script src="<?= INCLUDES; ?>jquery-2.0.3.js"></script>
 <!--<![endif]-->
-<?= '<script type="text/javascript">
-                        function constantes(){    
-                                var dados = {
-                                    "HOME" : "' . HOME . '",
-                                    "INATIVO" : "' . INATIVO . '",
-                                    "PASTAUPLOADS" : "' . PASTAUPLOADS . '"                                        
-                                    };
-                                return dados;
-                        }
-                </script>'; ?>
+<?php include_once PARTIAL_LIBRARY . 'constantes_javascript.php'; ?>
 <!--<script src="<?= PASTAADMIN; ?>plugins/jquery-ui/jquery-ui-1.10.2.custom.min.js"></script>-->
 <script src="<?= INCLUDES; ?>jquery-ui.js"></script>
 <script type="text/javascript" src="<?= INCLUDES; ?>jquery.mask.js"></script>

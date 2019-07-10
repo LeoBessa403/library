@@ -61,8 +61,8 @@ var Funcoes = function () {
         },
         Ajax: function (controller, codigo) {
             //VARIÁVEL GLOBAL
-            var variaveis = constantes();
-            var urlValida = variaveis['HOME'] + 'library/Controller/Ajax.Controller.php?acao=Ajax';
+            var home = $("#home").attr('data-val');
+            var urlValida = home + 'library/Controller/Ajax.Controller.php?acao=Ajax';
             var retornoAjax;
             $.ajax({
                 url: urlValida,

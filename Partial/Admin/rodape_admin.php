@@ -30,17 +30,7 @@ $url->pegaControllerAction();
 <script type="text/javascript" src="<?= INCLUDES; ?>jquery-ui.js"></script>
 <script type="text/javascript" src="<?= INCLUDES; ?>jquery.mask.js"></script>
 <script type="text/javascript" src="<?= INCLUDES; ?>jquery.maskMoney.js"></script>
-<?= '<script type="text/javascript">
-                        function constantes(){    
-                                var dados = {
-                                    "HOME" : "' . HOME . '",
-                                    "INATIVO" : "' . INATIVO . '",
-                                    "PASTAUPLOADS" : "' . PASTAUPLOADS . '" ,                                       
-                                    "AMBIENTE" : "ADMIN"                                      
-                                    };
-                                return dados;
-                        }
-                </script>'; ?>
+<?php include_once PARTIAL_LIBRARY . 'constantes_javascript.php'; ?>
 <script type="text/javascript" src="<?= INCLUDES; ?>validacoes.js"></script>
 
 <script src="<?= PASTA_LIBRARY; ?>plugins/bootstrap/js/bootstrap.min.js"></script>

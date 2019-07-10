@@ -19,11 +19,9 @@ var Calendar = function () {
         /* initialize the calendar
 				 -----------------------------------------------------------------*/
         //VARIÁVEL GLOBAL
-        var dados = constantes();
-
-        var home = dados['HOME'];
+        var home = $("#home").attr('data-val');
         var urlCarregaTarefa = home + 'admin/Controller/AgendaCarrega.Controller.php';
-        var urlValida = home + 'admin/Controller/Ajax.Controller.php';
+        var urlValida = home + 'library/Controller/Ajax.Controller.php';
 
         var calendar = $('#calendar').fullCalendar({
             buttonText: {

@@ -1,11 +1,9 @@
 $(function () {
 
     //VARIÁVEIS GLOBAIS
-    var dados = constantes();
-
-    var home = dados['HOME'];
-    var inativo = dados['INATIVO'];
-    var ambiente = dados['AMBIENTE'];
+    var home = $("#home").attr('data-val');
+    var inativo = $("#inativo").attr('data-val');
+    var ambiente = $("#ambiente").attr('data-val');
     var urlValida = home + 'library/Helpers/Valida.Controller.php';
 
     // DESLOGA USUÁRIO INATIVO DO MODULO DO SISTEMA

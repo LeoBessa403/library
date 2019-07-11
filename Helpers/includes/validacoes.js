@@ -7,7 +7,7 @@ $(function () {
     var urlValida = home + 'library/Helpers/Valida.Controller.php';
 
     // DESLOGA USUÁRIO INATIVO DO MODULO DO SISTEMA
-    if (ambiente == 'ADMIN') {
+    if (ambiente == 'admin') {
         setTimeout(function () {
             location.reload();
         }, (1001 * inativo * 60));

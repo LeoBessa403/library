@@ -2,7 +2,7 @@ $(function () {
 
     //VARIÁVEIS GLOBAIS
     var home = $("#home").attr('data-val');
-    var inativo = $("#inativo").attr('data-val');
+    var inativo = parseInt($("#inativo").attr('data-val'));
     var ambiente = $("#ambiente").attr('data-val');
     var urlValida = home + 'library/Helpers/Valida.Controller.php';
 

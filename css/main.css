@@ -5727,3 +5727,13 @@ td.column-right {
 .table2 td, .table2 th {
     padding: 8px;
 }
+
+.align-right{
+    text-align: right !important;
+}
+.align-center{
+    text-align: center !important;
+}
+.align-left{
+    text-align: left !important;
+}

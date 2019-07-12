@@ -7,7 +7,7 @@ $(function () {
     var urlValida = home + 'library/Helpers/Valida.Controller.php';
 
     // DESLOGA USUÁRIO INATIVO DO MODULO DO SISTEMA
-    if (ambiente == 'admin') {
+    if (ambiente === 'admin') {
         setTimeout(function () {
             location.reload();
         }, (1001 * inativo * 60));
@@ -19,11 +19,11 @@ $(function () {
     });
 
     function validaData(data, id) {
-        if (data != "") {
+        if (data !== "") {
             var erro = "";
             var bissexto = 0;
             var tam = data.length;
-            if (tam == 10) {
+            if (tam === 10) {
                 var dia = data.substr(0, 2);
                 var mes = data.substr(3, 2);
                 var ano = data.substr(6, 4);
@@ -49,110 +49,68 @@ $(function () {
                             }
                             break;
                         case '02':
-                            if ((ano % 4 == 0) || (ano % 100 == 0) || (ano % 400 == 0)) {
+                            if ((ano % 4 === 0) || (ano % 100 === 0) || (ano % 400 === 0)) {
                                 bissexto = 1;
                             }
-                            if ((bissexto == 1) && (dia <= 29)) {
+                            if ((bissexto === 1) && (dia <= 29)) {
                                 erro = true;
                             }
-                            if ((bissexto != 1) && (dia <= 28)) {
+                            if ((bissexto !== 1) && (dia <= 28)) {
                                 erro = true;
                             }
                             break
                     }
                 }
             }
-            if (erro != true) {
-                validaErro(id, "DATA Informada Inválida!");
+            if (erro !== true) {
+                Funcoes.ValidaErro(id, "DATA Informada Inválida!");
             } else {
-                validaOK(id, "Data válida!");
+                Funcoes.ValidaOK(id, "Data válida!");
             }
         } else {
-            tiraValidacao(id);
+            Funcoes.TiraValidacao(id);
         }
     }
 
     function validaCPF(cpf, id) {
-        if (cpf != "") {
+        if (cpf !== "") {
             $.get(urlValida, {valida: 'valcpf', cpf: cpf}, function (retorno) {
-                if (retorno == 2) {
-                    validaErro(id, "CPF inválido! favor verificar.");
+                if (retorno === 2) {
+                    Funcoes.ValidaErro(id, "CPF inválido! favor verificar.");
                 } else {
-                    validaOK(id, "CPF válido!");
+                    Funcoes.ValidaOK(id, "CPF válido!");
                 }
             });
         } else {
-            tiraValidacao(id);
+            Funcoes.TiraValidacao(id);
         }
     }
 
     function validaEmail(email, id) {
-        if (email != "") {
+        if (email !== "") {
             $.get(urlValida, {valida: 'valemail', email: email}, function (retorno) {
-                if (retorno == 2) {
-                    validaErro(id, "E-mail incorreto! favor verificar.");
+                if (retorno === 2) {
+                    Funcoes.ValidaErro(id, "E-mail incorreto! favor verificar.");
                 } else {
-                    validaOK(id, "E-mail válido!");
+                    Funcoes.ValidaOK(id, "E-mail válido!");
                 }
             });
         } else {
-            tiraValidacao(id);
+            Funcoes.TiraValidacao(id);
         }
     }
 
     function validaCNPJ(cnpj, id) {
-        if (cnpj != "") {
+        if (cnpj !== "") {
             $.get(urlValida, {valida: 'valcnpj', cnpj: cnpj}, function (retorno) {
-                if (retorno == 2) {
-                    validaErro(id, "CNPJ inválido! favor verificar.");
+                if (retorno === 2) {
+                    Funcoes.ValidaErro(id, "CNPJ inválido! favor verificar.");
                 } else {
-                    validaOK(id, "CNPJ válido!");
+                    Funcoes.ValidaOK(id, "CNPJ válido!");
                 }
             });
         } else {
-            tiraValidacao(id);
-        }
-    }
-
-    function validaSenha(id, senha) {
-        var tamanho = senha.length;
-        var forca = 0;
-        if ((tamanho >= 4) && (tamanho <= 7)) {
-            forca += 10;
-        } else if (tamanho > 7) {
-            forca += 25;
-        }
-        if (senha.match(/[a-z]+/)) {
-            forca += 10;
-        }
-        if (senha.match(/[A-Z]+/)) {
-            forca += 20;
-        }
-        if (senha.match(/\d+/)) {
-            forca += 20;
-        }
-        if (senha.match(/\W+/)) {
-            forca += 25;
-        }
-
-        if (forca < 30) {
-            validaErro(id, "Fraca");
-        } else if ((forca >= 30) && (forca < 60)) {
-            validaOK(id, "Razoável");
-        } else if ((forca >= 60) && (forca < 85)) {
-            validaOK(id, "Boa");
-        } else {
-            validaOK(id, "Excelente");
-        }
-
-    }
-
-    function confirma_senha(idC, senhaC) {
-        var senha = $(".senha").val();
-        if (senhaC != senha) {
-            validaErro(idC, "Diferente da Senha");
-        } else {
-            validaOK(idC, "Confirmação OK");
+            Funcoes.TiraValidacao(id);
         }
     }
 
@@ -162,52 +120,16 @@ $(function () {
         var valida = $(this).hasClass("senha");
         var validaC = $(this).hasClass("confirma-senha");
 
-        if (ob != "" && valida) {
-            validaSenha(id, ob);
-        } else if (ob != "" && validaC) {
-            confirma_senha(id, ob);
-        } else if (ob != "") {
-            validaOK(id, "Campo Obrigatório OK!");
+        if (ob !== "" && valida) {
+            Funcoes.ValidaSenha(id, ob);
+        } else if (ob !== "" && validaC) {
+            Funcoes.ConfirmaSenha(id, ob);
+        } else if (ob !== "") {
+            Funcoes.ValidaOK(id, "Campo Obrigatório OK!");
         } else {
-            validaErro(id, "Campo Obrigatório");
+            Funcoes.ValidaErro(id, "Campo Obrigatório");
         }
     });
-
-    function validaErro(id, msg) {
-        $('#' + id).parent(".form-group").addClass('has-error').removeClass('has-success');
-        $('#' + id).parents('#form-group-' + id).addClass('has-error');
-        $('span#' + id + '-info').text(msg).prepend('<i class="fa clip-cancel-circle-2"></i> ');
-        if (id == "ds_caminho") {
-            var element = $("label[for='" + id + "']").parent(".form-group");
-            element.addClass('has-error').removeClass('has-success');
-            element.children('.fileupload').children('.thumbnail').addClass('form-control');
-        }
-        return false;
-    }
-
-    function validaOK(id, msg) {
-        $('#' + id).parent(".form-group").addClass('has-success').removeClass('has-error');
-        $('#' + id).parents('#form-group-' + id).addClass('has-success').removeClass('has-error');
-        $('span#' + id + '-info').text(msg).prepend('<i class="fa clip-checkmark-circle-2"></i> ');
-        if (id == "ds_caminho") {
-            var element = $("label[for='" + id + "']").parent(".form-group");
-            element.addClass('has-success').removeClass('has-error');
-            element.children('.fileupload').children('.thumbnail').removeClass('form-control');
-        }
-        return true;
-    }
-
-    function tiraValidacao(id) {
-        $('#' + id).parent(".form-group").removeClass('has-success').removeClass('has-error');
-        $('#' + id).parents('#form-group-' + id).removeClass('has-success').removeClass('has-error');
-        $('span#' + id + '-info').text(".");
-        if (id == "ds_caminho") {
-            var element = $("label[for='" + id + "']").parent(".form-group");
-            element.removeClass('has-error has-success');
-            element.children('.fileupload').children('.thumbnail').removeClass('form-control');
-        }
-        return true;
-    }
 
     function mascaraTel(element, valor) {
         if (valor.length === 11) {
@@ -235,12 +157,12 @@ $(function () {
         var minutos = $(this).val().substring(3, 5);
         var id = $(this).attr("id");
         if ((horas > 23) || (minutos > 59)) {
-            validaErro(id, "Horário Inválido!");
+            Funcoes.ValidaErro(id, "Horário Inválido!");
             $(this).val("");
         }
     }).keyup(function () {
         var valor = $(this).val().replace(/[^0-9]+/g, '');
-        var valor = valor.val().replace(/[^:]+/g, '');
+        valor = valor.val().replace(/[^:]+/g, '');
         $(this).val(valor);
     });
     $(".cep").mask("99.999-999").keyup(function () {
@@ -360,18 +282,18 @@ $(function () {
     $(".senha").keyup(function () {
         var senha = $(this).val();
         var id = $(this).attr("id");
-        validaSenha(id, senha);
+        Funcoes.ValidaSenha(id, senha);
     });
     $(".confirma-senha").keyup(function () {
         var senhaC = $(this).val();
         var idC = $(this).attr("id");
-        confirma_senha(idC, senhaC);
+        Funcoes.ConfirmaSenha(idC, senhaC);
     });
     $(".numero").keypress(function (e) {
         var tecla = (window.event) ? event.keyCode : e.which;
         if ((tecla > 47 && tecla < 58))
             return true;
-        else if (tecla == 8 || tecla == 0) {
+        else if (tecla === 8 || tecla === 0) {
             return true;
         }
         else {
@@ -389,14 +311,14 @@ $(function () {
         symbolStay: true
     }).focusout(function () {
         var valor = $(this).val();
-        if (valor == "" || valor == "R$ 0,00") {
+        if (valor === "" || valor === "R$ 0,00") {
             $(this).val("");
         }
     }).keyup(function () {
         var id = $(this).attr("id");
         var valor = $(this).val().replace(/[^0-9]+/g, '');
-        if (valor != '000') {
-            validaOK(id, "Campo Obrigatório OK!");
+        if (valor !== '000') {
+            Funcoes.ValidaOK(id, "Campo Obrigatório OK!");
         }
         valor = valor.val().replace(/[^,.]+/g, '');
         $(this).val(valor);
@@ -410,7 +332,7 @@ $(function () {
         symbolStay: true
     }).focusout(function () {
         var valor = $(this).val();
-        if (valor == "" || valor == "0,00") {
+        if (valor === "" || valor === "0,00") {
             $(this).val("");
         }
     }).keyup(function () {
@@ -423,88 +345,34 @@ $(function () {
 
 
     $(".formulario").submit(function () {
-        $('.img-load').fadeIn('slow');
-        var obrigatorios = campoObrigatorio();
-        var validacao = "";
-        $(".go-top,.alert .close").click();
-        $(".formulario .has-error").each(function () {
-            validacao = "error";
-        });
+        var formAjax = $(this).parents('.j_cadastro').attr('id');
+        if(!formAjax){
+            $('.img-load').fadeIn('slow');
+            var obrigatorios = campoObrigatorio();
+            var validacao = "";
+            $(".go-top,.alert .close").click();
+            $(".formulario .has-error").each(function () {
+                validacao = "error";
+            });
 
-        if (obrigatorios == true) {
-            if (validacao == "error") {
-                Funcoes.Alerta("Existe(em) campo(s) inválido(s), favor verificar!");
+            if (obrigatorios == true) {
+                if (validacao == "error") {
+                    Funcoes.Alerta("Existe(em) campo(s) inválido(s), favor verificar!");
+                    $('.img-load').fadeOut('fast');
+                    return false;
+                }
+            } else {
+                Funcoes.Informativo("Existe(em) campo(s) obrigatório(s) em branco, favor verificar!");
                 $('.img-load').fadeOut('fast');
                 return false;
             }
-        } else {
-            Funcoes.Informativo("Existe(em) campo(s) obrigatório(s) em branco, favor verificar!");
-            $('.img-load').fadeOut('fast');
-            return false;
         }
-        //****** IMPLEMENTAÇÃO DO AJAX ENVIO DE FORMULÁRIO **** ///
-        // $.ajax({
-        //     url: urlValida,
-        //     data: {valida: "ajax", data: ""},
-        //     type: "GET",
-        //     dataType: "json",
-        //     // contentType: false,
-        //     // cache: false,
-        //     // processData:false,
-        //     beforeSend: function () {
-        //         $('.img-load').fadeIn('slow');
-        //     },
-        //     success: function (data) {
-        //         // $('.img-load').fadeOut('fast');
-        //         Funcoes.Informativo(data);
-        //         return false;
-        //     },
-        //     error: function (e) {
-        //         Funcoes.Erro(e.preventDefault());
-        //     }
-        // });
-        //
-        // return false;
     });
 
     //CAMPO OBRIGATÓRIO
     function campoObrigatorio() {
-        var campos = "";
-        $(".formulario .ob").each(function () {
-            var valor = $(this).val();
-            var id = $(this).attr("id");
-            var tem = id.search("s2id_");
-            var valida = false;
-
-            if (tem != 0) {
-                if (valor == "") {
-                    campos = "teste";
-                    validaErro(id, "Campo Obrigatório");
-                }
-            } else {
-                $("#" + id + " ul li").each(function () {
-                    if ($(this).hasClass("select2-search-choice")) {
-                        valida = true;
-                    }
-                });
-                if (!$("#" + id).hasClass("multipla")) {
-                    valida = true;
-                }
-                if (!valida) {
-                    validaErro(id, "Campo Obrigatório");
-                }
-            }
-
-            if (valor != "") {
-                if ($(this).hasClass("senha")) {
-                    validaSenha(id, valor);
-                }
-                if ($(this).hasClass("confirma-senha")) {
-                    confirma_senha(id, valor);
-                }
-            }
-        });
-        if (campos != "") {
+        var campos = Funcoes.ValidarCampos();
+        if (campos !== "") {
             $(".ob:first").focus();
             Funcoes.Alerta('Existem campos em branco que são obrigatórios ou campos inválidos, favor verificar');
             return false;
@@ -520,9 +388,9 @@ $(function () {
         $("#load").click();
 
         $.get(urlValida, {valida: 'deleta_registro', entidade: entidade, id: id}, function (retorno) {
-            if (retorno == true) {
+            if (retorno === true) {
                 window.setTimeout('location.reload()', 1);
-            } else if (retorno != "") {
+            } else if (retorno !== "") {
                 if (msg) {
                     $.get(urlValida, {valida: 'msg_valida', msg: msg}, function (retorno) {
                         Funcoes.Alerta("Não foi possível a exclusão do registro.<br><br>" + retorno);

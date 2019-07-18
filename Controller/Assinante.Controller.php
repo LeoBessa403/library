@@ -81,7 +81,7 @@ class Assinante extends AbstractController
     public static function getReferenciaPagamentoAssinante($coPlano)
     {
         /** @var PlanoService $planoService */
-        $planoService = static::getService(PLANO_SERVICE);
+        $planoService = static::getServiceStatic(PLANO_SERVICE);
         if ($coPlano) {
             /** @var PlanoEntidade $plano */
             $plano = $planoService->PesquisaUmRegistro($coPlano);

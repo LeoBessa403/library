@@ -7,5 +7,9 @@ class AbstractController
     {
         return new $service();
     }
+    public static function getServiceStatic($service)
+    {
+        return new $service();
+    }
 
 }

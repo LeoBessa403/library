@@ -17,7 +17,7 @@ class Index extends AbstractController
         $id2 = "ValidacaoPessoa";
         if (!empty($_POST[$id])) {
             /** @var UsuarioService $usuarioService */
-            $usuarioService = static::getService(USUARIO_SERVICE);
+            $usuarioService = static::getServiceStatic(USUARIO_SERVICE);
             $usuarioService->salvaUsuario($_POST, $_FILES, true);
         } elseif (!empty($_POST[$id2])) {
             $PessoaValidador = new PessoaValidador();
@@ -25,7 +25,7 @@ class Index extends AbstractController
             $validador = $PessoaValidador->validarCPF($_POST);
             if ($validador[SUCESSO]) {
                 /** @var PessoaService $pessoaService */
-                $pessoaService = static::getService(PESSOA_SERVICE);
+                $pessoaService = static::getServiceStatic(PESSOA_SERVICE);
                 /** @var PessoaEntidade $pessoa */
                 $pessoa = $pessoaService->PesquisaUmQuando([
                     NU_CPF => Valida::RetiraMascara($_POST[NU_CPF])
@@ -89,7 +89,7 @@ class Index extends AbstractController
             $validador = $PessoaValidador->validarEmail($_POST);
             if ($validador[SUCESSO]) {
                 /** @var ContatoService $contatoService */
-                $contatoService = static::getService(CONTATO_SERVICE);
+                $contatoService = static::getServiceStatic(CONTATO_SERVICE);
                 /** @var ContatoEntidade $contato */
                 $contato = $contatoService->PesquisaUmQuando([
                     DS_EMAIL => $_POST[DS_EMAIL]

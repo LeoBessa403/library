@@ -36,7 +36,7 @@ class Usuario extends AbstractController
             $validador = $PessoaValidador->validarCPF($_POST);
             if ($validador[SUCESSO]) {
                 /** @var PessoaService $pessoaService */
-                $pessoaService = static::getService(PESSOA_SERVICE);
+                $pessoaService = static::getServiceStatic(PESSOA_SERVICE);
                 /** @var PessoaEntidade $pessoa */
                 $pessoa = $pessoaService->PesquisaUmQuando([
                     NU_CPF => Valida::RetiraMascara($_POST[NU_CPF])

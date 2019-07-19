@@ -346,8 +346,7 @@ $(function () {
 
     $(".formulario").submit(function () {
         var formAjax = $(this).parents('.j_cadastro').attr('id');
-        var formAjax2 = $(this).parents('.j_deletar').attr('id');
-        if (!formAjax && !formAjax2) {
+        if(!formAjax){
             $('.img-load').fadeIn('slow');
             var obrigatorios = campoObrigatorio();
             var validacao = "";

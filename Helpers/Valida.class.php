@@ -416,7 +416,7 @@ class Valida
      * Formata para o valor moeda de apresentação.
      * @param FLOAT $valor = Valor a ser convertido.
      * @param STRING $simbolo = Simbolo a ser usado antes do valor ex.: (R$, U$).
-     * @return Miniimagem
+     * @return float
      */
     public static function FormataMoeda($valor, $simbolo = null)
     {

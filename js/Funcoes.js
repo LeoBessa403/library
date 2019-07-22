@@ -25,7 +25,7 @@ var Funcoes = function () {
 
         // Botão Reset
         $('#config').click(function () {
-            $("#model_confirmacao").click();
+            $("#model_confirmacao_ativacao").click();
             return false;
         });
 

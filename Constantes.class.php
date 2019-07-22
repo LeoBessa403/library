@@ -126,6 +126,9 @@ define('NO_SESSAO', 'no_sessao');
 define('DS_TITULO', 'ds_titulo');
 define('CO_HISTORICO_HISTORIA', 'co_historico_historia');
 define('CO_PERFIL_ASSINANTE', 'co_perfil_assinante');
+define('CO_CRON', 'co_cron');
+define('NO_CRON', 'no_cron');
+define('DS_SQL', 'ds_sql');
 
 
 // SERVICES PADRÃO
@@ -164,6 +167,7 @@ define('ASSINANTE_FILIAL_SERVICE', 'AssinanteFilialService');
 define('IMAGEM_ASSINANTE_SERVICE', 'ImagemAssinanteService');
 define('HISTORICO_HISTORIA_SERVICE', 'HistoricoHistoriaService');
 define('PERFIL_ASSINANTE_SERVICE', 'PerfilAssinanteService');
+define('CRONS_SERVICE', 'CronsService');
 
 
 // CONSTANTES

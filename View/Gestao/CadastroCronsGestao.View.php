@@ -12,14 +12,13 @@
                         </a>
                     </li>
                     <li class="active">
-                        Arquivo de Configuração Padrão
+                        Gestão de Crons
                     </li>
 
                 </ol>
                 <div class="page-header">
                     <h1>Gestão
-                        <small>Arquivo de Configuração Padrão</small>
-                        <?php Valida::geraBtn('Reset Config', 'ResetConfigGestao', 'btn-info', 'config'); ?>
+                        <small>Gestão de Crons</small>
                     </h1>
                 </div>
                 <!-- end: PAGE TITLE & BREADCRUMB -->
@@ -27,7 +26,6 @@
         </div>
         <?php
         Modal::load();
-        Modal::ModalConfirmaAtivacao("Config", 'Deseja realmete Resetar o CONFIG?', null, 'ResetConfigGestao');
         ?>
         <div class="row">
             <?php

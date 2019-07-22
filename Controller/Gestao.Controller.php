@@ -161,7 +161,6 @@ class Gestao extends AbstractController
         Redireciona(ADMIN . "/Modulo/ListarModulo");
     }
 
-
     public function LimparBancoGestao()
     {
         $retorno = false;
@@ -192,6 +191,38 @@ class Gestao extends AbstractController
             }
         }
         $this->form = GestaoForm::LimparBanco();
+    }
+
+    public function CronsGestao()
+    {
+        /** @var CronsService $cronsService */
+        $cronsService = $this->getService(CRONS_SERVICE);
+        /** @var CronsService $cronsService */
+        $this->result = $cronsService->PesquisaTodos();
+    }
+
+    public function CadastroCronsGestao()
+    {
+        /** @var CronsService $cronsService */
+        $cronsService = $this->getService(CRONS_SERVICE);
+        if (!empty($_POST['CadastroCrons'])) {
+            $retorno = $cronsService->salvaCron($_POST);
+            if ($retorno[SUCESSO]) {
+                Redireciona(UrlAmigavel::$modulo . '/Gestao/CronsGestao/');
+            }
+        }
+
+        $coCron = UrlAmigavel::PegaParametro(CO_CRON);
+        $res = [];
+        if ($coCron) {
+            /** @var CronsEntidade $cron */
+            $cron = $cronsService->PesquisaUmRegistro($coCron);
+
+            $res[NO_CRON] = $cron->getNoCron();
+            $res[DS_SQL] = $cron->getDsSql();
+            $res[CO_CRON] = $cron->getCoCron();
+        }
+        $this->form = GestaoForm::CadastroCrons($res);
     }
 
 }

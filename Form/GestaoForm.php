@@ -294,6 +294,37 @@ class GestaoForm
 
         return $formulario->finalizaForm();
     }
+
+    public static function CadastroCrons($res)
+    {
+        $id = "CadastroCrons";
+
+        $formulario = new Form($id, null, 'Gerar Cron', 6);
+        $formulario->setValor($res);
+
+        $formulario
+            ->setId(NO_CRON)
+            ->setClasses("ob nome")
+            ->setLabel("Nome da Cron")
+            ->CriaInpunt();
+
+        $formulario
+            ->setType(TiposCampoEnum::TEXTAREA)
+            ->setId(DS_SQL)
+            ->setClasses("ob")
+            ->setLabel("Sql")
+            ->CriaInpunt();
+
+        if (!empty($res[CO_CRON])):
+            $formulario
+                ->setType(TiposCampoEnum::HIDDEN)
+                ->setId(CO_CRON)
+                ->setValues($res[CO_CRON])
+                ->CriaInpunt();
+        endif;
+
+        return $formulario->finalizaForm();
+    }
 }
 
 ?>

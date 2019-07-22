@@ -50,146 +50,6 @@ class Modal
             </div>';
     }
 
-    public static function desativaProduto($id)
-    {
-        echo '<div class="modal fade in modal-overflow produto_model" id="' . $id . '" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-header btn-bricky">
-                        <button type="button" class="close cancelar" data-dismiss="modal" aria-hidden="true">
-                                X
-                        </button>
-                        <h4 class="modal-title">Desativar Produto</h4>
-                </div>
-                <div class="modal-body">
-                        <b>Deseja Realmente Desativar esse Produto?</b>
-                </div>
-                <div class="modal-footer">
-                        <button aria-hidden="true" data-dismiss="modal" class="btn btn-bricky cancelar">
-                                Fechar
-                        </button>
-                        <button class="btn btn-success" data-dismiss="modal" id="" data-url-action="">
-                                OK
-                        </button>
-                </div>
-            </div>';
-    }
-
-    public static function ativaProduto($id)
-    {
-        echo '<div class="modal fade in modal-overflow produto_model" id="' . $id . '" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-header btn-success">
-                        <button type="button" class="close cancelar" data-dismiss="modal" aria-hidden="true">
-                                X
-                        </button>
-                        <h4 class="modal-title">Ativar Produto</h4>
-                </div>
-                <div class="modal-body">
-                        <b>Deseja Realmente Ativar esse Produto?</b>
-                </div>
-                <div class="modal-footer">
-                        <button aria-hidden="true" data-dismiss="modal" class="btn btn-bricky cancelar">
-                                Fechar
-                        </button>
-                        <button class="btn btn-success" data-dismiss="modal" id="" data-url-action="">
-                                OK
-                        </button>
-                </div>
-            </div>';
-    }
-
-
-    public static function DesativarProfissional($id)
-    {
-        echo '<div class="modal fade in modal-overflow profissional_model" id="' . $id . '" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-header btn-bricky">
-                        <button type="button" class="close cancelar" data-dismiss="modal" aria-hidden="true">
-                                X
-                        </button>
-                        <h4 class="modal-title">Desativar Profissional</h4>
-                </div>
-                <div class="modal-body">
-                        <b>Deseja Realmente Desativar esse Profissional?</b>
-                </div>
-                <div class="modal-footer">
-                        <button aria-hidden="true" data-dismiss="modal" class="btn btn-bricky cancelar">
-                                Fechar
-                        </button>
-                        <button class="btn btn-success" data-dismiss="modal" id="" data-url-action="">
-                                OK
-                        </button>
-                </div>
-            </div>';
-    }
-
-    public static function AtivarProfissional($id)
-    {
-        echo '<div class="modal fade in modal-overflow profissional_model" id="' . $id . '" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-header btn-success">
-                        <button type="button" class="close cancelar" data-dismiss="modal" aria-hidden="true">
-                                X
-                        </button>
-                        <h4 class="modal-title">Ativar Profissional</h4>
-                </div>
-                <div class="modal-body">
-                        <b>Deseja Realmente Ativar esse Profissional?</b>
-                </div>
-                <div class="modal-footer">
-                        <button aria-hidden="true" data-dismiss="modal" class="btn btn-bricky cancelar">
-                                Fechar
-                        </button>
-                        <button class="btn btn-success" data-dismiss="modal" id="" data-url-action="">
-                                OK
-                        </button>
-                </div>
-            </div>';
-    }
-
-    public static function desativaDestaque($id)
-    {
-        echo '<div class="modal fade in modal-overflow produto_model" id="' . $id . '" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-header btn-bricky">
-                        <button type="button" class="close cancelar" data-dismiss="modal" aria-hidden="true">
-                                X
-                        </button>
-                        <h4 class="modal-title">Desativar Destaque do Produto</h4>
-                </div>
-                <div class="modal-body">
-                        <b>Deseja Realmente Desativar o Destaque desse Produto?</b>
-                </div>
-                <div class="modal-footer">
-                        <button aria-hidden="true" data-dismiss="modal" class="btn btn-bricky cancelar">
-                                Fechar
-                        </button>
-                        <button class="btn btn-success" data-dismiss="modal" id="" data-url-action="">
-                                OK
-                        </button>
-                </div>
-            </div>';
-    }
-
-    public static function ativaDestaque($id)
-    {
-        echo '<div class="modal fade in modal-overflow produto_model" id="' . $id . '" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-header btn-success">
-                        <button type="button" class="close cancelar" data-dismiss="modal" aria-hidden="true">
-                                X
-                        </button>
-                        <h4 class="modal-title">Ativar Destaque do Produto</h4>
-                </div>
-                <div class="modal-body">
-                        <b>Deseja Realmente Ativar o Destaque desse Produto?</b>
-                </div>
-                <div class="modal-footer">
-                        <button aria-hidden="true" data-dismiss="modal" class="btn btn-bricky cancelar">
-                                Fechar
-                        </button>
-                        <button class="btn btn-success" data-dismiss="modal" id="" data-url-action="">
-                                OK
-                        </button>
-                </div>
-            </div>';
-    }
-
-
     public static function confirmacao($id)
     {
         echo '<div class="modal in modal-overflow fade confirmacao" id="' . $id . '" tabindex="-1" role="dialog" aria-hidden="true">
@@ -279,63 +139,9 @@ class Modal
         echo '<a data-toggle="modal" role="button" href="#foto_cliente" id="fotos"></a>';
     }
 
-    public static function DesativarInscricao($id)
+    public static function ModalConfirmaAtivacao($id, $msg, $codigo, $action)
     {
-        echo '<div class="modal fade in modal-overflow inscricao_model" id="' . $id . '" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-header btn-bricky">
-                        <button type="button" class="close cancelar" data-dismiss="modal" aria-hidden="true">
-                                X
-                        </button>
-                        <h4 class="modal-title">Desativar Inscrição</h4>
-                </div>
-                <div class="modal-body">
-                        <b>Deseja Realmente Desativar essa Inscrição?</b>
-                        </br></br>
-                        <div class="form-group">
-                            <label for="ds_observacao" class="control-label"> 
-                            Motivo da Desativação <span class="symbol required"></span>
-                            </label>
-                            <textarea id="ds_observacao" name="ds_observacao" style="resize: none;"
-                             class="form-control ob"></textarea>
-                         </div>
-                </div>
-                <div class="modal-footer">
-                        <button aria-hidden="true" data-dismiss="modal" class="btn btn-bricky cancelar">
-                                Fechar
-                        </button>
-                        <button class="btn btn-success" data-dismiss="modal" id="" data-url-action="">
-                                OK
-                        </button>
-                </div>
-            </div>';
-    }
-
-    public static function AtivarInscricao($id)
-    {
-        echo '<div class="modal fade in modal-overflow inscricao_model" id="' . $id . '" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-header btn-success">
-                        <button type="button" class="close cancelar" data-dismiss="modal" aria-hidden="true">
-                                X
-                        </button>
-                        <h4 class="modal-title">Ativar Inscrição</h4>
-                </div>
-                <div class="modal-body">
-                        <b>Deseja Realmente Ativar essa Inscrição?</b>
-                </div>
-                <div class="modal-footer">
-                        <button aria-hidden="true" data-dismiss="modal" class="btn btn-bricky cancelar">
-                                Fechar
-                        </button>
-                        <button class="btn btn-success" data-dismiss="modal" id="" data-url-action="">
-                                OK
-                        </button>
-                </div>
-            </div>';
-    }
-
-    public static function modelConfirmacao($id, $msg, $codigo, $action)
-    {
-        echo '<div class="modal fade in modal-overflow model_confirmacao" id="' . $id . '" tabindex="-1" role="dialog" aria-hidden="true">
+        echo '<div class="modal fade in modal-overflow model_confirmacao_ativacao" id="' . $id . '" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-header btn-success">
                         <button type="button" class="close cancelar" data-dismiss="modal" aria-hidden="true">
                                 X
@@ -352,10 +158,45 @@ class Modal
                         <button class="btn btn-success" data-dismiss="modal" id="btn-success-' . $id . '" data-url-action="' . $action . '">
                                 OK
                         </button>
-                        <input type="hidden" name="codigo" id="codigo" value="' . $codigo . '" />
+                        <input type="hidden" name="ativar_codigo" id="ativar_codigo" value="' . $codigo . '" />
                 </div>
             </div>';
-        echo '<a data-toggle="modal" role="button" href="#' . $id . '" id="model_confirmacao"></a>';
+        echo '<a data-toggle="modal" role="button" href="#' . $id . '" id="model_confirmacao_ativacao"></a>';
+    }
+
+    public static function ModalConfirmaDesativacao($id, $msg, $codigo, $action, $campoMotivo = null)
+    {
+        echo '<div class="modal fade in modal-overflow model_confirmacao_desativacao" id="' . $id . '" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-header btn-bricky">
+                        <button type="button" class="close cancelar" data-dismiss="modal" aria-hidden="true">
+                                X
+                        </button>
+                        <h4 class="modal-title">Confirmação</h4>
+                </div>
+                <div class="modal-body">
+                        <b>' . $msg . '</b>';
+        if ($campoMotivo) {
+            echo '</br></br>
+                        <div class="form-group">
+                            <label for="ds_observacao" class="control-label"> 
+                            Motivo da Desativação <span class="symbol required"></span>
+                            </label>
+                            <textarea id="ds_observacao" name="ds_observacao" style="resize: none;"
+                             class="form-control ob"></textarea>
+                         </div>';
+        }
+        echo '</div>
+                <div class="modal-footer">
+                        <button aria-hidden="true" data-dismiss="modal" class="btn btn-bricky cancelar">
+                                Fechar
+                        </button>
+                        <button class="btn btn-success" data-dismiss="modal" id="btn-success-' . $id . '" data-url-action="' . $action . '">
+                                OK
+                        </button>
+                        <input type="hidden" name="desativar_codigo" id="desativar_codigo" value="' . $codigo . '" />
+                </div>
+            </div>';
+        echo '<a data-toggle="modal" role="button" href="#' . $id . '" id="model_confirmacao_desativacao"></a>';
     }
 
     public static function Cadastro($action = null, $titulo = 'Cadastro', $class = 'green', $icon = 'fa fa-plus')

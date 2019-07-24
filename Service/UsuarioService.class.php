@@ -17,18 +17,31 @@ class  UsuarioService extends AbstractService
 
     public static function getNoPerfilUsuarioLogado()
     {
-        /** @var Session $us */
-        $us = $_SESSION[SESSION_USER];
-        $user = $us->getUser();
-        return (!empty($user[md5('no_perfis')])) ? $user[md5('no_perfis')] : null;
+        /** @var Session $session */
+        $session = new Session();
+        if (!$session->CheckSession(SESSION_USER)) {
+            return NO_USUARIO_PADRAO;
+        } else {
+            /** @var Session $us */
+            $us = $_SESSION[SESSION_USER];
+            $user = $us->getUser();
+            return (!empty($user[md5('no_perfis')])) ? $user[md5('no_perfis')] : null;
+        }
     }
 
     public static function getCoUsuarioLogado()
     {
-        /** @var Session $us */
-        $us = $_SESSION[SESSION_USER];
-        $user = $us->getUser();
-        return (!empty($user[md5(CO_USUARIO)])) ? $user[md5(CO_USUARIO)] : null;
+        /** @var Session $session */
+        $session = new Session();
+        if (!$session->CheckSession(SESSION_USER)) {
+            return CO_USUARIO_PADRAO;
+        } else {
+            /** @var Session $us */
+            $us = $_SESSION[SESSION_USER];
+            $user = $us->getUser();
+            return (!empty($user[md5(CO_USUARIO)])) ? $user[md5(CO_USUARIO)] : null;
+        }
+
     }
 
     public static function getNoPessoaCoUsuario($coUsuario)

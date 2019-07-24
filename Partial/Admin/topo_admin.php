@@ -1,8 +1,6 @@
 <?php
 ob_start();
 $url = new UrlAmigavel();
-new Backup();
-new Cron();
 if (in_array(UrlAmigavel::$action, UrlAmigavel::$ACESSO_PERMITIDO)):
     $url->pegaControllerAction();
     exit;

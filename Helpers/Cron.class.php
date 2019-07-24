@@ -22,6 +22,10 @@ class Cron
         $dias = Valida::CalculaDiferencaDiasData(date("d/m/Y"), Valida::DataShow($cronDate));
 
         if ($dias < 1):
+            $control = new IndexController();
+            if (method_exists($control, 'CronExecute')){
+                $control->CronExecute();
+            }
             $this->executeCrons();
         endif;
     }
@@ -44,7 +48,7 @@ class Cron
                     $result = mysqli_query($this->conn, $cron->getDsSql());
                     if (!$result) {
                         Notificacoes::geraMensagem(
-                            "Error na Cron " . $cron->getNoCron() . ": " . $cron->getDsSql(),
+                            "Error na Cron " . $cron->getNoCron(),
                             TiposMensagemEnum::ERRO
                         );
                     }

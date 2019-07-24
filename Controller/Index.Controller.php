@@ -6,6 +6,8 @@ class Index extends AbstractController
     {
         $index = new IndexController();
         $this->dados = $index->Index();
+        new Backup();
+        new Cron();
     }
 
     public function Registrar()
@@ -45,12 +47,6 @@ class Index extends AbstractController
                         /** @var ContatoService $contatoService */
                         $contatoService = $this->getService(CONTATO_SERVICE);
                         $res = $contatoService->getArrayDadosContato($pessoa->getCoContato(), $res);
-//                        if ($pessoa->getCoInscricao()) {
-//                            if ($pessoa->getUltimaCoInscricao()->getCoImagem()->getDsCaminho()):
-//                                $res[DS_CAMINHO] = "inscricoes/" . $pessoa->getUltimaCoInscricao()->getCoImagem()->getDsCaminho();
-//                                $res[CO_IMAGEM] = $pessoa->getUltimaCoInscricao()->getCoImagem()->getCoImagem();
-//                            endif;
-//                        }
                     }
                 } else {
                     $res[NU_CPF] = $_POST[NU_CPF];

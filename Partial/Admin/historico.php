@@ -37,7 +37,7 @@
                 $corI = 0;
             ?>
             <li>
-                <div class="timeline_element <?= $cores[$corI]; ?>">
+                <div class="timeline_element <?= $cores[rand(0,4)]; ?>">
                     <div class="timeline_title">
                         <span class="timeline_date"></span>
                     </div>

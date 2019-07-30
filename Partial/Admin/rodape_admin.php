@@ -50,7 +50,6 @@ $url->pegaControllerAction();
 <script src="<?= PASTA_LIBRARY; ?>plugins/jquery.sparkline/jquery.sparkline.js"></script>
 <script src="<?= PASTA_LIBRARY; ?>plugins/jquery-easy-pie-chart/jquery.easy-pie-chart.js"></script>
 <script src="<?= PASTA_LIBRARY; ?>plugins/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
-<script src="<?= PASTA_LIBRARY; ?>plugins/fullcalendar/fullcalendar/fullcalendar.js"></script>
 <script src="<?= PASTA_LIBRARY; ?>plugins/bootstrap-modal/js/bootstrap-modal.js"></script>
 <script src="<?= PASTA_LIBRARY; ?>plugins/bootstrap-modal/js/bootstrap-modalmanager.js"></script>
 <script src="<?= PASTA_LIBRARY; ?>plugins/select2/select2.min.js"></script>
@@ -66,6 +65,18 @@ $url->pegaControllerAction();
 <script src="<?= PASTA_LIBRARY; ?>js/form-wizard.js"></script>
 <script src="<?= PASTA_LIBRARY; ?>plugins/jQRangeSlider/jQAllRangeSliders-min.js"></script>
 <script src="<?= PASTA_LIBRARY; ?>js/ui-sliders.js"></script>
+
+
+<!-- CALENDAR -->
+<script src="<?= PASTA_LIBRARY; ?>plugins/FullCalendar4/js/core.main.min.js"></script>
+<script src="<?= PASTA_LIBRARY; ?>plugins/FullCalendar4/js/daygrid.main.min.js"></script>
+<script src="<?= PASTA_LIBRARY; ?>plugins/FullCalendar4/js/interaction.main.min.js"></script>
+<script src="<?= PASTA_LIBRARY; ?>plugins/FullCalendar4/js/list.main.min.js"></script>
+<script src="<?= PASTA_LIBRARY; ?>plugins/FullCalendar4/js/timegrid.main.min.js"></script>
+<script src="<?= PASTA_LIBRARY; ?>plugins/FullCalendar4/js/bootstrap.main.min.js"></script>
+
+
+
 <!-- end: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
 <script>
     jQuery(document).ready(function () {

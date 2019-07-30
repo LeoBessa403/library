@@ -63,7 +63,6 @@ $user = $us->getUser();
           type="text/css"/>
     <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>plugins/bootstrap-modal/css/bootstrap-modal.css"
           type="text/css"/>
-    <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>plugins/fullcalendar/fullcalendar/fullcalendar.css">
     <!-- end: CSS REQUIRED FOR THIS PAGE ONLY -->
     <!-- start: CSS REQUIRED FOR DATAPICKER -->
     <link rel="stylesheet" href="<?= INCLUDES; ?>Jcalendar.css">
@@ -75,6 +74,20 @@ $user = $us->getUser();
     <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>plugins/bootstrap-fileupload/bootstrap-fileupload.min.css">
     <!-- start: CSS REQUIRED FOR CHECK -->
     <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>plugins/jQRangeSlider/css/classic-min.css">
+
+
+
+    <!--  CALENDAR  -->
+    <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>plugins/FullCalendar4/css/core.main.min.css">
+    <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>plugins/FullCalendar4/css/daygrid.main.min.css">
+    <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>plugins/FullCalendar4/css/list.main.min.css">
+    <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>plugins/FullCalendar4/css/timegrid.main.min.css">
+    <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>plugins/FullCalendar4/css/bootstrap.main.min.css">
+
+
+
+
+
     <link rel="stylesheet"
           href="<?= PASTA_LIBRARY; ?>plugins/bootstrap-switch/static/stylesheets/bootstrap-switch.css">
     <!-- start: CSS REQUIRED FOR CHECK -->

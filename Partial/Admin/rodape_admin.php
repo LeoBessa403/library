@@ -65,8 +65,6 @@ $url->pegaControllerAction();
 <script src="<?= PASTA_LIBRARY; ?>js/form-wizard.js"></script>
 <script src="<?= PASTA_LIBRARY; ?>plugins/jQRangeSlider/jQAllRangeSliders-min.js"></script>
 <script src="<?= PASTA_LIBRARY; ?>js/ui-sliders.js"></script>
-
-
 <!-- CALENDAR -->
 <script src="<?= PASTA_LIBRARY; ?>plugins/FullCalendar4/js/core.main.min.js"></script>
 <script src="<?= PASTA_LIBRARY; ?>plugins/FullCalendar4/js/daygrid.main.min.js"></script>
@@ -74,7 +72,6 @@ $url->pegaControllerAction();
 <script src="<?= PASTA_LIBRARY; ?>plugins/FullCalendar4/js/list.main.min.js"></script>
 <script src="<?= PASTA_LIBRARY; ?>plugins/FullCalendar4/js/timegrid.main.min.js"></script>
 <script src="<?= PASTA_LIBRARY; ?>plugins/FullCalendar4/js/bootstrap.main.min.js"></script>
-
 
 
 <!-- end: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->

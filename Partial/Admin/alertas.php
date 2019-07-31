@@ -38,3 +38,4 @@ if ($session->CheckSession(MENSAGEM)) {
     $session->FinalizaSession(MENSAGEM);
 }
 Notificacoes::alerta();
+Modal::ModalConfirmaAtivacao();

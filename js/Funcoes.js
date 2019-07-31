@@ -87,7 +87,10 @@ var Funcoes = function () {
                     retornoAjax = data;
                 },
                 error: function (e) {
-                    Funcoes.Erro("Deu Ruim");
+                    Funcoes.Erro(e.preventDefault());
+                    retornoAjax = {
+                        sucesso: false
+                    };
                 },
                 complete: function () {
                     $("#carregando .cancelar").click();

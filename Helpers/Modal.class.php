@@ -139,7 +139,7 @@ class Modal
         echo '<a data-toggle="modal" role="button" href="#foto_cliente" id="fotos"></a>';
     }
 
-    public static function ModalConfirmaAtivacao($id, $msg, $codigo, $action)
+    public static function ModalConfirmaAtivacao($id = 'modal_confirma_ativacao', $msg = null, $codigo = null, $action = null)
     {
         echo '<div class="modal fade in modal-overflow model_confirmacao_ativacao" id="' . $id . '" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-header btn-success">
@@ -153,7 +153,7 @@ class Modal
                 </div>
                 <div class="modal-footer">
                         <button aria-hidden="true" data-dismiss="modal" class="btn btn-bricky cancelar">
-                                Fechar
+                                Cancelar
                         </button>
                         <button class="btn btn-success" data-dismiss="modal" id="btn-success-' . $id . '" data-url-action="' . $action . '">
                                 OK
@@ -164,7 +164,7 @@ class Modal
         echo '<a data-toggle="modal" role="button" href="#' . $id . '" id="model_confirmacao_ativacao"></a>';
     }
 
-    public static function ModalConfirmaDesativacao($id, $msg, $codigo, $action, $campoMotivo = null)
+    public static function ModalConfirmaDesativacao($id = 'model_confirma_desativacao', $msg = null, $codigo = null, $action = null, $campoMotivo = null)
     {
         echo '<div class="modal fade in modal-overflow model_confirmacao_desativacao" id="' . $id . '" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-header btn-bricky">
@@ -188,7 +188,7 @@ class Modal
         echo '</div>
                 <div class="modal-footer">
                         <button aria-hidden="true" data-dismiss="modal" class="btn btn-bricky cancelar">
-                                Fechar
+                                Cancelar
                         </button>
                         <button class="btn btn-success" data-dismiss="modal" id="btn-success-' . $id . '" data-url-action="' . $action . '">
                                 OK

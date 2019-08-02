@@ -680,7 +680,8 @@ class Valida
      */
     public static function geraBtn($descricao, $action, $class = 'btn-success', $id = 'novoId', $icon = 'fa fa-plus')
     {
-        echo '<a href="' . PASTAADMIN . UrlAmigavel::$controller . '/' . $action . '" id="' . $id . '"
+        $act = ($action) ? PASTAADMIN . UrlAmigavel::$controller . '/' . $action : '#';
+        echo '<a href="' . $act . '" id="' . $id . '"
                class="btn ' . $class . ' tooltips" data-original-title="' . $descricao . '" data-placement="top">
                <i class="' . $icon . '"></i> ' . $descricao . '
             </a>';
@@ -1181,6 +1182,7 @@ class Valida
         $niver = $niver[0] . ' de ' . $mes_extenso[$niver[1]];
         return $niver;
     }
+
     /**
      * @param $dados
      * @return array

@@ -44,6 +44,7 @@ class Grid
         endif;
         echo '</div></div>';
         echo '</div><hr>';
+        return null;
     }
 
     public function gerarBtnExportar()

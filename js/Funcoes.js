@@ -87,9 +87,9 @@ var Funcoes = function () {
                     retornoAjax = data;
                 },
                 error: function (e) {
-                    Funcoes.Erro('Deu Erro');
                     retornoAjax = {
-                        sucesso: false
+                        sucesso: false,
+                        msg: 'Erro no Ajax'
                     };
                 },
                 complete: function () {

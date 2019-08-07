@@ -4676,39 +4676,39 @@ ul#countdown li p.timeRefDays, ul#countdown li p.timeRefHours, ul#countdown li p
 
 .label-default, .badge-default {
     background-color: #3A87AD !important;
-    border-color: #3A87AD !important;
+    border-color: #3A87AD;
 }
 
 .label-orange, .badge-orange {
     background-color: #E6674A !important;
-    border-color: #E6674A !important;
+    border-color: #E6674A;
 }
 
 .label-purple, .badge-purple {
     background-color: #57517B !important;
-    border-color: #57517B !important;
+    border-color: #57517B;
 }
 
 .label-yellow, .badge-yellow {
     background-color: #FFB848 !important;
-    border-color: #FFB848 !important;
+    border-color: #FFB848;
     color: #000 !important;
 }
 
 .label-teal, .badge-teal {
     background-color: #569099 !important;
-    border-color: #569099 !important;
+    border-color: #569099;
 }
 
 .label-beige, .badge-beige {
     background-color: #CCCC99 !important;
-    border-color: #CCCC99 !important;
+    border-color: #CCCC99;
     color: #000 !important;
 }
 
 .label-green, .badge-green {
     background-color: #3D9400 !important;
-    border-color: #3D9400 !important;
+    border-color: #3D9400;
 }
 
 .label-black, .badge-black {
@@ -4718,13 +4718,13 @@ ul#countdown li p.timeRefDays, ul#countdown li p.timeRefHours, ul#countdown li p
 
 .label-warning, .badge-warning {
     background-color: #d1bb09 !important;
-    border-color: #edd709 !important;
+    border-color: #edd709;
     color: #000 !important;
 }
 
 .label-red, .badge-red {
     background-color: #bd362f !important;
-    border-color: #bd362f !important;
+    border-color: #bd362f;
     color: #fff !important;
 }
 
@@ -5728,12 +5728,14 @@ td.column-right {
     padding: 8px;
 }
 
-.align-right{
+.align-right {
     text-align: right !important;
 }
-.align-center{
+
+.align-center {
     text-align: center !important;
 }
-.align-left{
+
+.align-left {
     text-align: left !important;
 }

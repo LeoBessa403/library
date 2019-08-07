@@ -4674,58 +4674,133 @@ ul#countdown li p.timeRefDays, ul#countdown li p.timeRefHours, ul#countdown li p
     margin: 5px 0;
 }
 
-.label-default, .badge-default {
+.label-default, .badge-default, .fc-list-view .event-default {
     background-color: #3A87AD !important;
-    border-color: #3A87AD;
+    border-color: #3A87AD !important;
 }
 
-.label-orange, .badge-orange {
+.label-orange, .badge-orange, .fc-list-view .event-orange {
     background-color: #E6674A !important;
-    border-color: #E6674A;
+    border-color: #E6674A !important;
 }
 
-.label-purple, .badge-purple {
+.label-purple, .badge-purple, .fc-list-view .event-purple {
     background-color: #57517B !important;
-    border-color: #57517B;
+    border-color: #57517B !important;
 }
 
-.label-yellow, .badge-yellow {
+.label-yellow, .badge-yellow, .fc-list-view .event-yellow {
     background-color: #FFB848 !important;
-    border-color: #FFB848;
+    border-color: #FFB848 !important;
     color: #000 !important;
 }
 
-.label-teal, .badge-teal {
+.label-teal, .badge-teal, .fc-list-view .event-teal {
     background-color: #569099 !important;
-    border-color: #569099;
+    border-color: #569099 !important;
 }
 
-.label-beige, .badge-beige {
+.label-beige, .badge-beige, .fc-list-view .event-beige {
     background-color: #CCCC99 !important;
-    border-color: #CCCC99;
+    border-color: #CCCC99 !important;
     color: #000 !important;
 }
 
-.label-green, .badge-green {
+.label-green, .badge-green, .fc-list-view .event-green {
     background-color: #3D9400 !important;
-    border-color: #3D9400;
+    border-color: #3D9400 !important;
 }
 
-.label-black, .badge-black {
+.label-black, .badge-black, .fc-list-view .event-black {
     background-color: #2F2E35 !important;
     border-color: #3F3F3F !important;
 }
 
-.label-warning, .badge-warning {
+.label-warning, .badge-warning, .fc-list-view .event-warning {
     background-color: #d1bb09 !important;
-    border-color: #edd709;
+    border-color: #d1bb09 !important;
     color: #000 !important;
 }
 
-.label-red, .badge-red {
+.label-red, .badge-red, .fc-list-view .event-red {
     background-color: #bd362f !important;
-    border-color: #bd362f;
+    border-color: #bd362f !important;
     color: #fff !important;
+}
+
+
+.event-default .fc-content {
+    background-color: #3A87AD !important;
+    border-color: #3A87AD !important;
+    width: 93%;
+    padding: 3px;
+}
+
+.event-orange .fc-content  {
+    background-color: #E6674A !important;
+    border-color: #E6674A !important;
+    width: 93%;
+    padding: 3px;
+}
+
+.event-purple .fc-content  {
+    background-color: #57517B !important;
+    border-color: #57517B !important;
+    width: 93%;
+    padding: 3px;
+}
+
+.event-yellow .fc-content  {
+    background-color: #FFB848 !important;
+    border-color: #FFB848 !important;
+    color: #000 !important;
+    width: 93%;
+    padding: 3px;
+}
+
+.event-teal .fc-content  {
+    background-color: #569099 !important;
+    border-color: #569099 !important;
+    width: 93%;
+    padding: 3px;
+}
+
+.event-beige .fc-content  {
+    background-color: #CCCC99 !important;
+    border-color: #CCCC99 !important;
+    color: #000 !important;
+    width: 93%;
+    padding: 3px;
+}
+
+.event-green .fc-content {
+    background-color: #3D9400 !important;
+    border-color: #3D9400 !important;
+    width: 93%;
+    padding: 3px;
+}
+
+.event-black .fc-content  {
+    background-color: #2F2E35 !important;
+    border-color: #3F3F3F !important;
+    width: 93%;
+    padding: 3px;
+}
+
+.event-warning .fc-content  {
+    background-color: #d1bb09 !important;
+    border-color: #d1bb09 !important;
+    color: #000 !important;
+    width: 93%;
+    padding: 3px;
+}
+
+.event-red .fc-content  {
+    background-color: #bd362f !important;
+    border-color: #bd362f !important;
+    color: #fff !important;
+    width: 93%;
+    padding: 3px;
 }
 
 /* ---------------------------------------------------------------------- */
@@ -5728,14 +5803,12 @@ td.column-right {
     padding: 8px;
 }
 
-.align-right {
+.align-right{
     text-align: right !important;
 }
-
-.align-center {
+.align-center{
     text-align: center !important;
 }
-
-.align-left {
+.align-left{
     text-align: left !important;
 }

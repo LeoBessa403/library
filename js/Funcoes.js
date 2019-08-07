@@ -65,7 +65,7 @@ var Funcoes = function () {
         DeletadoSucesso: function () {
             Funcoes.Modal($("#deletado").attr('data-val'), "success", "Deletado com Sucesso!");
         },
-        LimiteImagens: function () {
+        LimiteImagens: function (limite) {
             Funcoes.Alerta("Quantidade Acima da Permitida! Permitido Somente <b>" + limite + " Foto(s)</b>.")
         },
         Ajax: function (controller, codigo) {

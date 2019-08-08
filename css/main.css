@@ -4813,6 +4813,10 @@ ul#countdown li p.timeRefDays, ul#countdown li p.timeRefHours, ul#countdown li p
     height: 100%;
 }
 
+.fc-listWeek-view .fc-event-dot{
+    border: 0.5px solid rgba(255,255,255,0.5) !important;
+}
+
 /* ---------------------------------------------------------------------- */
 /*	Lock Screen
 /* ---------------------------------------------------------------------- */

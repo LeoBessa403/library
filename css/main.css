@@ -4734,7 +4734,7 @@ ul#countdown li p.timeRefDays, ul#countdown li p.timeRefHours, ul#countdown li p
     border-color: #3A87AD !important;
     width: 93%;
     padding: 3px;
-    height: 100%;
+    height: 95%;
 }
 
 .event-orange .fc-content  {
@@ -4742,7 +4742,7 @@ ul#countdown li p.timeRefDays, ul#countdown li p.timeRefHours, ul#countdown li p
     border-color: #E6674A !important;
     width: 93%;
     padding: 3px;
-    height: 100%;
+    height: 95%;
 }
 
 .event-purple .fc-content  {
@@ -4750,7 +4750,7 @@ ul#countdown li p.timeRefDays, ul#countdown li p.timeRefHours, ul#countdown li p
     border-color: #57517B !important;
     width: 93%;
     padding: 3px;
-    height: 100%;
+    height: 95%;
 }
 
 .event-yellow .fc-content  {
@@ -4759,7 +4759,7 @@ ul#countdown li p.timeRefDays, ul#countdown li p.timeRefHours, ul#countdown li p
     color: #000 !important;
     width: 93%;
     padding: 3px;
-    height: 100%;
+    height: 95%;
 }
 
 .event-teal .fc-content  {
@@ -4767,7 +4767,7 @@ ul#countdown li p.timeRefDays, ul#countdown li p.timeRefHours, ul#countdown li p
     border-color: #569099 !important;
     width: 93%;
     padding: 3px;
-    height: 100%;
+    height: 95%;
 }
 
 .event-beige .fc-content  {
@@ -4776,7 +4776,7 @@ ul#countdown li p.timeRefDays, ul#countdown li p.timeRefHours, ul#countdown li p
     color: #000 !important;
     width: 93%;
     padding: 3px;
-    height: 100%;
+    height: 95%;
 }
 
 .event-green .fc-content {
@@ -4784,7 +4784,7 @@ ul#countdown li p.timeRefDays, ul#countdown li p.timeRefHours, ul#countdown li p
     border-color: #3D9400 !important;
     width: 93%;
     padding: 3px;
-    height: 100%;
+    height: 95%;
 }
 
 .event-black .fc-content  {
@@ -4792,7 +4792,7 @@ ul#countdown li p.timeRefDays, ul#countdown li p.timeRefHours, ul#countdown li p
     border-color: #3F3F3F !important;
     width: 93%;
     padding: 3px;
-    height: 100%;
+    height: 95%;
 }
 
 .event-warning .fc-content  {
@@ -4801,7 +4801,7 @@ ul#countdown li p.timeRefDays, ul#countdown li p.timeRefHours, ul#countdown li p
     color: #000 !important;
     width: 93%;
     padding: 3px;
-    height: 100%;
+    height: 95%;
 }
 
 .event-red .fc-content  {
@@ -4810,13 +4810,12 @@ ul#countdown li p.timeRefDays, ul#countdown li p.timeRefHours, ul#countdown li p
     color: #fff !important;
     width: 93%;
     padding: 3px;
-    height: 100%;
+    height: 95%;
 }
 
 .fc-listWeek-view .fc-event-dot{
     border: 0.5px solid rgba(255,255,255,0.5) !important;
 }
-
 /* ---------------------------------------------------------------------- */
 /*	Lock Screen
 /* ---------------------------------------------------------------------- */

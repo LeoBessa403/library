@@ -1108,6 +1108,7 @@ class Valida
 
     public static function getDadosEstatistica($dados)
     {
+//        debug($dados);
         $dado = self::getBarraProgresso($dados);
         if ($dados['esforcoRestante'] == 0) {
             $horas = $dados['esforcoRestante'];
@@ -1118,10 +1119,14 @@ class Valida
         $versoes = fgets($linhas);
         $versao = explode('//', $versoes);
         $mediaDia = ($versao[5]) ? Valida::FormataMoeda($versao[5]) : 0;
-        if ($dados['esforcoRestante'] == 0 || $mediaDia == 0) {
+        if ($dados['esforcoRestante'] == 0) {
             $dias = 0;
             $diaAux = 0;
             $semanas = 0;
+        }elseif($mediaDia == 0){
+            $diaAux = ($dados['esforcoRestante'] / 3);
+            $dias = intval(($dados['esforcoRestante'] / 3));
+            $semanas = intval($diaAux / 7);
         } else {
             $diaAux = ($dados['esforcoRestante'] / $mediaDia);
             $dias = intval(($dados['esforcoRestante'] / $mediaDia));

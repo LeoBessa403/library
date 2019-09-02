@@ -53,13 +53,16 @@ $estatisticas = Valida::getDadosEstatistica($dados);
     </div>
 </div>
 <div class="col-md-12">
-    <h3>Esforço / Esforço Restante</h3>
+    <div class="alert alert-warning fade in">
+        <div id="div_esforco_mes"></div>
+    </div>
+</div>
+<div class="col-md-12">
     <div class="alert alert-success fade in">
         <div id="div_esforco"></div>
     </div>
 </div>
 <div class="col-md-12">
-    <h3>Percentual de evolução</h3>
     <div class="alert alert-info fade in">
         <div id="div_percentual_evolucao"></div>
     </div>

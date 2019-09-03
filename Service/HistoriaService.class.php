@@ -136,54 +136,63 @@ class  HistoriaService extends AbstractService
         self::$dados['esforco'] = $esforco;
         self::$dados['esforcoRestante'] = $esforcoRestante;
 
-        if ($preProj && $graficoEvolucao) {
-            $diasNecessario = 0;
-            $esforcoEstimado1 = 0;
-            $esforcoEstimado2 = 0;
-            $graficoEvolucaoMes = [];
-            $i = 1;
-            $qtd = count($graficoEvolucao);
-            foreach ($graficoEvolucao as $data => $esforcos) {
-                // CALCULA ESFORÇOS POR MÊS
-                $meses = Valida::DataShow(Valida::DataDBDate($data), 'm/Y');
-                $mes = Valida::DataShow(Valida::DataDBDate($data), 'm');
-                $ano = Valida::DataShow(Valida::DataDBDate($data), 'Y');
-                $diasMes = date("t", mktime(0, 0, 0, $mes, 1, $ano));
 
-                $graficoEvolucaoMes[$meses] =
-                    Valida::FormataPorcentagemDecimal((($esforcos[NU_ESFORCO] - $esforcos[NU_ESFORCO_RESTANTE]) / $diasMes));
+        $diasNecessario = 0;
+        $esforcoEstimado1 = 0;
+        $esforcoEstimado2 = 0;
+        $graficoEvolucaoMes = [];
+        $i = 1;
+        $qtd = count($graficoEvolucao);
+        foreach ($graficoEvolucao as $data => $esforcos) {
+            // CALCULA ESFORÇOS POR MÊS
+            $meses = Valida::DataShow(Valida::DataDBDate($data), 'm/Y');
+            $mes = Valida::DataShow(Valida::DataDBDate($data), 'm');
+            $ano = Valida::DataShow(Valida::DataDBDate($data), 'Y');
+            $diasMes = date("t", mktime(0, 0, 0, $mes, 1, $ano));
+
+            $graficoEvolucaoMes[$meses] =
+                Valida::FormataPorcentagemDecimal((($esforcos[NU_ESFORCO] - $esforcos[NU_ESFORCO_RESTANTE]) / $diasMes));
 
 
-                $diferenca = Valida::CalculaDiferencaDiasData(
-                    $data,
-                    date('d/m/Y')
-                );
-                if ($diferenca <= 30) {
-                    if ($diasNecessario < $diferenca) {
-                        $diasNecessario = $diferenca;
-                        $esforcoEstimado1 = $esforcos[NU_ESFORCO] - $esforcos[NU_ESFORCO_RESTANTE];
-                    }
-                    if ($i == $qtd)
-                        $esforcoEstimado2 = $esforcos[NU_ESFORCO] - $esforcos[NU_ESFORCO_RESTANTE];
+            $diferenca = Valida::CalculaDiferencaDiasData(
+                $data,
+                date('d/m/Y')
+            );
+            if ($diferenca <= 30) {
+                if ($diasNecessario < $diferenca) {
+                    $diasNecessario = $diferenca;
+                    $esforcoEstimado1 = $esforcos[NU_ESFORCO] - $esforcos[NU_ESFORCO_RESTANTE];
                 }
-                $i++;
+                if ($i == $qtd)
+                    $esforcoEstimado2 = $esforcos[NU_ESFORCO] - $esforcos[NU_ESFORCO_RESTANTE];
             }
+            $i++;
+        }
 
 
-            $mediaMesAnterior = 0;
-            $grafEvolucaoMes = [];
-            foreach ($graficoEvolucaoMes as $meses => $media) {
-                $grafEvolucaoMes[$meses] = $media - $mediaMesAnterior;
-                $mediaMesAnterior = $media;
-            }
+        $mediaMesAnterior = 0;
+        $grafEvolucaoMes = [];
+        foreach ($graficoEvolucaoMes as $meses => $media) {
+            $grafEvolucaoMes[$meses] = $media - $mediaMesAnterior;
+            $mediaMesAnterior = $media;
+        }
 
-            if ($diasNecessario > 0) {
-                $esforcoAlcancado = $esforcoEstimado2 - $esforcoEstimado1;
-                $mediaDia = $esforcoAlcancado / 30;
-            } else {
-                $mediaDia = 0;
-            }
+        if ($diasNecessario > 0) {
+            $esforcoAlcancado = $esforcoEstimado2 - $esforcoEstimado1;
+            $mediaDia = $esforcoAlcancado / 30;
+        } else {
+            $mediaDia = 0;
+        }
 
+        $graficoEvolucaoEsforcoMes = array("['Data','Média']");
+        foreach ($grafEvolucaoMes as $data => $media) {
+            $graficoEvolucaoEsforcoMes[] = "['" . $data . "'," . $media . "]";
+        }
+        $grafico = new Grafico(Grafico::COLUNA, "Média de Pontos por Mês", "div_esforco_mes");
+        $grafico->SetDados($graficoEvolucaoEsforcoMes);
+        $grafico->GeraGrafico();
+
+        if ($preProj && $graficoEvolucao) {
             $linhas = fopen('versao.txt', "a+");
             $versoes = fgets($linhas);
             $versao = explode('//', $versoes);
@@ -192,14 +201,6 @@ class  HistoriaService extends AbstractService
             $backupVersao = fopen('versao.txt', "w");
             fwrite($backupVersao, $versaoAtualizada);
             fclose($backupVersao);
-
-            $graficoEvolucaoEsforcoMes = array("['Data','Média']");
-            foreach ($grafEvolucaoMes as $data => $media) {
-                $graficoEvolucaoEsforcoMes[] = "['" . $data . "'," . $media . "]";
-            }
-            $grafico = new Grafico(Grafico::COLUNA, "Média de Pontos por Mês", "div_esforco_mes");
-            $grafico->SetDados($graficoEvolucaoEsforcoMes);
-            $grafico->GeraGrafico();
         }
 
         $graficoEvolucaoEsforco = array("['Data','Esforço','Esforço Restante']");

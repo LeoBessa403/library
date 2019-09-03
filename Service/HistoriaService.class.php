@@ -110,7 +110,6 @@ class  HistoriaService extends AbstractService
                 $priEsf = true;
                 $priEsfRes = true;
             }
-
             if ($priEsf) {
                 $esforco = $esforco + $item[NU_ESFORCO];
                 $esforcoHistoria[$item[CO_HISTORIA]] = $item[NU_ESFORCO];
@@ -120,7 +119,6 @@ class  HistoriaService extends AbstractService
                 $esforcoHistoria[$item[CO_HISTORIA]] = $item[NU_ESFORCO];
             }
             $graficoEvolucao[Valida::DataShow($item[DT_CADASTRO])][NU_ESFORCO] = $esforco;
-
 
             if ($priEsfRes) {
                 $esforcoRestante = $esforcoRestante + $item[NU_ESFORCO_RESTANTE];
@@ -135,7 +133,6 @@ class  HistoriaService extends AbstractService
         }
         self::$dados['esforco'] = $esforco;
         self::$dados['esforcoRestante'] = $esforcoRestante;
-
 
         $diasNecessario = 0;
         $esforcoEstimado1 = 0;
@@ -153,7 +150,6 @@ class  HistoriaService extends AbstractService
             $graficoEvolucaoMes[$meses] =
                 Valida::FormataPorcentagemDecimal((($esforcos[NU_ESFORCO] - $esforcos[NU_ESFORCO_RESTANTE]) / $diasMes));
 
-
             $diferenca = Valida::CalculaDiferencaDiasData(
                 $data,
                 date('d/m/Y')
@@ -168,7 +164,6 @@ class  HistoriaService extends AbstractService
             }
             $i++;
         }
-
 
         $mediaMesAnterior = 0;
         $grafEvolucaoMes = [];
@@ -210,7 +205,6 @@ class  HistoriaService extends AbstractService
         $grafico = new Grafico(Grafico::LINHA, "Controle de Esforços", "div_esforco");
         $grafico->SetDados($graficoEvolucaoEsforco);
         $grafico->GeraGrafico();
-
 
         $graficoEvolucaoPercentual = array("['Data','Percentual (%)']");
         foreach ($graficoEvolucao as $data => $esforcos) {

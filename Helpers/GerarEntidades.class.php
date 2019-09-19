@@ -102,10 +102,9 @@ class GerarEntidades
                     $constantes = $this->geraConstantesService($constantes, $table);
                     $this->geraEntidade($Entidade, $table, $chave_primaria, $colunas, $this->relacionamentos[$table]);
                     $this->geraModel($Entidade);
-                    $this->geraConstantes($constantes);
                     $this->geraService($Entidade);
-
                 }
+                $this->geraConstantes($constantes);
             }
         } catch (Exception $e) {
             Notificacoes::geraMensagem(

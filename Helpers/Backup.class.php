@@ -78,7 +78,7 @@ class Backup
                             if (isset($row[$j])) {
                                 $sql .= '"' . $row[$j] . '"';
                             } else {
-                                $sql .= '""';
+                                $sql .= 'NULL';
                             }
 
                             if ($j < ($numFields - 1)) {

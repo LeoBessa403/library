@@ -29,7 +29,7 @@
         ?>
         <div class="row">
             <?php
-            echo "Concluido com Sucesso a Minificação JS e CSS";
+            echo $form;
             ?>
         </div>
         <!-- end: PAGE CONTENT-->

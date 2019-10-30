@@ -325,6 +325,24 @@ class GestaoForm
 
         return $formulario->finalizaForm();
     }
+
+    public static function Minificacao()
+    {
+        $id = "Minificacao";
+
+        $formulario = new Form($id, null, 'Minificar', 3);
+
+        $tabelas = ['css' => 'CSS', 'js' => 'JS'];
+        $formulario
+            ->setId('tp_arquivos')
+            ->setLabel("Tipo de Arquivo")
+            ->setClasses("multipla")
+            ->setType(TiposCampoEnum::SELECT)
+            ->setOptions($tabelas)
+            ->CriaInpunt();
+
+        return $formulario->finalizaForm();
+    }
 }
 
 ?>

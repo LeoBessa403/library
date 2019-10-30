@@ -17,8 +17,7 @@ $session = new Session();
 /** @var Session $us */
 $us = $_SESSION[SESSION_USER];
 $user = $us->getUser();
-?>
-<!DOCTYPE html>
+?><!DOCTYPE html>
 <!-- Template Name: Clip-One - Responsive Admin Template build with Twitter Bootstrap 3.x Version: 1.3 Author: ClipTheme -->
 <!--[if IE 8]>
 <html class="ie8 no-js" lang="en"><![endif]-->
@@ -41,59 +40,8 @@ $user = $us->getUser();
     <meta content="" name="description"/>
     <meta content="" name="author"/>
     <!-- end: META -->
-    <!-- start: MAIN CSS -->
-    <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>plugins/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>plugins/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>fonts/style.css">
-    <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>css/main-responsive.css">
-    <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>css/main.css">
-    <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>plugins/iCheck/skins/all.css">
-    <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>plugins/perfect-scrollbar/src/perfect-scrollbar.css">
-    <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>css/theme_navy.css" type="text/css" id="skin_color">
-    <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>plugins/css3-animation/animations.css">
-    <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>css/print.css" type="text/css" media="print"/>
-    <!--[if IE 7]>
-    <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>plugins/font-awesome/css/font-awesome-ie7.min.css">
-    <![endif]-->
-    <!-- start: CSS REQUIRED FOR THIS PAGE ONLY -->
+    <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>css/css_padrao.min.css">
 
-    <!-- end: MAIN CSS -->
-    <!-- start: CSS REQUIRED FOR THIS PAGE ONLY -->
-    <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css"
-          type="text/css"/>
-    <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>plugins/bootstrap-modal/css/bootstrap-modal.css"
-          type="text/css"/>
-    <!-- end: CSS REQUIRED FOR THIS PAGE ONLY -->
-    <!-- start: CSS REQUIRED FOR DATAPICKER -->
-    <link rel="stylesheet" href="<?= INCLUDES; ?>Jcalendar.css">
-    <!-- CSS paleta de cores       -->
-    <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>plugins/bootstrap-colorpalette/css/bootstrap-colorpalette.css">
-    <!-- start: CSS REQUIRED FOR SELECT -->
-    <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>plugins/select2/select2.css">
-    <!-- start: CSS REQUIRED FOR UPLOAD -->
-    <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>plugins/bootstrap-fileupload/bootstrap-fileupload.min.css">
-    <!-- start: CSS REQUIRED FOR CHECK -->
-    <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>plugins/jQRangeSlider/css/classic-min.css">
-
-
-
-    <!--  CALENDAR  -->
-    <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>plugins/FullCalendar4/css/core.main.min.css">
-    <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>plugins/FullCalendar4/css/daygrid.main.min.css">
-    <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>plugins/FullCalendar4/css/list.main.min.css">
-    <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>plugins/FullCalendar4/css/timegrid.main.min.css">
-    <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>plugins/FullCalendar4/css/bootstrap.main.min.css">
-
-
-
-
-
-    <link rel="stylesheet"
-          href="<?= PASTA_LIBRARY; ?>plugins/bootstrap-switch/static/stylesheets/bootstrap-switch.css">
-    <!-- start: CSS REQUIRED FOR CHECK -->
-    <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>plugins/DataTables/media/css/DT_bootstrap.css">
-    <!-- start: CSS REQUIRED Gritter -->
-    <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>plugins/gritter/css/jquery.gritter.css">
     <!-- end: CSS REQUIRED FOR THIS PAGE ONLY -->
     <link rel="shortcut icon" href="<?php echo PASTAADMIN; ?>Imagens/favicon.ico"/>
     <!-- SCRIPT GERAR GRAFICOS -->

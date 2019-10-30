@@ -131,6 +131,7 @@ date_default_timezone_set('America/Sao_Paulo');
 define('PASTA_RAIZ', str_replace('\\', '/', str_replace('library', '', __DIR__)));
 define('INCLUDES', HOME . 'library/Helpers/includes/');
 define('INCLUDES_PLUGINS', HOME . 'library/plugins/');
+define('INCLUDES_LIBRARY', PASTA_RAIZ . 'library/');
 define('PASTAIMG', INCLUDES . 'imagens/');
 define('PASTASITE', HOME . SITE . '/');
 define('PASTAADMIN', HOME . ADMIN . '/');

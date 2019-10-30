@@ -224,5 +224,62 @@ class Gestao extends AbstractController
         }
         $this->form = GestaoForm::CadastroCrons($res);
     }
+    
+     /**
+     * Faz a Minificação dos Arquivos CSS e JS
+     */
+    public function MinificacaoGestao()
+    {
+        $path = PASTA_RAIZ . '/library/plugins/';
+        require $path . 'minify/Minify.php';
+        require $path . 'minify/CSS.php';
+        require $path . 'minify/JS.php';
+        require $path . 'minify/Exception.php';
+        require $path . 'minify/Exceptions/BasicException.php';
+        require $path . 'minify/Exceptions/FileImportException.php';
+        require $path . 'minify/Exceptions/IOException.php';
+        require $path . 'PathConverter/ConverterInterface.php';
+        require $path . 'PathConverter/Converter.php';
+
+
+        $minifierCSS = new MatthiasMullie\Minify\CSS();
+//        $minifierJS = new MatthiasMullie\Minify\JS();
+
+        $css[] = INCLUDES_LIBRARY . "plugins/bootstrap/css/bootstrap.min.css";
+        $css[] = INCLUDES_LIBRARY . "plugins/font-awesome/css/font-awesome.min.css";
+        $css[] = INCLUDES_LIBRARY . "fonts/style.css";
+        $css[] = INCLUDES_LIBRARY . "css/main-responsive.css";
+        $css[] = INCLUDES_LIBRARY . "css/main.css";
+        $css[] = INCLUDES_LIBRARY . "plugins/iCheck/skins/all.css";
+        $css[] = INCLUDES_LIBRARY . "plugins/perfect-scrollbar/src/perfect-scrollbar.css";
+        $css[] = INCLUDES_LIBRARY . "css/theme_navy.css";
+        $css[] = INCLUDES_LIBRARY . "plugins/css3-animation/animations.css";
+//        $css[] = INCLUDES_LIBRARY . "css/print.css";
+        $css[] = INCLUDES_LIBRARY . "plugins/font-awesome/css/font-awesome-ie7.min.css";
+        $css[] = INCLUDES_LIBRARY . "plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css";
+        $css[] = INCLUDES_LIBRARY . "plugins/bootstrap-modal/css/bootstrap-modal.css";
+        $css[] = INCLUDES_LIBRARY . "Helpers/includes/Jcalendar.css";
+        $css[] = INCLUDES_LIBRARY . "plugins/bootstrap-colorpalette/css/bootstrap-colorpalette.css";
+        $css[] = INCLUDES_LIBRARY . "plugins/select2/select2.css";
+        $css[] = INCLUDES_LIBRARY . "plugins/bootstrap-fileupload/bootstrap-fileupload.min.css";
+        $css[] = INCLUDES_LIBRARY . "plugins/jQRangeSlider/css/classic-min.css";
+
+        $css[] = INCLUDES_LIBRARY . "plugins/FullCalendar4/css/core.main.min.css";
+        $css[] = INCLUDES_LIBRARY . "plugins/FullCalendar4/css/daygrid.main.min.css";
+        $css[] = INCLUDES_LIBRARY . "plugins/FullCalendar4/css/list.main.min.css";
+        $css[] = INCLUDES_LIBRARY . "plugins/FullCalendar4/css/timegrid.main.min.css";
+        $css[] = INCLUDES_LIBRARY . "plugins/FullCalendar4/css/bootstrap.main.min.css";
+
+        $css[] = INCLUDES_LIBRARY . "plugins/bootstrap-switch/static/stylesheets/bootstrap-switch.css";
+        $css[] = INCLUDES_LIBRARY . "plugins/DataTables/media/css/DT_bootstrap.css";
+        $css[] = INCLUDES_LIBRARY . "plugins/gritter/css/jquery.gritter.css";
+
+        foreach ($css as $itemCss){
+            $minifierCSS->add($itemCss);
+        }
+
+        $miniCss = INCLUDES_LIBRARY . '/css/css_padrao.min.css';
+        $minifierCSS->minify($miniCss);
+    }
 
 }

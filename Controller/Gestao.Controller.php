@@ -230,7 +230,7 @@ class Gestao extends AbstractController
      */
     public function MinificacaoGestao()
     {
-        $path = PASTA_RAIZ . '/library/plugins/';
+        $path = INCLUDES_LIBRARY . '/plugins/';
         require $path . 'minify/Minify.php';
         require $path . 'minify/CSS.php';
         require $path . 'minify/JS.php';
@@ -243,8 +243,9 @@ class Gestao extends AbstractController
 
 
         $minifierCSS = new MatthiasMullie\Minify\CSS();
-//        $minifierJS = new MatthiasMullie\Minify\JS();
+        $minifierJS = new MatthiasMullie\Minify\JS();
 
+        // ARQUIVOS CSS
         $css[] = INCLUDES_LIBRARY . "plugins/bootstrap/css/bootstrap.min.css";
         $css[] = INCLUDES_LIBRARY . "plugins/font-awesome/css/font-awesome.min.css";
         $css[] = INCLUDES_LIBRARY . "fonts/style.css";
@@ -254,7 +255,6 @@ class Gestao extends AbstractController
         $css[] = INCLUDES_LIBRARY . "plugins/perfect-scrollbar/src/perfect-scrollbar.css";
         $css[] = INCLUDES_LIBRARY . "css/theme_navy.css";
         $css[] = INCLUDES_LIBRARY . "plugins/css3-animation/animations.css";
-//        $css[] = INCLUDES_LIBRARY . "css/print.css";
         $css[] = INCLUDES_LIBRARY . "plugins/font-awesome/css/font-awesome-ie7.min.css";
         $css[] = INCLUDES_LIBRARY . "plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css";
         $css[] = INCLUDES_LIBRARY . "plugins/bootstrap-modal/css/bootstrap-modal.css";
@@ -278,8 +278,65 @@ class Gestao extends AbstractController
             $minifierCSS->add($itemCss);
         }
 
-        $miniCss = INCLUDES_LIBRARY . '/css/css_padrao.min.css';
+        // CRIA ARQUIVO MINIFICADO CSS
+        $miniCss = INCLUDES_LIBRARY . 'css/css_padrao.min.css';
         $minifierCSS->minify($miniCss);
+
+
+        // ARQUIVOS JS
+        $js[] = INCLUDES_LIBRARY . "plugins/respond.min.js";
+        $js[] = INCLUDES_LIBRARY . "plugins/excanvas.min.js";
+        $js[] = INCLUDES_LIBRARY . "Helpers/includes/jquery-1.10.2.js";
+        $js[] = INCLUDES_LIBRARY . "Helpers/includes/jquery-2.0.3.js";
+        $js[] = INCLUDES_LIBRARY . "Helpers/includes/jquery-ui.js";
+        $js[] = INCLUDES_LIBRARY . "Helpers/includes/jquery.mask.js";
+        $js[] = INCLUDES_LIBRARY . "Helpers/includes/jquery.maskMoney.js";
+        $js[] = INCLUDES_LIBRARY . "Helpers/includes/validacoes.js";
+
+        $js[] = INCLUDES_LIBRARY . "plugins/bootstrap/js/bootstrap.min.js";
+        $js[] = INCLUDES_LIBRARY . "plugins/blockUI/jquery.blockUI.js";
+        $js[] = INCLUDES_LIBRARY . "plugins/iCheck/jquery.icheck.min.js";
+        $js[] = INCLUDES_LIBRARY . "plugins/perfect-scrollbar/src/jquery.mousewheel.js";
+        $js[] = INCLUDES_LIBRARY . "plugins/perfect-scrollbar/src/perfect-scrollbar.js";
+        $js[] = INCLUDES_LIBRARY . "plugins/jquery-cookie/jquery.cookie.js";
+        $js[] = INCLUDES_LIBRARY . "plugins/bootstrap-colorpalette/js/bootstrap-colorpalette.js";
+        $js[] = INCLUDES_LIBRARY . "js/main.js";
+        $js[] = INCLUDES_LIBRARY . "js/ui-animation.js";
+        $js[] = INCLUDES_LIBRARY . "plugins/flot/jquery.flot.js";
+        $js[] = INCLUDES_LIBRARY . "plugins/flot/jquery.flot.pie.js";
+        $js[] = INCLUDES_LIBRARY . "plugins/flot/jquery.flot.resize.min.js";
+        $js[] = INCLUDES_LIBRARY . "plugins/jquery.sparkline/jquery.sparkline.js";
+        $js[] = INCLUDES_LIBRARY . "plugins/jquery-easy-pie-chart/jquery.easy-pie-chart.js";
+        $js[] = INCLUDES_LIBRARY . "plugins/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js";
+        $js[] = INCLUDES_LIBRARY . "plugins/bootstrap-modal/js/bootstrap-modal.js";
+        $js[] = INCLUDES_LIBRARY . "plugins/bootstrap-modal/js/bootstrap-modalmanager.js";
+        $js[] = INCLUDES_LIBRARY . "plugins/select2/select2.min.js";
+        $js[] = INCLUDES_LIBRARY . "plugins/bootstrap-fileupload/bootstrap-fileupload.js";
+        $js[] = INCLUDES_LIBRARY . "plugins/bootstrap-switch/static/js/bootstrap-switch.min.js";
+        $js[] = INCLUDES_LIBRARY . "plugins/DataTables/media/js/jquery.dataTables.min.js";
+        $js[] = INCLUDES_LIBRARY . "plugins/DataTables/media/js/DT_bootstrap.js";
+        $js[] = INCLUDES_LIBRARY . "js/table-data.js";
+        $js[] = INCLUDES_LIBRARY . "plugins/ckeditor/ckeditor.js";
+        $js[] = INCLUDES_LIBRARY . "plugins/ckeditor/adapters/jquery.js";
+        $js[] = INCLUDES_LIBRARY . "js/Funcoes.js";
+        $js[] = INCLUDES_LIBRARY . "plugins/jQuery-Smart-Wizard/js/jquery.smartWizard.js";
+        $js[] = INCLUDES_LIBRARY . "js/form-wizard.js";
+        $js[] = INCLUDES_LIBRARY . "plugins/jQRangeSlider/jQAllRangeSliders-min.js";
+        $js[] = INCLUDES_LIBRARY . "js/ui-sliders.js";
+        $js[] = INCLUDES_LIBRARY . "plugins/FullCalendar4/js/core.main.min.js";
+        $js[] = INCLUDES_LIBRARY . "plugins/FullCalendar4/js/daygrid.main.min.js";
+        $js[] = INCLUDES_LIBRARY . "plugins/FullCalendar4/js/interaction.main.min.js";
+        $js[] = INCLUDES_LIBRARY . "plugins/FullCalendar4/js/list.main.min.js";
+        $js[] = INCLUDES_LIBRARY . "plugins/FullCalendar4/js/timegrid.main.min.js";
+        $js[] = INCLUDES_LIBRARY . "plugins/FullCalendar4/js/bootstrap.main.min.js";
+
+        foreach ($js as $itemJS){
+            $minifierJS->add($itemJS);
+        }
+
+        // CRIA ARQUIVO MINIFICADO JS
+        $miniJS = INCLUDES_LIBRARY . 'js/js_padrao.min.js';
+        $minifierJS->minify($miniJS);
     }
 
 }

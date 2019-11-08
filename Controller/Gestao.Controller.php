@@ -339,14 +339,17 @@ class Gestao extends AbstractController
                     $js[] = INCLUDES_LIBRARY . "plugins/FullCalendar4/js/timegrid.main.min.js";
                     $js[] = INCLUDES_LIBRARY . "plugins/FullCalendar4/js/bootstrap.main.min.js";
 
+                    // CRIA ARQUIVO MINIFICADO JS AGENDAMENTO
+                    //$js[] = PASTA_RAIZ . ADMIN . "/js/Agenda/Agendamento_back.js";
+
                     foreach ($js as $itemJS) {
                         $minifierJS->add($itemJS);
                     }
 
-                    // CRIA ARQUIVO MINIFICADO JS
+                    // CRIA ARQUIVO MINIFICADO JS AGENDAMENTO
+                    // $miniJS = PASTA_RAIZ . ADMIN . "/js/Agenda/Agendamento.js";
                     $miniJS = INCLUDES_LIBRARY . 'js/js_padrao.min.js';
                     $minifierJS->minify($miniJS);
-
 
                     $retorno = true;
                 }

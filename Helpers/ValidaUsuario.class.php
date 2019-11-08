@@ -40,6 +40,15 @@ class ValidaUsuario extends AbstractController
                 $AcessoSevice->terminaAcesso($coUsuario);
 
                 $session->FinalizaSession(SESSION_USER);
+                $session->FinalizaSession(MENSAGEM);
+                $session->FinalizaSession(PESQUISA_AVANCADA);
+                $session->FinalizaSession('resultPreco');
+                $session->FinalizaSession(TIPO);
+                $session->FinalizaSession(ATUALIZADO);
+                $session->FinalizaSession(CADASTRADO);
+                $session->FinalizaSession('pesq_agendamento');
+                $session->FinalizaSession(DELETADO);
+                $session->FinalizaSession(ST_TROCA_SENHA);
                 Redireciona(ADMIN . LOGIN . Valida::GeraParametro("acesso/D"));
                 die;
             else:

@@ -40,6 +40,7 @@ define('DS_SITE', 'ds_site');
 define('DT_CADASTRO', 'dt_cadastro');
 define('CO_ENDERECO', 'co_endereco');
 define('CO_IMAGEM', 'co_imagem');
+define('CO_IMAGEM_ASSINANTE', 'co_imagem_assinante');
 define('DS_ENDERECO', 'ds_endereco');
 define('DS_COMPLEMENTO', 'ds_complemento');
 define('DS_BAIRRO', 'ds_bairro');

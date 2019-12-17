@@ -106,15 +106,17 @@ class Session
         endif;
     }
 
+
     /**
      * <b>Finaliza a Session:</b> Responsável por finalizar uma Session
-     * @param STRING $name : O nome da Session a ser finalizada
+     * @param $name : O nome da Session a ser finalizada
+     * @param bool $deslogar : True
      */
-    public function FinalizaSession($name)
+    public function FinalizaSession($name, $deslogar = false)
     {
         if ($this->CheckSession($name)):
             unset($_SESSION[$name]);
-        else:
+        elseif (!$deslogar):
             Notificacoes::mesagens(
                 "A Sessão <big><b>$name</b></big> não existe!",
                 TiposMensagemEnum::ERRO);

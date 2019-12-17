@@ -39,16 +39,16 @@ class ValidaUsuario extends AbstractController
             if (isset($explode[3]) && $explode[3] == "desloga"):
                 $AcessoSevice->terminaAcesso($coUsuario);
 
-                $session->FinalizaSession(SESSION_USER);
-                $session->FinalizaSession(MENSAGEM);
-                $session->FinalizaSession(PESQUISA_AVANCADA);
-                $session->FinalizaSession('resultPreco');
-                $session->FinalizaSession(TIPO);
-                $session->FinalizaSession(ATUALIZADO);
-                $session->FinalizaSession(CADASTRADO);
-                $session->FinalizaSession('pesq_agendamento');
-                $session->FinalizaSession(DELETADO);
-                $session->FinalizaSession(ST_TROCA_SENHA);
+                $session->FinalizaSession(SESSION_USER, true);
+                $session->FinalizaSession(MENSAGEM, true);
+                $session->FinalizaSession(PESQUISA_AVANCADA, true);
+                $session->FinalizaSession('resultPreco', true);
+                $session->FinalizaSession(TIPO, true);
+                $session->FinalizaSession(ATUALIZADO, true);
+                $session->FinalizaSession(CADASTRADO, true);
+                $session->FinalizaSession('pesq_agendamento', true);
+                $session->FinalizaSession(DELETADO, true);
+                $session->FinalizaSession(ST_TROCA_SENHA, true);
                 Redireciona(ADMIN . LOGIN . Valida::GeraParametro("acesso/D"));
                 die;
             else:

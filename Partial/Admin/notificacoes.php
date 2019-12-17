@@ -12,7 +12,7 @@
             <div class="drop-down-wrapper ps-container notifica">
                 <ul>
                     <?php
-                    if ($user[md5(DT_EXPIRACAO)]) {
+                    if (isset($user[md5(DT_EXPIRACAO)])) {
                         if ($user[md5('status_sistema')] == StatusSistemaEnum::EXPIRANDO) {
                             $difDatas = Valida::CalculaDiferencaDiasData(date('d/m/Y'), $user[md5(DT_EXPIRACAO)]);
                             ?>
@@ -35,7 +35,8 @@
                         <?php }
                     } ?>
                     <?php
-                    if ($user[md5(ST_DADOS_COMPLEMENTARES)] == SimNaoEnum::NAO) {
+                    if (isset($user[md5(ST_DADOS_COMPLEMENTARES)]) &&
+                        $user[md5(ST_DADOS_COMPLEMENTARES)] == SimNaoEnum::NAO) {
                         ?>
                         <li>
                             <a href="javascript:">

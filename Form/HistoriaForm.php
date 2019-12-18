@@ -30,7 +30,7 @@ class HistoriaForm
 
         $formulario
             ->setType(TiposCampoEnum::TEXTAREA)
-            ->setClasses("ckeditor")
+//            ->setClasses("ckeditor")
             ->setId(DS_OBSERVACAO)
             ->setLabel("Descrição da História")
             ->CriaInpunt();

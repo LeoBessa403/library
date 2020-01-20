@@ -494,9 +494,9 @@ class Valida
                 $data[DS_ACTION] = $action;
                 /** @var FuncionalidadeEntidade $funcionalidade */
                 $funcionalidade = $funcionalidadeModel->PesquisaUmQuando($data);
-                $coFuncinalidade = $funcionalidade->getCoFuncionalidade();
 
                 if (!empty($funcionalidades) && !empty($funcionalidade)):
+                    $coFuncinalidade = $funcionalidade->getCoFuncionalidade();
                     foreach ($funcionalidades as $func) {
                         if ($func[CO_FUNCIONALIDADE] == $coFuncinalidade)
                             return true;

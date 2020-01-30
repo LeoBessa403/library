@@ -51,7 +51,7 @@ class Usuario extends AbstractController
                     $validador[MSG],
                     TiposMensagemEnum::ALERTA
                 );
-                $this->form = PessoaForm::ValidarCPF('Usuario/CadastroUsuario', 4);
+                $this->form = PessoaForm::ValidarCPF( 4);
             }
         endif;
 
@@ -95,7 +95,7 @@ class Usuario extends AbstractController
                 $res[NU_CPF] = $_POST[NU_CPF];
                 $this->form = UsuarioForm::Cadastrar($res, false, 6);
             else:
-                $this->form = PessoaForm::ValidarCPF('Usuario/CadastroUsuario', 4);
+                $this->form = PessoaForm::ValidarCPF( 4);
             endif;
         endif;
     }
@@ -121,12 +121,13 @@ class Usuario extends AbstractController
         /** @var UsuarioService $usuarioService */
         $usuarioService = $this->getService(USUARIO_SERVICE);
 
-        $dados = array();
+        $Condicoes = array();
         $session = new Session();
 
         if ($session->CheckSession(PESQUISA_AVANCADA)) {
             $session->FinalizaSession(PESQUISA_AVANCADA);
         }
+        $Condicoes['usu.' . CO_ASSINANTE] = AssinanteService::getCoAssinanteLogado();
         if (!empty($_POST)) {
             $Condicoes = array(
                 "pes." . NO_PESSOA => trim($_POST[NO_PESSOA]),
@@ -135,7 +136,7 @@ class Usuario extends AbstractController
             $session->setSession(PESQUISA_AVANCADA, $Condicoes);
             $this->result = $usuarioService->PesquisaAvancada($Condicoes);
         } else {
-            $this->result = $usuarioService->PesquisaTodos($dados);
+            $this->result = $usuarioService->PesquisaAvancada($Condicoes);
         }
 
         /** @var UsuarioEntidade $value */

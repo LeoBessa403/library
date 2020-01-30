@@ -16,7 +16,7 @@ class PlanoEntidade extends AbstractEntidade
     private $no_plano;
     private $nu_mes_ativo;
     private $st_status;
-    private $co_plano_modulo;
+    private $co_plano_pacote;
     private $co_plano_assinante;
 
 

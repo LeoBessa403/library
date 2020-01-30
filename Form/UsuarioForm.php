@@ -56,7 +56,7 @@ class UsuarioForm extends AbstractController
         $formulario
             ->setId(DT_NASCIMENTO)
             ->setTamanhoInput(6)
-            ->setClasses("data ob")
+            ->setClasses("data")
             ->setLabel("Nascimento")
             ->setInfo("Data de Nascimento")
             ->CriaInpunt();
@@ -65,7 +65,6 @@ class UsuarioForm extends AbstractController
         $formulario
             ->setLabel("Sexo")
             ->setId(ST_SEXO)
-            ->setClasses("ob")
             ->setType(TiposCampoEnum::SELECT)
             ->setTamanhoInput(6)
             ->setOptions($label_options)
@@ -98,7 +97,6 @@ class UsuarioForm extends AbstractController
         $formulario
             ->setId(DS_ENDERECO)
             ->setIcon("clip-home-2")
-            ->setClasses("ob")
             ->setLabel("Endereço")
             ->CriaInpunt();
 
@@ -129,7 +127,6 @@ class UsuarioForm extends AbstractController
             ->setTamanhoInput(8)
             ->setId(SG_UF)
             ->setType(TiposCampoEnum::SELECT)
-            ->setClasses("ob")
             ->setLabel("Estado")
             ->setOptions($options)
             ->CriaInpunt();
@@ -293,7 +290,7 @@ class UsuarioForm extends AbstractController
 
         $formulario
             ->setId(DT_NASCIMENTO)
-            ->setClasses("data ob")
+            ->setClasses("data")
             ->setLabel("Nascimento")
             ->setInfo("Data de Nascimento")
             ->CriaInpunt();
@@ -302,7 +299,6 @@ class UsuarioForm extends AbstractController
         $formulario
             ->setLabel("Sexo")
             ->setId(ST_SEXO)
-            ->setClasses("ob")
             ->setType(TiposCampoEnum::SELECT)
             ->setOptions($label_options)
             ->CriaInpunt();

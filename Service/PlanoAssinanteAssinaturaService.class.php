@@ -68,8 +68,8 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
                 Valida::FormataMoedaBanco(str_replace(".", ",", $valorAssinatura));
 
             $PDO->beginTransaction();
-            $this->Salva($planoAssinanteAssinatura);
-            $retorno[SUCESSO] = $this->atualizaDtExpiracaoMatrizFilias($assinante, $planoAssinanteAssinatura[DT_EXPIRACAO]);
+            $retorno[SUCESSO] = $this->Salva($planoAssinanteAssinatura);
+//            $retorno[SUCESSO] = $this->atualizaDtExpiracaoMatrizFilias($assinante, $planoAssinanteAssinatura[DT_EXPIRACAO]);
             if ($retorno[SUCESSO]) {
                 $session->setSession(MENSAGEM, CADASTRADO);
                 $retorno[SUCESSO] = true;
@@ -92,25 +92,25 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
         return $retorno;
     }
 
-    /**
-     * @param $assinante AssinanteEntidade
-     * @param $dtExpiracao
-     * @return bool|INT
-     */
-    public function atualizaDtExpiracaoMatrizFilias($assinante, $dtExpiracao)
-    {
-        /** @var AssinanteService $AssinanteService */
-        $AssinanteService = $this->getService(ASSINANTE_SERVICE);
-        $filiais = $assinante->getFiliaisMatriz();
-        $assFilial[DT_EXPIRACAO] = $dtExpiracao;
-        if (!empty($filiais)) {
-            /** @var AssinanteFilialEntidade $filial */
-            foreach ($filiais as $filial) {
-                $AssinanteService->Salva($assFilial, $filial->getCoAssinante());
-            }
-        }
-        return $AssinanteService->Salva($assFilial, $assinante->getCoAssinante());
-    }
+//    /**
+//     * @param $assinante AssinanteEntidade
+//     * @param $dtExpiracao
+//     * @return bool|INT
+//     */
+//    public function atualizaDtExpiracaoMatrizFilias($assinante, $dtExpiracao)
+//    {
+//        /** @var AssinanteService $AssinanteService */
+//        $AssinanteService = $this->getService(ASSINANTE_SERVICE);
+//        $filiais = $assinante->getFiliaisMatriz();
+//        $assFilial[DT_EXPIRACAO] = $dtExpiracao;
+//        if (!empty($filiais)) {
+//            /** @var AssinanteFilialEntidade $filial */
+//            foreach ($filiais as $filial) {
+//                $AssinanteService->Salva($assFilial, $filial->getCoAssinante());
+//            }
+//        }
+//        return $AssinanteService->Salva($assFilial, $assinante->getCoAssinante());
+//    }
 
     public function salvaPlanoPadrao($coAssinante)
     {

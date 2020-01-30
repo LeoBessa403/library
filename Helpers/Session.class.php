@@ -111,6 +111,7 @@ class Session
      * <b>Finaliza a Session:</b> Responsável por finalizar uma Session
      * @param $name : O nome da Session a ser finalizada
      * @param bool $deslogar : True
+     * @param bool $deslogar : Se esta na funcionalidade de deslogar não emite mensagem de erro
      */
     public function FinalizaSession($name, $deslogar = false)
     {

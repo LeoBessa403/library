@@ -15,25 +15,6 @@ class Assinante extends AbstractController
         ]);
     }
 
-    public function FilialAssinante()
-    {
-        /** @var AssinanteService $assinanteService */
-        $assinanteService = $this->getService(ASSINANTE_SERVICE);
-        $coAssinante = UrlAmigavel::PegaParametro(CO_ASSINANTE);
-        /** @var AssinanteEntidade $assinante */
-        $assinante = $assinanteService->PesquisaUmRegistro($coAssinante);
-        $filiais = $assinante->getCoUnicoAssinanteMatriz()->getCoAssinanteFilial();
-        $coAssinanteFilial = [];
-        /** @var AssinanteFilialEntidade $filial */
-        foreach ($filiais as $filial) {
-            $coAssinanteFilial[] = $filial->getCoAssinante();
-        }
-        /** @var AssinanteEntidade $this ->result */
-        $this->result = $assinanteService->PesquisaTodos([
-            CO_ASSINANTE => implode(', ', $coAssinanteFilial)
-        ]);
-    }
-
     public function CadastroAssinante()
     {
         /** @var AssinanteService $assinanteService */
@@ -57,8 +38,6 @@ class Assinante extends AbstractController
             $res[NU_TEL1] = $assinante->getCoPessoa()->getCoContato()->getNuTel1();
             $res[DS_EMAIL] = $assinante->getCoPessoa()->getCoContato()->getDsEmail();
             $res[CO_ASSINANTE] = $assinante->getCoAssinante();
-            $res[CO_ASSINANTE_MATRIZ] = $assinante->getCoMeuAssinanteMatriz();
-            $res[CO_ASSINANTE_FILIAL] = $assinante->getFiliaisMatriz();
 
         }
         $this->form = AssinanteForm::Cadastrar($res);
@@ -88,14 +67,14 @@ class Assinante extends AbstractController
         } else {
             return null;
         }
-        /** @var PagSeguro $pag */
-        $pag = new PagSeguro();
-        $dados = [
-            CO_PLANO => $plano->getCoPlano(),
-            NU_VALOR => $plano->getCoUltimoPlanoAssinante()->getNuValor(),
-            DS_DESCRICAO => $plano->getNoPlano()
-        ];
-        return $pag->solicitarPagamento($dados);
+//        /** @var PagSeguro $pag */
+//        $pag = new PagSeguro();
+//        $dados = [
+//            CO_PLANO => $plano->getCoPlano(),
+//            NU_VALOR => $plano->getCoUltimoPlanoAssinante()->getNuValor(),
+//            DS_DESCRICAO => $plano->getNoPlano()
+//        ];
+//        return $pag->solicitarPagamento($dados);
     }
 
     public function MeuPlanoAssinante()
@@ -172,10 +151,6 @@ class Assinante extends AbstractController
         $contatoService = $this->getService(CONTATO_SERVICE);
         /** @var EmpresaService $empresaService */
         $empresaService = $this->getService(EMPRESA_SERVICE);
-        /** @var FacilidadeBeneficioService $facilidadeBeneficioService */
-        $facilidadeBeneficioService = $this->getService(FACILIDADE_BENEFICIO_SERVICE);
-        /** @var FuncionamentoService $funcionamentoService */
-        $funcionamentoService = $this->getService(FUNCIONAMENTO_SERVICE);
         /** @var AssinanteEntidade $assinante */
         $assinante = $assinanteService->getAssinanteLogado();
 
@@ -209,49 +184,6 @@ class Assinante extends AbstractController
         $res = $contatoService->getArrayDadosContato($contato, $res);
 
         // Aba 4
-        /** @var FacilidadeBeneficioEntidade $facilidade */
-        $facilidade = $assinante->getCoFacilidadeBeneficio();
-        if (!$facilidade) {
-            $facilidad[TP_ESTABELECIMENTO] = 0;
-            $facilidad[CO_ASSINANTE] = AssinanteService::getCoAssinanteLogado();
-            $cofacilidad = $facilidadeBeneficioService->Salva($facilidad);
-            /** @var FacilidadeBeneficioEntidade $facilidade */
-            $facilidade = $facilidadeBeneficioService->PesquisaUmRegistro($cofacilidad);
-        }
-        $res[ST_LANCHONETE] = ($facilidade->getStLanchonete() == 'S')
-            ? 'checked' : '';
-        $res[ST_TELEVISAO] = ($facilidade->getStTelevisao() == 'S')
-            ? 'checked' : '';
-        $res[ST_WIFI] = ($facilidade->getStWifi() == 'S')
-            ? 'checked' : '';
-        $res[ST_ACESSO_DEFICIENTE] = ($facilidade->getStAcessoDeficiente() == 'S')
-            ? 'checked' : '';
-        $res[ST_JOGOS] = ($facilidade->getStJogos() == 'S')
-            ? 'checked' : '';
-        $res[TP_ESTABELECIMENTO] = $facilidade->getTpEstabelecimento();
-        $res[TP_ATENDIMENTO] = $facilidade->getTpAtendimento();
-        $res[TP_GENERO_ESPECIALIZADO] = $facilidade->getTpGeneroEspecializado();
-        $res[TP_ESTACIONAMENTO] = $facilidade->getTpEstacionamento();
-
-
-        // Aba 5
-        $funcionamento = $assinante->getCoFuncionamento();
-        if (!$funcionamento) {
-            $funcionamento[CO_ASSINANTE] = AssinanteService::getCoAssinanteLogado();
-            $funcionamento[NU_HORA_ABERTURA] = '08:00';
-            $funcionamento[NU_HORA_FECHAMENTO] = '18:00';
-            for ($i = 1; $i < 6; $i++) {
-                $funcionamento[NU_DIA_SEMANA] = $i;
-                $funcionamentoService->Salva($funcionamento);
-            }
-            $funcionamento = $funcionamentoService->PesquisaUmQuando([
-                CO_ASSINANTE => AssinanteService::getCoAssinanteLogado()
-            ]);
-        }
-        $res['funcionamento'] = $funcionamento;
-
-
-        // Aba 6
         $logo = '';
         $imagem_logo = '';
         if (!empty($assinante->getCoImagemAssinante())) {

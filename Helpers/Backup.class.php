@@ -20,8 +20,9 @@ class Backup
     {
         if ($validar) {
             $backup = fopen('BancoDados/Backup.txt', "a+");
-            $backupDate = fgets($backup);
-            $dias = Valida::CalculaDiferencaDiasData(date("d/m/Y"), Valida::DataShow($backupDate));
+            $backupDates = fgets($backup);
+            $backupDate = explode('//', $backupDates);
+            $dias = Valida::CalculaDiferencaDiasData(date("d/m/Y"), Valida::DataShow($backupDate[0]));
 
             if ($dias < 1):
                 $this->gerarBackup();
@@ -157,7 +158,7 @@ class Backup
     {
         $novaData = Valida::CalculaData(date("d/m/Y"), BACKUP, "+");
         $backupCheck = fopen('BancoDados/Backup.txt', "w");
-        fwrite($backupCheck, Valida::DataDBDate($novaData));
+        fwrite($backupCheck, Valida::DataDBDate($novaData). "//" . Valida::DataAtualBanco());
         fclose($backupCheck);
     }
 
@@ -173,5 +174,16 @@ class Backup
         $conn = new ObjetoPDO();
         $this->conn = $conn->inicializarConexao();
         $this->RealizarBackup();
+    }
+
+    /**
+     * Realiza o BackUp
+     */
+    public static function getDataUltimoBackup()
+    {
+        $backup = fopen('BancoDados/Backup.txt', "a+");
+        $backupDates = fgets($backup);
+        $backupDate = explode('//', $backupDates);
+        return $backupDate[1];
     }
 }

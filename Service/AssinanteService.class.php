@@ -26,8 +26,8 @@ class  AssinanteService extends AbstractService
         $empresaService = $this->getService(EMPRESA_SERVICE);
         /** @var PlanoAssinanteAssinaturaService $PlanoAssinanteAssinaturaService */
         $PlanoAssinanteAssinaturaService = $this->getService(PLANO_ASSINANTE_ASSINATURA_SERVICE);
-        /** @var AssinanteMatrizService $assinanteMatrizService */
-        $assinanteMatrizService = $this->getService(ASSINANTE_MATRIZ_SERVICE);
+//        /** @var AssinanteMatrizService $assinanteMatrizService */
+//        $assinanteMatrizService = $this->getService(ASSINANTE_MATRIZ_SERVICE);
         /** @var UsuarioService $usuarioService */
         $usuarioService = $this->getService(USUARIO_SERVICE);
         /** @var UsuarioPerfilService $usuarioPerfilService */
@@ -47,13 +47,9 @@ class  AssinanteService extends AbstractService
             $contato[NU_TEL1] = Valida::RetiraMascara($dados[NU_TEL1]);
             $pessoa[NO_PESSOA] = trim($dados[NO_PESSOA]);
             $empresa[NO_FANTASIA] = trim($dados[NO_FANTASIA]);
+            $assinante[TP_ASSINANTE] = AssinanteEnum::MATRIZ;
 
             $PDO->beginTransaction();
-            if (!empty($_POST[CO_ASSINANTE_MATRIZ][0])):
-                $assinante[TP_ASSINANTE] = AssinanteEnum::FILIAL;
-            else:
-                $assinante[TP_ASSINANTE] = AssinanteEnum::MATRIZ;
-            endif;
 
             if (!empty($_POST[CO_ASSINANTE])):
                 /** @var AssinanteService $assinanteService */
@@ -66,7 +62,7 @@ class  AssinanteService extends AbstractService
                 $this->Salva($assinante, $assinanteEdic->getCoAssinante());
                 $retorno[SUCESSO] = $assinanteEdic->getCoAssinante();
                 $session->setSession(MENSAGEM, ATUALIZADO);
-                $coAssinante = $assinanteEdic->getCoAssinante();
+//                $coAssinante = $assinanteEdic->getCoAssinante();
             else:
                 $pessoa[CO_CONTATO] = $contatoService->Salva($contato);
                 $pessoa[DT_CADASTRO] = Valida::DataHoraAtualBanco();
@@ -91,7 +87,7 @@ class  AssinanteService extends AbstractService
                 $retorno[SUCESSO] = $usuarioPerfilService->Salva($usuarioPerfil);
                 $session->setSession(MENSAGEM, CADASTRADO);
             endif;
-            $assinanteMatrizService->salvaAssinanteMatriz($dados, $coAssinante);
+//            $assinanteMatrizService->salvaAssinanteMatriz($dados, $coAssinante);
             if ($retorno[SUCESSO]) {
                 $retorno[SUCESSO] = true;
                 $PDO->commit();
@@ -111,6 +107,8 @@ class  AssinanteService extends AbstractService
             $retorno = $validador;
         }
 
+        exit;
+
         return $retorno;
     }
 
@@ -129,10 +127,6 @@ class  AssinanteService extends AbstractService
         $pessoaService = $this->getService(PESSOA_SERVICE);
         /** @var EmpresaService $empresaService */
         $empresaService = $this->getService(EMPRESA_SERVICE);
-        /** @var FacilidadeBeneficioService $facilidadeBeneficioService */
-        $facilidadeBeneficioService = $this->getService(FACILIDADE_BENEFICIO_SERVICE);
-        /** @var FuncionamentoService $funcionamentoService */
-        $funcionamentoService = $this->getService(FUNCIONAMENTO_SERVICE);
         /** @var ImagemAssinanteService $imagemAssinanteService */
         $imagemAssinanteService = $this->getService(IMAGEM_ASSINANTE_SERVICE);
         /** @var PDO $PDO */

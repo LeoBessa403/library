@@ -137,7 +137,7 @@ class  UsuarioService extends AbstractService
                         $Campo[] = "E-mail";
                         $erro = true;
                     }
-                    if ($usuario->getCoPessoa()->getNuCpf() == $pessoa[NU_CPF]) {
+                    if ($usuario->getCoPessoa()->getNuCpf() == $pessoa[NU_CPF] && $pessoa[NU_CPF]) {
                         $Campo[] = "CPF";
                         $erro = true;
                     }
@@ -171,44 +171,46 @@ class  UsuarioService extends AbstractService
                 endif;
 
                 $PDO->beginTransaction();
-                if ($idCoUsuario):
-                    /** @var UsuarioEntidade $usuario */
-                    $usuario = $usuarioService->PesquisaUmRegistro($idCoUsuario);
-
-                    if ($usuario->getCoImagem()->getDsCaminho()):
-                        if (is_file(Upload::$BaseDir . "usuarios/" . $usuario->getCoImagem()->getDsCaminho())):
-                            unlink(Upload::$BaseDir . "usuarios/" . $usuario->getCoImagem()->getDsCaminho());
-                        endif;
-                    endif;
-
-                    if ($imagem[DS_CAMINHO]):
-                        $imagemService->Salva($imagem, $usuario->getCoImagem()->getCoImagem());
-                    endif;
-                    $contatoService->Salva($contato, $usuario->getCoPessoa()->getCoContato()->getCoContato());
-                    $enderecoService->Salva($endereco, $usuario->getCoPessoa()->getCoEndereco()->getCoEndereco());
-                    $pessoaService->Salva($pessoa, $usuario->getCoPessoa()->getCoPessoa());
-                    $retorno = $usuarioService->Salva($usu, $idCoUsuario);
-                    $usuarioPerfil[CO_USUARIO] = $idCoUsuario;
-                    $ok = $usuarioPerfilService->DeletaQuando($usuarioPerfil);
-                    if ($ok):
-                        if (!empty($dados['ds_perfil'])) {
-                            foreach ($dados['ds_perfil'] as $perfil) {
-                                if ($perfil != 3) {
-                                    if (AssinanteService::getCoAssinanteLogado()) {
-                                        $usuarioPerfil[CO_PERFIL_ASSINANTE] = $perfil;
-                                    } else {
-                                        $usuarioPerfil[CO_PERFIL] = $perfil;
-                                    }
-                                    $usuarioPerfilService->Salva($usuarioPerfil);
-                                }
-                            }
-                        }
-                        $usuarioPerfil[CO_PERFIL] = 3;
-                        $retorno = $usuarioPerfilService->Salva($usuarioPerfil);
-                    endif;
-
-                    $session->setSession(ATUALIZADO, "OK");
-                else:
+//                if ($idCoUsuario):
+//                    /** @var UsuarioEntidade $usuario */
+//                    $usuario = $usuarioService->PesquisaUmRegistro($idCoUsuario);
+//
+//                    if ($usuario->getCoImagem()):
+//                        if (is_file(Upload::$BaseDir . "usuarios/" . $usuario->getCoImagem()->getDsCaminho())):
+//                            unlink(Upload::$BaseDir . "usuarios/" . $usuario->getCoImagem()->getDsCaminho());
+//                        endif;
+//                    endif;
+//
+//                    if ($imagem[DS_CAMINHO]):
+//                        $imagemService->Salva($imagem, $usuario->getCoImagem()->getCoImagem());
+//                    endif;
+//                    if ($usuario->getCoPessoa()->getCoContato()):
+//                        $contatoService->Salva($contato, $usuario->getCoPessoa()->getCoContato()->getCoContato());
+//                    endif;
+//                    $enderecoService->Salva($endereco, $usuario->getCoPessoa()->getCoEndereco()->getCoEndereco());
+//                    $pessoaService->Salva($pessoa, $usuario->getCoPessoa()->getCoPessoa());
+//                    $retorno = $usuarioService->Salva($usu, $idCoUsuario);
+//                    $usuarioPerfil[CO_USUARIO] = $idCoUsuario;
+//                    $ok = $usuarioPerfilService->DeletaQuando($usuarioPerfil);
+//                    if ($ok):
+//                        if (!empty($dados['ds_perfil'])) {
+//                            foreach ($dados['ds_perfil'] as $perfil) {
+//                                if ($perfil != 3) {
+//                                    if (AssinanteService::getCoAssinanteLogado()) {
+//                                        $usuarioPerfil[CO_PERFIL_ASSINANTE] = $perfil;
+//                                    } else {
+//                                        $usuarioPerfil[CO_PERFIL] = $perfil;
+//                                    }
+//                                    $usuarioPerfilService->Salva($usuarioPerfil);
+//                                }
+//                            }
+//                        }
+//                        $usuarioPerfil[CO_PERFIL] = 3;
+//                        $retorno = $usuarioPerfilService->Salva($usuarioPerfil);
+//                    endif;
+//
+//                    $session->setSession(ATUALIZADO, "OK");
+//                else:
                     $idCoUsuario = (isset($dados[CO_USUARIO])
                         ? $dados[CO_USUARIO]
                         : null);
@@ -270,9 +272,9 @@ class  UsuarioService extends AbstractService
                             }
                         }
                     endif;
-                    $usuarioPerfil[CO_PERFIL] = 3;
-                    $retorno = $usuarioPerfilService->Salva($usuarioPerfil);
-                endif;
+//                    $usuarioPerfil[CO_PERFIL] = 3;
+//                    $retorno = $usuarioPerfilService->Salva($usuarioPerfil);
+//                endif;
                 if ($retorno) {
                     $PDO->commit();
                 } else {
@@ -378,6 +380,8 @@ class  UsuarioService extends AbstractService
             // Variável para validação de Emails Enviados com Sucesso.
             $this->Email = $email->Enviar();
         }
+
+        echo $Mensagem;
 
         return $coUsuario;
     }

@@ -21,7 +21,7 @@ class  PlanoValidador extends AbstractValidador
             $dados[NU_MES_ATIVO], 'Meses Ativo'
         );
         $this->retorno[DADOS][] = $this->ValidaCampoSelectObrigatorio(
-            $dados[CO_MODULO], 'Módulos do plano'
+            $dados[CO_PACOTE], 'Pacotes do plano'
         );
         $this->retorno[DADOS][] = $this->ValidaCampoObrigatorioValido(
             $dados[NU_VALOR], AbstractValidador::VALIDACAO_MOEDA, 'Valor R$'

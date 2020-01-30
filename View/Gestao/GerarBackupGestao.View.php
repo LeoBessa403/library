@@ -28,6 +28,9 @@
         Modal::load();
         ?>
         <div class="row">
+            <div class="col-sm-12">
+                <h3>Último Backup em: <b><?= Valida::DataShow(Backup::getDataUltimoBackup()); ?></b></h3>
+            </div>
             <?php
             echo $form;
             ?>

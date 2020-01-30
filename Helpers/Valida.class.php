@@ -149,6 +149,9 @@ class Valida
      */
     public static function DataDBDate($data)
     {
+        if(!$data)
+            return null;
+
         self::$Data = explode('/', $data);
 
         self::$Data = self::$Data[2] . '-' . self::$Data[1] . '-' . self::$Data[0];

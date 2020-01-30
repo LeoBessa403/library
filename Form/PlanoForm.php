@@ -50,14 +50,14 @@ class PlanoForm
             ->CriaInpunt();
 
         $formulario
-            ->setId(CO_MODULO)
+            ->setId(CO_PACOTE)
             ->setAutocomplete(
-                ModuloEntidade::TABELA,
-                NO_MODULO,
-                ModuloEntidade::CHAVE
+                PacoteEntidade::TABELA,
+                NO_PACOTE,
+                PacoteEntidade::CHAVE
             )
             ->setType(TiposCampoEnum::SELECT)
-            ->setLabel("Módulos do plano")
+            ->setLabel("Pacotes do plano")
             ->setClasses("ob multipla")
             ->CriaInpunt();
 

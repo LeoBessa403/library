@@ -49,9 +49,9 @@ class  AssinanteValidador extends AbstractValidador
         $this->retorno[DADOS][] = $this->ValidaCampoObrigatorioValido(
             $dados[DS_EMAIL], AbstractValidador::VALIDACAO_EMAIL, 'E-mail'
         );
-        $this->retorno[DADOS][] = $this->ValidaSelectObrigatorioNotArray(
-            $dados[TP_ESTABELECIMENTO], 'Tipo de estabelecimento'
-        );
+//        $this->retorno[DADOS][] = $this->ValidaSelectObrigatorioNotArray(
+//            $dados[TP_ESTABELECIMENTO], 'Tipo de estabelecimento'
+//        );
         if (!$dados['imagem_logo']) {
             $this->retorno[DADOS][] = $this->ValidaCampoArquivo(
                 $files[DS_CAMINHO], 'Foto Principal / Logo'

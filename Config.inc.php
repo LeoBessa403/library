@@ -205,10 +205,10 @@ function __autoload($Class)
 function PHPErro($ErrNo, $ErrMsg, $ErrFile, $ErrLine)
 {
     $label = ($ErrNo == E_USER_NOTICE ? "INFORMATIVO" : ($ErrNo == E_USER_WARNING ? "ALERTA" : ($ErrNo == E_USER_ERROR ? "ERRO" : "ERRO")));
-    echo '<div class="alert alert-danger alert-dismissable" style="padding-left: 40px;">
+    echo '<div class="alert alert-danger alert-dismissable" style="padding-left: 40px;" xmlns="http://www.w3.org/1999/html">
             <i class="fa fa-ban"></i>
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <big><b>' . $label . ': </b></big> ' . $ErrFile . ' - <b><i>Linha: ' . $ErrLine . ' </i></b></big>
+            <big><b>' . $label . ': </b></big> '. $ErrMsg. '</br><big>' . $ErrFile . ' - <b><i>Linha: ' . $ErrLine . ' </i></b></big>
         </div>';
     if ($ErrNo == E_USER_ERROR):
         die;

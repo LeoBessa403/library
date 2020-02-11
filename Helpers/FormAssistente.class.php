@@ -110,7 +110,7 @@ class FormAssistente extends Form
      * <b>finalizaForm:</b> Fecha o formulário
      * @return STRING com o fechamento do FORM.
      */
-    public function finalizaForm()
+    public function finalizaFormAssistente()
     {
         self::$form .= '<div class="col-sm-12">
                 <div class="panel panel-default">

@@ -423,7 +423,7 @@ class UsuarioForm extends AbstractController
         $formulario
             ->finalizaAba(true);
 
-        return $formulario->finalizaForm();
+        return $formulario->finalizaFormAssistente();
     }
 
     public static function TrocaSenha($idUsuario)

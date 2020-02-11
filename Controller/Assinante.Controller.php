@@ -181,7 +181,9 @@ class Assinante extends AbstractController
         // Aba 3
         /** @var ContatoEntidade $contato */
         $contato = $contatoService->PesquisaUmRegistro($assinante->getCoEmpresa()->getCoContato());
-        $res = $contatoService->getArrayDadosContato($contato, $res);
+        if ($contato) {
+            $res = $contatoService->getArrayDadosContato($contato, $res);
+        }
 
         // Aba 4
         $logo = '';

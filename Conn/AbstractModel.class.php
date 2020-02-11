@@ -143,7 +143,7 @@ class AbstractModel
                 } else {
                     $novoMetodo = $this->getMetodo($obj::CHAVE);
                     $todos = null;
-                    if (count($obj->$novoMetodo())) {
+                    if (!empty($obj->$novoMetodo())) {
                         if ($this->validaEntidadeJaUtilizada($campo['Entidade'])) {
                             if (is_array($obj->$novoMetodo())) {
                                 $indece = 0;
@@ -198,7 +198,7 @@ class AbstractModel
                     if (is_array($obj->$metodoGet())) {
                         $indece = 0;
                         foreach ($obj->$metodoGet() as $novoRegistro) {
-                            if (count($novoRegistro)) {
+                            if (!empty($novoRegistro)) {
                                 if ($novoRegistro->$metodoGet2()) {
                                     $metodoSet2 = $this->getMetodo($obj3::CHAVE, false);
                                     if ($this->validaEntidadeJaUtilizada($campo['Entidade'])) {

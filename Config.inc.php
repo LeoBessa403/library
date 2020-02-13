@@ -233,26 +233,27 @@ function Redireciona($local)
  */
 function debug($array, $Exit = false)
 {
-    echo "<fieldset style='margin-left: 35px;'>"
-        . "<legend style=' background-color: #fcfcfc; padding: 5px;'>Debug</legend>"
-        . "<pre>";
-    print_r($array);
-    echo "<br /><br />";
-
     $aTrace = debug_backtrace();
-    echo $aTrace[0]['file'] . " - " . $aTrace[0]['line'];
-
-    echo "</pre>"
-        . "</fieldset><br />";
+    $strMessage = "<fieldset style='margin: 10px; padding: 5px;'><legend style=' background-color: #fcfcfc; padding: 5px;'><font color=\"#007000\">DEBUG</font></legend><pre>";
+    $strMessage .= "<b>Arquivo:</b> " . $aTrace[0]['file'] . "\n";
+    $strMessage .= "<b>Linha:</b> " . $aTrace[0]['line'] . "\n";
+    $strMessage .= "<b>Quando: </b> " . date( "d/m/Y H:i:s" ) . "\n<hr />";
+    ob_start();
+    var_dump( $array );
+    $strMessage .= ob_get_clean();
+    $strMessage .= "</pre></fieldset>";
+    print $strMessage;
     echo '<script src="' . INCLUDES . 'jquery-2.0.3.js"></script>
                 <script type="text/javascript">
                         $(function() {
                             $(".navbar-content").hide();
-                        });
+                       });
                 </script>';
-    if (!$Exit):
-        exit;
-    endif;
+    if ( $Exit )
+    {
+        print "<br /><font color=\"#700000\" size=\"3\"><b>E X I T</b></font>";
+        die();
+    }
 }
 
 /**

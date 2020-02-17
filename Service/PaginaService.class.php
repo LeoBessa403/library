@@ -32,7 +32,7 @@ class  PaginaService extends AbstractService
                 $paginaPesquisa = $this->PesquisaUmQuando([
                     DS_TITULO_URL_AMIGAVEL => $url
                 ]);
-                if (count($paginaPesquisa)) {
+                if (!empty($paginaPesquisa)) {
                     // Edição da Página
                     $pagina[NU_VISUALIZACAO] = $paginaPesquisa->getNuVisualizacao() + 1;
                     $this->Salva($pagina, $paginaPesquisa->getCoPagina());

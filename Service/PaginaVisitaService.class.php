@@ -25,7 +25,7 @@ class  PaginaVisitaService extends AbstractService
             CO_PAGINA => $paginaVisita[CO_PAGINA]
         ]);
 
-        if (!count($paginaVisitaPesquisa)) {
+        if (empty($paginaVisitaPesquisa)) {
             /** @var PaginaEntidade $pagina */
             $pagina = $paginaService->PesquisaUmRegistro($paginaVisita[CO_PAGINA]);
             $paginaEdita[NU_USUARIO] = $pagina->getNuUsuario() + 1;

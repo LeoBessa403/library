@@ -29,9 +29,11 @@ class  ImagemAssinanteService extends AbstractService
         $imagemAssinante[CO_ASSINANTE] = AssinanteService::getCoAssinanteLogado();
         $imagem[DS_CAMINHO] = "";
         $nome = Valida::ValNome($noFantasia);
+
+
         if ($arquivos[DS_CAMINHO]["tmp_name"]):
             $foto = $_FILES[DS_CAMINHO];
-            $up->UploadImagens($foto, "FP-" . $nome, $noPasta);
+            $up->UploadImagem($foto, "FP-" . $nome, $noPasta);
             $imagem[DS_CAMINHO] = $up->getNameImage();
             $imagemAssinante[CO_IMAGEM] = $imagemService->Salva($imagem, $imagem_logo);
             $retorno[SUCESSO] = $this->Salva($imagemAssinante, $imagem_logo);

@@ -260,7 +260,6 @@ class Gestao extends AbstractController
                     $css[] = INCLUDES_LIBRARY . "plugins/perfect-scrollbar/src/perfect-scrollbar.css";
                     $css[] = INCLUDES_LIBRARY . "css/theme_navy.css";
                     $css[] = INCLUDES_LIBRARY . "plugins/css3-animation/animations.css";
-                    $css[] = INCLUDES_LIBRARY . "plugins/font-awesome/css/font-awesome-ie7.min.css";
                     $css[] = INCLUDES_LIBRARY . "plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css";
                     $css[] = INCLUDES_LIBRARY . "plugins/bootstrap-modal/css/bootstrap-modal.css";
                     $css[] = INCLUDES_LIBRARY . "Helpers/includes/Jcalendar.css";

@@ -184,7 +184,7 @@ class Upload
      * @param STRING $Folder = Pasta personalizada
      * @param INT $Width = Largura da imagem ( 800 padrão )
      */
-    private function UploadImagem(array $Image, $Name = null, $Folder = null, $Width = null)
+    public function UploadImagem(array $Image, $Name = null, $Folder = null, $Width = null)
     {
         $this->File = $Image;
         $this->Name = ((string)$Name ? $Name : substr($Image['name'], 0, strrpos($Image['name'], '.')));

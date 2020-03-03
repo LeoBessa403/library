@@ -43,20 +43,23 @@ class  AssinanteValidador extends AbstractValidador
         $this->retorno[DADOS][] = $this->ValidaCampoObrigatorioValido(
             $dados[NU_TEL1], AbstractValidador::VALIDACAO_TEL, 'Telefone Responsável'
         );
-        $this->retorno[DADOS][] = $this->ValidaCampoValido(
-            $dados[NU_TEL2], AbstractValidador::VALIDACAO_TEL, 'Telefone do Estabelecimento'
-        );
         $this->retorno[DADOS][] = $this->ValidaCampoObrigatorioValido(
             $dados[DS_EMAIL], AbstractValidador::VALIDACAO_EMAIL, 'E-mail'
         );
-//        $this->retorno[DADOS][] = $this->ValidaSelectObrigatorioNotArray(
-//            $dados[TP_ESTABELECIMENTO], 'Tipo de estabelecimento'
-//        );
-        if (!$dados['imagem_logo']) {
-            $this->retorno[DADOS][] = $this->ValidaCampoArquivo(
-                $files[DS_CAMINHO], 'Foto Principal / Logo'
-            );
-        }
+        $this->retorno[DADOS][] = $this->ValidaCampoObrigatorioValido(
+            $dados[NU_CEP], AbstractValidador::VALIDACAO_CEP, 'CEP'
+        );
+        $this->retorno[DADOS][] = $this->ValidaCampoObrigatorioDescricao(
+            $dados[DS_ENDERECO], 3, 'Endereço'
+        );
+        $this->retorno[DADOS][] = $this->ValidaCampoSelectObrigatorio(
+            $dados[SG_UF],  'Estado'
+        );
+//        if (!$dados['imagem_logo']) {
+//            $this->retorno[DADOS][] = $this->ValidaCampoArquivo(
+//                $files[DS_CAMINHO], 'Foto Principal / Logo'
+//            );
+//        }
         return $this->MontaRetorno($this->retorno);
     }
 }

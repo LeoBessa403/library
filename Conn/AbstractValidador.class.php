@@ -56,7 +56,7 @@ class AbstractValidador
                 $validadorDado = preg_replace('/[^a-zA-Z]/', '', $dado);
                 if (strlen($validadorDado) == 0) {
                     $validadorDado = preg_replace('/[^0-9]/', '', $dado);
-                    if (strlen($validadorDado) == 7) {
+                    if (strlen($validadorDado) == 8) {
                         $validador = true;
                     }
                 }
@@ -351,8 +351,8 @@ class AbstractValidador
     public function MontaRetorno($retorno)
     {
         $msgRetorno = '';
-        $obrigatorios = '';
-        $validos = '';
+        $obrigatorios = [];
+        $validos = [];
         $mensagem = '';
         $msg = [
             SUCESSO => true,

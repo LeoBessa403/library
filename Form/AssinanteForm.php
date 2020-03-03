@@ -166,7 +166,7 @@ class AssinanteForm
         $formulario
             ->setId(NU_CEP)
             ->setLabel("CEP")
-            ->setClasses("cep")
+            ->setClasses("cep ob")
             ->CriaInpunt();
 
         $formulario
@@ -195,6 +195,7 @@ class AssinanteForm
         $formulario
             ->setId(SG_UF)
             ->setType(TiposCampoEnum::SELECT)
+            ->setClasses("ob")
             ->setLabel("Estado")
             ->setOptions($options)
             ->CriaInpunt();
@@ -209,7 +210,8 @@ class AssinanteForm
         $formulario
             ->setId(NU_TEL1)
             ->setIcon("fa fa-mobile-phone")
-            ->setLabel("Telefone (WhatsApp)")
+            ->setLabel("Telefone")
+            ->setInfo("Com <i class='fa fa-whatsapp' style='color: green;'></i> WhatSapp")
             ->setClasses("tel ob")
             ->CriaInpunt();
 
@@ -231,6 +233,24 @@ class AssinanteForm
         $formulario
             ->setId(DS_SITE)
             ->setLabel("Site")
+            ->CriaInpunt();
+
+        $formulario
+            ->setId(DS_FACEBOOK)
+            ->setIcon("fa-facebook fa")
+            ->setLabel("Facebook")
+            ->CriaInpunt();
+
+        $formulario
+            ->setId(DS_INSTAGRAM)
+            ->setIcon("fa-instagram fa")
+            ->setLabel("Instagram")
+            ->CriaInpunt();
+
+        $formulario
+            ->setId(DS_TWITTER)
+            ->setIcon("fa-twitter fa")
+            ->setLabel("Twitter")
             ->CriaInpunt();
 
         $formulario
@@ -266,7 +286,7 @@ class AssinanteForm
         $formulario
             ->finalizaAba(true);
 
-        return $formulario->finalizaFormAssistente($id);
+        return $formulario->finalizaFormAssistente();
     }
 
 }

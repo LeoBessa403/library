@@ -81,7 +81,7 @@
 
             if (e.target.files.length > limite) {
                 this.clear();
-                Funcoes.LimiteImagens();
+                Funcoes.LimiteImagens(limite);
             } else {
                 if (this.type === "image" && this.$preview.length > 0 && (typeof file.type !== "undefined" ? file.type.match('image.*') : file.name.match(/\.(gif|png|jpe?g)$/i)) && typeof FileReader !== "undefined") {
                     var reader = new FileReader();

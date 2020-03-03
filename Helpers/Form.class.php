@@ -577,7 +577,7 @@ class Form
     {
         $form = '<div class="fileupload fileupload-new" data-provides="fileupload">
                                             <div class="fileupload-new thumbnail" style="width: 150px; height: 150px;">';
-        if (isset(self::$valor[self::$id])) {
+        if (self::$valor[self::$id]) {
             $form .=
                 Valida::getMiniatura(self::$valor[self::$id], "Pre Carregamento", 150, 150);
         } else {

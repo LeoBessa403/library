@@ -180,7 +180,7 @@ class Assinante extends AbstractController
 
         // Aba 3
         /** @var ContatoEntidade $contato */
-        $contato = $contatoService->PesquisaUmRegistro($assinante->getCoEmpresa()->getCoContato());
+        $contato = $assinante->getCoPessoa()->getCoContato();
         if ($contato) {
             $res = $contatoService->getArrayDadosContato($contato, $res);
         }
@@ -188,6 +188,7 @@ class Assinante extends AbstractController
         // Aba 4
         $logo = '';
         $imagem_logo = '';
+
         if (!empty($assinante->getCoImagemAssinante())) {
             $imagem_logo = $assinante->getLogoImagemAssinante()->getCoImagem()->getCoImagem();
             $logo = "Assinante/Assinante-" . AssinanteService::getCoAssinanteLogado() . "/" .

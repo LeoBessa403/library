@@ -111,7 +111,7 @@ class  HistoriaService extends AbstractService
                 $priEsfRes = true;
             }
             if ($priEsf) {
-                $esforco = $esforco + $item[NU_ESFORCO];
+                $esforco = $esforco + ((!empty($item[NU_ESFORCO])) ? $item[NU_ESFORCO] : 0);
                 $esforcoHistoria[$item[CO_HISTORIA]] = $item[NU_ESFORCO];
                 $priEsf = false;
             } elseif ($esforcoHistoria[$item[CO_HISTORIA]] != $item[NU_ESFORCO]) {
@@ -121,7 +121,7 @@ class  HistoriaService extends AbstractService
             $graficoEvolucao[Valida::DataShow($item[DT_CADASTRO])][NU_ESFORCO] = $esforco;
 
             if ($priEsfRes) {
-                $esforcoRestante = $esforcoRestante + $item[NU_ESFORCO_RESTANTE];
+                $esforcoRestante = $esforcoRestante + ((!empty($item[NU_ESFORCO_RESTANTE])) ? $item[NU_ESFORCO_RESTANTE] : 0);
                 $esforcoRestanteHistoria[$item[CO_HISTORIA]] = $item[NU_ESFORCO_RESTANTE];
                 $priEsfRes = false;
             } elseif ($esforcoRestanteHistoria[$item[CO_HISTORIA]] != $item[NU_ESFORCO_RESTANTE]) {

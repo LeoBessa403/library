@@ -17,7 +17,7 @@
                             $difDatas = Valida::CalculaDiferencaDiasData(date('d/m/Y'), $user[md5(DT_EXPIRACAO)]);
                             ?>
                             <li>
-                                <a href="javascript:">
+                                <a href="<?= HOME . ADMIN; ?>/Assinante/MeuPlanoAssinante">
                                     <div class="clearfix">
                                         <div class="thread-image">
                                             <?= Valida::getImgSistema(); ?>

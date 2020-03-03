@@ -164,6 +164,19 @@ class  AssinanteService extends AbstractService
             $assinante = $assinanteService->getAssinanteLogado();
             $assinanteService->Salva([ST_DADOS_COMPLEMENTARES => SimNaoEnum::SIM], $assinante->getCoAssinante());
 
+            /** @var Session $us */
+            $us = $_SESSION[SESSION_USER];
+            $user = $us->getUser();
+
+
+            /** @var UsuarioService $usuariaService */
+            $usuariaService = $this->getService(USUARIO_SERVICE);
+
+            /** @var UsuarioEntidade $user */
+            $user = $usuariaService->PesquisaUmRegistro($user[md5(CO_USUARIO)]);
+            $index = new Index();
+            $index->geraDadosSessao($user, $user->getCoUsuario());
+
             $retorno[SUCESSO] = true;
             $session->setSession(MENSAGEM, ATUALIZADO);
             $PDO->commit();

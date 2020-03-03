@@ -39,7 +39,7 @@
                         $user[md5(ST_DADOS_COMPLEMENTARES)] == SimNaoEnum::NAO) {
                         ?>
                         <li>
-                            <a href="javascript:">
+                            <a href="<?= HOME . ADMIN; ?>/Assinante/DadosComplementaresAssinante">
                                 <div class="clearfix">
                                     <div class="thread-image">
                                         <?= Valida::getImgSistema(); ?>

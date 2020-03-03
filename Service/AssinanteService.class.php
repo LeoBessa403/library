@@ -26,8 +26,6 @@ class  AssinanteService extends AbstractService
         $empresaService = $this->getService(EMPRESA_SERVICE);
         /** @var PlanoAssinanteAssinaturaService $PlanoAssinanteAssinaturaService */
         $PlanoAssinanteAssinaturaService = $this->getService(PLANO_ASSINANTE_ASSINATURA_SERVICE);
-//        /** @var AssinanteMatrizService $assinanteMatrizService */
-//        $assinanteMatrizService = $this->getService(ASSINANTE_MATRIZ_SERVICE);
         /** @var UsuarioService $usuarioService */
         $usuarioService = $this->getService(USUARIO_SERVICE);
         /** @var UsuarioPerfilService $usuarioPerfilService */
@@ -87,7 +85,6 @@ class  AssinanteService extends AbstractService
                 $retorno[SUCESSO] = $usuarioPerfilService->Salva($usuarioPerfil);
                 $session->setSession(MENSAGEM, CADASTRADO);
             endif;
-//            $assinanteMatrizService->salvaAssinanteMatriz($dados, $coAssinante);
             if ($retorno[SUCESSO]) {
                 $retorno[SUCESSO] = true;
                 $PDO->commit();
@@ -106,8 +103,6 @@ class  AssinanteService extends AbstractService
             );
             $retorno = $validador;
         }
-
-        exit;
 
         return $retorno;
     }

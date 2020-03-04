@@ -163,7 +163,7 @@ class  UsuarioService extends AbstractService
                 $usu[DS_CODE] = base64_encode(base64_encode($dados[DS_SENHA]));
                 $usu[DS_SENHA] = trim($dados[DS_SENHA]);
                 if (!empty($dados[ST_STATUS])):
-                    $usu[ST_STATUS] = StatusUsuarioEnum::ATIVO;
+                    $usu[ST_STATUS] = StatusUsuarioEnum::INATIVO;
                 else:
                     if ((in_array(1, $meusPerfis) || in_array(2, $meusPerfis)) &&
                         (!empty($res[CO_USUARIO])) && ($res[CO_USUARIO] != UsuarioService::getCoUsuarioLogado())):
@@ -216,7 +216,19 @@ class  UsuarioService extends AbstractService
                 }
                 if (!$idCoUsuario) {
                     $usu[DT_CADASTRO] = Valida::DataHoraAtualBanco();
+                    $usu[CO_ASSINANTE] = (isset($dados[CO_ASSINANTE])
+                        ? $dados[CO_ASSINANTE]
+                        : null);
+
+                    debug($dados);
                     $usuarioPerfil[CO_USUARIO] = $usuarioService->Salva($usu);
+                    $dadosEmail = [
+                        NO_PESSOA => $pessoa[NO_PESSOA],
+                        DS_EMAIL => $contato[DS_EMAIL],
+                        DS_SENHA => $usu[DS_SENHA]
+                    ];
+                    $this->enviaEmailNovoUsuario($dadosEmail, $usuarioPerfil[CO_USUARIO]);
+
                 } else {
                     $usuarioService->Salva($usu, $idCoUsuario);
                 }
@@ -341,6 +353,20 @@ class  UsuarioService extends AbstractService
         $usuario[DT_CADASTRO] = Valida::DataHoraAtualBanco();
 
         $coUsuario = $this->Salva($usuario);
+
+        $dadosEmail[DS_SENHA] = $usuario[DS_SENHA];
+        $this->enviaEmailNovoUsuario($dadosEmail, $coUsuario);
+
+        return $coUsuario;
+    }
+
+    /**
+     * @param array $dadosEmail
+     * @param Int $coUsuario
+     */
+    public
+    function enviaEmailNovoUsuario(array $dadosEmail, $coUsuario)
+    {
         if ($coUsuario) {
             /** @var Email $email */
             $email = new Email();
@@ -350,7 +376,7 @@ class  UsuarioService extends AbstractService
                 $dadosEmail[NO_PESSOA] => $dadosEmail[DS_EMAIL],
             );
             $Mensagem = "<h3>Olá " . $dadosEmail[NO_PESSOA] . ", Seu cadastro no " . DESC . " foi realizado com sucesso.</h3>";
-            $Mensagem .= "<p>Sua senha é: <b>" . $usuario[DS_SENHA] . ".</b></p>";
+            $Mensagem .= "<p>Sua senha é: <b>" . $dadosEmail[DS_SENHA] . ".</b></p>";
             $Mensagem .= "<p>Acesso o link para a <a href='" . HOME . "admin/Index/AtivacaoUsuario/" .
                 Valida::GeraParametro(CO_USUARIO . "/" . $coUsuario) . "'>ATIVAÇÃO DO CADASTRO</a></p><br>";
 
@@ -360,10 +386,11 @@ class  UsuarioService extends AbstractService
 
             // Variável para validação de Emails Enviados com Sucesso.
             $this->Email = $email->Enviar();
+        } else {
+            Notificacoes::geraMensagem(
+                "Confirmação da Ativação não enviada!",
+                TiposMensagemEnum::INFORMATIVO
+            );
         }
-
-        echo $Mensagem;
-
-        return $coUsuario;
     }
 }

@@ -247,6 +247,14 @@ class UsuarioForm extends AbstractController
                 ->CriaInpunt();
         endif;
 
+        if (!empty($res[CO_ASSINANTE])):
+            $formulario
+                ->setType(TiposCampoEnum::HIDDEN)
+                ->setId(CO_ASSINANTE)
+                ->setValues($res[CO_ASSINANTE])
+                ->CriaInpunt();
+        endif;
+
         return $formulario->finalizaForm($link);
     }
 

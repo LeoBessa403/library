@@ -42,7 +42,7 @@
                         /** @var FuncionalidadeEntidade $res */
                         foreach ($result as $res) {
                             $perfis = [];
-                            if (count($res->getCoPerfilFuncionalidade())) {
+                            if ($res->getCoPerfilFuncionalidade()) {
                                 /** @var PerfilFuncionalidadeEntidade $funcPerfil */
                                 foreach ($res->getCoPerfilFuncionalidade() as $funcPerfil) {
                                     if ($funcPerfil->getCoPerfil()) {

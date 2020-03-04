@@ -41,8 +41,8 @@ class Usuario extends AbstractController
                 $pessoa = $pessoaService->PesquisaUmQuando([
                     NU_CPF => Valida::RetiraMascara($_POST[NU_CPF])
                 ]);
-                if (count($pessoa)) {
-                    if (count($pessoa->getCoUsuario())) {
+                if ($pessoa){
+                    if ($pessoa->getCoUsuario()) {
                         $idCoUsuario = $pessoa->getCoUsuario()->getCoUsuario();
                     }
                 }
@@ -72,6 +72,8 @@ class Usuario extends AbstractController
                 endif;
             endif;
             $res[CO_USUARIO] = $usuario->getCoUsuario();
+            $res[CO_PESSOA] = $usuario->getCoPessoa()->getCoPessoa();
+            $res[CO_CONTATO] = $usuario->getCoPessoa()->getCoContato()->getCoContato();
             $res[NO_PESSOA] = $usuario->getCoPessoa()->getNoPessoa();
             $res[DS_EMAIL] = $usuario->getCoPessoa()->getCoContato()->getDsEmail();
             $res[ST_SEXO] = $usuario->getCoPessoa()->getStSexo();
@@ -93,6 +95,7 @@ class Usuario extends AbstractController
             $this->form = UsuarioForm::Cadastrar($res, false, 6);
         else:
             if ($cadastro):
+                $res[CO_ASSINANTE] = AssinanteService::getCoAssinanteLogado();
                 $res[NU_CPF] = $_POST[NU_CPF];
                 $this->form = UsuarioForm::Cadastrar($res, false, 6);
             else:

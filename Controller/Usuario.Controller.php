@@ -63,6 +63,7 @@ class Usuario extends AbstractController
             /** @var UsuarioEntidade $usuario */
             $usuario = $usuarioService->PesquisaUmRegistro($idCoUsuario);
 
+
             $res['ds_senha_confirma'] = $usuario->getDsSenha();
             $res[DS_SENHA] = $usuario->getDsSenha();
             if (!empty($usuario->getCoImagem())):

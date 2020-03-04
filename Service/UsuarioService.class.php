@@ -156,7 +156,7 @@ class  UsuarioService extends AbstractService
                     $foto = $_FILES[DS_CAMINHO];
                     $nome = Valida::ValNome($dados[NO_PESSOA]);
                     $up = new Upload();
-                    $up->UploadImagens($foto, $nome, "usuarios");
+                    $up->UploadImagem($foto, $nome, "usuarios");
                     $imagem[DS_CAMINHO] = $up->getNameImage();
                 endif;
 
@@ -165,116 +165,79 @@ class  UsuarioService extends AbstractService
                 if (!empty($dados[ST_STATUS])):
                     $usu[ST_STATUS] = StatusUsuarioEnum::ATIVO;
                 else:
-                    if (in_array(1, $meusPerfis) || in_array(2, $meusPerfis)):
+                    if ((in_array(1, $meusPerfis) || in_array(2, $meusPerfis)) &&
+                        (!empty($res[CO_USUARIO])) && ($res[CO_USUARIO] != UsuarioService::getCoUsuarioLogado())):
                         $usu[ST_STATUS] = StatusUsuarioEnum::INATIVO;
+                    else:
+                        $usu[ST_STATUS] = StatusUsuarioEnum::ATIVO;
                     endif;
                 endif;
 
                 $PDO->beginTransaction();
-//                if ($idCoUsuario):
-//                    /** @var UsuarioEntidade $usuario */
-//                    $usuario = $usuarioService->PesquisaUmRegistro($idCoUsuario);
-//
-//                    if ($usuario->getCoImagem()):
-//                        if (is_file(Upload::$BaseDir . "usuarios/" . $usuario->getCoImagem()->getDsCaminho())):
-//                            unlink(Upload::$BaseDir . "usuarios/" . $usuario->getCoImagem()->getDsCaminho());
-//                        endif;
-//                    endif;
-//
-//                    if ($imagem[DS_CAMINHO]):
-//                        $imagemService->Salva($imagem, $usuario->getCoImagem()->getCoImagem());
-//                    endif;
-//                    if ($usuario->getCoPessoa()->getCoContato()):
-//                        $contatoService->Salva($contato, $usuario->getCoPessoa()->getCoContato()->getCoContato());
-//                    endif;
-//                    $enderecoService->Salva($endereco, $usuario->getCoPessoa()->getCoEndereco()->getCoEndereco());
-//                    $pessoaService->Salva($pessoa, $usuario->getCoPessoa()->getCoPessoa());
-//                    $retorno = $usuarioService->Salva($usu, $idCoUsuario);
-//                    $usuarioPerfil[CO_USUARIO] = $idCoUsuario;
-//                    $ok = $usuarioPerfilService->DeletaQuando($usuarioPerfil);
-//                    if ($ok):
-//                        if (!empty($dados['ds_perfil'])) {
-//                            foreach ($dados['ds_perfil'] as $perfil) {
-//                                if ($perfil != 3) {
-//                                    if (AssinanteService::getCoAssinanteLogado()) {
-//                                        $usuarioPerfil[CO_PERFIL_ASSINANTE] = $perfil;
-//                                    } else {
-//                                        $usuarioPerfil[CO_PERFIL] = $perfil;
-//                                    }
-//                                    $usuarioPerfilService->Salva($usuarioPerfil);
-//                                }
-//                            }
-//                        }
-//                        $usuarioPerfil[CO_PERFIL] = 3;
-//                        $retorno = $usuarioPerfilService->Salva($usuarioPerfil);
-//                    endif;
-//
-//                    $session->setSession(ATUALIZADO, "OK");
-//                else:
-                    $idCoUsuario = (isset($dados[CO_USUARIO])
-                        ? $dados[CO_USUARIO]
-                        : null);
-                    $idCoEndereco = (isset($dados[CO_ENDERECO])
-                        ? $dados[CO_ENDERECO]
-                        : null);
-                    $idCoContato = (isset($dados[CO_CONTATO])
-                        ? $dados[CO_CONTATO]
-                        : null);
-                    $idCoImagem = (isset($dados[CO_IMAGEM])
-                        ? $dados[CO_IMAGEM]
-                        : null);
-                    $idCoPessoa = (isset($dados[CO_PESSOA])
-                        ? $dados[CO_PESSOA]
-                        : null);
+                $idCoUsuario = (isset($dados[CO_USUARIO])
+                    ? $dados[CO_USUARIO]
+                    : null);
+                $idCoEndereco = (isset($dados[CO_ENDERECO])
+                    ? $dados[CO_ENDERECO]
+                    : null);
+                $idCoContato = (isset($dados[CO_CONTATO])
+                    ? $dados[CO_CONTATO]
+                    : null);
+                $idCoImagem = (isset($dados[CO_IMAGEM])
+                    ? $dados[CO_IMAGEM]
+                    : null);
+                $idCoPessoa = (isset($dados[CO_PESSOA])
+                    ? $dados[CO_PESSOA]
+                    : null);
 
-                    if (!$idCoEndereco) {
-                        $pessoa[CO_ENDERECO] = $enderecoService->Salva($endereco);
-                    } else {
-                        $enderecoService->Salva($endereco, $idCoEndereco);
-                    }
-                    if (!$idCoContato) {
-                        $pessoa[CO_CONTATO] = $contatoService->Salva($contato);
-                    } else {
-                        $contatoService->Salva($contato, $idCoContato);
-                    }
-                    if (!$idCoImagem) {
-                        $usu[CO_IMAGEM] = $imagemService->Salva($imagem);
-                    } else {
-                        $usu[CO_IMAGEM] = $idCoImagem;
-                        $imagemService->Salva($imagem, $idCoImagem);
-                    }
-                    if (!$idCoPessoa) {
-                        $pessoa[DT_CADASTRO] = Valida::DataHoraAtualBanco();
-                        $usu[CO_PESSOA] = $pessoaService->Salva($pessoa);
-                    } else {
-                        $usu[CO_PESSOA] = $idCoPessoa;
-                        $pessoaService->Salva($pessoa, $idCoPessoa);
-                    }
-                    if (!$idCoUsuario) {
-                        $usu[DT_CADASTRO] = Valida::DataHoraAtualBanco();
-                        $usuarioPerfil[CO_USUARIO] = $usuarioService->Salva($usu);
-                    } else {
-                        $usuarioService->Salva($usu, $idCoUsuario);
-                    }
+                if (!$idCoEndereco) {
+                    $pessoa[CO_ENDERECO] = $enderecoService->Salva($endereco);
+                } else {
+                    $enderecoService->Salva($endereco, $idCoEndereco);
+                }
+                if (!$idCoContato) {
+                    $pessoa[CO_CONTATO] = $contatoService->Salva($contato);
+                } else {
+                    $contatoService->Salva($contato, $idCoContato);
+                }
 
-                    // REGISTRAR ///
-                    if (!$resgistrar):
-                        if (!empty($dados['ds_perfil'])) {
-                            foreach ($dados['ds_perfil'] as $perfil) {
-                                if ($perfil != 3) {
-                                    if (AssinanteService::getCoAssinanteLogado()) {
-                                        $usuarioPerfil[CO_PERFIL_ASSINANTE] = $perfil;
-                                    } else {
-                                        $usuarioPerfil[CO_PERFIL] = $perfil;
-                                    }
-                                    $usuarioPerfilService->Salva($usuarioPerfil);
+                if (!$idCoImagem && $imagem[DS_CAMINHO]) {
+                    $usu[CO_IMAGEM] = $imagemService->Salva($imagem);
+                } elseif ($imagem[DS_CAMINHO]) {
+                    $usu[CO_IMAGEM] = $idCoImagem;
+                    $imagemService->Salva($imagem, $idCoImagem);
+                }
+                if (!$idCoPessoa) {
+                    $pessoa[DT_CADASTRO] = Valida::DataHoraAtualBanco();
+                    $usu[CO_PESSOA] = $pessoaService->Salva($pessoa);
+                } else {
+                    $usu[CO_PESSOA] = $idCoPessoa;
+                    $pessoaService->Salva($pessoa, $idCoPessoa);
+                }
+                if (!$idCoUsuario) {
+                    $usu[DT_CADASTRO] = Valida::DataHoraAtualBanco();
+                    $usuarioPerfil[CO_USUARIO] = $usuarioService->Salva($usu);
+                } else {
+                    $usuarioService->Salva($usu, $idCoUsuario);
+                }
+
+                // REGISTRAR ///
+                if (!$resgistrar):
+                    if (!empty($dados['ds_perfil'])) {
+                        foreach ($dados['ds_perfil'] as $perfil) {
+                            if ($perfil != 3) {
+                                if (AssinanteService::getCoAssinanteLogado()) {
+                                    $usuarioPerfil[CO_PERFIL_ASSINANTE] = $perfil;
+                                } else {
+                                    $usuarioPerfil[CO_PERFIL] = $perfil;
                                 }
+                                $usuarioPerfilService->Salva($usuarioPerfil);
                             }
                         }
-                    endif;
-//                    $usuarioPerfil[CO_PERFIL] = 3;
-//                    $retorno = $usuarioPerfilService->Salva($usuarioPerfil);
-//                endif;
+                    }
+                endif;
+                $usuarioPerfil[CO_PERFIL] = 3;
+                $retorno = $usuarioPerfilService->Salva($usuarioPerfil);
                 if ($retorno) {
                     $PDO->commit();
                 } else {
@@ -305,17 +268,35 @@ class  UsuarioService extends AbstractService
 
     public function TrocaSenha($dados)
     {
-        /** @var PessoaValidador $validador */
+        /** @var UsuarioService $usuarioService */
+        $usuarioService = $this->getService(USUARIO_SERVICE);
         $retorno = [
             SUCESSO => true,
             MSG => null
         ];
         $session = new Session();
+        /** @var UsuarioValidador $usuarioValidador */
         $usuarioValidador = new UsuarioValidador();
         $validador = $usuarioValidador->validarTrocaSenha($dados);
         if ($validador[SUCESSO]) {
 
             $idCoUsuario = (isset($dados[CO_USUARIO]) ? $dados[CO_USUARIO] : null);
+            if ($idCoUsuario) {
+                /** @var UsuarioEntidade $user */
+                $user = $usuarioService->PesquisaUmRegistro($idCoUsuario);
+
+                if ($user->getDsSenha() != $dados['ds_senha_antiga']) {
+                    Notificacoes::geraMensagem(
+                        "Senha Antiga não está correta. Favor Verificar",
+                        TiposMensagemEnum::ALERTA
+                    );
+                    $retorno = [
+                        SUCESSO => false
+                    ];
+                    return $retorno;
+                }
+            }
+
             $usuario[DS_CODE] = base64_encode(base64_encode(trim($dados[DS_SENHA])));
             $usuario[DS_SENHA] = trim($dados[DS_SENHA]);
             $usuario[ST_TROCA_SENHA] = SimNaoEnum::SIM;

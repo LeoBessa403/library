@@ -22,7 +22,8 @@ class UsuarioForm extends AbstractController
             $usuarioModel = new UsuarioModel();
             $usuario = $usuarioModel->PesquisaUmQuando([CO_USUARIO => $res[CO_USUARIO]]);
 
-            if (in_array(1, $meusPerfis) || in_array(2, $meusPerfis)) {
+            if ((in_array(1, $meusPerfis) || in_array(2, $meusPerfis)) &&
+              (!empty($res[CO_USUARIO])) && ($res[CO_USUARIO] != UsuarioService::getCoUsuarioLogado()) ) {
                 $res[CAMPO_PERFIL] = PerfilService::montaArrayPerfil($usuario);
             } else {
                 $res[ST_STATUS] = Valida::SituacaoUsuarioLabel($res[ST_STATUS]);
@@ -95,6 +96,12 @@ class UsuarioForm extends AbstractController
             ->CriaInpunt();
 
         $formulario
+            ->setId(NU_CEP)
+            ->setLabel("CEP")
+            ->setClasses("cep")
+            ->CriaInpunt();
+
+        $formulario
             ->setId(DS_ENDERECO)
             ->setIcon("clip-home-2")
             ->setLabel("Endereço")
@@ -115,16 +122,8 @@ class UsuarioForm extends AbstractController
             ->setLabel("Cidade")
             ->CriaInpunt();
 
-        $formulario
-            ->setId(NU_CEP)
-            ->setLabel("CEP")
-            ->setTamanhoInput(4)
-            ->setClasses("cep")
-            ->CriaInpunt();
-
         $options = EnderecoService::montaComboEstadosDescricao();
         $formulario
-            ->setTamanhoInput(8)
             ->setId(SG_UF)
             ->setType(TiposCampoEnum::SELECT)
             ->setLabel("Estado")
@@ -148,7 +147,8 @@ class UsuarioForm extends AbstractController
             ->CriaInpunt();
 
         if (!$resgistrar) {
-            if (in_array(1, $meusPerfis) || in_array(2, $meusPerfis)):
+            if ((in_array(1, $meusPerfis) || in_array(2, $meusPerfis)) &&
+              (!empty($res[CO_USUARIO])) && ($res[CO_USUARIO] != UsuarioService::getCoUsuarioLogado()) ) :
                 $label_options_perfis = PerfilService::montaComboTodosPerfis();
                 $formulario
                     ->setLabel("Perfis")
@@ -192,6 +192,9 @@ class UsuarioForm extends AbstractController
                     ->setTamanhoInput(3)
                     ->setLabel("Status do Usuário")
                     ->CriaInpunt();
+
+
+
             endif;
         } else {
             $link = 'Index/Acessar';
@@ -435,17 +438,22 @@ class UsuarioForm extends AbstractController
             . "/" . UrlAmigavel::$action, 'Trocar', 6);
 
         $formulario
+            ->setId("ds_senha_antiga")
+            ->setClasses("ob")
+            ->setType(TiposCampoEnum::PASSWORD)
+            ->setLabel("Senha Antiga")
+            ->CriaInpunt();
+
+        $formulario
             ->setId(DS_SENHA)
             ->setClasses("ob senha")
-            ->setTamanhoInput(6)
             ->setType(TiposCampoEnum::PASSWORD)
-            ->setLabel("Senha")
+            ->setLabel("Nova Senha")
             ->CriaInpunt();
 
         $formulario
             ->setId("ds_senha_confirma")
             ->setClasses("ob confirma-senha")
-            ->setTamanhoInput(6)
             ->setType(TiposCampoEnum::PASSWORD)
             ->setLabel("Confirmação da Senha")
             ->CriaInpunt();

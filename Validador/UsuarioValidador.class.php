@@ -45,7 +45,10 @@ class  UsuarioValidador extends AbstractValidador
     public function validarTrocaSenha($dados)
     {
         $this->retorno[DADOS][] = $this->ValidaCampoObrigatorioValido(
-            $dados[DS_SENHA], AbstractValidador::VALIDACAO_SENHA, 'Senha', 5
+            $dados["ds_senha_antiga"], AbstractValidador::VALIDACAO_SENHA, 'Senha Antiga', 5
+        );
+        $this->retorno[DADOS][] = $this->ValidaCampoObrigatorioValido(
+            $dados[DS_SENHA], AbstractValidador::VALIDACAO_SENHA, 'Nova Senha', 5
         );
 
         if ($dados[DS_SENHA] == $dados['ds_senha_confirma']) {

@@ -31,6 +31,11 @@
                     </div>
                     <div class="panel-body">
                         <?php
+                        $perfil_master = false;
+                        if(!AssinanteService::getCoAssinanteLogado()){
+                            $perfil_master = true;
+                        }
+
                         $grid = new Grid();
                         echo $grid->PesquisaAvancada('Pesquisar Usuários');
                         ?>
@@ -41,10 +46,16 @@
                         Modal::load();
                         Modal::deletaRegistro(UrlAmigavel::$controller);
                         Modal::confirmacao("confirma_Usuario");
+                        if($perfil_master){
+                            $arrColunas = array('Assinante', 'Usuário', 'CPF', 'Perfil', 'Situação', 'Ações');
+                        }else{
+                            $arrColunas = array('Usuário', 'CPF', 'Perfil', 'Situação', 'Ações');
+                        }
 
-                        $arrColunas = array('Nome', 'CPF', 'Perfil', 'Situação', 'Ações');
                         $grid->setColunasIndeces($arrColunas);
                         $grid->criaGrid();
+
+
                         /** @var UsuarioEntidade $res */
                         foreach ($result as $res):
                             if (Valida::ValPerfil('CadastroUsuario')) {
@@ -62,6 +73,17 @@
                                 </a>';
                             } else {
                                 $acao = '';
+                            }
+                            if($perfil_master){
+                                if($res->getCoAssinante()){
+                                    /** @var AssinanteService $assinanteService */
+                                    $assinanteService = new AssinanteService();
+                                    /** @var AssinanteEntidade $assinante */
+                                    $assinante = $assinanteService->PesquisaUmRegistro($res->getCoAssinante());
+                                    $grid->setColunas(strtoupper($assinante->getCoEmpresa()->getNoFantasia()));
+                                }else{
+                                    $grid->setColunas("Sem Assinante");
+                                }
                             }
                             $grid->setColunas(strtoupper($res->getCoPessoa()->getNoPessoa()));
                             $grid->setColunas(Valida::MascaraCpf($res->getCoPessoa()->getNuCpf()));

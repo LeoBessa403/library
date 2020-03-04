@@ -23,7 +23,7 @@ class UsuarioForm extends AbstractController
             $usuario = $usuarioModel->PesquisaUmQuando([CO_USUARIO => $res[CO_USUARIO]]);
 
             if ((in_array(1, $meusPerfis) || in_array(2, $meusPerfis)) &&
-              (!empty($res[CO_USUARIO])) && ($res[CO_USUARIO] != UsuarioService::getCoUsuarioLogado()) ) {
+                (!empty($res[CO_USUARIO])) && ($res[CO_USUARIO] != UsuarioService::getCoUsuarioLogado())) {
                 $res[CAMPO_PERFIL] = PerfilService::montaArrayPerfil($usuario);
             } else {
                 $res[ST_STATUS] = Valida::SituacaoUsuarioLabel($res[ST_STATUS]);
@@ -148,7 +148,7 @@ class UsuarioForm extends AbstractController
 
         if (!$resgistrar) {
             if ((in_array(1, $meusPerfis) || in_array(2, $meusPerfis)) &&
-              (!empty($res[CO_USUARIO])) && ($res[CO_USUARIO] != UsuarioService::getCoUsuarioLogado()) ) :
+                (!empty($res[CO_USUARIO])) && ($res[CO_USUARIO] != UsuarioService::getCoUsuarioLogado())) :
                 $label_options_perfis = PerfilService::montaComboTodosPerfis();
                 $formulario
                     ->setLabel("Perfis")
@@ -192,7 +192,6 @@ class UsuarioForm extends AbstractController
                     ->setTamanhoInput(3)
                     ->setLabel("Status do Usuário")
                     ->CriaInpunt();
-
 
 
             endif;

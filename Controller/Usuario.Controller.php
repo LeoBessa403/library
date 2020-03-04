@@ -41,7 +41,7 @@ class Usuario extends AbstractController
                 $pessoa = $pessoaService->PesquisaUmQuando([
                     NU_CPF => Valida::RetiraMascara($_POST[NU_CPF])
                 ]);
-                if ($pessoa){
+                if ($pessoa) {
                     if ($pessoa->getCoUsuario()) {
                         $idCoUsuario = $pessoa->getCoUsuario()->getCoUsuario();
                     }
@@ -51,7 +51,7 @@ class Usuario extends AbstractController
                     $validador[MSG],
                     TiposMensagemEnum::ALERTA
                 );
-                $this->form = PessoaForm::ValidarCPF( 4);
+                $this->form = PessoaForm::ValidarCPF(4);
             }
         endif;
 
@@ -99,7 +99,7 @@ class Usuario extends AbstractController
                 $res[NU_CPF] = $_POST[NU_CPF];
                 $this->form = UsuarioForm::Cadastrar($res, false, 6);
             else:
-                $this->form = PessoaForm::ValidarCPF( 4);
+                $this->form = PessoaForm::ValidarCPF(4);
             endif;
         endif;
     }

@@ -33,7 +33,7 @@
                     <div class="panel-body">
                         <?php
                         $perfil_master = false;
-                        if(!AssinanteService::getCoAssinanteLogado()){
+                        if (!AssinanteService::getCoAssinanteLogado()) {
                             $perfil_master = true;
                         }
 
@@ -47,9 +47,9 @@
                         Modal::load();
                         Modal::deletaRegistro(UrlAmigavel::$controller);
                         Modal::confirmacao("confirma_Usuario");
-                        if($perfil_master){
+                        if ($perfil_master) {
                             $arrColunas = array('Assinante', 'Usuário', 'CPF', 'Perfil', 'Situação', 'Ações');
-                        }else{
+                        } else {
                             $arrColunas = array('Usuário', 'CPF', 'Perfil', 'Situação', 'Ações');
                         }
 
@@ -75,14 +75,14 @@
                             } else {
                                 $acao = '';
                             }
-                            if($perfil_master){
-                                if($res->getCoAssinante()){
+                            if ($perfil_master) {
+                                if ($res->getCoAssinante()) {
                                     /** @var AssinanteService $assinanteService */
                                     $assinanteService = new AssinanteService();
                                     /** @var AssinanteEntidade $assinante */
                                     $assinante = $assinanteService->PesquisaUmRegistro($res->getCoAssinante());
                                     $grid->setColunas(strtoupper($assinante->getCoEmpresa()->getNoFantasia()));
-                                }else{
+                                } else {
                                     $grid->setColunas("Sem Assinante");
                                 }
                             }

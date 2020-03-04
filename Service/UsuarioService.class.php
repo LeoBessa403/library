@@ -220,7 +220,6 @@ class  UsuarioService extends AbstractService
                         ? $dados[CO_ASSINANTE]
                         : null);
 
-                    debug($dados);
                     $usuarioPerfil[CO_USUARIO] = $usuarioService->Salva($usu);
                     $dadosEmail = [
                         NO_PESSOA => $pessoa[NO_PESSOA],

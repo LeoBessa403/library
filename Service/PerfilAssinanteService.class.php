@@ -61,7 +61,7 @@ class  PerfilAssinanteService extends AbstractService
             $PDO->commit();
         } else {
             Notificacoes::geraMensagem(
-                'Não foi possível realizar a ação',
+                'NÃ£o foi possÃ­vel realizar a aÃ§Ã£o',
                 TiposMensagemEnum::ERRO
             );
             $PDO->rollBack();

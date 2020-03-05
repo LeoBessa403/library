@@ -26,11 +26,12 @@ class UsuarioForm extends AbstractController
                 (!empty($res[CO_USUARIO])) && ($res[CO_USUARIO] != UsuarioService::getCoUsuarioLogado())) {
                 $res[CAMPO_PERFIL] = PerfilService::montaArrayPerfil($usuario);
             } else {
-                $res[ST_STATUS] = Valida::SituacaoUsuarioLabel($res[ST_STATUS]);
+                $res["ST_STATUS2"] = Valida::SituacaoUsuarioLabel($res[ST_STATUS]);
                 $res[CAMPO_PERFIL] = implode(', ', PerfilService::montaComboPerfil($usuario));
             }
         endif;
         $res['cpf'] = $res[NU_CPF];
+//        debug($res,1);
         $formulario->setValor($res);
 
         $formulario
@@ -147,8 +148,9 @@ class UsuarioForm extends AbstractController
             ->CriaInpunt();
 
         if (!$resgistrar) {
-            if ((in_array(1, $meusPerfis) || in_array(2, $meusPerfis)) &&
-                (!empty($res[CO_USUARIO])) && ($res[CO_USUARIO] != UsuarioService::getCoUsuarioLogado())) :
+            if ((PerfilService::perfilMaster()) || ((in_array(2, $meusPerfis)) &&
+                    (!empty($res[CO_USUARIO])) && ($res[CO_USUARIO] != UsuarioService::getCoUsuarioLogado())) ||
+                (empty($res[CO_USUARIO]))) :
                 $label_options_perfis = PerfilService::montaComboTodosPerfis();
                 $formulario
                     ->setLabel("Perfis")
@@ -161,7 +163,7 @@ class UsuarioForm extends AbstractController
                     ->CriaInpunt();
 
                 $checked = "";
-                if ($res):
+                if (!empty($res[ST_STATUS])):
                     if ($res[ST_STATUS] == "A"):
                         $checked = "checked";
                     endif;
@@ -187,10 +189,16 @@ class UsuarioForm extends AbstractController
                     ->CriaInpunt();
 
                 $formulario
-                    ->setId(ST_STATUS)
+                    ->setId("ST_STATUS2")
                     ->setClasses("disabilita")
                     ->setTamanhoInput(3)
                     ->setLabel("Status do Usuário")
+                    ->CriaInpunt();
+
+                $formulario
+                    ->setType(TiposCampoEnum::HIDDEN)
+                    ->setId(ST_STATUS)
+                    ->setValues($res[ST_STATUS])
                     ->CriaInpunt();
 
 
@@ -205,6 +213,24 @@ class UsuarioForm extends AbstractController
             ->setInfo("Caso queira troca de foto")
             ->setLabel("Foto de Perfil")
             ->CriaInpunt();
+
+        if (PerfilService::perfilMaster()):
+            $label_options_assinantes = AssinanteService::montaComboAssinantes();
+            $formulario
+                ->setLabel("Assinante")
+                ->setId(CO_ASSINANTE)
+                ->setClasses("ob")
+                ->setType(TiposCampoEnum::SELECT)
+                ->setOptions($label_options_assinantes)
+                ->CriaInpunt();
+        elseif (!empty($res[CO_ASSINANTE])):
+            $formulario
+                ->setType(TiposCampoEnum::HIDDEN)
+                ->setId(CO_ASSINANTE)
+                ->setValues($res[CO_ASSINANTE])
+                ->CriaInpunt();
+        endif;
+
 
         if (!empty($res[CO_USUARIO])):
             $formulario
@@ -243,14 +269,6 @@ class UsuarioForm extends AbstractController
                 ->setType(TiposCampoEnum::HIDDEN)
                 ->setId(CO_PESSOA)
                 ->setValues($res[CO_PESSOA])
-                ->CriaInpunt();
-        endif;
-
-        if (!empty($res[CO_ASSINANTE])):
-            $formulario
-                ->setType(TiposCampoEnum::HIDDEN)
-                ->setId(CO_ASSINANTE)
-                ->setValues($res[CO_ASSINANTE])
                 ->CriaInpunt();
         endif;
 

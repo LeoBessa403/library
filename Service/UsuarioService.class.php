@@ -162,16 +162,18 @@ class  UsuarioService extends AbstractService
 
                 $usu[DS_CODE] = base64_encode(base64_encode($dados[DS_SENHA]));
                 $usu[DS_SENHA] = trim($dados[DS_SENHA]);
-                if (!empty($dados[ST_STATUS])):
-                    $usu[ST_STATUS] = StatusUsuarioEnum::INATIVO;
-                else:
-                    if ((in_array(1, $meusPerfis) || in_array(2, $meusPerfis)) &&
-                        (!empty($res[CO_USUARIO])) && ($res[CO_USUARIO] != UsuarioService::getCoUsuarioLogado())):
-                        $usu[ST_STATUS] = StatusUsuarioEnum::INATIVO;
-                    else:
+
+//                if ((PerfilService::perfilMaster()) || (in_array(2, $meusPerfis)) &&
+//                    (!empty($res[CO_USUARIO])) && ($res[CO_USUARIO] != UsuarioService::getCoUsuarioLogado())):
+                    if (!empty($dados[ST_STATUS])):
                         $usu[ST_STATUS] = StatusUsuarioEnum::ATIVO;
+                    else:
+                        $usu[ST_STATUS] = StatusUsuarioEnum::INATIVO;
                     endif;
-                endif;
+//                else:
+//                    $usu[ST_STATUS] = StatusUsuarioEnum::INATIVO;
+//                endif;
+
 
                 $PDO->beginTransaction();
                 $idCoUsuario = (isset($dados[CO_USUARIO])

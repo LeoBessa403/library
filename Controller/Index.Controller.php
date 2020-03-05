@@ -57,10 +57,10 @@ class Index extends AbstractController
                     $validador[MSG],
                     TiposMensagemEnum::ALERTA
                 );
-                $this->form = PessoaForm::ValidarCPF( 4);
+                $this->form = PessoaForm::ValidarCPF(4);
             }
         } else {
-            $this->form = PessoaForm::ValidarCPF( 30);
+            $this->form = PessoaForm::ValidarCPF(30);
         }
     }
 
@@ -90,7 +90,7 @@ class Index extends AbstractController
                 $contato = $contatoService->PesquisaUmQuando([
                     DS_EMAIL => $_POST[DS_EMAIL]
                 ]);
-                if (count($contato)) {
+                if ($contato) {
                     /** @var Email $email */
                     $email = new Email();
                     $nome = $contato->getCoPessoa()->getNoPessoa();
@@ -250,10 +250,13 @@ class Index extends AbstractController
 
         $perfis = array();
         $no_perfis = array();
+        $usuarioAcesso["perfil_master"] = false;
         /** @var UsuarioPerfilEntidade $perfil */
         foreach ($user->getCoUsuarioPerfil() as $perfil) {
             $perfis[] = $perfil->getCoPerfil()->getCoPerfil();
             $no_perfis[] = $perfil->getCoPerfil()->getNoPerfil();
+            if ($perfil->getCoPerfil()->getCoPerfil() == 1)
+                $usuarioAcesso["perfil_master"] = true;
         }
         if (MODULO_ASSINANTE) {
             /** @var AssinanteService $assinanteService */

@@ -163,7 +163,6 @@ class  AssinanteService extends AbstractService
             $us = $_SESSION[SESSION_USER];
             $user = $us->getUser();
 
-
             /** @var UsuarioService $usuariaService */
             $usuariaService = $this->getService(USUARIO_SERVICE);
 
@@ -240,6 +239,23 @@ class  AssinanteService extends AbstractService
             $statusSis = StatusSistemaEnum::EXPIRADO;
         }
         return $statusSis;
+    }
+
+    public static function montaComboAssinantes()
+    {
+        $dados = [
+            '' => Mensagens::MSG_SEM_ITEM_SELECIONADO
+        ];
+        /** @var AssinanteService $assinanteService */
+        $assinanteService = new AssinanteService();
+        $assinantes = $assinanteService->PesquisaTodos([
+            TP_ASSINANTE => AssinanteEnum::MATRIZ
+        ]);
+        /** @var AssinanteEntidade $assinante */
+        foreach ($assinantes as $assinante) {
+            $dados[$assinante->getCoAssinante()] = $assinante->getCoEmpresa()->getNoFantasia();
+        }
+        return $dados;
     }
 
 }

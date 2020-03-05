@@ -86,6 +86,7 @@ class Usuario extends AbstractController
             endif;
             $res[NU_TEL1] = $usuario->getCoPessoa()->getCoContato()->getNuTel1();
             $res[NU_TEL2] = $usuario->getCoPessoa()->getCoContato()->getNuTel2();
+            $res[CO_ASSINANTE] = $usuario->getCoAssinante();
 
             if (!empty($usuario->getCoPessoa()->getCoEndereco())):
                 /** @var EnderecoService $enderecoService */
@@ -95,8 +96,8 @@ class Usuario extends AbstractController
             $this->form = UsuarioForm::Cadastrar($res, false, 6);
         else:
             if ($cadastro):
-                $res[CO_ASSINANTE] = AssinanteService::getCoAssinanteLogado();
                 $res[NU_CPF] = $_POST[NU_CPF];
+                $res[CO_ASSINANTE] = AssinanteService::getCoAssinanteLogado();
                 $this->form = UsuarioForm::Cadastrar($res, false, 6);
             else:
                 $this->form = PessoaForm::ValidarCPF(4);

@@ -163,16 +163,11 @@ class  UsuarioService extends AbstractService
                 $usu[DS_CODE] = base64_encode(base64_encode($dados[DS_SENHA]));
                 $usu[DS_SENHA] = trim($dados[DS_SENHA]);
 
-//                if ((PerfilService::perfilMaster()) || (in_array(2, $meusPerfis)) &&
-//                    (!empty($res[CO_USUARIO])) && ($res[CO_USUARIO] != UsuarioService::getCoUsuarioLogado())):
-                    if (!empty($dados[ST_STATUS])):
-                        $usu[ST_STATUS] = StatusUsuarioEnum::ATIVO;
-                    else:
-                        $usu[ST_STATUS] = StatusUsuarioEnum::INATIVO;
-                    endif;
-//                else:
-//                    $usu[ST_STATUS] = StatusUsuarioEnum::INATIVO;
-//                endif;
+                if (!empty($dados[ST_STATUS])):
+                    $usu[ST_STATUS] = StatusUsuarioEnum::ATIVO;
+                else:
+                    $usu[ST_STATUS] = StatusUsuarioEnum::INATIVO;
+                endif;
 
 
                 $PDO->beginTransaction();
@@ -216,11 +211,17 @@ class  UsuarioService extends AbstractService
                     $usu[CO_PESSOA] = $idCoPessoa;
                     $pessoaService->Salva($pessoa, $idCoPessoa);
                 }
-                if (!$idCoUsuario) {
-                    $usu[DT_CADASTRO] = Valida::DataHoraAtualBanco();
+                $usu[DT_CADASTRO] = Valida::DataHoraAtualBanco();
+                if (PerfilService::perfilMaster()) {
+                    $usu[CO_ASSINANTE] = (isset($dados[CO_ASSINANTE])
+                        ? $dados[CO_ASSINANTE][0]
+                        : null);
+                } else {
                     $usu[CO_ASSINANTE] = (isset($dados[CO_ASSINANTE])
                         ? $dados[CO_ASSINANTE]
                         : null);
+                }
+                if (!$idCoUsuario) {
 
                     $usuarioPerfil[CO_USUARIO] = $usuarioService->Salva($usu);
                     $dadosEmail = [
@@ -229,9 +230,10 @@ class  UsuarioService extends AbstractService
                         DS_SENHA => $usu[DS_SENHA]
                     ];
                     $this->enviaEmailNovoUsuario($dadosEmail, $usuarioPerfil[CO_USUARIO]);
-
+                    $session->setSession(MENSAGEM, CADASTRADO);
                 } else {
                     $usuarioService->Salva($usu, $idCoUsuario);
+                    $session->setSession(MENSAGEM, ATUALIZADO);
                 }
 
                 // REGISTRAR ///

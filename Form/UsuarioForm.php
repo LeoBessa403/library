@@ -148,7 +148,8 @@ class UsuarioForm extends AbstractController
             ->CriaInpunt();
 
         if (!$resgistrar) {
-            if ((PerfilService::perfilMaster()) || ((in_array(2, $meusPerfis)) &&
+            if ((PerfilService::perfilMaster() && ($res[CO_USUARIO] != UsuarioService::getCoUsuarioLogado()))
+                || ((in_array(2, $meusPerfis)) &&
                     (!empty($res[CO_USUARIO])) && ($res[CO_USUARIO] != UsuarioService::getCoUsuarioLogado())) ||
                 (empty($res[CO_USUARIO]))) :
                 $label_options_perfis = PerfilService::montaComboTodosPerfis();
@@ -180,7 +181,6 @@ class UsuarioForm extends AbstractController
                     ->setOptions($label_options2)
                     ->CriaInpunt();
             else:
-
                 $formulario
                     ->setId(CAMPO_PERFIL)
                     ->setClasses("disabilita")
@@ -214,7 +214,7 @@ class UsuarioForm extends AbstractController
             ->setLabel("Foto de Perfil")
             ->CriaInpunt();
 
-        if (PerfilService::perfilMaster()):
+        if (PerfilService::perfilMaster() && ($res[CO_USUARIO] != UsuarioService::getCoUsuarioLogado())):
             $label_options_assinantes = AssinanteService::montaComboAssinantes();
             $formulario
                 ->setLabel("Assinante")

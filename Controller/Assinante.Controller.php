@@ -151,9 +151,13 @@ class Assinante extends AbstractController
         $contatoService = $this->getService(CONTATO_SERVICE);
         /** @var EmpresaService $empresaService */
         $empresaService = $this->getService(EMPRESA_SERVICE);
-        /** @var AssinanteEntidade $assinante */
-        $assinante = $assinanteService->getAssinanteLogado();
 
+        $coAssinante = UrlAmigavel::PegaParametro(CO_ASSINANTE);
+        /** @var AssinanteEntidade $assinante */
+        $assinante = $assinanteService->getAssinanteLogado($coAssinante);
+
+        if(!$assinante)
+            Redireciona(UrlAmigavel::$modulo . '/' . CONTROLLER_INICIAL_ADMIN . '/' . ACTION_INICIAL_ADMIN);
 
         // Aba 1
         $res[NO_PESSOA] = $assinante->getCoPessoa()->getNoPessoa();

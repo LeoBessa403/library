@@ -68,6 +68,14 @@
                                  </a>';
                                 }
                             }
+
+                            $acao .= ' <a href="' . PASTAADMIN . 'Assinante/DadosComplementaresAssinante/' .
+                                Valida::GeraParametro(CO_ASSINANTE . "/" . $res->getCoAssinante()) . '" 
+                                class="btn btn-green tooltips" 
+                                    data-original-title="Dados Complementares do Assinante" data-placement="top">
+                                     <i class="fa fa-copy"></i>
+                                 </a>';
+
                             $statusSis = AssinanteService::getStatusAssinante(Valida::DataShow($res->getDtExpiracao()));
                             $empresa = ($res->getCoEmpresa()) ? $res->getCoEmpresa()->getNoFantasia() : '';
                             $grid->setColunas($empresa);
@@ -76,7 +84,7 @@
                             $grid->setColunas(Valida::StatusLabel($res->getStStatus()), 2);
                             $grid->setColunas(Valida::DataShow($res->getDtExpiracao()), 2);
                             $grid->setColunas(Valida::getLabelStatusPlano($statusSis), 2);
-                            $grid->setColunas($acao, 4);
+                            $grid->setColunas($acao, 5);
                             $grid->criaLinha($res->getCoAssinante());
                         endforeach;
                         $grid->finalizaGrid();

@@ -209,7 +209,15 @@ class  AssinanteService extends AbstractService
     {
         if (!$coAssinante)
             $coAssinante = static::getCoAssinanteLogado();
-        return $this->PesquisaUmRegistro($coAssinante);
+        if ($coAssinante) {
+            return $this->PesquisaUmRegistro($coAssinante);
+        } else {
+            Notificacoes::geraMensagem(
+                'Assinante Não encontrado',
+                TiposMensagemEnum::ALERTA
+            );
+            return false;
+        }
     }
 
     /**

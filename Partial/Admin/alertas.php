@@ -1,24 +1,42 @@
 <?php
+// VERIFICA STATUS DO SISTEMA DO ASSINANTE
+$retorno = AssinanteService::verificaStatusSistema();
+
+// ALERTA PARA O ASSINANTE CASO O SISTEMA ESTEJA EXPIRANDO
+if ($retorno['status_sistema'] == StatusSistemaEnum::EXPIRANDO && UrlAmigavel::$action == ACTION_INICIAL_ADMIN &&
+    UrlAmigavel::$controller == CONTROLLER_INICIAL_ADMIN) {
+    Notificacoes::geraMensagem(
+        '<h6><b>Renovação da Assinatura</b></h6>
+                                Sua assinatura irá expirar em <b>' . $retorno['dias'] . ' Dias</b>, 
+                                <a class="click_aqui" href="' . HOME . ADMIN .
+        '/Assinante/MeuPlanoAssinante">CLICK AQUI</a>
+                                 para renovar sua assinatura. <span class="time"> Expira Em ' .
+        $retorno['dtExpiracao'] . '</span>',
+        TiposMensagemEnum::ALERTA
+    );
+}
+// ALERTA PARA O ASSINANTE CASO O SISTEMA ESTEJA PENDENTE
+if ($retorno['status_sistema'] == StatusSistemaEnum::PENDENTE  && UrlAmigavel::$action == ACTION_INICIAL_ADMIN &&
+    UrlAmigavel::$controller == CONTROLLER_INICIAL_ADMIN) {
+    $dados['titulo'] = 'Sistema Expirado!';
+    $dados['mensagem'] = '<p>Sua assinatura está expirada e pagamento pendente em <b>' . $retorno['dias'] * -1 .
+        ' Dia(s)</b>, <a class="click_aqui" href="' . HOME . ADMIN .
+        '/Assinante/MeuPlanoAssinante">CLICK AQUI</a> para renovar sua assinatura. Expirado Em ' .
+        $retorno['dtExpiracao'] . '</p>';
+    $dados['tipo'] = TiposMensagemEnum::ERRO;
+    Notificacoes::notificacao($dados);
+}
+// ALERTA DE TROCA DE SENHA
 if ($user[md5(ST_TROCA_SENHA)] == SimNaoEnum::NAO && empty($session->CheckSession(ST_TROCA_SENHA)) &&
     UrlAmigavel::$action == 'Index' && UrlAmigavel::$controller == 'Index') {
 
     $dados['titulo'] = 'Cadastro Ativado com Sucesso!';
     $dados['mensagem'] = '<p>Para trocar sua senha acesseo link <a href="' . PASTAADMIN . 'Usuario/TrocaSenhaUsuario"
-                                                               style="color:#ccc">TROCAR SENHA</a>, para sua maior segurança</p>';
+                                                               style="color:#ccc">TROCAR SENHA</a>, 
+                                                               para sua maior segurança</p>';
     $dados['tipo'] = TiposMensagemEnum::SUCESSO;
     Notificacoes::notificacao($dados);
 
-}
-if (!empty($user[md5('status_sistema')])) {
-    if ($user[md5('status_sistema')] == StatusSistemaEnum::PENDENTE) {
-        $difDatas = Valida::CalculaDiferencaDiasData(date('d/m/Y'), $user[md5(DT_EXPIRACAO)]);
-
-        $dados['titulo'] = 'Sistema Expirado!';
-        $dados['mensagem'] = '<p>Sua assinatura está expirada em <b>' . $difDatas * -1 . ' Dia(s)</b>, click no link para
-    renovar sua assinatura. Expirado Em ' . $user[md5(DT_EXPIRACAO)] . '</p>';
-        $dados['tipo'] = TiposMensagemEnum::ERRO;
-        Notificacoes::notificacao($dados);
-    }
 }
 if ($session->CheckSession(MENSAGEM)) {
     switch ($session::getSession(MENSAGEM)) {

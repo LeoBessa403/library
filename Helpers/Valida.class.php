@@ -332,12 +332,16 @@ class Valida
      */
     public static function CalculaDiferencaDiasData($data1, $data2)
     {
-        $Data1 = explode('/', $data1);
-        $Data2 = explode('/', $data2);
-        $Data1 = mktime(0, 0, 0, $Data1[1], $Data1[0], $Data1[2]);
-        $Data2 = mktime(0, 0, 0, $Data2[1], $Data2[0], $Data2[2]);
-        $Diferenca = $Data2 - $Data1; //CALCULA-SE A DIFERENÇA EM SEGUNDOS
-        return ($Diferenca / (60 * 60 * 24)); //CALCULA-SE A DIFERENÇA EM DIAS
+        if($data1 && $data2){
+            $Data1 = explode('/', $data1);
+            $Data2 = explode('/', $data2);
+            $Data1 = mktime(0, 0, 0, $Data1[1], $Data1[0], $Data1[2]);
+            $Data2 = mktime(0, 0, 0, $Data2[1], $Data2[0], $Data2[2]);
+            $Diferenca = $Data2 - $Data1; //CALCULA-SE A DIFERENÇA EM SEGUNDOS
+            return ($Diferenca / (60 * 60 * 24)); //CALCULA-SE A DIFERENÇA EM DIAS
+        }else{
+            return null;
+        }
     }
 
     /**

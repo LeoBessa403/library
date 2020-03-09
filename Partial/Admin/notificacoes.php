@@ -1,3 +1,13 @@
+<style>
+    .click_aqui {
+        color: white;
+        font-weight: bolder;
+    }
+
+    .click_aqui:hover {
+        color: darkgrey;
+    }
+</style>
 <li class="dropdown" xmlns="http://www.w3.org/1999/html">
     <a class="dropdown-toggle" data-close-others="true" data-hover="dropdown" data-toggle="dropdown" href="#"
        id="notif">
@@ -12,27 +22,48 @@
             <div class="drop-down-wrapper ps-container notifica">
                 <ul>
                     <?php
-                    if (isset($user[md5(DT_EXPIRACAO)])) {
-                        if ($user[md5('status_sistema')] == StatusSistemaEnum::EXPIRANDO) {
-                            $difDatas = Valida::CalculaDiferencaDiasData(date('d/m/Y'), $user[md5(DT_EXPIRACAO)]);
-                            ?>
-                            <li>
-                                <a href="<?= HOME . ADMIN; ?>/Assinante/MeuPlanoAssinante">
-                                    <div class="clearfix">
-                                        <div class="thread-image">
-                                            <?= Valida::getImgSistema(); ?>
-                                        </div>
-                                        <div class="thread-content">
-                                            <span class="author">Renovação da Assinatura</span>
-                                            <span class="preview"><b>Sua assinatura irá expirar em <?= $difDatas; ?>
+                    $retorno = AssinanteService::verificaStatusSistema();
+                    if ($retorno['status_sistema'] == StatusSistemaEnum::EXPIRANDO) {
+                        ?>
+                        <li>
+                            <a href="<?= HOME . ADMIN; ?>/Assinante/MeuPlanoAssinante">
+                                <div class="clearfix">
+                                    <div class="thread-image">
+                                        <?= Valida::getImgSistema(); ?>
+                                    </div>
+                                    <div class="thread-content">
+                                        <span class="author">Renovação da Assinatura</span>
+                                        <span class="preview"><b>Sua assinatura irá expirar em <?= $retorno['dias']; ?>
                                                     Dias</b>, click no link para
                                         renovar sua assinatura.</span>
-                                            <span class="time"> Expira Em <?= $user[md5(DT_EXPIRACAO)]; ?></span>
-                                        </div>
+                                        <span class="time"> Expira Em <?= $retorno['dtExpiracao']; ?></span>
                                     </div>
-                                </a>
-                            </li>
-                        <?php }
+                                </div>
+                            </a>
+                        </li>
+                        <?php
+                    } ?>
+                    <?php
+                    $retorno = AssinanteService::verificaStatusSistema();
+                    if ($retorno['status_sistema'] == StatusSistemaEnum::PENDENTE) {
+                        ?>
+                        <li>
+                            <a href="<?= HOME . ADMIN; ?>/Assinante/MeuPlanoAssinante">
+                                <div class="clearfix">
+                                    <div class="thread-image">
+                                        <?= Valida::getImgSistema(); ?>
+                                    </div>
+                                    <div class="thread-content">
+                                        <span class="author">Sistema Expirado!</span>
+                                        <span class="preview"><b>Sua assinatura está expirada e pagamento pendente em
+                                                <?= $retorno['dias'] * -1; ?> Dias</b>, click no link para
+                                        renovar sua assinatura.</span>
+                                        <span class="time"> Expira Em <?= $retorno['dtExpiracao']; ?></span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <?php
                     } ?>
                     <?php
                     if (isset($user[md5(ST_DADOS_COMPLEMENTARES)]) &&
@@ -56,14 +87,6 @@
                         <?php
                     } ?>
                 </ul>
-                <div class="ps-scrollbar-x-rail"
-                     style="left: 0px; bottom: 3px; width: 270px; display: none;">
-                    <div class="ps-scrollbar-x" style="left: 0px; width: 0px;"></div>
-                </div>
-                <div class="ps-scrollbar-y-rail"
-                     style="top: 0px; right: 3px; height: 250px; display: inherit;">
-                    <div class="ps-scrollbar-y" style="top: 0px; height: 125px;"></div>
-                </div>
             </div>
         </li>
     </ul>

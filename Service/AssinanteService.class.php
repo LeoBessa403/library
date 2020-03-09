@@ -234,9 +234,9 @@ class  AssinanteService extends AbstractService
     public static function getStatusAssinante($data)
     {
         $difDatas = Valida::CalculaDiferencaDiasData(date('d/m/Y'), $data);
-        if ($difDatas > 5) {
+        if ($difDatas > ConfiguracoesEnum::DIAS_EXPIRANDO) {
             $statusSis = StatusSistemaEnum::ATIVO;
-        } elseif ($difDatas <= 5 && $difDatas >= 0) {
+        } elseif ($difDatas <= ConfiguracoesEnum::DIAS_EXPIRANDO && $difDatas >= 0) {
             $statusSis = StatusSistemaEnum::EXPIRANDO;
         } elseif ($difDatas < 0 && ($difDatas * -1) <= ConfiguracoesEnum::DIAS_EXPIRADO) {
             $statusSis = StatusSistemaEnum::PENDENTE;
@@ -283,6 +283,34 @@ class  AssinanteService extends AbstractService
     public function PesquisaAvancada($Condicoes)
     {
         return $this->ObjetoModel->PesquisaAvancada($Condicoes);
+    }
+
+    public static function verificaStatusSistema()
+    {
+        /** @var Session $us */
+        $us = $_SESSION[SESSION_USER];
+        $user = $us->getUser();
+        $retorno = [
+            "status_sistema" => StatusSistemaEnum::ATIVO,
+            "dias" => null,
+            "dtExpiracao" => null
+        ];
+
+        if (isset($user[md5(DT_EXPIRACAO)])) {
+            $dtExpiracao = $user[md5(DT_EXPIRACAO)];
+            $status_sistema = $user[md5('status_sistema')];
+            $difDatas = Valida::CalculaDiferencaDiasData(date('d/m/Y'), $dtExpiracao);
+            if ($status_sistema == StatusSistemaEnum::EXPIRANDO ||
+            $status_sistema == StatusSistemaEnum::PENDENTE) {
+                $retorno = [
+                    "status_sistema" => $status_sistema,
+                    "dias" => $difDatas,
+                    "dtExpiracao" => $dtExpiracao,
+                ];
+            }
+        }
+
+        return $retorno;
     }
 
 }

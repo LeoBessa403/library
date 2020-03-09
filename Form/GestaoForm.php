@@ -26,7 +26,7 @@ class GestaoForm
     {
         $id = "GerarBackup";
 
-        $formulario = new Form($id, null, 'Gerar', 3);
+        $formulario = new Form($id, null, 'Gerar', 4);
 
         $label_options2 = array("<i class='fa fa-check fa-white'></i>", "<i class='fa fa-times fa-white'></i>", "verde", "vermelho");
         $formulario

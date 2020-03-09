@@ -13,6 +13,15 @@ class Assinante extends AbstractController
         $this->result = $assinanteService->PesquisaTodos([
             TP_ASSINANTE => AssinanteEnum::MATRIZ,
         ]);
+        /** @var Session $session */
+        $session = new Session();
+        if ($session->CheckSession(PESQUISA_AVANCADA)) {
+            $session->FinalizaSession(PESQUISA_AVANCADA);
+        }
+        $Condicoes = [];
+
+        $resultPreco = $assinanteService->PesquisaAvancadaAssinatura($Condicoes);
+        $session->setSession('resultPreco', $resultPreco);
     }
 
     public function CadastroAssinante()
@@ -193,6 +202,15 @@ class Assinante extends AbstractController
         $res['imagem_logo'] = $imagem_logo;
 
         $this->form = AssinanteForm::DadosComplementares($res);
+    }
+
+    public function ListarAssinantePesquisaAvancada()
+    {
+        /** @var Session $session */
+        $session = new Session();
+        $resultPreco = $session::getSession('resultPreco');
+        $resultPreco = ((float)$resultPreco['min_valor'] - 1) . '-' . ((int)$resultPreco['max_valor'] + 1);
+        echo AssinanteForm::Pesquisar($resultPreco);
     }
 
 }

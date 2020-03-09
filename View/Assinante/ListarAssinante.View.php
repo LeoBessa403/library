@@ -29,13 +29,20 @@
                     <div class="panel-heading">
                         <i class="fa fa-external-link-square"></i>
                         Assinantes
+
                     </div>
                     <div class="panel-body">
+                        <?php
+                        $grid = new Grid();
+                        echo $grid->PesquisaAvancada('Pesquisar Assinantes');
+                        ?>
+                        <h2>
+                            <small>Assinantes Cadastrados</small>
+                        </h2>
                         <?php
                         Modal::load();
                         Modal::confirmacao("confirma_Assinante");
                         $arrColunas = array('Assinante', 'Responsável', 'E-mail', 'Status Assinante', 'Expiração', 'Status Plano', 'Ações');
-                        $grid = new Grid();
                         $grid->setColunasIndeces($arrColunas);
                         $grid->criaGrid();
                         /** @var AssinanteEntidade $res */

@@ -22,7 +22,7 @@ class Session
     {
         if (is_array($valor)):
             if (!$this->CheckSession($name)):
-                $_SESSION[$name] = "";
+                $_SESSION[$name] = [];
             endif;
             foreach ($valor as $key => $value) {
                 $_SESSION[$name][$key] = $value;

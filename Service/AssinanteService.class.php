@@ -273,4 +273,9 @@ class  AssinanteService extends AbstractService
         }
     }
 
+    public function PesquisaAvancadaAssinatura($Condicoes)
+    {
+        return $this->ObjetoModel->PesquisaAvancadaAssinatura($Condicoes);
+    }
+
 }

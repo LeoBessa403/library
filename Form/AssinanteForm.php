@@ -289,4 +289,71 @@ class AssinanteForm
         return $formulario->finalizaFormAssistente();
     }
 
+
+    public static function Pesquisar($resultPreco)
+    {
+        $id = "pesquisaServico";
+
+        $formulario = new Form($id, ADMIN . "/" . UrlAmigavel::$controller . "/" . UrlAmigavel::$action, "Pesquisa", 12);
+
+        $formulario
+            ->setId(NU_CNPJ)
+            ->setClasses("cnpj")
+            ->setTamanhoInput(6)
+            ->setLabel("CNPJ")
+            ->CriaInpunt();
+
+        $formulario
+            ->setId(NO_FANTASIA)
+            ->setTamanhoInput(6)
+            ->setLabel("Nome Fantasia")
+            ->CriaInpunt();
+
+        $formulario
+            ->setId(NO_EMPRESA)
+            ->setTamanhoInput(6)
+            ->setLabel("Razão Social")
+            ->CriaInpunt();
+
+        $formulario
+            ->setId(NO_PESSOA)
+            ->setTamanhoInput(6)
+            ->setClasses("nome")
+            ->setLabel("Nome do Responsável")
+            ->CriaInpunt();
+
+        $formulario
+            ->setId(NO_CIDADE)
+            ->setTamanhoInput(6)
+            ->setLabel("Cidade")
+            ->CriaInpunt();
+
+        $options = EnderecoService::montaComboEstadosDescricao();
+        $formulario
+            ->setId(SG_UF)
+            ->setType(TiposCampoEnum::SELECT)
+            ->setTamanhoInput(6)
+            ->setLabel("Estado")
+            ->setOptions($options)
+            ->CriaInpunt();
+
+        $formulario
+            ->setId(NU_VALOR)
+            ->setTamanhoInput(6)
+            ->setIntervalo($resultPreco)
+            ->setType(TiposCampoEnum::SLIDER)
+            ->setLabel("Valor R$")
+            ->CriaInpunt();
+
+        $formulario
+            ->setId(DS_EMAIL)
+            ->setIcon("fa-envelope fa")
+            ->setClasses("email")
+            ->setLabel("Email")
+            ->CriaInpunt();
+
+
+        return $formulario->finalizaFormPesquisaAvancada();
+    }
+
 }

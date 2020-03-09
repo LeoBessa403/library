@@ -36,6 +36,18 @@ $assinanteEdit = $assinante;
             echo $form;
             ?>
         </div>
+        <div class="pull-right">
+            <!-- end: DYNAMIC TABLE PANEL -->
+            <?php
+            if (PerfilService::perfilMaster()) {
+                Valida::geraBtnVoltar('Assinante/ListarAssinante/');
+            } else {
+                Valida::geraBtn('Cancelar', 'MeuPlanoAssinante',
+                    'btn-danger pull-right', 'btn_cancelar', 'clip-arrow-right-2');
+            }
+            ?>
+        </div>
+        <br><br><br>
         <!-- end: PAGE CONTENT-->
     </div>
 </div>

@@ -45,6 +45,7 @@ class  AssinanteService extends AbstractService
             $contato[NU_TEL1] = Valida::RetiraMascara($dados[NU_TEL1]);
             $pessoa[NO_PESSOA] = trim($dados[NO_PESSOA]);
             $empresa[NO_FANTASIA] = trim($dados[NO_FANTASIA]);
+            $empresa[NU_CNPJ] = Valida::RetiraMascara($dados[NU_CNPJ]);
             $assinante[TP_ASSINANTE] = AssinanteEnum::MATRIZ;
 
             $PDO->beginTransaction();
@@ -271,11 +272,17 @@ class  AssinanteService extends AbstractService
             );
             Redireciona(UrlAmigavel::$modulo . '/' . CONTROLLER_INICIAL_ADMIN . '/' . ACTION_INICIAL_ADMIN);
         }
+        return true;
     }
 
     public function PesquisaAvancadaAssinatura($Condicoes)
     {
         return $this->ObjetoModel->PesquisaAvancadaAssinatura($Condicoes);
+    }
+
+    public function PesquisaAvancada($Condicoes)
+    {
+        return $this->ObjetoModel->PesquisaAvancada($Condicoes);
     }
 
 }

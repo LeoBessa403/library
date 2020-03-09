@@ -338,18 +338,11 @@ class AssinanteForm
             ->CriaInpunt();
 
         $formulario
-            ->setId(NU_VALOR)
-            ->setTamanhoInput(6)
+            ->setId(NU_VALOR_ASSINATURA)
+            ->setTamanhoInput(12)
             ->setIntervalo($resultPreco)
             ->setType(TiposCampoEnum::SLIDER)
             ->setLabel("Valor R$")
-            ->CriaInpunt();
-
-        $formulario
-            ->setId(DS_EMAIL)
-            ->setIcon("fa-envelope fa")
-            ->setClasses("email")
-            ->setLabel("Email")
             ->CriaInpunt();
 
 

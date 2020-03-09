@@ -5,23 +5,48 @@ class Assinante extends AbstractController
     public $result;
     public $assinante;
     public $form;
+    public $enderecos;
 
     public function ListarAssinante()
     {
         /** @var AssinanteService $assinanteService */
         $assinanteService = $this->getService(ASSINANTE_SERVICE);
-        $this->result = $assinanteService->PesquisaTodos([
-            TP_ASSINANTE => AssinanteEnum::MATRIZ,
-        ]);
+        /** @var EnderecoService $enderecoService */
+        $enderecoService = $this->getService(ENDERECO_SERVICE);
         /** @var Session $session */
         $session = new Session();
         if ($session->CheckSession(PESQUISA_AVANCADA)) {
             $session->FinalizaSession(PESQUISA_AVANCADA);
         }
-        $Condicoes = [];
+        $Condicoes = ["ass." . TP_ASSINANTE => AssinanteEnum::MATRIZ];
 
         $resultPreco = $assinanteService->PesquisaAvancadaAssinatura($Condicoes);
         $session->setSession('resultPreco', $resultPreco);
+
+        if (!empty($_POST)) {
+            $Condicoes["te." . NU_CNPJ] = Valida::RetiraMascara($_POST[NU_CNPJ]);
+            $Condicoes["like#te." . NO_FANTASIA] = trim($_POST[NO_FANTASIA]);
+            $Condicoes["like#te." . NO_EMPRESA] = trim($_POST[NO_EMPRESA]);
+            $Condicoes["like#tp." . NO_PESSOA] = trim($_POST[NO_PESSOA]);
+            $Condicoes["like#tend." . NO_CIDADE] = trim($_POST[NO_CIDADE]);
+            $Condicoes["in#tend." . SG_UF] = $_POST[SG_UF][0];
+            $Condicoes[">=#tpaa." . NU_VALOR_ASSINATURA] = $_POST[NU_VALOR_ASSINATURA . '1'];
+            $Condicoes["<=#tpaa." . NU_VALOR_ASSINATURA] = $_POST[NU_VALOR_ASSINATURA . '2'];
+
+            $this->result = $assinanteService->PesquisaAvancada($Condicoes);
+            $session->setSession(PESQUISA_AVANCADA, $Condicoes);
+        } else {
+            $this->result = $assinanteService->PesquisaAvancada($Condicoes);
+        }
+
+        /** @var AssinanteEntidade $assinante */
+        foreach ($this->result as $assinante) {
+            $coEndereco = $assinante->getCoEmpresa()->getCoEndereco();
+            /** @var EnderecoEntidade $endereco */
+            $endereco = $enderecoService->PesquisaUmRegistro($coEndereco);
+            $this->enderecos[$coEndereco] = ($endereco->getSgUf()) ?
+                $endereco->getDsBairro() . ' ' . $endereco->getNoCidade() . ' / ' . $endereco->getSgUf() : null;
+        }
     }
 
     public function CadastroAssinante()

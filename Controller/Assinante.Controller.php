@@ -49,11 +49,9 @@ class Assinante extends AbstractController
         $assinanteService = $this->getService(ASSINANTE_SERVICE);
 
         $coAssinante = UrlAmigavel::PegaParametro(CO_ASSINANTE);
-        if ($coAssinante) {
+        if (AssinanteService::assianteNaoEncontrado($coAssinante)) {
             /** @var AssinanteEntidade $assinante */
             $this->assinante = $assinanteService->PesquisaUmRegistro($coAssinante);
-        } else {
-            Redireciona(UrlAmigavel::$modulo . '/' . UrlAmigavel::$controller . '/AssinanteNaoEncontrado/');
         }
     }
 
@@ -94,13 +92,11 @@ class Assinante extends AbstractController
 
         $coAssinante = AssinanteService::getCoAssinanteLogado();
         $res = [];
-        if ($coAssinante) {
+        if (AssinanteService::assianteNaoEncontrado($coAssinante)) {
             /** @var AssinanteEntidade $assinante */
             $assinante = $assinanteService->PesquisaUmRegistro($coAssinante);
             $res[CO_ASSINANTE] = $coAssinante;
             $res[DT_EXPIRACAO] = Valida::DataShow($assinante->getDtExpiracao());
-        } else {
-            Redireciona(UrlAmigavel::$modulo . '/' . UrlAmigavel::$controller . '/AssinanteNaoEncontrado/');
         }
         $this->form = AssinanteForm::Pagamento($res);
     }
@@ -122,13 +118,11 @@ class Assinante extends AbstractController
 
         $coAssinante = UrlAmigavel::PegaParametro(CO_ASSINANTE);
         $res = [];
-        if ($coAssinante) {
+        if (AssinanteService::assianteNaoEncontrado($coAssinante)) {
             /** @var AssinanteEntidade $assinante */
             $assinante = $assinanteService->PesquisaUmRegistro($coAssinante);
             $res[CO_ASSINANTE] = $coAssinante;
             $res[DT_EXPIRACAO] = Valida::DataShow($assinante->getDtExpiracao());
-        } else {
-            Redireciona(UrlAmigavel::$modulo . '/' . UrlAmigavel::$controller . '/AssinanteNaoEncontrado/');
         }
         $this->form = AssinanteForm::Pagamento($res);
     }
@@ -155,9 +149,6 @@ class Assinante extends AbstractController
         $coAssinante = UrlAmigavel::PegaParametro(CO_ASSINANTE);
         /** @var AssinanteEntidade $assinante */
         $assinante = $assinanteService->getAssinanteLogado($coAssinante);
-
-        if(!$assinante)
-            Redireciona(UrlAmigavel::$modulo . '/' . CONTROLLER_INICIAL_ADMIN . '/' . ACTION_INICIAL_ADMIN);
 
         // Aba 1
         $res[NO_PESSOA] = $assinante->getCoPessoa()->getNoPessoa();

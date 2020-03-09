@@ -207,17 +207,13 @@ class  AssinanteService extends AbstractService
      */
     public function getAssinanteLogado($coAssinante = null)
     {
-        if (!$coAssinante)
+        if (!$coAssinante) {
             $coAssinante = static::getCoAssinanteLogado();
-        if ($coAssinante) {
-            return $this->PesquisaUmRegistro($coAssinante);
-        } else {
-            Notificacoes::geraMensagem(
-                'Assinante Não encontrado',
-                TiposMensagemEnum::ALERTA
-            );
-            return false;
         }
+        if (AssinanteService::assianteNaoEncontrado($coAssinante)) {
+            return $this->PesquisaUmRegistro($coAssinante);
+        }
+        return null;
     }
 
     /**
@@ -264,6 +260,17 @@ class  AssinanteService extends AbstractService
             $dados[$assinante->getCoAssinante()] = $assinante->getCoEmpresa()->getNoFantasia();
         }
         return $dados;
+    }
+
+    public static function assianteNaoEncontrado($coAssinante)
+    {
+        if (!$coAssinante) {
+            Notificacoes::geraMensagem(
+                'Assinante Não encontrado',
+                TiposMensagemEnum::ALERTA
+            );
+            Redireciona(UrlAmigavel::$modulo . '/' . CONTROLLER_INICIAL_ADMIN . '/' . ACTION_INICIAL_ADMIN);
+        }
     }
 
 }

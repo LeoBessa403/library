@@ -4028,7 +4028,7 @@ div.timeline_element.purple div.timeline_title {
 /*	Messages
 /* ---------------------------------------------------------------------- */
 .panel-body.messages {
-    padding: 0;
+    padding: 0
 }
 
 .messages-list {
@@ -4038,78 +4038,77 @@ div.timeline_element.purple div.timeline_title {
     list-style: none outside none;
     margin: 0;
     padding: 0;
-    width: 260px;
+    width: 260px
 }
+
 
 .messages-list .messages-item {
     border-bottom: 1px solid #D9D9D9;
-    padding: 5px 15px 5px 25px;
-    position: relative;
+    padding: 5px 8px;
+    position: relative
 }
 
 .messages-list .messages-search {
     border-bottom: 1px solid #D9D9D9;
     padding: 10px 5px;
-    position: relative;
+    position: relative
 }
 
 .messages-list .messages-item span {
-    color: #555555;
-    display: block;
+    color: #555;
+    display: block
 }
 
 .messages-list .messages-item .messages-item-star, .messages-list .messages-item .messages-item-attachment, .messages-list .messages-item .messages-item-time, .messages-list .messages-item .messages-item-time .messages-item-actions {
-    position: absolute;
+    position: absolute
 }
 
 .messages-list .messages-item .messages-item-star {
     color: #007AFF;
     left: 7px;
     opacity: 0;
-    transition: opacity 0.2s ease-in-out 0s;
+    transition: opacity 0.2s ease-in-out 0s
 }
 
-/* ie8 fixes */
 .ie8 .messages-list .messages-item .messages-item-star {
-    display: none;
+    display: none
 }
 
 .ie8 .messages-list .messages-item:hover .messages-item-star {
-    display: block;
+    display: block
 }
 
-/**/
 .messages-list .messages-item .messages-item-attachment {
     left: 7px;
     top: 25px;
-    color: #007AFF;
+    color: #007AFF
 }
 
 .messages-list .messages-item .messages-item-avatar {
     border-radius: 4px 4px 4px 4px;
     float: left;
     height: 40px;
-    width: 40px;
+    width: 40px
 }
 
 .messages-list .messages-item .messages-item-from, .messages-list .messages-item .messages-item-subject {
-    margin-left: 45px;
+    margin-left: 45px
 }
 
 .messages-list .messages-item .messages-item-from {
-    font-weight: bold;
-    margin-top: 2px;
+    font-weight: 700;
+    margin-top: 2px
 }
 
 .messages-list .messages-item .messages-item-time {
     opacity: 1;
-    right: 15px;
+    right: 8px;
     top: 8px;
-    transition: opacity 0.2s ease-in-out 0s;
+    transition: opacity 0.2s ease-in-out 0s
 }
 
 .messages-list .messages-item .messages-item-time .text {
-    color: #999999;
+    color: #999;
     font-size: 12px;
 }
 
@@ -4118,26 +4117,24 @@ div.timeline_element.purple div.timeline_title {
     right: 0;
     top: 0;
     transition: opacity 0.2s ease-in-out 0s;
-    width: 65px;
+    width: 65px
 }
 
-/* ie8 fixes */
 .ie8 .messages-list .messages-item .messages-item-time .messages-item-actions {
-    display: none;
+    display: none
 }
 
-/**/
 .messages-list .messages-item .messages-item-time .messages-item-actions > a, .messages-list .messages-item .messages-item-time .messages-item-actions .dropdown > a {
     color: #007AFF;
-    margin-left: 5px;
+    margin-left: 5px
 }
 
-.messages-list .messages-item .messages-item-time .messages-item-actions > div {
-    display: inline-block;
+.messages-.panel-body.messageslist .messages-item .messages-item-time .messages-item-actions > div {
+    display: inline-block
 }
 
 .messages-list .messages-item .messages-item-time .messages-item-actions .dropdown-menu {
-    margin-top: 0;
+    margin-top: 0
 }
 
 .messages-list .messages-item .messages-item-time .messages-item-actions .tag-icon {
@@ -4145,55 +4142,54 @@ div.timeline_element.purple div.timeline_title {
     display: inline-block;
     height: 11px;
     margin: 0 5px 0 -13px;
-    width: 11px;
+    width: 11px
 }
 
 .messages-list .messages-item .messages-item-time .messages-item-actions .tag-icon.red {
-    background: red;
+    background: red
 }
 
 .messages-list .messages-item .messages-item-time .messages-item-actions .tag-icon.teal {
-    background: #569099;
+    background: #569099
 }
 
 .messages-list .messages-item .messages-item-time .messages-item-actions .tag-icon.green {
-    background: #3D9400;
+    background: #3D9400
 }
 
-.messages-list .messages-item .messages-item-time:hover .text {
-    opacity: 0;
+.messages-list .messages-item .messages-item-time:hover .text { /*opacity:0*/
 }
 
 .messages-list .messages-item .messages-item-time:hover .messages-item-actions {
-    opacity: 1;
+    opacity: 1
 }
 
 .messages-list .messages-item .messages-item-subject {
     font-size: 12px;
-    margin-bottom: 4px;
+    margin-bottom: 4px
 }
 
 .messages-list .messages-item .messages-item-preview {
-    color: #999999;
-    font-size: 12px;
+    color: #999;
+    font-size: 12px
 }
 
 .messages-list .messages-item:hover {
     background-color: #F5F5F5;
-    cursor: pointer !important;
+    cursor: pointer !important
 }
 
 .messages-list .messages-item:hover .messages-item-star {
-    opacity: 0.2;
+    opacity: .2
 }
 
 .messages-list .messages-item.active {
-    background-color: #F5F5F5;
+    background-color: #F5F5F5
 }
 
 .messages-list .messages-item.starred .messages-item-star {
     display: block;
-    opacity: 1;
+    opacity: 1
 }
 
 .messages-content {
@@ -4202,65 +4198,65 @@ div.timeline_element.purple div.timeline_title {
     height: auto;
     margin-left: 260px;
     position: relative;
-    width: auto;
+    width: auto
 }
 
 .messages-content .message-header {
     border-bottom: 1px solid #D9D9D9;
-    padding: 10px 15px;
+    padding: 10px 15px
 }
 
 .messages-content .message-header .message-from {
-    font-weight: bold;
+    font-weight: 700
 }
 
 .messages-content .message-header .message-to {
-    color: #999999;
+    color: #999
 }
 
 .messages-content .message-header .message-time {
-    color: #999999;
+    color: #999;
     position: absolute;
     right: 15px;
-    top: 10px;
+    top: 10px
 }
 
 .messages-content .message-header .message-actions {
     left: 50%;
     margin-left: -60px;
     position: absolute;
-    width: 120px;
+    width: 120px
 }
 
 .messages-content .message-header .message-actions a {
-    background-color: #FFFFFF;
+    background-color: #FFF;
     border-bottom: 1px solid #F5F4F9;
     border-left: 1px solid #F5F4F9;
     border-top: 1px solid #F5F4F9;
-    color: #999999;
+    color: #999;
     margin: 0 0 0 -4px;
-    padding: 4px 7px;
+    padding: 4px 7px
 }
 
 .messages-content .message-header .message-actions a:hover {
-    color: #007AFF;
+    color: #007AFF
 }
 
 .messages-content .message-header .message-actions a:first-child {
     border-bottom-left-radius: 4px;
     border-top-left-radius: 4px;
-    padding-left: 10px;
+    padding-left: 10px
 }
 
 .messages-content .message-header .message-actions a:last-child {
     border-bottom-right-radius: 4px;
     border-right: 1px solid #F5F4F9;
-    border-top-right-radius: 4px;
+    border-top-right-radius: 4px
 }
 
 .messages-content .message-content {
     padding: 20px 10px;
-    color: #555555;
+    color: #555
 }
 
 /* ---------------------------------------------------------------------- */
@@ -4737,7 +4733,7 @@ ul#countdown li p.timeRefDays, ul#countdown li p.timeRefHours, ul#countdown li p
     height: 95%;
 }
 
-.event-orange .fc-content  {
+.event-orange .fc-content {
     background-color: #E6674A !important;
     border-color: #E6674A !important;
     width: 93%;
@@ -4745,7 +4741,7 @@ ul#countdown li p.timeRefDays, ul#countdown li p.timeRefHours, ul#countdown li p
     height: 95%;
 }
 
-.event-purple .fc-content  {
+.event-purple .fc-content {
     background-color: #57517B !important;
     border-color: #57517B !important;
     width: 93%;
@@ -4753,7 +4749,7 @@ ul#countdown li p.timeRefDays, ul#countdown li p.timeRefHours, ul#countdown li p
     height: 95%;
 }
 
-.event-yellow .fc-content  {
+.event-yellow .fc-content {
     background-color: #FFB848 !important;
     border-color: #FFB848 !important;
     color: #000 !important;
@@ -4762,7 +4758,7 @@ ul#countdown li p.timeRefDays, ul#countdown li p.timeRefHours, ul#countdown li p
     height: 95%;
 }
 
-.event-teal .fc-content  {
+.event-teal .fc-content {
     background-color: #569099 !important;
     border-color: #569099 !important;
     width: 93%;
@@ -4770,7 +4766,7 @@ ul#countdown li p.timeRefDays, ul#countdown li p.timeRefHours, ul#countdown li p
     height: 95%;
 }
 
-.event-beige .fc-content  {
+.event-beige .fc-content {
     background-color: #CCCC99 !important;
     border-color: #CCCC99 !important;
     color: #000 !important;
@@ -4787,7 +4783,7 @@ ul#countdown li p.timeRefDays, ul#countdown li p.timeRefHours, ul#countdown li p
     height: 95%;
 }
 
-.event-black .fc-content  {
+.event-black .fc-content {
     background-color: #2F2E35 !important;
     border-color: #3F3F3F !important;
     width: 93%;
@@ -4795,7 +4791,7 @@ ul#countdown li p.timeRefDays, ul#countdown li p.timeRefHours, ul#countdown li p
     height: 95%;
 }
 
-.event-warning .fc-content  {
+.event-warning .fc-content {
     background-color: #d1bb09 !important;
     border-color: #d1bb09 !important;
     color: #000 !important;
@@ -4804,7 +4800,7 @@ ul#countdown li p.timeRefDays, ul#countdown li p.timeRefHours, ul#countdown li p
     height: 95%;
 }
 
-.event-red .fc-content  {
+.event-red .fc-content {
     background-color: #bd362f !important;
     border-color: #bd362f !important;
     color: #fff !important;
@@ -4813,9 +4809,10 @@ ul#countdown li p.timeRefDays, ul#countdown li p.timeRefHours, ul#countdown li p
     height: 95%;
 }
 
-.fc-listWeek-view .fc-event-dot{
-    border: 0.5px solid rgba(255,255,255,0.5) !important;
+.fc-listWeek-view .fc-event-dot {
+    border: 0.5px solid rgba(255, 255, 255, 0.5) !important;
 }
+
 /* ---------------------------------------------------------------------- */
 /*	Lock Screen
 /* ---------------------------------------------------------------------- */
@@ -5816,12 +5813,14 @@ td.column-right {
     padding: 8px;
 }
 
-.align-right{
+.align-right {
     text-align: right !important;
 }
-.align-center{
+
+.align-center {
     text-align: center !important;
 }
-.align-left{
+
+.align-left {
     text-align: left !important;
 }

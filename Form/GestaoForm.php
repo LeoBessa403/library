@@ -330,7 +330,7 @@ class GestaoForm
     {
         $id = "Minificacao";
 
-        $formulario = new Form($id, null, 'Minificar', 3);
+        $formulario = new Form($id, null, 'Minificar', 4);
 
         $tabelas = ['css' => 'CSS', 'js' => 'JS'];
         $formulario

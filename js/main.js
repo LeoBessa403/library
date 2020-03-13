@@ -686,6 +686,12 @@ var Main = function () {
         $('.color-text').val('#555555').next('.dropdown').find('i').css('background-color', '#555555');
         $('.color-badge').val('#007AFF').next('.dropdown').find('i').css('background-color', '#007AFF');
     };
+
+    //function to initiate ckeditor
+    var runCKEditor = function () {
+        CKEDITOR.disableAutoInline = true;
+        $('textarea.ckeditor').ckeditor();
+    };
     return {
         //main function to initiate template pages
         init: function () {
@@ -710,6 +716,7 @@ var Main = function () {
             runSaveSetting();
             runCustomSetting();
             runClearSetting();
+            runCKEditor();
         }
     };
 }();

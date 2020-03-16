@@ -36,4 +36,22 @@ class  ImagemService extends AbstractService
         return false;
     }
 
+    public static function getImagemCoUsuario($coUsuario)
+    {
+        $UsuarioModel = new UsuarioModel();
+        /** @var UsuarioEntidade $usuario */
+        $usuario = $UsuarioModel->PesquisaUmRegistro($coUsuario);
+        if($usuario->getCoImagem()){
+            return $usuario->getCoImagem()->getDsCaminho();
+        }else{
+            return null;
+        }
+    }
+
+    public static function getImagemCoPessoa($coPessoa)
+    {
+        $UsuarioModel = new UsuarioModel();
+        return $UsuarioModel->getPessoaCoUsuario($coPessoa);
+    }
+
 }

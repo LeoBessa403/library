@@ -367,8 +367,7 @@ class  UsuarioService extends AbstractService
      * @param array $dadosEmail
      * @param Int $coUsuario
      */
-    public
-    function enviaEmailNovoUsuario(array $dadosEmail, $coUsuario)
+    public function enviaEmailNovoUsuario(array $dadosEmail, $coUsuario)
     {
         if ($coUsuario) {
             /** @var Email $email */

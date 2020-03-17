@@ -66,6 +66,27 @@
                         <?php
                     } ?>
                     <?php
+                    if (SuporteService::PesquisaCountMensagens()) {
+                        ?>
+                        <li>
+                            <a href="<?= HOME . ADMIN; ?>/Suporte/ListarSuporte">
+                                <div class="clearfix">
+                                    <div class="thread-image">
+                                        <?= Valida::getImgSistema(); ?>
+                                    </div>
+                                    <div class="thread-content">
+                                        <span class="author">Você tem
+                                            <b><?= SuporteService::PesquisaCountMensagens(); ?></b>
+                                        Mensagem(ns) não Lida.</span>
+                                        <span class="preview"><b>Caso queira ver as mensagens, click aqui para
+                                                ver sau caixa de mensagens.</b></span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <?php
+                    } ?>
+                    <?php
                     if (isset($user[md5(ST_DADOS_COMPLEMENTARES)]) &&
                         $user[md5(ST_DADOS_COMPLEMENTARES)] == SimNaoEnum::NAO) {
                         ?>

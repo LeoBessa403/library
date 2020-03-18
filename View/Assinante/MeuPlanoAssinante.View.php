@@ -30,8 +30,8 @@
         <div class="row">
             <?php
             echo $form;
-            /** @var PagSeguro $pag */
-            $pag = new PagSeguro();
+//            /** @var PagSeguro $pag */
+//            $pag = new PagSeguro();
             ?>
 <!--            <a id="pagarAgora" class="btn btn-dark-grey" style="margin-top: 10px;">-->
 <!--                <span class="ladda-label"> Pagar Agora </span>-->

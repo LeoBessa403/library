@@ -309,7 +309,7 @@ class AssinanteEntidade extends AssinanteEntidadeExtends
     }
 
     /**
-     * @return PlanoAssinanteEntidade $co_inscricao
+     * @return PlanoAssinanteAssinaturaEntidade $co_plano_assinante_assinatura
      */
     public function getUltimoCoPlanoAssinante()
     {

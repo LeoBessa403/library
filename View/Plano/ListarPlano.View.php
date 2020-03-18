@@ -34,7 +34,7 @@
                         <?php
                         Modal::load();
                         Modal::confirmacao("confirma_Plano");
-                        $arrColunas = array('Plano', 'Meses Ativo', 'Valor R$', 'Módulos', 'Ações');
+                        $arrColunas = array('Plano', 'Meses Ativo', 'Nº Profissionais', 'Valor R$', 'Módulos', 'Ações');
                         $grid = new Grid();
                         $grid->setColunasIndeces($arrColunas);
                         $grid->criaGrid();
@@ -60,6 +60,7 @@
 
                                 $grid->setColunas($res->getNoPlano());
                                 $grid->setColunas($res->getNuMesAtivo(), 2);
+                                $grid->setColunas(PlanoService::getNuProfissionais($res->getNuMesAtivo()), 2);
                                 $grid->setColunas(Valida::FormataMoeda($res->getCoUltimoPlanoAssinante()->getNuValor()), 2);
                                 $grid->setColunas(implode(', ', $modulos));
                                 $grid->setColunas($acao, 2);

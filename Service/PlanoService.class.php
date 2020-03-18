@@ -87,11 +87,12 @@ class  PlanoService extends AbstractService
     public static function montaComboMesesAtivos()
     {
         $todosMesAt = [
-            1 => 1,
-            3 => 3,
-            6 => 6,
-            12 => 12,
-            24 => 24,
+            1 => '1 - Até '. PlanoService::getNuProfissionais(1). ' Profissionais',
+            3 => '3 - Até '. PlanoService::getNuProfissionais(3). ' Profissionais',
+            6 => '6 - Até '. PlanoService::getNuProfissionais(6). ' Profissionais',
+            12 => '12 - Até '. PlanoService::getNuProfissionais(12). ' Profissionais',
+            24 => '24 - Até '. PlanoService::getNuProfissionais(24). ' Profissionais',
+            36 => '36 - Até '. PlanoService::getNuProfissionais(36). ' Profissionais',
         ];
         return $todosMesAt;
     }
@@ -110,11 +111,18 @@ class  PlanoService extends AbstractService
         /** @var PlanoEntidade $plano */
         foreach ($planos as $plano) :
             if ($plano->getCoPlano() != 1) {
+                $profissionais = PlanoService::getNuProfissionais($plano->getNuMesAtivo());
                 $todosPlanos[$plano->getCoPlano()] = $plano->getNoPlano() .
-                    ' - R$ ' . $plano->getCoUltimoPlanoAssinante()->getNuValor() . ' - ' . $plano->getNuMesAtivo() . ' Mês';
+                    ' - R$ ' . $plano->getCoUltimoPlanoAssinante()->getNuValor() . ' - ' .
+                    $plano->getNuMesAtivo() . ' Mês - Até ' . $profissionais . ' Profissionais';
             }
         endforeach;
         return $todosPlanos;
+    }
+
+    public static function getNuProfissionais($mesesPlano)
+    {
+        return 1 + ($mesesPlano * 2);
     }
 
 }

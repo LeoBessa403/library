@@ -73,26 +73,12 @@ class AssinanteForm
             ->setLabel("Data de Expiração")
             ->CriaInpunt();
 
-        $formulario
-            ->setId(NU_FILIAIS)
-            ->setClasses("ob numero")
-            ->setLabel("Número de Filiais")
-            ->setTamanhoInput(4)
-            ->CriaInpunt();
-
-        $formulario
-            ->setId(NU_PROFISSIONAIS)
-            ->setClasses("ob numero")
-            ->setLabel("Número de Profissionais")
-            ->setInfo("Prof. total com filiais")
-            ->setTamanhoInput(4)
-            ->CriaInpunt();
-
         $options = PlanoService::montaComboPlanosAtivos();
         $formulario
             ->setId(CO_PLANO)
             ->setType(TiposCampoEnum::SELECT)
             ->setLabel("Plano")
+            ->setTamanhoInput(12)
             ->setClasses("ob")
             ->setOptions($options)
             ->CriaInpunt();

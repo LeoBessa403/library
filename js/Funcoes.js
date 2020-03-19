@@ -140,6 +140,7 @@ var Funcoes = function () {
         },
         ValidaErro: function (id, msg) {
             $('#' + id).parent(".form-group").addClass('has-error').removeClass('has-success');
+            $('.' + id + '_parent').addClass('has-error').removeClass('has-success');
             $('#' + id).parents('#form-group-' + id).addClass('has-error');
             $('span#' + id + '-info').text(msg).prepend('<i class="fa clip-cancel-circle-2"></i> ');
             if (id == "ds_caminho") {
@@ -151,6 +152,7 @@ var Funcoes = function () {
         },
         ValidaOK: function (id, msg) {
             $('#' + id).parent(".form-group").addClass('has-success').removeClass('has-error');
+            $('.' + id + '_parent').addClass('has-success').removeClass('has-error');
             $('#' + id).parents('#form-group-' + id).addClass('has-success').removeClass('has-error');
             $('span#' + id + '-info').text(msg).prepend('<i class="fa clip-checkmark-circle-2"></i> ');
             if (id == "ds_caminho") {
@@ -162,6 +164,7 @@ var Funcoes = function () {
         },
         TiraValidacao: function (id) {
             $('#' + id).parent(".form-group").removeClass('has-success').removeClass('has-error');
+            $('.' + id + '_parent').removeClass('has-success').removeClass('has-error');
             $('#' + id).parents('#form-group-' + id).removeClass('has-success').removeClass('has-error');
             $('span#' + id + '-info').text(".");
             if (id == "ds_caminho") {

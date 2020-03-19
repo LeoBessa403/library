@@ -89,27 +89,40 @@ class Assinante extends AbstractController
         }
     }
 
-    public static function getReferenciaPagamentoAssinante($coPlano)
+    public static function getSessaoPagamentoAssinante()
     {
-        /** @var PlanoService $planoService */
-        $planoService = static::getServiceStatic(PLANO_SERVICE);
-        if ($coPlano) {
-            /** @var PlanoEntidade $plano */
-            $plano = $planoService->PesquisaUmRegistro($coPlano);
-        } else {
-            return null;
-        }
-//        /** @var PagSeguro $pag */
-//        $pag = new PagSeguro();
-//        $dados = [
-//            CO_PLANO => $plano->getCoPlano(),
-//            NU_VALOR => $plano->getCoUltimoPlanoAssinante()->getNuValor(),
-//            DS_DESCRICAO => $plano->getNoPlano()
-//        ];
-//        return $pag->solicitarPagamento($dados);
+        /** @var PagSeguro $pag */
+        $pag = new PagSeguro();
+        return $pag->getReferenciaPagamentoAssinante();
     }
 
     public function MeuPlanoAssinante()
+    {
+        /** @var AssinanteService $assinanteService */
+        $assinanteService = $this->getService(ASSINANTE_SERVICE);
+        /** @var PlanoAssinanteAssinaturaService $PlanoAssinanteAssinaturaService */
+        $PlanoAssinanteAssinaturaService = $this->getService(PLANO_ASSINANTE_ASSINATURA_SERVICE);
+        $id = "cadastroAssinante";
+
+//        if (!empty($_POST[$id])):
+//            $retorno = $PlanoAssinanteAssinaturaService->salvaPagamentoAssinante($_POST);
+//            if ($retorno[SUCESSO]) {
+//                Redireciona(UrlAmigavel::$modulo . '/' . UrlAmigavel::$controller . '/ListarAssinante/');
+//            }
+//        endif;
+
+        $coAssinante = AssinanteService::getCoAssinanteLogado();
+        $res = [];
+        if (AssinanteService::assianteNaoEncontrado($coAssinante)) {
+            /** @var AssinanteEntidade $assinante */
+            $assinante = $assinanteService->PesquisaUmRegistro($coAssinante);
+            $res[CO_ASSINANTE] = $coAssinante;
+            $res[DT_EXPIRACAO] = Valida::DataShow($assinante->getDtExpiracao());
+        }
+        $this->form = AssinanteForm::Pagamento($res);
+    }
+
+    public function RenovaPlanoAssinante()
     {
         /** @var AssinanteService $assinanteService */
         $assinanteService = $this->getService(ASSINANTE_SERVICE);
@@ -237,6 +250,5 @@ class Assinante extends AbstractController
         $resultPreco = ((float)$resultPreco['min_valor'] - 1) . '-' . ((int)$resultPreco['max_valor'] + 1);
         echo AssinanteForm::Pesquisar($resultPreco);
     }
-
 }
    

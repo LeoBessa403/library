@@ -111,10 +111,11 @@ class  PlanoService extends AbstractService
         /** @var PlanoEntidade $plano */
         foreach ($planos as $plano) :
             if ($plano->getCoPlano() != 1) {
+                $meses = ($plano->getNuMesAtivo() == 1) ? ' Mês' : ' Meses';
                 $profissionais = PlanoService::getNuProfissionais($plano->getNuMesAtivo());
                 $todosPlanos[$plano->getCoPlano()] = $plano->getNoPlano() .
                     ' - R$ ' . $plano->getCoUltimoPlanoAssinante()->getNuValor() . ' - ' .
-                    $plano->getNuMesAtivo() . ' Mês - Até ' . $profissionais . ' Profissionais';
+                    $plano->getNuMesAtivo() . $meses . ' - Até ' . $profissionais . ' Profissionais';
             }
         endforeach;
         return $todosPlanos;
@@ -123,6 +124,20 @@ class  PlanoService extends AbstractService
     public static function getNuProfissionais($mesesPlano)
     {
         return 1 + ($mesesPlano * 2);
+    }
+
+    /**
+     * @param $coPlano
+     * @return array|mixed
+     */
+    public function getValorPlano($coPlano)
+    {
+        /** @var PlanoService $planoService */
+        $planoService = new PlanoService();
+        /** @var PlanoEntidade $plano */
+        $plano = $planoService->PesquisaUmRegistro($coPlano);
+
+        return [NU_VALOR_ASSINATURA => $plano->getCoUltimoPlanoAssinante()->getNuValor()];
     }
 
 }

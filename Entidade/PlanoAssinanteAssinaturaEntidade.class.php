@@ -14,6 +14,9 @@ class PlanoAssinanteAssinaturaEntidade extends AbstractEntidade
     private $co_plano_assinante_assinatura;
     private $dt_cadastro;
     private $dt_expiracao;
+    private $dt_confirma_pagamento;
+    private $st_pagamento;
+    private $tp_pagamento;
     private $nu_valor_assinatura;
     private $nu_profissionais;
     private $nu_filiais;
@@ -30,6 +33,9 @@ class PlanoAssinanteAssinaturaEntidade extends AbstractEntidade
             CO_PLANO_ASSINANTE_ASSINATURA,
             DT_CADASTRO,
             DT_EXPIRACAO,
+            DT_CONFIRMA_PAGAMENTO,
+            ST_PAGAMENTO,
+            TP_PAGAMENTO,
             NU_VALOR_ASSINATURA,
             NU_FILIAIS,
             NU_PROFISSIONAIS,
@@ -97,6 +103,54 @@ class PlanoAssinanteAssinaturaEntidade extends AbstractEntidade
     public function setDtExpiracao($dt_expiracao)
     {
         return $this->dt_expiracao = $dt_expiracao;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDtConfirmaPagamento()
+    {
+        return $this->dt_confirma_pagamento;
+    }
+
+    /**
+     * @param mixed $dt_confirma_pagamento
+     */
+    public function setDtConfirmaPagamento($dt_confirma_pagamento)
+    {
+        $this->dt_confirma_pagamento = $dt_confirma_pagamento;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStPagamento()
+    {
+        return $this->st_pagamento;
+    }
+
+    /**
+     * @param mixed $st_pagamento
+     */
+    public function setStPagamento($st_pagamento)
+    {
+        $this->st_pagamento = $st_pagamento;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTpPagamento()
+    {
+        return $this->tp_pagamento;
+    }
+
+    /**
+     * @param mixed $tp_pagamento
+     */
+    public function setTpPagamento($tp_pagamento)
+    {
+        $this->tp_pagamento = $tp_pagamento;
     }
 
     /**

@@ -69,7 +69,7 @@ class AssinanteForm
             ->setTamanhoInput(4)
             ->setClasses("disabilita")
             ->setIcon("clip-calendar-3")
-            ->setInfo("Data de termino")
+            ->setInfo("Termino do plano Ativo")
             ->setLabel("Data de Expiração")
             ->CriaInpunt();
 
@@ -83,12 +83,69 @@ class AssinanteForm
             ->setOptions($options)
             ->CriaInpunt();
 
+        $tp_pagamentos = [
+            null => Mensagens::MSG_SEM_ITEM_SELECIONADO,
+            TipoPagamentoEnum::CARTAO_CREDITO =>
+                TipoPagamentoEnum::getDescricaoValor(TipoPagamentoEnum::CARTAO_CREDITO),
+            TipoPagamentoEnum::DEPOSITO_TRANSFERENCIA =>
+                TipoPagamentoEnum::getDescricaoValor(TipoPagamentoEnum::DEPOSITO_TRANSFERENCIA),
+            TipoPagamentoEnum::BOLETO =>
+                TipoPagamentoEnum::getDescricaoValor(TipoPagamentoEnum::BOLETO)
+        ];
+        $formulario
+            ->setId(TP_PAGAMENTO)
+            ->setType(TiposCampoEnum::SELECT)
+            ->setLabel("Tipo de Pagamento")
+            ->setTamanhoInput(12)
+            ->setClasses("ob")
+            ->setOptions($tp_pagamentos)
+            ->CriaInpunt();
+
+
+        $bancos = [
+            null => Mensagens::MSG_SEM_ITEM_SELECIONADO,
+        ];
+        $formulario
+            ->setId('bankName')
+            ->setType(TiposCampoEnum::SELECT)
+            ->setLabel("Banco")
+            ->setTamanhoInput(12)
+            ->setOptions($bancos)
+            ->CriaInpunt();
+
+        $formulario
+            ->setId('numCartao')
+            ->setTamanhoInput(12)
+            ->setIcon("fa fa-whatsapp", 'dir')
+            ->setLabel("Número do Cartão")
+            ->setInfo("Somente Números")
+            ->setClasses("cartao_credito")
+            ->CriaInpunt();
+
+        $parcelas = [
+            null => Mensagens::MSG_SEM_ITEM_SELECIONADO,
+        ];
+        $formulario
+            ->setId('qntParcelas')
+            ->setType(TiposCampoEnum::SELECT)
+            ->setLabel("Número de Parcelas")
+            ->setTamanhoInput(12)
+            ->setOptions($parcelas)
+            ->CriaInpunt();
 
         if (!empty($res[CO_ASSINANTE])):
             $formulario
                 ->setType(TiposCampoEnum::HIDDEN)
                 ->setId(CO_ASSINANTE)
                 ->setValues($res[CO_ASSINANTE])
+                ->CriaInpunt();
+        endif;
+
+        if (!empty($res[CO_PLANO_ASSINANTE_ASSINATURA])):
+            $formulario
+                ->setType(TiposCampoEnum::HIDDEN)
+                ->setId(CO_PLANO_ASSINANTE_ASSINATURA)
+                ->setValues($res[CO_PLANO_ASSINANTE_ASSINATURA])
                 ->CriaInpunt();
         endif;
 

@@ -180,8 +180,8 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
         if ($tpPagamento == TipoPagamentoEnum::CARTAO_CREDITO) {
             $DadosArray['creditCardToken'] = $Dados['tokenCartao'];
             $DadosArray['installmentQuantity'] = $Dados['qntParcelas'][0];
-            $DadosArray['installmentValue'] = (string)'83.57';//Valida::FormataMoedaBanco($Dados['installmentValue']);
-//            $DadosArray['noInterestInstallmentQuantity'] = 1;//Quantidade de parcelas sem juro
+            $DadosArray['installmentValue'] = (string)Valida::FormataMoedaBanco($Dados['installmentValue']);
+            $DadosArray['noInterestInstallmentQuantity'] = 3;//Quantidade de parcelas sem juro
             $DadosArray['creditCardHolderName'] = $Dados['creditCardHolderName'];
             $DadosArray['creditCardHolderCPF'] = Valida::RetiraMascara($Dados['creditCardHolderCPF']);
             $DadosArray['creditCardHolderBirthDate'] = $Dados['creditCardHolderBirthDate'];
@@ -237,8 +237,6 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
         $DadosArray['senderHash'] = $Dados['hash'];
         $DadosArray['shippingAddressRequired'] = false;
 
-//        debug($DadosArray,1);
-
         $buildQuery = http_build_query($DadosArray);
         $url = URL_PAGSEGURO . "transactions";
 
@@ -251,9 +249,6 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
         $retorno = curl_exec($curl);
         curl_close($curl);
         $xml = simplexml_load_string($retorno);
-
-        debug($xml,1);
-
 
         $retorna = ['dados' => $xml, 'DadosArray' => $DadosArray];
         return $retorna;

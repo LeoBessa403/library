@@ -130,6 +130,12 @@ define('CO_PERFIL_ASSINANTE', 'co_perfil_assinante');
 define('CO_CRON', 'co_cron');
 define('NO_CRON', 'no_cron');
 define('DS_SQL', 'ds_sql');
+define('DT_MODIFICADO', 'dt_modificado');
+define('NU_VALOR_DESCONTO', 'nu_valor_desconto');
+define('NU_VALOR_REAL', 'nu_valor_real');
+define('DS_LINK_BOLETO', 'ds_link_boleto');
+define('DS_CODE_TRANSACAO', 'ds_code_transacao');
+define('DT_CONFIRMA_PAGAMENTO', 'dt_confirma_pagamento');
 
 
 // SERVICES PADRÃO

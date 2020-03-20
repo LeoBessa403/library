@@ -46,28 +46,38 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
             /** @var AssinanteEntidade $assinante */
             $assinante = $AssinanteService->PesquisaUmRegistro($dados[CO_ASSINANTE]);
 
-            $planoAssinanteAssinatura[CO_PLANO_ASSINANTE] = $plano->getCoUltimoPlanoAssinante()->getCoPlanoAssinante();
-            $planoAssinanteAssinatura[CO_ASSINANTE] = $dados[CO_ASSINANTE];
-            $planoAssinanteAssinatura[NU_PROFISSIONAIS] = PlanoService::getNuProfissionais($plano->getNuMesAtivo());
-            $planoAssinanteAssinatura[NU_FILIAIS] = 0;
-            $planoAssinanteAssinatura[NU_VALOR_ASSINATURA] = $plano->getCoUltimoPlanoAssinante()->getNuValor();
-            $planoAssinanteAssinatura[TP_PAGAMENTO] = $dados[TP_PAGAMENTO][0];
-            $planoAssinanteAssinatura[DT_CADASTRO] = Valida::DataHoraAtualBanco();
-            $planoAssinanteAssinatura[DT_EXPIRACAO] = Valida::DataDBDate(Valida::CalculaData(
-                Valida::DataShow($assinante->getDtExpiracao()),
-                $plano->getNuMesAtivo(),
-                "+",
-                'm'
-            ));
 
             $pessoa[NU_CPF] = Valida::RetiraMascara($dados[NU_CPF]);
             $pessoaService->Salva($pessoa, $assinante->getCoPessoa()->getCoPessoa());
             $contato[NU_TEL1] = Valida::RetiraMascara($dados[NU_TEL1]);
             $contatoService->Salva($contato, $assinante->getCoPessoa()->getCoContato()->getCoContato());
 
-            $retorno[SUCESSO] = $planoAssinanteAssinaturaService->Salva($planoAssinanteAssinatura);
+
+            if (!empty($dados[CO_PLANO_ASSINANTE_ASSINATURA])) {
+                $retorno[SUCESSO] = $dados[CO_PLANO_ASSINANTE_ASSINATURA];
+                $retorno[MSG] = ATUALIZADO;
+            } else {
+
+                $planoAssinanteAssinatura[CO_PLANO_ASSINANTE] = $plano->getCoUltimoPlanoAssinante()->getCoPlanoAssinante();
+                $planoAssinanteAssinatura[CO_ASSINANTE] = $dados[CO_ASSINANTE];
+                $planoAssinanteAssinatura[NU_PROFISSIONAIS] = PlanoService::getNuProfissionais($plano->getNuMesAtivo());
+                $planoAssinanteAssinatura[NU_FILIAIS] = 0;
+                $planoAssinanteAssinatura[NU_VALOR_ASSINATURA] = $plano->getCoUltimoPlanoAssinante()->getNuValor();
+                $planoAssinanteAssinatura[TP_PAGAMENTO] = $dados[TP_PAGAMENTO][0];
+                $planoAssinanteAssinatura[DT_CADASTRO] = Valida::DataHoraAtualBanco();
+                $planoAssinanteAssinatura[DT_EXPIRACAO] = Valida::DataDBDate(Valida::CalculaData(
+                    Valida::DataShow($assinante->getDtExpiracao()),
+                    $plano->getNuMesAtivo(),
+                    "+",
+                    'm'
+                ));
+                $retorno[SUCESSO] = $planoAssinanteAssinaturaService->Salva($planoAssinanteAssinatura);
+                $retorno[MSG] = CADASTRADO;
+            }
+
+
             if ($retorno[SUCESSO]) {
-                /** @var PlanoEntidade $plano */
+
                 $plano = $PlanoService->PesquisaUmRegistro($dados[CO_PLANO][0]);
                 /** @var AssinanteEntidade $assinante */
                 $assinante = $AssinanteService->PesquisaUmRegistro($dados[CO_ASSINANTE]);
@@ -80,34 +90,44 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
                     );
                     $retorno[SUCESSO] = false;
                     $PDO->rollBack();
+                } else {
+                    $retornoPagSeguro = $retorno['dados'];
+
+                    $retPagSeg[ST_PAGAMENTO] = (string)$retornoPagSeguro->status;
+                    $retPagSeg[DT_MODIFICADO] = (string)$retornoPagSeguro->lastEventDate;
+                    $retPagSeg[NU_VALOR_DESCONTO] = (string)$retornoPagSeguro->feeAmount;
+                    $retPagSeg[NU_VALOR_REAL] = (string)$retornoPagSeguro->netAmount;
+                    $retPagSeg[DS_LINK_BOLETO] = (string)$retornoPagSeguro->paymentLink;
+                    $retPagSeg[DS_CODE_TRANSACAO] = (string)$retornoPagSeguro->code;
+                    $retPagSeg[CO_PLANO_ASSINANTE] = $plano->getCoUltimoPlanoAssinante()->getCoPlanoAssinante();
+
+                    $retorno[SUCESSO] = $planoAssinanteAssinaturaService->Salva(
+                        $retPagSeg, (int)$retornoPagSeguro->reference);
+
+//
+//                    $PDO->rollBack();
+//                    debug($retorno,1);
+
+                    if ($retorno[SUCESSO]) {
+                        $retorno[SUCESSO] = true;
+                        $PDO->commit();
+                    } else {
+                        Notificacoes::geraMensagem(
+                            'Error ao salvar o pagamento',
+                            TiposMensagemEnum::ALERTA
+                        );
+                        $retorno[SUCESSO] = false;
+                        $PDO->rollBack();
+                    }
                 }
             } else {
                 Notificacoes::geraMensagem(
                     'Não foi possível realizar a ação',
-                    TiposMensagemEnum::ERRO
+                    TiposMensagemEnum::ALERTA
                 );
                 $retorno[SUCESSO] = false;
                 $PDO->rollBack();
             }
-
-
-//
-//
-//
-//            $PDO->beginTransaction();
-//            $retorno[SUCESSO] = $this->Salva($planoAssinanteAssinatura);
-//            if ($retorno[SUCESSO]) {
-//                $session->setSession(MENSAGEM, CADASTRADO);
-//                $retorno[SUCESSO] = true;
-//                $PDO->commit();
-//            } else {
-//                Notificacoes::geraMensagem(
-//                    'Não foi possível realizar a ação',
-//                    TiposMensagemEnum::ERRO
-//                );
-//                $retorno[SUCESSO] = false;
-//                $PDO->rollBack();
-//            }
         } else {
             Notificacoes::geraMensagem(
                 $validador[MSG],
@@ -119,8 +139,7 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
         return $retorno;
     }
 
-    public
-    function salvaPlanoPadrao($coAssinante)
+    public function salvaPlanoPadrao($coAssinante)
     {
         $planoAssinanteAssinatura[CO_PLANO_ASSINANTE] = 1;
         $planoAssinanteAssinatura[CO_ASSINANTE] = $coAssinante;
@@ -134,8 +153,7 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
     }
 
 
-    public
-    function getReferenciaPagamentoAssinante()
+    public function getReferenciaPagamentoAssinante()
     {
         $url = URL_PAGSEGURO . "sessions?email=" . EMAIL_PAGSEGURO . "&token=" . TOKEN_PAGSEGURO;
 
@@ -151,8 +169,7 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
         return $xml;
     }
 
-    private
-    function processaPagamento(PlanoEntidade $plano, AssinanteEntidade $assinante)
+    private function processaPagamento(PlanoEntidade $plano, AssinanteEntidade $assinante)
     {
         $Dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
@@ -182,7 +199,7 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
         } elseif ($tpPagamento == TipoPagamentoEnum::BOLETO) {
             $DadosArray['paymentMethod'] = 'boleto';
         } elseif ($tpPagamento == TipoPagamentoEnum::DEPOSITO_TRANSFERENCIA) {
-            $DadosArray['bankName'] = $Dados['bankName'];
+            $DadosArray['bankName'] = $Dados['bankName'][0];
             $DadosArray['paymentMethod'] = 'eft';
         }
 
@@ -198,9 +215,8 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
         $DadosArray["itemAmount1"] = $total_venda;
         $DadosArray["itemQuantity1"] = 1;
 
-
         $DadosArray['notificationURL'] = URL_NOTIFICACAO;
-        $DadosArray['reference'] =
+        $DadosArray['reference'] = (!empty($Dados[CO_PLANO_ASSINANTE_ASSINATURA])) ? $Dados[CO_PLANO_ASSINANTE_ASSINATURA] :
             $plano->getCoUltimoPlanoAssinante()->getCoUltimoPlanoAssinanteAssinatura()->getCoPlanoAssinanteAssinatura();
         $DadosArray['senderName'] = $assinante->getCoPessoa()->getNoPessoa();
         $DadosArray['senderCPF'] = $assinante->getCoPessoa()->getNuCpf();
@@ -215,9 +231,8 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
             $email = $email[0] . '@sandbox.pagseguro.com.br';
         }
 
-
         $DadosArray['senderAreaCode'] = $ddd;
-        $DadosArray['senderPhone'] = '$numero';
+        $DadosArray['senderPhone'] = $numero;
         $DadosArray['senderEmail'] = $email;
         $DadosArray['senderHash'] = $Dados['hash'];
         $DadosArray['shippingAddressRequired'] = false;

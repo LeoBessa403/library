@@ -17,6 +17,11 @@ class PlanoAssinanteAssinaturaEntidade extends AbstractEntidade
     private $dt_confirma_pagamento;
     private $st_pagamento;
     private $tp_pagamento;
+    private $dt_modificado;
+    private $nu_valor_desconto;
+    private $nu_valor_real;
+    private $ds_link_boleto;
+    private $ds_code_transacao;
     private $nu_valor_assinatura;
     private $nu_profissionais;
     private $nu_filiais;
@@ -35,6 +40,11 @@ class PlanoAssinanteAssinaturaEntidade extends AbstractEntidade
             DT_EXPIRACAO,
             DT_CONFIRMA_PAGAMENTO,
             ST_PAGAMENTO,
+            DT_MODIFICADO,
+            NU_VALOR_DESCONTO,
+            NU_VALOR_REAL,
+            DS_LINK_BOLETO,
+            DS_CODE_TRANSACAO,
             TP_PAGAMENTO,
             NU_VALOR_ASSINATURA,
             NU_FILIAIS,
@@ -151,6 +161,86 @@ class PlanoAssinanteAssinaturaEntidade extends AbstractEntidade
     public function setTpPagamento($tp_pagamento)
     {
         $this->tp_pagamento = $tp_pagamento;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDtModificado()
+    {
+        return $this->dt_modificado;
+    }
+
+    /**
+     * @param mixed $dt_modificado
+     */
+    public function setDtModificado($dt_modificado)
+    {
+        $this->dt_modificado = $dt_modificado;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNuValorDesconto()
+    {
+        return $this->nu_valor_desconto;
+    }
+
+    /**
+     * @param mixed $nu_valor_desconto
+     */
+    public function setNuValorDesconto($nu_valor_desconto)
+    {
+        $this->nu_valor_desconto = $nu_valor_desconto;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNuValorReal()
+    {
+        return $this->nu_valor_real;
+    }
+
+    /**
+     * @param mixed $nu_valor_real
+     */
+    public function setNuValorReal($nu_valor_real)
+    {
+        $this->nu_valor_real = $nu_valor_real;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDsLinkBoleto()
+    {
+        return $this->ds_link_boleto;
+    }
+
+    /**
+     * @param mixed $ds_link_boleto
+     */
+    public function setDsLinkBoleto($ds_link_boleto)
+    {
+        $this->ds_link_boleto = $ds_link_boleto;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDsCodeTransacao()
+    {
+        return $this->ds_code_transacao;
+    }
+
+    /**
+     * @param mixed $ds_code_transacao
+     */
+    public function setDsCodeTransacao($ds_code_transacao)
+    {
+        $this->ds_code_transacao = $ds_code_transacao;
     }
 
     /**

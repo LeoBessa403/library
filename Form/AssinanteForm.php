@@ -218,7 +218,7 @@ class AssinanteForm
             ->setValues(null)
             ->CriaInpunt();
 
-        return $formulario->finalizaForm();
+        return $formulario->finalizaForm('Assinante/MeuPlanoAssinante');
     }
 
     public static function DadosComplementares($res = false)

@@ -17,7 +17,7 @@
                 <div class="page-header">
                     <h1>Assinante
                         <small>Listar Assinaturas</small>
-                        <?php Valida::geraBtnNovo(); ?>
+                        <?php Valida::geraBtnNovo('Renovar Assinatura', 'RenovaPlanoAssinante'); ?>
                     </h1>
                 </div>
                 <!-- end: PAGE TITLE & BREADCRUMB -->
@@ -35,7 +35,7 @@
                         Modal::load();
                         Modal::confirmacao("confirma_Assinante");
                         $grid = new Grid();
-                        $arrColunas = array('Status', 'Plano', 'Data Pagamento', 'Valor R$', 'Nº Profissionais',
+                        $arrColunas = array('Status', 'Plano', 'Data Pagamento', 'Meio de Pagamento', 'Valor R$', 'Nº Profissionais',
                             'Sit. Pagamento', 'Expiração', 'Ações');
                         $grid->setColunasIndeces($arrColunas);
                         $grid->criaGrid();
@@ -44,7 +44,7 @@
                         foreach ($result as $res):
                             $acao = '';
 
-                            if ($res->getStPagamento() < 3) {
+                            if ($res->getStPagamento() < 1) {
                                 $acao .= ' <a href="' . PASTAADMIN . 'Assinante/RenovaPlanoAssinante/' .
                                     Valida::GeraParametro(CO_PLANO_ASSINANTE_ASSINATURA . "/" .
                                         $res->getCoPlanoAssinanteAssinatura()) . '"
@@ -56,6 +56,9 @@
                             $dtPagamento = ($res->getDtConfirmaPagamento())
                                 ? Valida::DataShow($res->getDtConfirmaPagamento())
                                 : null;
+                            $tpPagamento = ($res->getTpPagamento())
+                                ? TipoPagamentoEnum::getDescricaoValor($res->getTpPagamento())
+                                : null;
                             if ($statusSis != 'A') {
                                 $statusSis = ($res->getStPagamento() == 3) ? 'A' : 'I';
                             } else {
@@ -64,6 +67,7 @@
                             $grid->setColunas(Valida::StatusLabel($statusSis), 2);
                             $grid->setColunas($res->getCoPlanoAssinante()->getCoPlano()->getNoPlano());
                             $grid->setColunas($dtPagamento, 2);
+                            $grid->setColunas($tpPagamento, 4);
                             $grid->setColunas($res->getNuValorAssinatura(), 2);
                             $grid->setColunas($res->getNuProfissionais(), 2);
                             $grid->setColunas(StatusPagamentoEnum::getDescricaoValor($res->getStPagamento()), 2);

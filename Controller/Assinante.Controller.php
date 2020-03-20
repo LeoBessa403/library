@@ -116,7 +116,7 @@ class Assinante extends AbstractController
         if (!empty($_POST)):
             $retorno = $PlanoAssinanteAssinaturaService->salvaPagamentoAssinante($_POST);
             if ($retorno[SUCESSO]) {
-                Redireciona(UrlAmigavel::$modulo . '/' . UrlAmigavel::$controller . '/ListarAssinante/');
+                Redireciona(UrlAmigavel::$modulo . '/' . UrlAmigavel::$controller . '/MeuPlanoAssinante/');
             }
         endif;
 

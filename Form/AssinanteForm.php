@@ -101,6 +101,23 @@ class AssinanteForm
             ->setOptions($tp_pagamentos)
             ->CriaInpunt();
 
+        $formulario
+            ->setId(NU_CPF)
+            ->setClasses("cpf ob")
+            ->setInfo('Somente números')
+            ->setTamanhoInput(6)
+            ->setLabel("CPF do Comprador")
+            ->CriaInpunt();
+
+        $formulario
+            ->setId(NU_TEL1)
+            ->setIcon("fa fa-mobile-phone")
+            ->setLabel("Celular do Comprador")
+            ->setInfo("Com <i class='fa fa-whatsapp' style='color: green;'></i> WhatSapp")
+            ->setClasses("tel ob")
+            ->setTamanhoInput(6)
+            ->CriaInpunt();
+
 
         $bancos = [
             null => Mensagens::MSG_SEM_ITEM_SELECIONADO,

@@ -24,6 +24,10 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
         $AssinanteService = $this->getService(ASSINANTE_SERVICE);
         /** @var PlanoAssinanteAssinaturaService $planoAssinanteAssinaturaService */
         $planoAssinanteAssinaturaService = $this->getService(PLANO_ASSINANTE_ASSINATURA_SERVICE);
+        /** @var PessoaService $pessoaService */
+        $pessoaService = $this->getService(PESSOA_SERVICE);
+        /** @var ContatoService $contatoService */
+        $contatoService = $this->getService(CONTATO_SERVICE);
         /** @var PDO $PDO */
         $PDO = $this->getPDO();
         $session = new Session();
@@ -35,6 +39,8 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
         $planoAssinanteAssinaturaValidador = new PlanoAssinanteAssinaturaValidador();
         $validador = $planoAssinanteAssinaturaValidador->validarPlanoAssinanteAssinatura($dados);
         if ($validador[SUCESSO]) {
+
+            $PDO->beginTransaction();
             /** @var PlanoEntidade $plano */
             $plano = $PlanoService->PesquisaUmRegistro($dados[CO_PLANO][0]);
             /** @var AssinanteEntidade $assinante */
@@ -54,13 +60,27 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
                 'm'
             ));
 
+            $pessoa[NU_CPF] = Valida::RetiraMascara($dados[NU_CPF]);
+            $pessoaService->Salva($pessoa, $assinante->getCoPessoa()->getCoPessoa());
+            $contato[NU_TEL1] = Valida::RetiraMascara($dados[NU_TEL1]);
+            $contatoService->Salva($contato, $assinante->getCoPessoa()->getCoContato()->getCoContato());
+
             $retorno[SUCESSO] = $planoAssinanteAssinaturaService->Salva($planoAssinanteAssinatura);
             if ($retorno[SUCESSO]) {
                 /** @var PlanoEntidade $plano */
                 $plano = $PlanoService->PesquisaUmRegistro($dados[CO_PLANO][0]);
+                /** @var AssinanteEntidade $assinante */
+                $assinante = $AssinanteService->PesquisaUmRegistro($dados[CO_ASSINANTE]);
                 $retorno = $this->processaPagamento($plano, $assinante);
-                debug($retorno, 1);
-                $PDO->rollBack();
+
+                if ($retorno["dados"]->error) {
+                    Notificacoes::geraMensagem(
+                        'Não foi possível realizar o Pagamento!',
+                        TiposMensagemEnum::ALERTA
+                    );
+                    $retorno[SUCESSO] = false;
+                    $PDO->rollBack();
+                }
             } else {
                 Notificacoes::geraMensagem(
                     'Não foi possível realizar a ação',
@@ -95,10 +115,12 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
             );
             $retorno = $validador;
         }
+
         return $retorno;
     }
 
-    public function salvaPlanoPadrao($coAssinante)
+    public
+    function salvaPlanoPadrao($coAssinante)
     {
         $planoAssinanteAssinatura[CO_PLANO_ASSINANTE] = 1;
         $planoAssinanteAssinatura[CO_ASSINANTE] = $coAssinante;
@@ -112,7 +134,8 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
     }
 
 
-    public function getReferenciaPagamentoAssinante()
+    public
+    function getReferenciaPagamentoAssinante()
     {
         $url = URL_PAGSEGURO . "sessions?email=" . EMAIL_PAGSEGURO . "&token=" . TOKEN_PAGSEGURO;
 
@@ -128,7 +151,8 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
         return $xml;
     }
 
-    private function processaPagamento(PlanoEntidade $plano, AssinanteEntidade $assinante)
+    private
+    function processaPagamento(PlanoEntidade $plano, AssinanteEntidade $assinante)
     {
         $Dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
@@ -179,22 +203,24 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
         $DadosArray['reference'] =
             $plano->getCoUltimoPlanoAssinante()->getCoUltimoPlanoAssinanteAssinatura()->getCoPlanoAssinanteAssinatura();
         $DadosArray['senderName'] = $assinante->getCoPessoa()->getNoPessoa();
-        $DadosArray['senderCPF'] = 12345678909;//$assinante->getCoPessoa()->getNuCpf();
-        $DadosArray['senderAreaCode'] = 11;
-        $DadosArray['senderPhone'] = 999999999;
-        $DadosArray['senderEmail'] = 'thais.mail@sandbox.pagseguro.com.br';//$assinante->getCoPessoa()->getCoContato()->getDsEmail();
+        $DadosArray['senderCPF'] = $assinante->getCoPessoa()->getNuCpf();
+
+        $tel = $assinante->getCoPessoa()->getCoContato()->getNuTel1();
+        $ddd = substr($tel, 0, 2);
+        $numero = substr($tel, 2);
+
+        $email = $assinante->getCoPessoa()->getCoContato()->getDsEmail();
+        if (!PROD) {
+            $email = explode('@', $email);
+            $email = $email[0] . '@sandbox.pagseguro.com.br';
+        }
+
+
+        $DadosArray['senderAreaCode'] = $ddd;
+        $DadosArray['senderPhone'] = '$numero';
+        $DadosArray['senderEmail'] = $email;
         $DadosArray['senderHash'] = $Dados['hash'];
         $DadosArray['shippingAddressRequired'] = false;
-//        $DadosArray['shippingAddressStreet'] = $Dados['shippingAddressStreet'];
-//        $DadosArray['shippingAddressNumber'] = $Dados['shippingAddressNumber'];
-//        $DadosArray['shippingAddressComplement'] = $Dados['shippingAddressComplement'];
-//        $DadosArray['shippingAddressDistrict'] = $Dados['shippingAddressDistrict'];
-//        $DadosArray['shippingAddressPostalCode'] = $Dados['shippingAddressPostalCode'];
-//        $DadosArray['shippingAddressCity'] = $Dados['shippingAddressCity'];
-//        $DadosArray['shippingAddressState'] = $Dados['shippingAddressState'];
-//        $DadosArray['shippingAddressCountry'] = $Dados['shippingAddressCountry'];
-//        $DadosArray['shippingType'] = $Dados['shippingType'];
-//        $DadosArray['shippingCost'] = $Dados['shippingCost'];
 
         $buildQuery = http_build_query($DadosArray);
         $url = URL_PAGSEGURO . "transactions";
@@ -211,7 +237,6 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
 
 
         $retorna = ['dados' => $xml, 'DadosArray' => $DadosArray];
-//        header('Content-Type: application/json');
         return $retorna;
     }
 }

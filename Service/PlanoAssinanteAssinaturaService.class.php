@@ -22,6 +22,8 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
         $PlanoService = $this->getService(PLANO_SERVICE);
         /** @var AssinanteService $AssinanteService */
         $AssinanteService = $this->getService(ASSINANTE_SERVICE);
+        /** @var PlanoAssinanteAssinaturaService $planoAssinanteAssinaturaService */
+        $planoAssinanteAssinaturaService = $this->getService(PLANO_ASSINANTE_ASSINATURA_SERVICE);
         /** @var PDO $PDO */
         $PDO = $this->getPDO();
         $session = new Session();
@@ -40,8 +42,10 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
 
             $planoAssinanteAssinatura[CO_PLANO_ASSINANTE] = $plano->getCoUltimoPlanoAssinante()->getCoPlanoAssinante();
             $planoAssinanteAssinatura[CO_ASSINANTE] = $dados[CO_ASSINANTE];
-            $planoAssinanteAssinatura[NU_PROFISSIONAIS] = $dados[NU_PROFISSIONAIS];
-            $planoAssinanteAssinatura[NU_FILIAIS] = $dados[NU_FILIAIS];
+            $planoAssinanteAssinatura[NU_PROFISSIONAIS] = PlanoService::getNuProfissionais($plano->getNuMesAtivo());
+            $planoAssinanteAssinatura[NU_FILIAIS] = 0;
+            $planoAssinanteAssinatura[NU_VALOR_ASSINATURA] = $plano->getCoUltimoPlanoAssinante()->getNuValor();
+            $planoAssinanteAssinatura[TP_PAGAMENTO] = $dados[TP_PAGAMENTO][0];
             $planoAssinanteAssinatura[DT_CADASTRO] = Valida::DataHoraAtualBanco();
             $planoAssinanteAssinatura[DT_EXPIRACAO] = Valida::DataDBDate(Valida::CalculaData(
                 Valida::DataShow($assinante->getDtExpiracao()),
@@ -49,31 +53,14 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
                 "+",
                 'm'
             ));
-            if ($dados[NU_PROFISSIONAIS] <= ConfiguracoesEnum::PROFISSIONAIS_BAIXA) {
-                $profACobrar = 0;
-            } else if ($dados[NU_PROFISSIONAIS] <= ConfiguracoesEnum::PROFISSIONAIS_MEDIA) {
-                $profACobrar = ($dados[NU_PROFISSIONAIS] - ConfiguracoesEnum::PROFISSIONAIS_BAIXA) *
-                    ConfiguracoesEnum::TAXA_PROFISSIONAIS_BAIXA;
-            } else if ($dados[NU_PROFISSIONAIS] <= ConfiguracoesEnum::PROFISSIONAIS_ALTA) {
-                $profACobrar = ($dados[NU_PROFISSIONAIS] - ConfiguracoesEnum::PROFISSIONAIS_BAIXA) *
-                    ConfiguracoesEnum::TAXA_PROFISSIONAIS_MEDIA;
-            } else {
-                $profACobrar = ($dados[NU_PROFISSIONAIS] - ConfiguracoesEnum::PROFISSIONAIS_BAIXA) *
-                    ConfiguracoesEnum::TAXA_PROFISSIONAIS_ALTA;
-            }
-            $valorFiliais = ($plano->getCoUltimoPlanoAssinante()->getNuValor() / 2) * $dados[NU_FILIAIS];
-            $valorAssinatura = $profACobrar + $valorFiliais + $plano->getCoUltimoPlanoAssinante()->getNuValor();
-            $valorAssinatura = $valorAssinatura * $plano->getNuMesAtivo();
-            $planoAssinanteAssinatura[NU_VALOR_ASSINATURA] =
-                Valida::FormataMoedaBanco(str_replace(".", ",", $valorAssinatura));
 
-            $PDO->beginTransaction();
-            $retorno[SUCESSO] = $this->Salva($planoAssinanteAssinatura);
-//            $retorno[SUCESSO] = $this->atualizaDtExpiracaoMatrizFilias($assinante, $planoAssinanteAssinatura[DT_EXPIRACAO]);
+            $retorno[SUCESSO] = $planoAssinanteAssinaturaService->Salva($planoAssinanteAssinatura);
             if ($retorno[SUCESSO]) {
-                $session->setSession(MENSAGEM, CADASTRADO);
-                $retorno[SUCESSO] = true;
-                $PDO->commit();
+                /** @var PlanoEntidade $plano */
+                $plano = $PlanoService->PesquisaUmRegistro($dados[CO_PLANO][0]);
+                $retorno = $this->processaPagamento($plano, $assinante);
+                debug($retorno, 1);
+                $PDO->rollBack();
             } else {
                 Notificacoes::geraMensagem(
                     'Não foi possível realizar a ação',
@@ -82,6 +69,25 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
                 $retorno[SUCESSO] = false;
                 $PDO->rollBack();
             }
+
+
+//
+//
+//
+//            $PDO->beginTransaction();
+//            $retorno[SUCESSO] = $this->Salva($planoAssinanteAssinatura);
+//            if ($retorno[SUCESSO]) {
+//                $session->setSession(MENSAGEM, CADASTRADO);
+//                $retorno[SUCESSO] = true;
+//                $PDO->commit();
+//            } else {
+//                Notificacoes::geraMensagem(
+//                    'Não foi possível realizar a ação',
+//                    TiposMensagemEnum::ERRO
+//                );
+//                $retorno[SUCESSO] = false;
+//                $PDO->rollBack();
+//            }
         } else {
             Notificacoes::geraMensagem(
                 $validador[MSG],
@@ -91,26 +97,6 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
         }
         return $retorno;
     }
-
-//    /**
-//     * @param $assinante AssinanteEntidade
-//     * @param $dtExpiracao
-//     * @return bool|INT
-//     */
-//    public function atualizaDtExpiracaoMatrizFilias($assinante, $dtExpiracao)
-//    {
-//        /** @var AssinanteService $AssinanteService */
-//        $AssinanteService = $this->getService(ASSINANTE_SERVICE);
-//        $filiais = $assinante->getFiliaisMatriz();
-//        $assFilial[DT_EXPIRACAO] = $dtExpiracao;
-//        if (!empty($filiais)) {
-//            /** @var AssinanteFilialEntidade $filial */
-//            foreach ($filiais as $filial) {
-//                $AssinanteService->Salva($assFilial, $filial->getCoAssinante());
-//            }
-//        }
-//        return $AssinanteService->Salva($assFilial, $assinante->getCoAssinante());
-//    }
 
     public function salvaPlanoPadrao($coAssinante)
     {
@@ -123,5 +109,109 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
             ConfiguracoesEnum::DIAS_EXPERIMENTAR, "+"));
         $planoAssinanteAssinatura[NU_VALOR_ASSINATURA] = '0.00';
         return $this->Salva($planoAssinanteAssinatura);
+    }
+
+
+    public function getReferenciaPagamentoAssinante()
+    {
+        $url = URL_PAGSEGURO . "sessions?email=" . EMAIL_PAGSEGURO . "&token=" . TOKEN_PAGSEGURO;
+
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array("Content-Type: application/x-www-form-urlencoded; charset=UTF-8"));
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $retorno = curl_exec($curl);
+        curl_close($curl);
+
+        $xml = simplexml_load_string($retorno);
+        return $xml;
+    }
+
+    private function processaPagamento(PlanoEntidade $plano, AssinanteEntidade $assinante)
+    {
+        $Dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+
+        $tpPagamento = $Dados[TP_PAGAMENTO][0];
+        $DadosArray["email"] = EMAIL_PAGSEGURO;
+        $DadosArray["token"] = TOKEN_PAGSEGURO;
+
+        if ($tpPagamento == TipoPagamentoEnum::CARTAO_CREDITO) {
+            $DadosArray['creditCardToken'] = $Dados['tokenCartao'];
+            $DadosArray['installmentQuantity'] = $Dados['qntParcelas'];
+            $DadosArray['installmentValue'] = $Dados['valorParcelas'];
+            $DadosArray['noInterestInstallmentQuantity'] = $Dados['noIntInstalQuantity'];
+            $DadosArray['creditCardHolderName'] = $Dados['creditCardHolderName'];
+            $DadosArray['creditCardHolderCPF'] = $Dados['creditCardHolderCPF'];
+            $DadosArray['creditCardHolderBirthDate'] = $Dados['creditCardHolderBirthDate'];
+            $DadosArray['creditCardHolderAreaCode'] = $Dados['senderAreaCode'];
+            $DadosArray['creditCardHolderPhone'] = $Dados['senderPhone'];
+            $DadosArray['billingAddressStreet'] = $Dados['billingAddressStreet'];
+            $DadosArray['billingAddressNumber'] = $Dados['billingAddressNumber'];
+            $DadosArray['billingAddressComplement'] = $Dados['billingAddressComplement'];
+            $DadosArray['billingAddressDistrict'] = $Dados['billingAddressDistrict'];
+            $DadosArray['billingAddressPostalCode'] = $Dados['billingAddressPostalCode'];
+            $DadosArray['billingAddressCity'] = $Dados['billingAddressCity'];
+            $DadosArray['billingAddressState'] = $Dados['billingAddressState'];
+            $DadosArray['billingAddressCountry'] = $Dados['billingAddressCountry'];
+            $DadosArray['paymentMethod'] = 'creditCard';
+        } elseif ($tpPagamento == TipoPagamentoEnum::BOLETO) {
+            $DadosArray['paymentMethod'] = 'boleto';
+        } elseif ($tpPagamento == TipoPagamentoEnum::DEPOSITO_TRANSFERENCIA) {
+            $DadosArray['bankName'] = $Dados['bankName'];
+            $DadosArray['paymentMethod'] = 'eft';
+        }
+
+        $DadosArray['paymentMode'] = 'default';
+
+        $DadosArray['receiverEmail'] = EMAIL_LOJA;
+        $DadosArray['currency'] = 'BRL';
+        $DadosArray['extraAmount'] = '0.00';
+
+        $DadosArray["itemId1"] = $plano->getCoPlano();
+        $DadosArray["itemDescription1"] = $plano->getNoPlano();
+        $total_venda = number_format($plano->getCoUltimoPlanoAssinante()->getNuValor(), 2, '.', '');
+        $DadosArray["itemAmount1"] = $total_venda;
+        $DadosArray["itemQuantity1"] = 1;
+
+
+        $DadosArray['notificationURL'] = URL_NOTIFICACAO;
+        $DadosArray['reference'] =
+            $plano->getCoUltimoPlanoAssinante()->getCoUltimoPlanoAssinanteAssinatura()->getCoPlanoAssinanteAssinatura();
+        $DadosArray['senderName'] = $assinante->getCoPessoa()->getNoPessoa();
+        $DadosArray['senderCPF'] = 12345678909;//$assinante->getCoPessoa()->getNuCpf();
+        $DadosArray['senderAreaCode'] = 11;
+        $DadosArray['senderPhone'] = 999999999;
+        $DadosArray['senderEmail'] = 'thais.mail@sandbox.pagseguro.com.br';//$assinante->getCoPessoa()->getCoContato()->getDsEmail();
+        $DadosArray['senderHash'] = $Dados['hash'];
+        $DadosArray['shippingAddressRequired'] = false;
+//        $DadosArray['shippingAddressStreet'] = $Dados['shippingAddressStreet'];
+//        $DadosArray['shippingAddressNumber'] = $Dados['shippingAddressNumber'];
+//        $DadosArray['shippingAddressComplement'] = $Dados['shippingAddressComplement'];
+//        $DadosArray['shippingAddressDistrict'] = $Dados['shippingAddressDistrict'];
+//        $DadosArray['shippingAddressPostalCode'] = $Dados['shippingAddressPostalCode'];
+//        $DadosArray['shippingAddressCity'] = $Dados['shippingAddressCity'];
+//        $DadosArray['shippingAddressState'] = $Dados['shippingAddressState'];
+//        $DadosArray['shippingAddressCountry'] = $Dados['shippingAddressCountry'];
+//        $DadosArray['shippingType'] = $Dados['shippingType'];
+//        $DadosArray['shippingCost'] = $Dados['shippingCost'];
+
+        $buildQuery = http_build_query($DadosArray);
+        $url = URL_PAGSEGURO . "transactions";
+
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, Array("Content-Type: application/x-www-form-urlencoded; charset=UTF-8"));
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $buildQuery);
+        $retorno = curl_exec($curl);
+        curl_close($curl);
+        $xml = simplexml_load_string($retorno);
+
+
+        $retorna = ['dados' => $xml, 'DadosArray' => $DadosArray];
+//        header('Content-Type: application/json');
+        return $retorna;
     }
 }

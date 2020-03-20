@@ -91,9 +91,9 @@ class Assinante extends AbstractController
 
     public static function getSessaoPagamentoAssinante()
     {
-        /** @var PagSeguro $pag */
-        $pag = new PagSeguro();
-        return $pag->getReferenciaPagamentoAssinante();
+        /** @var PlanoAssinanteAssinaturaService $PlanoAssinanteAssinaturaService */
+        $PlanoAssinanteAssinaturaService = new PlanoAssinanteAssinaturaService();
+        return $PlanoAssinanteAssinaturaService->getReferenciaPagamentoAssinante();
     }
 
     public function MeuPlanoAssinante()
@@ -111,14 +111,14 @@ class Assinante extends AbstractController
         $assinanteService = $this->getService(ASSINANTE_SERVICE);
         /** @var PlanoAssinanteAssinaturaService $PlanoAssinanteAssinaturaService */
         $PlanoAssinanteAssinaturaService = $this->getService(PLANO_ASSINANTE_ASSINATURA_SERVICE);
-        $id = "cadastroAssinante";
+        $id = "RenovaPlanoAssinante";
 
-//        if (!empty($_POST[$id])):
-//            $retorno = $PlanoAssinanteAssinaturaService->salvaPagamentoAssinante($_POST);
-//            if ($retorno[SUCESSO]) {
-//                Redireciona(UrlAmigavel::$modulo . '/' . UrlAmigavel::$controller . '/ListarAssinante/');
-//            }
-//        endif;
+        if (!empty($_POST)):
+            $retorno = $PlanoAssinanteAssinaturaService->salvaPagamentoAssinante($_POST);
+            if ($retorno[SUCESSO]) {
+                Redireciona(UrlAmigavel::$modulo . '/' . UrlAmigavel::$controller . '/ListarAssinante/');
+            }
+        endif;
 
         $coAssinante = AssinanteService::getCoAssinanteLogado();
         $coPlanoAssinanteAssinatura = UrlAmigavel::PegaParametro(CO_PLANO_ASSINANTE_ASSINATURA);
@@ -139,31 +139,31 @@ class Assinante extends AbstractController
         $this->form = AssinanteForm::Pagamento($res);
     }
 
-    public function PagamentoAssinante()
-    {
-        /** @var AssinanteService $assinanteService */
-        $assinanteService = $this->getService(ASSINANTE_SERVICE);
-        /** @var PlanoAssinanteAssinaturaService $PlanoAssinanteAssinaturaService */
-        $PlanoAssinanteAssinaturaService = $this->getService(PLANO_ASSINANTE_ASSINATURA_SERVICE);
-        $id = "cadastroAssinante";
-
-        if (!empty($_POST[$id])):
-            $retorno = $PlanoAssinanteAssinaturaService->salvaPagamentoAssinante($_POST);
-            if ($retorno[SUCESSO]) {
-                Redireciona(UrlAmigavel::$modulo . '/' . UrlAmigavel::$controller . '/ListarAssinante/');
-            }
-        endif;
-
-        $coAssinante = UrlAmigavel::PegaParametro(CO_ASSINANTE);
-        $res = [];
-        if (AssinanteService::assianteNaoEncontrado($coAssinante)) {
-            /** @var AssinanteEntidade $assinante */
-            $assinante = $assinanteService->PesquisaUmRegistro($coAssinante);
-            $res[CO_ASSINANTE] = $coAssinante;
-            $res[DT_EXPIRACAO] = Valida::DataShow($assinante->getDtExpiracao());
-        }
-        $this->form = AssinanteForm::Pagamento($res);
-    }
+//    public function PagamentoAssinante()
+//    {
+//        /** @var AssinanteService $assinanteService */
+//        $assinanteService = $this->getService(ASSINANTE_SERVICE);
+//        /** @var PlanoAssinanteAssinaturaService $PlanoAssinanteAssinaturaService */
+//        $PlanoAssinanteAssinaturaService = $this->getService(PLANO_ASSINANTE_ASSINATURA_SERVICE);
+//        $id = "cadastroAssinante";
+//
+//        if (!empty($_POST[$id])):
+//            $retorno = $PlanoAssinanteAssinaturaService->salvaPagamentoAssinante($_POST);
+//            if ($retorno[SUCESSO]) {
+//                Redireciona(UrlAmigavel::$modulo . '/' . UrlAmigavel::$controller . '/ListarAssinante/');
+//            }
+//        endif;
+//
+//        $coAssinante = UrlAmigavel::PegaParametro(CO_ASSINANTE);
+//        $res = [];
+//        if (AssinanteService::assianteNaoEncontrado($coAssinante)) {
+//            /** @var AssinanteEntidade $assinante */
+//            $assinante = $assinanteService->PesquisaUmRegistro($coAssinante);
+//            $res[CO_ASSINANTE] = $coAssinante;
+//            $res[DT_EXPIRACAO] = Valida::DataShow($assinante->getDtExpiracao());
+//        }
+//        $this->form = AssinanteForm::Pagamento($res);
+//    }
 
     public function DadosComplementaresAssinante()
     {

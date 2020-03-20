@@ -58,7 +58,7 @@ class AssinanteForm
 
     public static function Pagamento($res = false)
     {
-        $id = "cadastroAssinante";
+        $id = "RenovaPlanoAssinante";
 
         $formulario = new Form($id, ADMIN . "/" . UrlAmigavel::$controller . "/" . UrlAmigavel::$action,
             "Cadastrar", 6);
@@ -109,17 +109,34 @@ class AssinanteForm
             ->setId('bankName')
             ->setType(TiposCampoEnum::SELECT)
             ->setLabel("Banco")
+            ->setClasses("debito")
             ->setTamanhoInput(12)
             ->setOptions($bancos)
             ->CriaInpunt();
 
         $formulario
             ->setId('numCartao')
-            ->setTamanhoInput(12)
+            ->setTamanhoInput(6)
             ->setIcon("fa fa-whatsapp", 'dir')
             ->setLabel("Número do Cartão")
             ->setInfo("Somente Números")
-            ->setClasses("cartao_credito")
+            ->setClasses("cartao_credito credito")
+            ->CriaInpunt();
+
+        $formulario
+            ->setId('validadeCartao')
+            ->setTamanhoInput(3)
+            ->setLabel("Validade do Cartão")
+            ->setInfo("Somente Números")
+            ->setClasses("validade_cartao credito")
+            ->CriaInpunt();
+
+        $formulario
+            ->setId('cvvCartao')
+            ->setTamanhoInput(3)
+            ->setLabel("CVV do cartão")
+            ->setInfo("Somente Números")
+            ->setClasses("cvv credito")
             ->CriaInpunt();
 
         $parcelas = [
@@ -129,8 +146,31 @@ class AssinanteForm
             ->setId('qntParcelas')
             ->setType(TiposCampoEnum::SELECT)
             ->setLabel("Número de Parcelas")
+            ->setClasses("credito")
             ->setTamanhoInput(12)
             ->setOptions($parcelas)
+            ->CriaInpunt();
+
+
+        $formulario
+            ->setId('creditCardHolderName')
+            ->setTamanhoInput(12)
+            ->setLabel("Nome no Cartão")
+            ->setClasses("nome credito")
+            ->CriaInpunt();
+
+        $formulario
+            ->setId('creditCardHolderCPF')
+            ->setTamanhoInput(6)
+            ->setLabel("CPF do dono do Cartão")
+            ->setClasses("cpf credito")
+            ->CriaInpunt();
+
+        $formulario
+            ->setId('creditCardHolderBirthDate')
+            ->setTamanhoInput(6)
+            ->setLabel("Nascimento do dono do Cartão")
+            ->setClasses("data credito")
             ->CriaInpunt();
 
         if (!empty($res[CO_ASSINANTE])):
@@ -148,6 +188,18 @@ class AssinanteForm
                 ->setValues($res[CO_PLANO_ASSINANTE_ASSINATURA])
                 ->CriaInpunt();
         endif;
+
+        $formulario
+            ->setType(TiposCampoEnum::HIDDEN)
+            ->setId('hash')
+            ->setValues(null)
+            ->CriaInpunt();
+
+        $formulario
+            ->setType(TiposCampoEnum::HIDDEN)
+            ->setId('tokenCartao')
+            ->setValues(null)
+            ->CriaInpunt();
 
         return $formulario->finalizaForm();
     }

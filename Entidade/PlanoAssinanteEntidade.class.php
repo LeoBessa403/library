@@ -145,5 +145,13 @@ class PlanoAssinanteEntidade extends AbstractEntidade
         $this->co_plano_assinante_assinatura = $co_plano_assinante_assinatura;
     }
 
+    /**
+     * @return PlanoAssinanteAssinaturaEntidade $co_plano_assinante_assinatura
+     */
+    public function getCoUltimoPlanoAssinanteAssinatura()
+    {
+        return $this->ultimo($this->getCoPlanoAssinanteAssinatura());
+    }
+
 
 }

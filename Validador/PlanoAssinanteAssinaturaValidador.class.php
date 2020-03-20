@@ -17,11 +17,8 @@ class  PlanoAssinanteAssinaturaValidador extends AbstractValidador
         $this->retorno[DADOS][] = $this->ValidaCampoSelectObrigatorio(
             $dados[CO_PLANO], 'Plano'
         );
-        $this->retorno[DADOS][] = $this->ValidaCampoObrigatorioValido(
-            $dados[NU_FILIAIS], AbstractValidador::VALIDACAO_MOEDA, 'Número de Filiais'
-        );
-        $this->retorno[DADOS][] = $this->ValidaCampoObrigatorioValido(
-            $dados[NU_PROFISSIONAIS], AbstractValidador::VALIDACAO_MOEDA, 'Número de Profissionais'
+        $this->retorno[DADOS][] = $this->ValidaCampoSelectObrigatorio(
+            $dados[TP_PAGAMENTO],  'Tipo de Pagamento'
         );
 
         return $this->MontaRetorno($this->retorno);

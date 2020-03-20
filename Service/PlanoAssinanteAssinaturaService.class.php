@@ -104,10 +104,6 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
                     $retorno[SUCESSO] = $planoAssinanteAssinaturaService->Salva(
                         $retPagSeg, (int)$retornoPagSeguro->reference);
 
-//
-//                    $PDO->rollBack();
-//                    debug($retorno,1);
-
                     if ($retorno[SUCESSO]) {
                         $retorno[SUCESSO] = true;
                         $PDO->commit();
@@ -177,24 +173,28 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
         $DadosArray["email"] = EMAIL_PAGSEGURO;
         $DadosArray["token"] = TOKEN_PAGSEGURO;
 
+        $tel = $assinante->getCoPessoa()->getCoContato()->getNuTel1();
+        $ddd = substr($tel, 0, 2);
+        $numero = substr($tel, 2);
+
         if ($tpPagamento == TipoPagamentoEnum::CARTAO_CREDITO) {
             $DadosArray['creditCardToken'] = $Dados['tokenCartao'];
-            $DadosArray['installmentQuantity'] = $Dados['qntParcelas'];
-            $DadosArray['installmentValue'] = $Dados['valorParcelas'];
-            $DadosArray['noInterestInstallmentQuantity'] = $Dados['noIntInstalQuantity'];
+            $DadosArray['installmentQuantity'] = $Dados['qntParcelas'][0];
+            $DadosArray['installmentValue'] = (string)'83.57';//Valida::FormataMoedaBanco($Dados['installmentValue']);
+//            $DadosArray['noInterestInstallmentQuantity'] = 1;//Quantidade de parcelas sem juro
             $DadosArray['creditCardHolderName'] = $Dados['creditCardHolderName'];
-            $DadosArray['creditCardHolderCPF'] = $Dados['creditCardHolderCPF'];
+            $DadosArray['creditCardHolderCPF'] = Valida::RetiraMascara($Dados['creditCardHolderCPF']);
             $DadosArray['creditCardHolderBirthDate'] = $Dados['creditCardHolderBirthDate'];
-            $DadosArray['creditCardHolderAreaCode'] = $Dados['senderAreaCode'];
-            $DadosArray['creditCardHolderPhone'] = $Dados['senderPhone'];
-            $DadosArray['billingAddressStreet'] = $Dados['billingAddressStreet'];
-            $DadosArray['billingAddressNumber'] = $Dados['billingAddressNumber'];
-            $DadosArray['billingAddressComplement'] = $Dados['billingAddressComplement'];
-            $DadosArray['billingAddressDistrict'] = $Dados['billingAddressDistrict'];
-            $DadosArray['billingAddressPostalCode'] = $Dados['billingAddressPostalCode'];
-            $DadosArray['billingAddressCity'] = $Dados['billingAddressCity'];
-            $DadosArray['billingAddressState'] = $Dados['billingAddressState'];
-            $DadosArray['billingAddressCountry'] = $Dados['billingAddressCountry'];
+            $DadosArray['creditCardHolderAreaCode'] = $ddd;
+            $DadosArray['creditCardHolderPhone'] = $numero;
+            $DadosArray['billingAddressStreet'] = $Dados[DS_ENDERECO];
+            $DadosArray['billingAddressNumber'] = 10;
+            $DadosArray['billingAddressComplement'] = $Dados[DS_COMPLEMENTO];
+            $DadosArray['billingAddressDistrict'] = $Dados[DS_BAIRRO];
+            $DadosArray['billingAddressPostalCode'] = Valida::RetiraMascara($Dados[NU_CEP]);
+            $DadosArray['billingAddressCity'] = $Dados[NO_CIDADE];
+            $DadosArray['billingAddressState'] = $Dados[SG_UF][0];
+            $DadosArray['billingAddressCountry'] = 'BRA';
             $DadosArray['paymentMethod'] = 'creditCard';
         } elseif ($tpPagamento == TipoPagamentoEnum::BOLETO) {
             $DadosArray['paymentMethod'] = 'boleto';
@@ -237,6 +237,8 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
         $DadosArray['senderHash'] = $Dados['hash'];
         $DadosArray['shippingAddressRequired'] = false;
 
+//        debug($DadosArray,1);
+
         $buildQuery = http_build_query($DadosArray);
         $url = URL_PAGSEGURO . "transactions";
 
@@ -249,6 +251,8 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
         $retorno = curl_exec($curl);
         curl_close($curl);
         $xml = simplexml_load_string($retorno);
+
+        debug($xml,1);
 
 
         $retorna = ['dados' => $xml, 'DadosArray' => $DadosArray];

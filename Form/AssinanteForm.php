@@ -168,7 +168,6 @@ class AssinanteForm
             ->setOptions($parcelas)
             ->CriaInpunt();
 
-
         $formulario
             ->setId('creditCardHolderName')
             ->setTamanhoInput(12)
@@ -190,6 +189,52 @@ class AssinanteForm
             ->setClasses("data credito")
             ->CriaInpunt();
 
+        $formulario
+            ->setId(NU_CEP)
+            ->setLabel("CEP do dono do Cartão")
+            ->setClasses("cep credito")
+            ->setTamanhoInput(12)
+            ->CriaInpunt();
+
+        $formulario
+            ->setId(DS_ENDERECO)
+            ->setIcon("clip-home-2")
+            ->setClasses("credito")
+            ->setTamanhoInput(12)
+            ->setLabel("Endereço do dono do Cartão")
+            ->CriaInpunt();
+
+        $formulario
+            ->setId(DS_COMPLEMENTO)
+            ->setTamanhoInput(12)
+            ->setClasses("credito")
+            ->setLabel("Complemento do dono do Cartão")
+            ->CriaInpunt();
+
+        $formulario
+            ->setId(DS_BAIRRO)
+            ->setTamanhoInput(12)
+            ->setClasses("credito")
+            ->setLabel("Bairro do dono do Cartão")
+            ->CriaInpunt();
+
+        $formulario
+            ->setId(NO_CIDADE)
+            ->setTamanhoInput(12)
+            ->setClasses("credito")
+            ->setLabel("Cidade do dono do Cartão")
+            ->CriaInpunt();
+
+        $options = EnderecoService::montaComboEstadosDescricao();
+        $formulario
+            ->setId(SG_UF)
+            ->setType(TiposCampoEnum::SELECT)
+            ->setClasses("credito")
+            ->setTamanhoInput(12)
+            ->setLabel("Estado do dono do Cartão")
+            ->setOptions($options)
+            ->CriaInpunt();
+
         if (!empty($res[CO_ASSINANTE])):
             $formulario
                 ->setType(TiposCampoEnum::HIDDEN)
@@ -208,6 +253,12 @@ class AssinanteForm
 
         $formulario
             ->setType(TiposCampoEnum::HIDDEN)
+            ->setId('bandeiraCartao')
+            ->setValues(null)
+            ->CriaInpunt();
+
+        $formulario
+            ->setType(TiposCampoEnum::HIDDEN)
             ->setId('hash')
             ->setValues(null)
             ->CriaInpunt();
@@ -215,6 +266,12 @@ class AssinanteForm
         $formulario
             ->setType(TiposCampoEnum::HIDDEN)
             ->setId('tokenCartao')
+            ->setValues(null)
+            ->CriaInpunt();
+
+        $formulario
+            ->setType(TiposCampoEnum::HIDDEN)
+            ->setId('installmentValue')
             ->setValues(null)
             ->CriaInpunt();
 

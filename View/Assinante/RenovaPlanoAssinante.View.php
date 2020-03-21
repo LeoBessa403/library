@@ -31,14 +31,6 @@
             <?php
             echo $form;
             ?>
-<!--            <a id="pagarAgora" class="btn btn-dark-grey" style="margin-top: 10px;">-->
-<!--                <span class="ladda-label"> Pagar Agora </span>-->
-<!--                <i class="fa fa-money"></i>-->
-<!--            </a>-->
-<!--            <form id="comprar" action="--><?//= $pag->url_pagamento; ?><!--" method="post"-->
-<!--                  onsubmit="PagSeguroLightbox(this); return false;">-->
-<!--                <input type="hidden" name="code" id="code" value=""/>-->
-<!--            </form>-->
         </div>
         <!-- end: PAGE CONTENT-->
     </div>

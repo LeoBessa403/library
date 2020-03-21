@@ -136,6 +136,14 @@ define('NU_VALOR_REAL', 'nu_valor_real');
 define('DS_LINK_BOLETO', 'ds_link_boleto');
 define('DS_CODE_TRANSACAO', 'ds_code_transacao');
 define('DT_CONFIRMA_PAGAMENTO', 'dt_confirma_pagamento');
+define('CO_SUPORTE', 'co_suporte');
+define('DS_ASSUNTO', 'ds_assunto');
+define('ST_TIPO_ASSUNTO', 'st_tipo_assunto');
+define('CO_HISTORICO_SUPORTE', 'co_historico_suporte');
+define('DS_MENSAGEM', 'ds_mensagem');
+define('ST_LIDO', 'st_lido');
+define('ST_PAGAMENTO', 'st_pagamento');
+define('TP_PAGAMENTO', 'tp_pagamento');
 
 
 // SERVICES PADRÃO
@@ -175,6 +183,8 @@ define('IMAGEM_ASSINANTE_SERVICE', 'ImagemAssinanteService');
 define('HISTORICO_HISTORIA_SERVICE', 'HistoricoHistoriaService');
 define('PERFIL_ASSINANTE_SERVICE', 'PerfilAssinanteService');
 define('CRONS_SERVICE', 'CronsService');
+define('SUPORTE_SERVICE', 'SuporteService');
+define('HISTORICO_SUPORTE_SERVICE', 'HistoricoSuporteService');
 
 
 // CONSTANTES

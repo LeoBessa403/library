@@ -253,4 +253,28 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
         $retorna = ['dados' => $xml, 'DadosArray' => $DadosArray];
         return $retorna;
     }
+
+    public static function notificacaoPagSAeguro()
+    {
+        /** @var PlanoAssinanteAssinaturaService $planoAssinanteAssinaturaService */
+        $planoAssinanteAssinaturaService = new PlanoAssinanteAssinaturaService();
+
+        $Url = "https://ws.sandbox.pagseguro.uol.com.br/v3/transactions/notifications/{$_POST['notificationCode']}?email=" . EMAIL_PAGSEGURO . "&token=" . TOKEN_PAGSEGURO;
+
+        $Curl = curl_init($Url);
+        curl_setopt($Curl, CURLOPT_SSL_VERIFYPEER, true);
+        curl_setopt($Curl, CURLOPT_RETURNTRANSFER, true);
+        $Retorno = curl_exec($Curl);
+        curl_close($Curl);
+
+        $Xml = simplexml_load_string($Retorno);
+
+        $coPlanoAssinanteAssinatura = $Xml->reference;
+        $dados[ST_PAGAMENTO] = $Xml->status;
+        $dados[DT_MODIFICADO] = (string)$Xml->lastEventDate;
+        if ($dados[ST_PAGAMENTO] == StatusPagamentoEnum::PAGO)
+            $dados[DT_CONFIRMA_PAGAMENTO] = (string)$Xml->lastEventDate;
+
+        return $planoAssinanteAssinaturaService->Salva($dados, $coPlanoAssinanteAssinatura);
+    }
 }

@@ -55,4 +55,17 @@ class  AssinanteModel extends AbstractModel
 
         return $tabela;
     }
+
+    public function getNoEmpresaCoAssinante($coAssinante)
+    {
+        $tabela = AssinanteEntidade::TABELA . " ass" .
+            " inner join " . EmpresaEntidade::TABELA . " te" .
+            " on ass." . EmpresaEntidade::CHAVE . " = te." . EmpresaEntidade::CHAVE;
+
+        $campos = "te." . NO_FANTASIA;
+        $pesquisa = new Pesquisa();
+        $where = $pesquisa->getClausula([CO_ASSINANTE => $coAssinante]);
+        $pesquisa->Pesquisar($tabela, $where, null, $campos);
+        return $pesquisa->getResult()[0][NO_FANTASIA];
+    }
 }

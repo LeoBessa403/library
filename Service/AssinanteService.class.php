@@ -313,4 +313,11 @@ class  AssinanteService extends AbstractService
         return $retorno;
     }
 
+    public static function getNoEmpresaCoAssinante($coAssinante)
+    {
+        /** @var AssinanteModel $AssinanteModel */
+        $AssinanteModel = new AssinanteModel();
+        return $AssinanteModel->getNoEmpresaCoAssinante($coAssinante);
+    }
+
 }

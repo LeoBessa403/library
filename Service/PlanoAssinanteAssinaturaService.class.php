@@ -277,4 +277,38 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
 
         return $planoAssinanteAssinaturaService->Salva($dados, $coPlanoAssinanteAssinatura);
     }
+
+    public function CancelarAssinaturaAssinante($code)
+    {
+        $Url="https://ws.sandbox.pagseguro.uol.com.br/v2/transactions/cancels?email=".
+            EMAIL_PAGSEGURO."&token=".TOKEN_PAGSEGURO."&transactionCode={$code}";
+
+        $Curl=curl_init($Url);
+        curl_setopt($Curl,CURLOPT_HTTPHEADER,Array("Content-Type: application/x-www-form-urlencoded; charset=UTF-8"));
+        curl_setopt($Curl,CURLOPT_POST,true);
+        curl_setopt($Curl,CURLOPT_SSL_VERIFYPEER,false);
+        curl_setopt($Curl,CURLOPT_RETURNTRANSFER,true);
+        $Retorno=curl_exec($Curl);
+        curl_close($Curl);
+
+        $Xml=simplexml_load_string($Retorno);
+        debug($Xml,1);
+    }
+
+    public function EstornarAssinaturaAssinante($code)
+    {
+        $Url="https://ws.sandbox.pagseguro.uol.com.br/v2/transactions/refunds?email=".
+            EMAIL_PAGSEGURO."&token=".TOKEN_PAGSEGURO."&transactionCode={$code}";
+
+        $Curl=curl_init($Url);
+        curl_setopt($Curl,CURLOPT_HTTPHEADER,Array("Content-Type: application/x-www-form-urlencoded; charset=UTF-8"));
+        curl_setopt($Curl,CURLOPT_POST,true);
+        curl_setopt($Curl,CURLOPT_SSL_VERIFYPEER,false);
+        curl_setopt($Curl,CURLOPT_RETURNTRANSFER,true);
+        $Retorno=curl_exec($Curl);
+        curl_close($Curl);
+
+        $Xml=simplexml_load_string($Retorno);
+        debug($code,1);
+    }
 }

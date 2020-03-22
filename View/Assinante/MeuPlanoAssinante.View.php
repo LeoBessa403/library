@@ -35,23 +35,51 @@
                         Modal::load();
                         Modal::confirmacao("confirma_Assinante");
                         $grid = new Grid();
-                        $arrColunas = array('Status', 'Plano', 'Data Pagamento', 'Meio de Pagamento', 'Valor R$', 'Nº Profissionais',
-                            'Sit. Pagamento', 'Expiração', 'Ações');
+                        if (PerfilService::perfilMaster()) {
+                            $arrColunas = array('Assinante', 'Code', 'Plano', 'Data Pagamento', 'Meio de Pagamento', 'Valor R$', 'Nº Profissionais',
+                                'Sit. Pagamento', 'Expiração', 'Ações');
+                        } else {
+                            $arrColunas = array('Status', 'Plano', 'Data Pagamento', 'Meio de Pagamento', 'Valor R$', 'Nº Profissionais',
+                                'Sit. Pagamento', 'Expiração', 'Ações');
+                        }
                         $grid->setColunasIndeces($arrColunas);
                         $grid->criaGrid();
                         $statusSis = '';
                         /** @var PlanoAssinanteAssinaturaEntidade $res */
                         foreach ($result as $res):
                             $acao = '';
-
-                            if ($res->getStPagamento() < 1) {
-                                $acao .= ' <a href="' . PASTAADMIN . 'Assinante/RenovaPlanoAssinante/' .
-                                    Valida::GeraParametro(CO_PLANO_ASSINANTE_ASSINATURA . "/" .
-                                        $res->getCoPlanoAssinanteAssinatura()) . '"
+                            if ($res->getCoPlanoAssinante()->getCoPlano()->getCoPlano() > 1) {
+                                if ($res->getStPagamento() < 1) {
+                                    $acao .= ' <a href="' . PASTAADMIN . 'Assinante/RenovaPlanoAssinante/' .
+                                        Valida::GeraParametro(CO_PLANO_ASSINANTE_ASSINATURA . "/" .
+                                            $res->getCoPlanoAssinanteAssinatura()) . '"
                                 class="btn btn-green tooltips"
                                     data-original-title="Pagar a Renovação da Assinatura" data-placement="top">
                                      <i class="fa fa-money"></i>
                                  </a>';
+                                }
+                                if (PerfilService::perfilMaster() && $res->getStPagamento() > 0) {
+                                    if ($res->getStPagamento() == StatusPagamentoEnum::AGUARDANDO_PAGAMENTO ||
+                                        $res->getStPagamento() == StatusPagamentoEnum::EM_ANALISE) {
+                                        $acao .= ' <a href="' . PASTAADMIN . 'Assinante/CancelarAssinaturaAssinante/' .
+                                            Valida::GeraParametro(DS_CODE_TRANSACAO . "/" .
+                                                $res->getDsCodeTransacao()) . '" 
+                                class="btn btn-danger tooltips" 
+                                    data-original-title="Cancelar Assinatura do Assinante" data-placement="top">
+                                     <i class="fa fa-trash-o"></i>
+                                 </a>';
+                                    } elseif ($res->getStPagamento() == StatusPagamentoEnum::PAGO ||
+                                        $res->getStPagamento() == StatusPagamentoEnum::DISPONIVEL ||
+                                        $res->getStPagamento() == StatusPagamentoEnum::EM_DISPUTA) {
+                                        $acao .= ' <a href="' . PASTAADMIN . 'Assinante/EstornarAssinaturaAssinante/' .
+                                            Valida::GeraParametro(DS_CODE_TRANSACAO . "/" .
+                                                $res->getDsCodeTransacao()) . '" 
+                                class="btn btn-danger tooltips" 
+                                    data-original-title="Estornar Assinatura do Assinante" data-placement="top">
+                                     <i class="fa fa-trash-o"></i>
+                                 </a>';
+                                    }
+                                }
                             }
                             $dtPagamento = ($res->getDtConfirmaPagamento())
                                 ? Valida::DataShow($res->getDtConfirmaPagamento())
@@ -64,7 +92,15 @@
                             } else {
                                 $statusSis = 'I';
                             }
-                            $grid->setColunas(Valida::StatusLabel($statusSis), 2);
+                            if (PerfilService::perfilMaster()) {
+                                $noEmpresa = AssinanteService::getNoEmpresaCoAssinante(
+                                    $res->getCoAssinante()->getCoAssinante()
+                                );
+                                $grid->setColunas($noEmpresa,5);
+                                $grid->setColunas($res->getDsCodeTransacao(), 5);
+                            } else {
+                                $grid->setColunas(Valida::StatusLabel($statusSis), 2);
+                            }
                             $grid->setColunas($res->getCoPlanoAssinante()->getCoPlano()->getNoPlano());
                             $grid->setColunas($dtPagamento, 2);
                             $grid->setColunas($tpPagamento, 4);

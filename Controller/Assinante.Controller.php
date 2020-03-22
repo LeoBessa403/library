@@ -139,32 +139,6 @@ class Assinante extends AbstractController
         $this->form = AssinanteForm::Pagamento($res);
     }
 
-//    public function PagamentoAssinante()
-//    {
-//        /** @var AssinanteService $assinanteService */
-//        $assinanteService = $this->getService(ASSINANTE_SERVICE);
-//        /** @var PlanoAssinanteAssinaturaService $PlanoAssinanteAssinaturaService */
-//        $PlanoAssinanteAssinaturaService = $this->getService(PLANO_ASSINANTE_ASSINATURA_SERVICE);
-//        $id = "cadastroAssinante";
-//
-//        if (!empty($_POST[$id])):
-//            $retorno = $PlanoAssinanteAssinaturaService->salvaPagamentoAssinante($_POST);
-//            if ($retorno[SUCESSO]) {
-//                Redireciona(UrlAmigavel::$modulo . '/' . UrlAmigavel::$controller . '/ListarAssinante/');
-//            }
-//        endif;
-//
-//        $coAssinante = UrlAmigavel::PegaParametro(CO_ASSINANTE);
-//        $res = [];
-//        if (AssinanteService::assianteNaoEncontrado($coAssinante)) {
-//            /** @var AssinanteEntidade $assinante */
-//            $assinante = $assinanteService->PesquisaUmRegistro($coAssinante);
-//            $res[CO_ASSINANTE] = $coAssinante;
-//            $res[DT_EXPIRACAO] = Valida::DataShow($assinante->getDtExpiracao());
-//        }
-//        $this->form = AssinanteForm::Pagamento($res);
-//    }
-
     public function DadosComplementaresAssinante()
     {
         /** @var AssinanteService $assinanteService */
@@ -247,6 +221,24 @@ class Assinante extends AbstractController
         /** @var PlanoService $planoService */
         $planoService = static::getServiceStatic(PLANO_SERVICE);
         return $planoService->getValorPlano($coPlano);
+    }
+
+    public function CancelarAssinaturaAssinante()
+    {
+        /** @var PlanoAssinanteAssinaturaService $PlanoAssAssinaturaService */
+        $PlanoAssAssinaturaService = $this->getService(PLANO_ASSINANTE_ASSINATURA_SERVICE);
+        $code = UrlAmigavel::PegaParametro(DS_CODE_TRANSACAO);
+        $retorno = $PlanoAssAssinaturaService->CancelarAssinaturaAssinante($code);
+        debug($retorno, 1);
+    }
+
+    public function EstornarAssinaturaAssinante()
+    {
+        /** @var PlanoAssinanteAssinaturaService $PlanoAssAssinaturaService */
+        $PlanoAssAssinaturaService = $this->getService(PLANO_ASSINANTE_ASSINATURA_SERVICE);
+        $code = UrlAmigavel::PegaParametro(DS_CODE_TRANSACAO);
+        debug($code, 1);
+        $retorno = $PlanoAssAssinaturaService->EstornarAssinaturaAssinante($code);
     }
 }
    

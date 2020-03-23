@@ -396,8 +396,6 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
         $planoAssinanteAssinaturaService = new PlanoAssinanteAssinaturaService();
         /** @var HistoricoPagAssinaturaService $HistPagAssService */
         $HistPagAssService = new HistoricoPagAssinaturaService();
-        /** @var AssinanteService $AssinanteService */
-        $AssinanteService = $this->getService(ASSINANTE_SERVICE);
         /** @var PDO $PDO */
         $PDO = $this->getPDO();
         $retorno = [

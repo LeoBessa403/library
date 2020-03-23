@@ -72,6 +72,10 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
                     "+",
                     'm'
                 ));
+                $planoAssinanteAssinatura[CO_PLANO_ASSINANTE_ASSINATURA_ATIVO] =
+                    PlanoAssinanteAssinaturaService::getCoPlanoAssinaturaAtivo(
+                        AssinanteService::getCoAssinanteLogado()
+                    );
                 $retorno[SUCESSO] = $planoAssinanteAssinaturaService->Salva($planoAssinanteAssinatura);
                 $retorno[MSG] = CADASTRADO;
             }
@@ -290,6 +294,8 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
     {
         /** @var PlanoAssinanteAssinaturaService $planoAssinanteAssinaturaService */
         $planoAssinanteAssinaturaService = new PlanoAssinanteAssinaturaService();
+        /** @var HistoricoPagAssinaturaService $HistPagAssService */
+        $HistPagAssService = new HistoricoPagAssinaturaService();
 
         $Url = "https://ws.sandbox.pagseguro.uol.com.br/v3/transactions/notifications/{$_POST['notificationCode']}?email=" . EMAIL_PAGSEGURO . "&token=" . TOKEN_PAGSEGURO;
 
@@ -306,6 +312,26 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
         $dados[DT_MODIFICADO] = (string)$Xml->lastEventDate;
         if ($dados[ST_PAGAMENTO] == StatusPagamentoEnum::PAGO)
             $dados[DT_CONFIRMA_PAGAMENTO] = (string)$Xml->lastEventDate;
+
+        if ($Xml->status > StatusPagamentoEnum::EM_ANALISE) {
+            $dados[ST_STATUS] = StatusAcessoEnum::ATIVO;
+
+            // DESATIVA O PLANO ANTERIOR
+            /** @var PlanoAssinanteAssinaturaEntidade $plan */
+            $plan = $planoAssinanteAssinaturaService->PesquisaUmRegistro($coPlanoAssinanteAssinatura);
+            $planAss[ST_STATUS] = StatusAcessoEnum::INATIVO;
+            $planoAssinanteAssinaturaService->Salva($planAss, $plan->getCoPlanoAssinanteAssinaturaAtivo());
+        }
+
+        // HISTORICO DO PAGAMENTO RETORNO PAGSEGURO
+        $histPagAss[CO_PLANO_ASSINANTE_ASSINATURA] = $coPlanoAssinanteAssinatura;
+        $histPagAss[DT_CADASTRO] = (string)$Xml->lastEventDate;
+        $histPagAss[DS_ACAO] = 'Mudou para o Status do pagamento de ' .
+            StatusPagamentoEnum::getDescricaoValor((string)$Xml->status);
+        $histPagAss[DS_USUARIO] = 'Retorno da operadora do pagamento';
+        $histPagAss[ST_PAGAMENTO] = (string)$Xml->status;
+
+        $HistPagAssService->Salva($histPagAss);
 
         return $planoAssinanteAssinaturaService->Salva($dados, $coPlanoAssinanteAssinatura);
     }
@@ -341,7 +367,7 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
         curl_close($Curl);
 
         $Xml = simplexml_load_string($Retorno);
-        debug($code, 1);
+        debug($Xml, 1);
     }
 
     public static function getCoPlanoAssinaturaAtivo($coAssinante)

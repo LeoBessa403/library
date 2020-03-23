@@ -130,6 +130,10 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
 
                     if ($retorno[SUCESSO]) {
                         $retorno[SUCESSO] = true;
+                        Notificacoes::geraMensagem(
+                            'Renovação Cadastrada com Sucesso!',
+                            TiposMensagemEnum::SUCESSO
+                        );
                         $PDO->commit();
                     } else {
                         Notificacoes::geraMensagem(
@@ -302,9 +306,9 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
         $AssinanteService = $this->getService(ASSINANTE_SERVICE);
 
         if ($aplicacao) {
-            $Url = "https://ws.sandbox.pagseguro.uol.com.br/v3/transactions/{$_POST['notificationCode']}?email=" . EMAIL_PAGSEGURO . "&token=" . TOKEN_PAGSEGURO;
+            $Url = URL_PAGSEGURO . "transactions/{$_POST['notificationCode']}?email=" . EMAIL_PAGSEGURO . "&token=" . TOKEN_PAGSEGURO;
         } else {
-            $Url = "https://ws.sandbox.pagseguro.uol.com.br/v3/transactions/notifications/{$_POST['notificationCode']}?email=" . EMAIL_PAGSEGURO . "&token=" . TOKEN_PAGSEGURO;
+            $Url = URL_PAGSEGURO . "transactions/notifications/{$_POST['notificationCode']}?email=" . EMAIL_PAGSEGURO . "&token=" . TOKEN_PAGSEGURO;
         }
 
         $Curl = curl_init($Url);
@@ -336,6 +340,32 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
             // ATUALIZA A DATA DE EXPIRAÇÃO DO ASSINANTE
             $ass[DT_EXPIRACAO] = $plan->getDtExpiracao();
             $AssinanteService->Salva($ass, $plan->getCoAssinante()->getCoAssinante());
+        } elseif ((string)$Xml->status == StatusPagamentoEnum::DEVOLVIDA ||
+            (string)$Xml->status == StatusPagamentoEnum::CANCELADA) {
+            $dados[ST_STATUS] = StatusAcessoEnum::INATIVO;
+
+            // DESATIVA A ASSINATURA CANCELADO OU ESTORNADA
+            /** @var PlanoAssinanteAssinaturaEntidade $plan */
+            $plan = $planoAssinanteAssinaturaService->PesquisaUmRegistro($coPlanoAssinanteAssinatura);
+
+            $planoAssinanteAssinaturaService->Salva([
+                ST_STATUS => StatusAcessoEnum::INATIVO
+            ], $coPlanoAssinanteAssinatura);
+
+            // ATIVA A ASSINATURA ANTERIOR
+            $planoAssinanteAssinaturaService->Salva([
+                ST_STATUS => StatusAcessoEnum::ATIVO
+            ], $plan->getCoPlanoAssinanteAssinaturaAtivo());
+
+            //  ATUALIZA A DATA DE EXPIRAÇÃO DO ASSINANTE
+            /** @var PlanoAssinanteAssinaturaEntidade $planAnterior */
+            $planAnterior = $planoAssinanteAssinaturaService->PesquisaUmRegistro(
+                $plan->getCoPlanoAssinanteAssinaturaAtivo()
+            );
+
+            // ATUALIZA A DATA DE EXPIRAÇÃO DO ASSINANTE
+            $ass[DT_EXPIRACAO] = $planAnterior->getDtExpiracao();
+            $retorno[SUCESSO] = $AssinanteService->Salva($ass, $plan->getCoAssinante()->getCoAssinante());
         }
 
         // HISTORICO DO PAGAMENTO RETORNO PAGSEGURO
@@ -362,7 +392,20 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
 
     public function CancelarAssinaturaAssinante($code)
     {
-        $Url = "https://ws.sandbox.pagseguro.uol.com.br/v2/transactions/cancels?email=" .
+        /** @var PlanoAssinanteAssinaturaService $planoAssinanteAssinaturaService */
+        $planoAssinanteAssinaturaService = new PlanoAssinanteAssinaturaService();
+        /** @var HistoricoPagAssinaturaService $HistPagAssService */
+        $HistPagAssService = new HistoricoPagAssinaturaService();
+        /** @var AssinanteService $AssinanteService */
+        $AssinanteService = $this->getService(ASSINANTE_SERVICE);
+        /** @var PDO $PDO */
+        $PDO = $this->getPDO();
+        $retorno = [
+            SUCESSO => false,
+            MSG => null
+        ];
+        $session = new Session();
+        $Url = URL_PAGSEGURO . "transactions/cancels?email=" .
             EMAIL_PAGSEGURO . "&token=" . TOKEN_PAGSEGURO . "&transactionCode={$code}";
 
         $Curl = curl_init($Url);
@@ -374,12 +417,70 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
         curl_close($Curl);
 
         $Xml = simplexml_load_string($Retorno);
-        debug($Xml, 1);
+
+        if (!(string)$Xml->error->message) {
+            $PDO->beginTransaction();
+
+            /** @var PlanoAssinanteAssinaturaEntidade $plan */
+            $plan = $planoAssinanteAssinaturaService->PesquisaUmQuando([
+                DS_CODE_TRANSACAO => $code
+            ]);
+
+            // HISTORICO DO PAGAMENTO RETORNO PAGSEGURO
+            $histPagAss[CO_PLANO_ASSINANTE_ASSINATURA] = $plan->getCoPlanoAssinanteAssinatura();
+            $histPagAss[DT_CADASTRO] = Valida::DataHoraAtualBanco();
+            $histPagAss[DS_ACAO] = 'Mudou para o Status do pagamento de ' .
+                StatusPagamentoEnum::getDescricaoValor(StatusPagamentoEnum::CANCELADA);
+            $histPagAss[DS_USUARIO] = 'Suporte Efetuou o cancelamento.';
+            $histPagAss[ST_PAGAMENTO] = StatusPagamentoEnum::CANCELADA;
+
+            $HistPagAssService->Salva($histPagAss);
+
+            // DESATIVA O PLANO CANCELADO
+            $dados[DT_MODIFICADO] = Valida::DataHoraAtualBanco();
+            $dados[ST_STATUS] = StatusAcessoEnum::INATIVO;
+            $dados[ST_PAGAMENTO] = StatusPagamentoEnum::CANCELADA;
+            $retorno[SUCESSO] = $planoAssinanteAssinaturaService->Salva($dados, $plan->getCoPlanoAssinanteAssinatura());
+
+            if ($retorno[SUCESSO]) {
+                $retorno[SUCESSO] = true;
+                $session->setSession(MENSAGEM, ATUALIZADO);
+                $PDO->commit();
+            } else {
+                $retorno[SUCESSO] = false;
+                Notificacoes::geraMensagem(
+                    'Error ao Cancela essa Transação.',
+                    TiposMensagemEnum::ALERTA
+                );
+                $PDO->rollBack();
+            }
+
+        } else {
+            Notificacoes::geraMensagem(
+                'Error: Essa Transação não pode ser Cancelada.',
+                TiposMensagemEnum::INFORMATIVO
+            );
+            $retorno[SUCESSO] = false;
+        }
+        return $retorno;
     }
 
     public function EstornarAssinaturaAssinante($code)
     {
-        $Url = "https://ws.sandbox.pagseguro.uol.com.br/v2/transactions/refunds?email=" .
+        /** @var PlanoAssinanteAssinaturaService $planoAssinanteAssinaturaService */
+        $planoAssinanteAssinaturaService = new PlanoAssinanteAssinaturaService();
+        /** @var HistoricoPagAssinaturaService $HistPagAssService */
+        $HistPagAssService = new HistoricoPagAssinaturaService();
+        /** @var AssinanteService $AssinanteService */
+        $AssinanteService = $this->getService(ASSINANTE_SERVICE);
+        /** @var PDO $PDO */
+        $PDO = $this->getPDO();
+        $retorno = [
+            SUCESSO => false,
+            MSG => null
+        ];
+        $session = new Session();
+        $Url = URL_PAGSEGURO . "transactions/refunds?email=" .
             EMAIL_PAGSEGURO . "&token=" . TOKEN_PAGSEGURO . "&transactionCode={$code}";
 
         $Curl = curl_init($Url);
@@ -391,7 +492,65 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
         curl_close($Curl);
 
         $Xml = simplexml_load_string($Retorno);
-        debug($Xml, 1);
+        if (!(string)$Xml->error->message) {
+            $PDO->beginTransaction();
+
+            /** @var PlanoAssinanteAssinaturaEntidade $plan */
+            $plan = $planoAssinanteAssinaturaService->PesquisaUmQuando([
+                DS_CODE_TRANSACAO => $code
+            ]);
+
+            // HISTORICO DO PAGAMENTO RETORNO PAGSEGURO
+            $histPagAss[CO_PLANO_ASSINANTE_ASSINATURA] = $plan->getCoPlanoAssinanteAssinatura();
+            $histPagAss[DT_CADASTRO] = Valida::DataHoraAtualBanco();
+            $histPagAss[DS_ACAO] = 'Mudou para o Status do pagamento de ' .
+                StatusPagamentoEnum::getDescricaoValor(StatusPagamentoEnum::DEVOLVIDA);
+            $histPagAss[DS_USUARIO] = 'Suporte Efetuou o estorno.';
+            $histPagAss[ST_PAGAMENTO] = StatusPagamentoEnum::DEVOLVIDA;
+
+            $HistPagAssService->Salva($histPagAss);
+
+            // ATIVA O PLANO ANTERIOR
+            $planAssAtivar[ST_STATUS] = StatusAcessoEnum::ATIVO;
+            $planoAssinanteAssinaturaService->Salva($planAssAtivar, $plan->getCoPlanoAssinanteAssinaturaAtivo());
+
+            // DESATIVA O PLANO ESTORNADO
+            $dados[DT_MODIFICADO] = Valida::DataHoraAtualBanco();
+            $dados[ST_STATUS] = StatusAcessoEnum::INATIVO;
+            $dados[ST_PAGAMENTO] = StatusPagamentoEnum::DEVOLVIDA;
+            $planoAssinanteAssinaturaService->Salva($dados, $plan->getCoPlanoAssinanteAssinatura());
+
+
+            //  ATUALIZA A DATA DE EXPIRAÇÃO DO ASSINANTE
+            /** @var PlanoAssinanteAssinaturaEntidade $planAnterior */
+            $planAnterior = $planoAssinanteAssinaturaService->PesquisaUmRegistro(
+                $plan->getCoPlanoAssinanteAssinaturaAtivo()
+            );
+
+            // ATUALIZA A DATA DE EXPIRAÇÃO DO ASSINANTE
+            $ass[DT_EXPIRACAO] = $planAnterior->getDtExpiracao();
+            $retorno[SUCESSO] = $AssinanteService->Salva($ass, $plan->getCoAssinante()->getCoAssinante());
+
+            if ($retorno[SUCESSO]) {
+                $retorno[SUCESSO] = true;
+                $session->setSession(MENSAGEM, ATUALIZADO);
+                $PDO->commit();
+            } else {
+                $retorno[SUCESSO] = false;
+                Notificacoes::geraMensagem(
+                    'Error ao Estorna essa Transação.',
+                    TiposMensagemEnum::ALERTA
+                );
+                $PDO->rollBack();
+            }
+        } else {
+            Notificacoes::geraMensagem(
+                'Error: Essa Transação não pode ser Estornada.',
+                TiposMensagemEnum::INFORMATIVO
+            );
+            $retorno[SUCESSO] = false;
+        }
+        return $retorno;
     }
 
     public static function getCoPlanoAssinaturaAtivo($coAssinante)

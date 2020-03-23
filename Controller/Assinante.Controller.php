@@ -229,7 +229,7 @@ class Assinante extends AbstractController
         $PlanoAssAssinaturaService = $this->getService(PLANO_ASSINANTE_ASSINATURA_SERVICE);
         $code = UrlAmigavel::PegaParametro(DS_CODE_TRANSACAO);
         $retorno = $PlanoAssAssinaturaService->CancelarAssinaturaAssinante($code);
-        debug($retorno, 1);
+        Redireciona(UrlAmigavel::$modulo . '/' . UrlAmigavel::$controller . '/MeuPlanoAssinante/');
     }
 
     public function EstornarAssinaturaAssinante()
@@ -237,8 +237,8 @@ class Assinante extends AbstractController
         /** @var PlanoAssinanteAssinaturaService $PlanoAssAssinaturaService */
         $PlanoAssAssinaturaService = $this->getService(PLANO_ASSINANTE_ASSINATURA_SERVICE);
         $code = UrlAmigavel::PegaParametro(DS_CODE_TRANSACAO);
-        debug($code, 1);
         $retorno = $PlanoAssAssinaturaService->EstornarAssinaturaAssinante($code);
+        Redireciona(UrlAmigavel::$modulo . '/' . UrlAmigavel::$controller . '/MeuPlanoAssinante/');
     }
 
     public function NotificacaoPagSeguro()

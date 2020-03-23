@@ -290,14 +290,21 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
         return $retorna;
     }
 
-    public static function notificacaoPagSAeguro()
+    public static function notificacaoPagSeguro($aplicacao = false)
     {
+        $abs = new AbstractModel('PlanoAssinanteAssinaturaEntidade');
+        /** @var PDO $PDO */
+        $PDO = $abs->getPDO();
         /** @var PlanoAssinanteAssinaturaService $planoAssinanteAssinaturaService */
         $planoAssinanteAssinaturaService = new PlanoAssinanteAssinaturaService();
         /** @var HistoricoPagAssinaturaService $HistPagAssService */
         $HistPagAssService = new HistoricoPagAssinaturaService();
 
-        $Url = "https://ws.sandbox.pagseguro.uol.com.br/v3/transactions/notifications/{$_POST['notificationCode']}?email=" . EMAIL_PAGSEGURO . "&token=" . TOKEN_PAGSEGURO;
+        if ($aplicacao) {
+            $Url = "https://ws.sandbox.pagseguro.uol.com.br/v3/transactions/{$_POST['notificationCode']}?email=" . EMAIL_PAGSEGURO . "&token=" . TOKEN_PAGSEGURO;
+        } else {
+            $Url = "https://ws.sandbox.pagseguro.uol.com.br/v3/transactions/notifications/{$_POST['notificationCode']}?email=" . EMAIL_PAGSEGURO . "&token=" . TOKEN_PAGSEGURO;
+        }
 
         $Curl = curl_init($Url);
         curl_setopt($Curl, CURLOPT_SSL_VERIFYPEER, true);
@@ -306,20 +313,21 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
         curl_close($Curl);
 
         $Xml = simplexml_load_string($Retorno);
-
-        $coPlanoAssinanteAssinatura = $Xml->reference;
-        $dados[ST_PAGAMENTO] = $Xml->status;
+        $coPlanoAssinanteAssinatura = (string)$Xml->reference;
+        $dados[ST_PAGAMENTO] = (string)$Xml->status;
         $dados[DT_MODIFICADO] = (string)$Xml->lastEventDate;
         if ($dados[ST_PAGAMENTO] == StatusPagamentoEnum::PAGO)
             $dados[DT_CONFIRMA_PAGAMENTO] = (string)$Xml->lastEventDate;
 
-        if ($Xml->status > StatusPagamentoEnum::EM_ANALISE) {
+        $PDO->beginTransaction();
+        if ((string)$Xml->status > StatusPagamentoEnum::EM_ANALISE) {
             $dados[ST_STATUS] = StatusAcessoEnum::ATIVO;
 
             // DESATIVA O PLANO ANTERIOR
             /** @var PlanoAssinanteAssinaturaEntidade $plan */
             $plan = $planoAssinanteAssinaturaService->PesquisaUmRegistro($coPlanoAssinanteAssinatura);
             $planAss[ST_STATUS] = StatusAcessoEnum::INATIVO;
+
             $planoAssinanteAssinaturaService->Salva($planAss, $plan->getCoPlanoAssinanteAssinaturaAtivo());
         }
 
@@ -333,7 +341,16 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
 
         $HistPagAssService->Salva($histPagAss);
 
-        return $planoAssinanteAssinaturaService->Salva($dados, $coPlanoAssinanteAssinatura);
+        $retorno[SUCESSO] = $planoAssinanteAssinaturaService->Salva($dados, $coPlanoAssinanteAssinatura);
+
+        if ($retorno[SUCESSO]) {
+            $retorno[SUCESSO] = true;
+            $PDO->commit();
+        } else {
+            $retorno[SUCESSO] = false;
+            $PDO->rollBack();
+        }
+        return $retorno;
     }
 
     public function CancelarAssinaturaAssinante($code)

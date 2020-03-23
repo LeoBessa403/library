@@ -240,5 +240,23 @@ class Assinante extends AbstractController
         debug($code, 1);
         $retorno = $PlanoAssAssinaturaService->EstornarAssinaturaAssinante($code);
     }
+
+    public function NotificacaoPagSeguro()
+    {
+        /** @var FuncionalidadeService $funcionalidadeService */
+        $funcionalidadeService = $this->getService(FUNCIONALIDADE_SERVICE);
+
+        $id = "CadastrarNotificaacao";
+
+        if (!empty($_POST[$id])):
+            $retorno = PlanoAssinanteAssinaturaService::notificacaoPagSeguro(true);
+            if ($retorno[SUCESSO]) {
+                Redireciona(UrlAmigavel::$modulo . '/' . UrlAmigavel::$controller . '/MeuPlanoAssinante/');
+            }
+        endif;
+
+        $this->form = AssinanteForm::CadastrarNotificaacao();
+
+    }
 }
    

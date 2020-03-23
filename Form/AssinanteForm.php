@@ -518,4 +518,20 @@ class AssinanteForm
         return $formulario->finalizaFormPesquisaAvancada();
     }
 
+    public static function CadastrarNotificaacao()
+    {
+        $id = "CadastrarNotificaacao";
+
+        $formulario = new Form($id, ADMIN . "/" . UrlAmigavel::$controller . "/" . UrlAmigavel::$action,
+            "Notificar", 6);
+
+        $formulario
+            ->setId('notificationCode')
+            ->setClasses("ob")
+            ->setLabel("Código de Notificação")
+            ->CriaInpunt();
+
+        return $formulario->finalizaForm();
+    }
+
 }

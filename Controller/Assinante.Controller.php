@@ -243,13 +243,13 @@ class Assinante extends AbstractController
 
     public function NotificacaoPagSeguro()
     {
-        /** @var FuncionalidadeService $funcionalidadeService */
-        $funcionalidadeService = $this->getService(FUNCIONALIDADE_SERVICE);
+        /** @var PlanoAssinanteAssinaturaService $PlanoAssAssinaturaService */
+        $PlanoAssAssinaturaService = $this->getService(PLANO_ASSINANTE_ASSINATURA_SERVICE);
 
         $id = "CadastrarNotificaacao";
 
         if (!empty($_POST[$id])):
-            $retorno = PlanoAssinanteAssinaturaService::notificacaoPagSeguro(true);
+            $retorno = $PlanoAssAssinaturaService->notificacaoPagSeguro(true);
             if ($retorno[SUCESSO]) {
                 Redireciona(UrlAmigavel::$modulo . '/' . UrlAmigavel::$controller . '/MeuPlanoAssinante/');
             }

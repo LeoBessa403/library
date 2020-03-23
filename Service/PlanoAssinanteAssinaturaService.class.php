@@ -290,15 +290,16 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
         return $retorna;
     }
 
-    public static function notificacaoPagSeguro($aplicacao = false)
+    public function notificacaoPagSeguro($aplicacao = false)
     {
-        $abs = new AbstractModel('PlanoAssinanteAssinaturaEntidade');
         /** @var PDO $PDO */
-        $PDO = $abs->getPDO();
+        $PDO = $this->getPDO();
         /** @var PlanoAssinanteAssinaturaService $planoAssinanteAssinaturaService */
         $planoAssinanteAssinaturaService = new PlanoAssinanteAssinaturaService();
         /** @var HistoricoPagAssinaturaService $HistPagAssService */
         $HistPagAssService = new HistoricoPagAssinaturaService();
+        /** @var AssinanteService $AssinanteService */
+        $AssinanteService = $this->getService(ASSINANTE_SERVICE);
 
         if ($aplicacao) {
             $Url = "https://ws.sandbox.pagseguro.uol.com.br/v3/transactions/{$_POST['notificationCode']}?email=" . EMAIL_PAGSEGURO . "&token=" . TOKEN_PAGSEGURO;
@@ -320,7 +321,9 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
             $dados[DT_CONFIRMA_PAGAMENTO] = (string)$Xml->lastEventDate;
 
         $PDO->beginTransaction();
-        if ((string)$Xml->status > StatusPagamentoEnum::EM_ANALISE) {
+        if ((string)$Xml->status == StatusPagamentoEnum::PAGO ||
+            (string)$Xml->status == StatusPagamentoEnum::DISPONIVEL ||
+            (string)$Xml->status == StatusPagamentoEnum::EM_DISPUTA) {
             $dados[ST_STATUS] = StatusAcessoEnum::ATIVO;
 
             // DESATIVA O PLANO ANTERIOR
@@ -329,6 +332,10 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
             $planAss[ST_STATUS] = StatusAcessoEnum::INATIVO;
 
             $planoAssinanteAssinaturaService->Salva($planAss, $plan->getCoPlanoAssinanteAssinaturaAtivo());
+
+            // ATUALIZA A DATA DE EXPIRAÇÃO DO ASSINANTE
+            $ass[DT_EXPIRACAO] = $plan->getDtExpiracao();
+            $AssinanteService->Salva($ass, $plan->getCoAssinante()->getCoAssinante());
         }
 
         // HISTORICO DO PAGAMENTO RETORNO PAGSEGURO

@@ -21,13 +21,15 @@ class PlanoAssinanteAssinaturaEntidade extends AbstractEntidade
     private $nu_valor_desconto;
     private $nu_valor_real;
     private $ds_link_boleto;
+    private $co_plano_assinante_assinatura_ativo;
+    private $st_status;
     private $ds_code_transacao;
     private $nu_valor_assinatura;
     private $nu_profissionais;
     private $nu_filiais;
     private $co_assinante;
     private $co_plano_assinante;
-
+    private $co_historico_pag_assinatura;
 
     /**
      * @return array
@@ -44,6 +46,8 @@ class PlanoAssinanteAssinaturaEntidade extends AbstractEntidade
             NU_VALOR_DESCONTO,
             NU_VALOR_REAL,
             DS_LINK_BOLETO,
+            CO_PLANO_ASSINANTE_ASSINATURA_ATIVO,
+            ST_STATUS,
             DS_CODE_TRANSACAO,
             TP_PAGAMENTO,
             NU_VALOR_ASSINATURA,
@@ -230,6 +234,38 @@ class PlanoAssinanteAssinaturaEntidade extends AbstractEntidade
     /**
      * @return mixed
      */
+    public function getCoPlanoAssinanteAssinaturaAtivo()
+    {
+        return $this->co_plano_assinante_assinatura_ativo;
+    }
+
+    /**
+     * @param mixed $co_plano_assinante_assinatura_ativo
+     */
+    public function setCoPlanoAssinanteAssinaturaAtivo($co_plano_assinante_assinatura_ativo)
+    {
+        $this->co_plano_assinante_assinatura_ativo = $co_plano_assinante_assinatura_ativo;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStStatus()
+    {
+        return $this->st_status;
+    }
+
+    /**
+     * @param mixed $st_status
+     */
+    public function setStStatus($st_status)
+    {
+        $this->st_status = $st_status;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getDsCodeTransacao()
     {
         return $this->ds_code_transacao;
@@ -325,6 +361,22 @@ class PlanoAssinanteAssinaturaEntidade extends AbstractEntidade
     public function setNuFiliais($nu_filiais)
     {
         $this->nu_filiais = $nu_filiais;
+    }
+
+    /**
+     * @return HistoricoPagAssinaturaEntidade $co_plano_assinante
+     */
+    public function getCoHistoricoPagAssinatura()
+    {
+        return $this->co_historico_pag_assinatura;
+    }
+
+    /**
+     * @param mixed $co_historico_pag_assinatura
+     */
+    public function setCoHistoricoPagAssinatura($co_historico_pag_assinatura)
+    {
+        $this->co_historico_pag_assinatura = $co_historico_pag_assinatura;
     }
 
 }

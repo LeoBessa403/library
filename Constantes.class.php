@@ -144,6 +144,12 @@ define('DS_MENSAGEM', 'ds_mensagem');
 define('ST_LIDO', 'st_lido');
 define('ST_PAGAMENTO', 'st_pagamento');
 define('TP_PAGAMENTO', 'tp_pagamento');
+define('CO_HISTORICO_PAG_ASSINATURA', 'co_historico_pag_assinatura');
+define('DS_ACAO', 'ds_acao');
+define('DS_USUARIO', 'ds_usuario');
+define('CO_PLANO_ASSINANTE_ASSINATURA_ATIVO', 'co_plano_assinante_assinatura_ativo');
+
+
 
 
 // SERVICES PADRÃO
@@ -185,6 +191,7 @@ define('PERFIL_ASSINANTE_SERVICE', 'PerfilAssinanteService');
 define('CRONS_SERVICE', 'CronsService');
 define('SUPORTE_SERVICE', 'SuporteService');
 define('HISTORICO_SUPORTE_SERVICE', 'HistoricoSuporteService');
+define('HISTORICO_PAG_ASSINATURA_SERVICE', 'HistoricoPagAssinaturaService');
 
 
 // CONSTANTES

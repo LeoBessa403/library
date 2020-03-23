@@ -36,7 +36,7 @@
                         Modal::confirmacao("confirma_Assinante");
                         $grid = new Grid();
                         if (PerfilService::perfilMaster()) {
-                            $arrColunas = array('Assinante', 'Code', 'Plano', 'Data Pagamento', 'Meio de Pagamento', 'Valor R$', 'Nº Profissionais',
+                            $arrColunas = array('Assinante', 'Code', 'Status', 'Plano', 'Data Pagamento', 'Meio de Pagamento', 'Valor R$', 'Nº Profissionais',
                                 'Sit. Pagamento', 'Expiração', 'Ações');
                         } else {
                             $arrColunas = array('Status', 'Plano', 'Data Pagamento', 'Meio de Pagamento', 'Valor R$', 'Nº Profissionais',
@@ -87,20 +87,14 @@
                             $tpPagamento = ($res->getTpPagamento())
                                 ? TipoPagamentoEnum::getDescricaoValor($res->getTpPagamento())
                                 : null;
-                            if ($statusSis != 'A') {
-                                $statusSis = ($res->getStPagamento() == 3) ? 'A' : 'I';
-                            } else {
-                                $statusSis = 'I';
-                            }
                             if (PerfilService::perfilMaster()) {
                                 $noEmpresa = AssinanteService::getNoEmpresaCoAssinante(
                                     $res->getCoAssinante()->getCoAssinante()
                                 );
-                                $grid->setColunas($noEmpresa,5);
+                                $grid->setColunas($noEmpresa, 5);
                                 $grid->setColunas($res->getDsCodeTransacao(), 5);
-                            } else {
-                                $grid->setColunas(Valida::StatusLabel($statusSis), 2);
                             }
+                            $grid->setColunas(Valida::StatusLabel($res->getStStatus()), 2);
                             $grid->setColunas($res->getCoPlanoAssinante()->getCoPlano()->getNoPlano());
                             $grid->setColunas($dtPagamento, 2);
                             $grid->setColunas($tpPagamento, 4);

@@ -24,6 +24,8 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
         $AssinanteService = $this->getService(ASSINANTE_SERVICE);
         /** @var PlanoAssinanteAssinaturaService $planoAssinanteAssinaturaService */
         $planoAssinanteAssinaturaService = $this->getService(PLANO_ASSINANTE_ASSINATURA_SERVICE);
+        /** @var HistoricoPagAssinaturaService $HistPagAssService */
+        $HistPagAssService = $this->getService(HISTORICO_PAG_ASSINATURA_SERVICE);
         /** @var PessoaService $pessoaService */
         $pessoaService = $this->getService(PESSOA_SERVICE);
         /** @var ContatoService $contatoService */
@@ -57,7 +59,6 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
                 $retorno[SUCESSO] = $dados[CO_PLANO_ASSINANTE_ASSINATURA];
                 $retorno[MSG] = ATUALIZADO;
             } else {
-
                 $planoAssinanteAssinatura[CO_PLANO_ASSINANTE] = $plano->getCoUltimoPlanoAssinante()->getCoPlanoAssinante();
                 $planoAssinanteAssinatura[CO_ASSINANTE] = $dados[CO_ASSINANTE];
                 $planoAssinanteAssinatura[NU_PROFISSIONAIS] = PlanoService::getNuProfissionais($plano->getNuMesAtivo());
@@ -75,6 +76,15 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
                 $retorno[MSG] = CADASTRADO;
             }
 
+            // HISTORICO DO PAGAMENTO INICIADO
+            $histPagAss[CO_PLANO_ASSINANTE_ASSINATURA] = $retorno[SUCESSO];
+            $histPagAss[DT_CADASTRO] = Valida::DataHoraAtualBanco();
+            $histPagAss[DS_ACAO] = 'Inicia o pagamento';
+            $histPagAss[DS_USUARIO] = UsuarioService::getNoPessoaCoUsuario(UsuarioService::getCoUsuarioLogado())
+                . ' Iniciou o pagamento';
+            $histPagAss[ST_PAGAMENTO] = StatusPagamentoEnum::PENDENTE;
+
+            $HistPagAssService->Salva($histPagAss);
 
             if ($retorno[SUCESSO]) {
 
@@ -103,6 +113,16 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
 
                     $retorno[SUCESSO] = $planoAssinanteAssinaturaService->Salva(
                         $retPagSeg, (int)$retornoPagSeguro->reference);
+
+                    // HISTORICO DO PAGAMENTO RETORNO PAGSEGURO
+                    $histPagAss[CO_PLANO_ASSINANTE_ASSINATURA] = (int)$retornoPagSeguro->reference;
+                    $histPagAss[DT_CADASTRO] = (string)$retornoPagSeguro->lastEventDate;
+                    $histPagAss[DS_ACAO] = 'Mudou para o Status do pagamento de ' .
+                        StatusPagamentoEnum::getDescricaoValor((string)$retornoPagSeguro->status);
+                    $histPagAss[DS_USUARIO] = 'Retorno da operadora do pagamento';
+                    $histPagAss[ST_PAGAMENTO] = (string)$retornoPagSeguro->status;
+
+                    $HistPagAssService->Salva($histPagAss);
 
                     if ($retorno[SUCESSO]) {
                         $retorno[SUCESSO] = true;
@@ -137,17 +157,29 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
 
     public function salvaPlanoPadrao($coAssinante)
     {
+        /** @var HistoricoPagAssinaturaService $HistoricoPagAssinaturaService */
+        $HistoricoPagAssinaturaService = $this->getService(HISTORICO_PAG_ASSINATURA_SERVICE);
+
         $planoAssinanteAssinatura[CO_PLANO_ASSINANTE] = 1;
         $planoAssinanteAssinatura[CO_ASSINANTE] = $coAssinante;
         $planoAssinanteAssinatura[NU_PROFISSIONAIS] = 3;
         $planoAssinanteAssinatura[NU_FILIAIS] = 0;
+        $planoAssinanteAssinatura[ST_STATUS] = StatusAcessoEnum::ATIVO;
+        $planoAssinanteAssinatura[ST_PAGAMENTO] = StatusPagamentoEnum::PAGO;
         $planoAssinanteAssinatura[DT_CADASTRO] = Valida::DataHoraAtualBanco();
+        $planoAssinanteAssinatura[DT_MODIFICADO] = Valida::DataHoraAtualBanco();
         $planoAssinanteAssinatura[DT_EXPIRACAO] = Valida::DataDBDate(Valida::CalculaData(date('d/m/Y'),
             ConfiguracoesEnum::DIAS_EXPERIMENTAR, "+"));
         $planoAssinanteAssinatura[NU_VALOR_ASSINATURA] = '0.00';
-        return $this->Salva($planoAssinanteAssinatura);
-    }
 
+        $histPagAss[CO_PLANO_ASSINANTE_ASSINATURA] = $this->Salva($planoAssinanteAssinatura);
+        $histPagAss[DT_CADASTRO] = Valida::DataHoraAtualBanco();
+        $histPagAss[DS_ACAO] = 'Plano Grátis';
+        $histPagAss[DS_USUARIO] = NO_USUARIO_PADRAO . ' Iniciou o plano de experiência';
+        $histPagAss[ST_PAGAMENTO] = StatusPagamentoEnum::PAGO;
+
+        return $HistoricoPagAssinaturaService->Salva($histPagAss);
+    }
 
     public function getReferenciaPagamentoAssinante()
     {
@@ -280,35 +312,48 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
 
     public function CancelarAssinaturaAssinante($code)
     {
-        $Url="https://ws.sandbox.pagseguro.uol.com.br/v2/transactions/cancels?email=".
-            EMAIL_PAGSEGURO."&token=".TOKEN_PAGSEGURO."&transactionCode={$code}";
+        $Url = "https://ws.sandbox.pagseguro.uol.com.br/v2/transactions/cancels?email=" .
+            EMAIL_PAGSEGURO . "&token=" . TOKEN_PAGSEGURO . "&transactionCode={$code}";
 
-        $Curl=curl_init($Url);
-        curl_setopt($Curl,CURLOPT_HTTPHEADER,Array("Content-Type: application/x-www-form-urlencoded; charset=UTF-8"));
-        curl_setopt($Curl,CURLOPT_POST,true);
-        curl_setopt($Curl,CURLOPT_SSL_VERIFYPEER,false);
-        curl_setopt($Curl,CURLOPT_RETURNTRANSFER,true);
-        $Retorno=curl_exec($Curl);
+        $Curl = curl_init($Url);
+        curl_setopt($Curl, CURLOPT_HTTPHEADER, Array("Content-Type: application/x-www-form-urlencoded; charset=UTF-8"));
+        curl_setopt($Curl, CURLOPT_POST, true);
+        curl_setopt($Curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($Curl, CURLOPT_RETURNTRANSFER, true);
+        $Retorno = curl_exec($Curl);
         curl_close($Curl);
 
-        $Xml=simplexml_load_string($Retorno);
-        debug($Xml,1);
+        $Xml = simplexml_load_string($Retorno);
+        debug($Xml, 1);
     }
 
     public function EstornarAssinaturaAssinante($code)
     {
-        $Url="https://ws.sandbox.pagseguro.uol.com.br/v2/transactions/refunds?email=".
-            EMAIL_PAGSEGURO."&token=".TOKEN_PAGSEGURO."&transactionCode={$code}";
+        $Url = "https://ws.sandbox.pagseguro.uol.com.br/v2/transactions/refunds?email=" .
+            EMAIL_PAGSEGURO . "&token=" . TOKEN_PAGSEGURO . "&transactionCode={$code}";
 
-        $Curl=curl_init($Url);
-        curl_setopt($Curl,CURLOPT_HTTPHEADER,Array("Content-Type: application/x-www-form-urlencoded; charset=UTF-8"));
-        curl_setopt($Curl,CURLOPT_POST,true);
-        curl_setopt($Curl,CURLOPT_SSL_VERIFYPEER,false);
-        curl_setopt($Curl,CURLOPT_RETURNTRANSFER,true);
-        $Retorno=curl_exec($Curl);
+        $Curl = curl_init($Url);
+        curl_setopt($Curl, CURLOPT_HTTPHEADER, Array("Content-Type: application/x-www-form-urlencoded; charset=UTF-8"));
+        curl_setopt($Curl, CURLOPT_POST, true);
+        curl_setopt($Curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($Curl, CURLOPT_RETURNTRANSFER, true);
+        $Retorno = curl_exec($Curl);
         curl_close($Curl);
 
-        $Xml=simplexml_load_string($Retorno);
-        debug($code,1);
+        $Xml = simplexml_load_string($Retorno);
+        debug($code, 1);
+    }
+
+    public static function getCoPlanoAssinaturaAtivo($coAssinante)
+    {
+        /** @var PlanoAssinanteAssinaturaService $planoAssinanteAssinaturaService */
+        $planoAssinanteAssinaturaService = new PlanoAssinanteAssinaturaService();
+        /** @var PlanoAssinanteAssinaturaEntidade $planoAssinante */
+        $planoAssinante = $planoAssinanteAssinaturaService->PesquisaUmQuando([
+            CO_ASSINANTE => $coAssinante,
+            ST_STATUS => StatusSistemaEnum::ATIVO
+        ]);
+
+        return $planoAssinante->getCoPlanoAssinanteAssinatura();
     }
 }

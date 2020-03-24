@@ -277,8 +277,12 @@ class Index extends AbstractController
 
             if ($statusSis) {
                 $statusSis = AssinanteService::getStatusAssinante($usuarioAcesso[DT_EXPIRACAO]);
-                if ($statusSis == StatusSistemaEnum::EXPIRADO)
-                    Redireciona(ADMIN . LOGIN . Valida::GeraParametro("acesso/S"));
+                if ($statusSis == StatusSistemaEnum::EXPIRADO) {
+                    Notificacoes::geraMensagem(
+                        'Sistema Expirado, favor renovar sua assinatura.',
+                        TiposMensagemEnum::ERRO
+                    );
+                }
             } else {
                 $statusSis = StatusSistemaEnum::ATIVO;
             }

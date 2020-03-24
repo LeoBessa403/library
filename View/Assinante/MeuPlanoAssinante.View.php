@@ -63,16 +63,34 @@
                                      <i class="fa fa-money"></i>
                                  </a>';
                                 }
+                                if ($res->getStPagamento() == StatusPagamentoEnum::AGUARDANDO_PAGAMENTO ||
+                                    $res->getStPagamento() == StatusPagamentoEnum::EM_ANALISE) {
+                                    if ($res->getTpPagamento() == TipoPagamentoEnum::BOLETO
+                                        && $res->getDsLinkBoleto()) {
+                                        $acao .= ' <a href="' . $res->getDsLinkBoleto() . '" target="_blank"
+                                                    class="btn btn-warning tooltips" 
+                                                        data-original-title="Abrir Boleto" data-placement="top">
+                                                         <i class="clip-file-pdf"></i>
+                                                     </a>';
+                                    } elseif ($res->getTpPagamento() == TipoPagamentoEnum::DEPOSITO_TRANSFERENCIA
+                                        && $res->getDsLinkBoleto()) {
+                                        $acao .= ' <a href="' . $res->getDsLinkBoleto() . '" target="_blank"
+                                                    class="btn btn-warning tooltips" 
+                                                        data-original-title="Abrir Página do Banco" data-placement="top">
+                                                         <i class="clip-banknote"></i>
+                                                     </a>';
+                                    }
+                                }
                                 if (PerfilService::perfilMaster() && $res->getStPagamento() > 0) {
                                     if ($res->getStPagamento() == StatusPagamentoEnum::AGUARDANDO_PAGAMENTO ||
                                         $res->getStPagamento() == StatusPagamentoEnum::EM_ANALISE) {
                                         $acao .= ' <a href="' . PASTAADMIN . 'Assinante/CancelarAssinaturaAssinante/' .
                                             Valida::GeraParametro(DS_CODE_TRANSACAO . "/" .
                                                 $res->getDsCodeTransacao()) . '" 
-                                class="btn btn-danger tooltips" 
-                                    data-original-title="Cancelar Assinatura do Assinante" data-placement="top">
-                                     <i class="fa fa-trash-o"></i>
-                                 </a>';
+                                                class="btn btn-danger tooltips" 
+                                                    data-original-title="Cancelar Assinatura do Assinante" data-placement="top">
+                                                     <i class="fa fa-trash-o"></i>
+                                                 </a>';
                                     } elseif ($res->getStPagamento() == StatusPagamentoEnum::PAGO ||
                                         $res->getStPagamento() == StatusPagamentoEnum::DISPONIVEL ||
                                         $res->getStPagamento() == StatusPagamentoEnum::EM_DISPUTA) {

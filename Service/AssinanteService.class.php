@@ -320,4 +320,28 @@ class  AssinanteService extends AbstractService
         return $AssinanteModel->getNoEmpresaCoAssinante($coAssinante);
     }
 
+    public static function verificaStatusAssiante()
+    {
+        /** @var Session $us */
+        $us = $_SESSION[SESSION_USER];
+        $user = $us->getUser();
+
+        if (isset($user[md5(DT_EXPIRACAO)])) {
+            $dtExpiracao = $user[md5(DT_EXPIRACAO)];
+
+            $difDatas = Valida::CalculaDiferencaDiasData(date('d/m/Y'), $dtExpiracao);
+            if ($difDatas > ConfiguracoesEnum::DIAS_EXPIRANDO) {
+                $statusSis = StatusSistemaEnum::ATIVO;
+            } elseif ($difDatas <= ConfiguracoesEnum::DIAS_EXPIRANDO && $difDatas >= 0) {
+                $statusSis = StatusSistemaEnum::EXPIRANDO;
+            } elseif ($difDatas < 0 && ($difDatas * -1) <= ConfiguracoesEnum::DIAS_EXPIRADO) {
+                $statusSis = StatusSistemaEnum::PENDENTE;
+            } else {
+                $statusSis = StatusSistemaEnum::EXPIRADO;
+            }
+            return $statusSis;
+        }
+        return true;
+    }
+
 }

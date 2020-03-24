@@ -26,7 +26,7 @@ class UrlAmigavel
 
     /**
      * Realização a gestã£o da dos controladores e metodos a serem executados
-     * e pega os ParÃ¢metos via GET!
+     * e pega os Parâmetos via GET!
      */
     public function __construct()
     {
@@ -77,6 +77,23 @@ class UrlAmigavel
      */
     public function pegaControllerAction()
     {
+        if (!in_array(self::$action, self::$ACESSO_PERMITIDO)) {
+            if (!PerfilService::perfilMaster() && MODULO_ASSINANTE &&
+                AssinanteService::verificaStatusAssiante() == StatusSistemaEnum::EXPIRADO) {
+                if (self::$action != 'RenovaPlanoAssinante' &&
+                    self::$controller != 'Assinante') {
+                    if (self::$action != 'MeuPlanoAssinante') {
+                        Notificacoes::geraMensagem(
+                            'Sistema Expirado, favor renovar sua assinatura.',
+                            TiposMensagemEnum::ERRO
+                        );
+                    }
+                    self::$action = 'RenovaPlanoAssinante';
+                    self::$controller = 'Assinante';
+                }
+            }
+        }
+
         $erro_404 = false;
         if (self::$modulo != SITE && self::$action != ACTION_INICIAL_ADMIN &&
             self::$controller != CONTROLLER_INICIAL_ADMIN):
@@ -86,7 +103,6 @@ class UrlAmigavel
                 $erro_404 = true;
             endif;
         endif;
-
 
         if (self::$modulo != SITE && self::$modulo != ADMIN):
             self::$modulo = SITE;

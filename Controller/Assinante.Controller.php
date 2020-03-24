@@ -258,5 +258,12 @@ class Assinante extends AbstractController
         $this->form = AssinanteForm::CadastrarNotificaacao();
 
     }
+
+    public static function DetalharPagamentoAjax($coPlanoAssAss)
+    {
+        /** @var PlanoAssinanteAssinaturaService $PlanoAssAssinaturaService */
+        $PlanoAssAssinaturaService = static::getServiceStatic(PLANO_ASSINANTE_ASSINATURA_SERVICE);
+        return $PlanoAssAssinaturaService->DetalharPagamentoAjax($coPlanoAssAss);
+    }
 }
    

@@ -27,6 +27,7 @@
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
+                        <?php include_once 'DetalhesPagamento.View.php' ?>
                         <i class="fa fa-external-link-square"></i>
                         Assinaturas de Planos
                     </div>
@@ -37,7 +38,7 @@
                         $grid = new Grid();
                         if (PerfilService::perfilMaster()) {
                             $arrColunas = array('Assinante', 'Code', 'Status', 'Plano', 'Data Pagamento', 'Meio de Pagamento', 'Valor R$', 'Nº Profissionais',
-                                'Sit. Pagamento', 'Expiração', 'Ações');
+                                'Sit. Pagamento', 'Ações');
                         } else {
                             $arrColunas = array('Status', 'Plano', 'Data Pagamento', 'Meio de Pagamento', 'Valor R$', 'Nº Profissionais',
                                 'Sit. Pagamento', 'Expiração', 'Ações');
@@ -47,7 +48,11 @@
                         $statusSis = '';
                         /** @var PlanoAssinanteAssinaturaEntidade $res */
                         foreach ($result as $res):
-                            $acao = '';
+                            $acao = '<button class="btn btn-primary btn-visualizar tooltips" data-coPlanoAssAss="' .
+                                $res->getCoPlanoAssinanteAssinatura() . '"  
+                                        data-original-title="Visualizar Pagamento" data-placement="top">
+                                         <i class="clip-eye"></i>
+                                     </button>';
                             if ($res->getCoPlanoAssinante()->getCoPlano()->getCoPlano() > 1) {
                                 if ($res->getStPagamento() < 1) {
                                     $acao .= ' <a href="' . PASTAADMIN . 'Assinante/RenovaPlanoAssinante/' .
@@ -91,8 +96,8 @@
                                 $noEmpresa = AssinanteService::getNoEmpresaCoAssinante(
                                     $res->getCoAssinante()->getCoAssinante()
                                 );
-                                $grid->setColunas($noEmpresa, 5);
-                                $grid->setColunas($res->getDsCodeTransacao(), 5);
+                                $grid->setColunas($noEmpresa, 3);
+                                $grid->setColunas($res->getDsCodeTransacao(), 2);
                             }
                             $grid->setColunas(Valida::StatusLabel($res->getStStatus()), 2);
                             $grid->setColunas($res->getCoPlanoAssinante()->getCoPlano()->getNoPlano());
@@ -101,7 +106,9 @@
                             $grid->setColunas($res->getNuValorAssinatura(), 2);
                             $grid->setColunas($res->getNuProfissionais(), 2);
                             $grid->setColunas(StatusPagamentoEnum::getDescricaoValor($res->getStPagamento()), 2);
-                            $grid->setColunas(Valida::DataShow($res->getDtExpiracao()), 2);
+                            if (!PerfilService::perfilMaster()) {
+                                $grid->setColunas(Valida::DataShow($res->getDtExpiracao()), 2);
+                            }
                             $grid->setColunas($acao, 3);
                             $grid->criaLinha($res->getCoPlanoAssinanteAssinatura());
                         endforeach;

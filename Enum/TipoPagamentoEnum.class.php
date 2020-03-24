@@ -5,6 +5,7 @@
  */
 class TipoPagamentoEnum extends AbstractEnum
 {
+    const GRATIS = 0;
     const DINHEIRO = 1;
     const CARTAO_DEBITO = 2;
     const CARTAO_CREDITO = 3;
@@ -16,6 +17,7 @@ class TipoPagamentoEnum extends AbstractEnum
     const OUTROS = 9;
 
     public static $descricao = [
+        TipoPagamentoEnum::GRATIS => 'Grátis',
         TipoPagamentoEnum::DINHEIRO => 'Dinheiro',
         TipoPagamentoEnum::CARTAO_DEBITO => 'Cartão de Débito',
         TipoPagamentoEnum::CARTAO_CREDITO => 'Cartão de Crédito',

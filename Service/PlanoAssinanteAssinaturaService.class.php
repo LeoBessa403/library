@@ -563,4 +563,39 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
 
         return $planoAssinante->getCoPlanoAssinanteAssinatura();
     }
+
+    public function DetalharPagamentoAjax($coPlanoAssAss)
+    {
+        /** @var PlanoAssinanteAssinaturaService $planoAssinanteAssinaturaService */
+        $planoAssinanteAssinaturaService = new PlanoAssinanteAssinaturaService();
+        /** @var PlanoAssinanteAssinaturaEntidade $planoAssinante */
+        $planoAssinante = $planoAssinanteAssinaturaService->PesquisaUmRegistro($coPlanoAssAss);
+        $dados = [];
+        $dados[CO_HISTORICO_PAG_ASSINATURA] = [];
+        if ($planoAssinante->getCoHistoricoPagAssinatura()) {
+            /** @var HistoricoPagAssinaturaEntidade $histAss */
+            foreach ($planoAssinante->getCoHistoricoPagAssinatura() as $histAss) {
+                $dados[CO_HISTORICO_PAG_ASSINATURA][] = Valida::DataShow($histAss->getDtCadastro(), 'd/m/Y H:i:s') .
+                    ' - Status: ' . StatusPagamentoEnum::getDescricaoValor($histAss->getStPagamento()) .
+                    ', ' . $histAss->getDsAcao() . ' - ' . $histAss->getDsUsuario();
+            }
+            $dados[CO_HISTORICO_PAG_ASSINATURA] = array_reverse($dados[CO_HISTORICO_PAG_ASSINATURA]);
+        }
+
+        $dtPagamento = ($planoAssinante->getDtConfirmaPagamento()) ?
+            Valida::DataShow($planoAssinante->getDtConfirmaPagamento(), 'd/m/Y H:i:s') : '';
+
+        $dados[ST_STATUS] = Valida::StatusLabel($planoAssinante->getStStatus());
+        $dados[DS_CODE_TRANSACAO] = $planoAssinante->getDsCodeTransacao();
+        $dados[NO_PLANO] = $planoAssinante->getCoPlanoAssinante()->getCoPlano()->getNoPlano();
+        $dados[DT_CONFIRMA_PAGAMENTO] = $dtPagamento;
+        $dados[ST_PAGAMENTO] = StatusPagamentoEnum::getDescricaoValor($planoAssinante->getStPagamento());
+        $dados[TP_PAGAMENTO] = TipoPagamentoEnum::getDescricaoValor($planoAssinante->getTpPagamento());
+        $dados[NU_VALOR_ASSINATURA] = Valida::FormataMoeda($planoAssinante->getCoPlanoAssinante()->getNuValor(), 'R$');
+        $dados[NU_VALOR_DESCONTO] = Valida::FormataMoeda($planoAssinante->getNuValorDesconto(), 'R$');
+        $dados[NU_VALOR_REAL] = Valida::FormataMoeda($planoAssinante->getNuValorReal(), 'R$');
+        $dados[NU_PROFISSIONAIS] = $planoAssinante->getNuProfissionais();
+
+        return $dados;
+    }
 }

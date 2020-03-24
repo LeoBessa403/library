@@ -301,7 +301,7 @@ class  AssinanteService extends AbstractService
             $status_sistema = $user[md5('status_sistema')];
             $difDatas = Valida::CalculaDiferencaDiasData(date('d/m/Y'), $dtExpiracao);
             if ($status_sistema == StatusSistemaEnum::EXPIRANDO ||
-            $status_sistema == StatusSistemaEnum::PENDENTE) {
+                $status_sistema == StatusSistemaEnum::PENDENTE) {
                 $retorno = [
                     "status_sistema" => $status_sistema,
                     "dias" => $difDatas,

@@ -208,7 +208,7 @@ function PHPErro($ErrNo, $ErrMsg, $ErrFile, $ErrLine)
     echo '<div class="alert alert-danger alert-dismissable" style="padding-left: 40px;" xmlns="http://www.w3.org/1999/html">
             <i class="fa fa-ban"></i>
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <big><b>' . $label . ': </b></big> '. $ErrMsg. '</br><big>' . $ErrFile . ' - <b><i>Linha: ' . $ErrLine . ' </i></b></big>
+            <big><b>' . $label . ': </b></big> ' . $ErrMsg . '</br><big>' . $ErrFile . ' - <b><i>Linha: ' . $ErrLine . ' </i></b></big>
         </div>';
     if ($ErrNo == E_USER_ERROR):
         die;
@@ -237,9 +237,9 @@ function debug($array, $Exit = false)
     $strMessage = "<fieldset style='margin: 10px; padding: 5px;'><legend style=' background-color: #fcfcfc; padding: 5px;'><font color=\"#007000\">DEBUG</font></legend><pre>";
     $strMessage .= "<b>Arquivo:</b> " . $aTrace[0]['file'] . "\n";
     $strMessage .= "<b>Linha:</b> " . $aTrace[0]['line'] . "\n";
-    $strMessage .= "<b>Quando: </b> " . date( "d/m/Y H:i:s" ) . "\n<hr />";
+    $strMessage .= "<b>Quando: </b> " . date("d/m/Y H:i:s") . "\n<hr />";
     ob_start();
-    var_dump( $array );
+    var_dump($array);
     $strMessage .= ob_get_clean();
     $strMessage .= "</pre></fieldset>";
     print $strMessage;
@@ -249,8 +249,7 @@ function debug($array, $Exit = false)
                             $(".navbar-content").hide();
                        });
                 </script>';
-    if ( $Exit )
-    {
+    if ($Exit) {
         print "<br /><font color=\"#700000\" size=\"3\"><b>E X I T</b></font>";
         die();
     }
@@ -262,8 +261,10 @@ function debug($array, $Exit = false)
  */
 function carregaJs($urlAmigavel)
 {
-    $arquivo = '/js/' . $urlAmigavel::$controller . '/' . $urlAmigavel::$action . '.js';
-    if (file_exists(ADMIN . $arquivo)) {
-        echo '<script src="' . HOME . ADMIN . $arquivo . '"></script>';
+    $arquivo = 'js/' . $urlAmigavel::$controller . '/' . $urlAmigavel::$action . '.js';
+    if (file_exists(ADMIN . '/' . $arquivo)) {
+        echo '<script src="' . HOME . ADMIN . '/' . $arquivo . '"></script>';
+    } elseif (file_exists('library/' . $arquivo)) {
+        echo '<script src="' . PASTA_LIBRARY . $arquivo . '"></script>';
     }
 }

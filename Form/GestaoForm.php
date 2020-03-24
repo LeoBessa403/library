@@ -332,7 +332,7 @@ class GestaoForm
 
         $formulario = new Form($id, null, 'Minificar', 4);
 
-        $tabelas = ['css' => 'CSS', 'js' => 'JS'];
+        $tabelas = ['css' => 'CSS', 'js_geral' => 'JS Geral', 'js_renovacao' => 'JS Renovação', 'js_agenda' => 'JS Agenda'];
         $formulario
             ->setId('tp_arquivos')
             ->setLabel("Tipo de Arquivo")

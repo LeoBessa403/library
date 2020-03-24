@@ -288,7 +288,7 @@ class Gestao extends AbstractController
 
                     $retorno = true;
                 }
-                if (in_array('js', $_POST['tp_arquivos'])) {
+                if (in_array('js_geral', $_POST['tp_arquivos'])) {
                     $minifierJS = new MatthiasMullie\Minify\JS();
 
                     // ARQUIVOS JS
@@ -338,19 +338,38 @@ class Gestao extends AbstractController
                     $js[] = INCLUDES_LIBRARY . "plugins/FullCalendar4/js/timegrid.main.min.js";
                     $js[] = INCLUDES_LIBRARY . "plugins/FullCalendar4/js/bootstrap.main.min.js";
 
-                    // CRIA ARQUIVO MINIFICADO JS AGENDAMENTO
-                    //$js[] = PASTA_RAIZ . ADMIN . "/js/Agenda/Agendamento_back.js";
-
                     foreach ($js as $itemJS) {
                         $minifierJS->add($itemJS);
                     }
 
-                    // CRIA ARQUIVO MINIFICADO JS AGENDAMENTO
-                    // $miniJS = PASTA_RAIZ . ADMIN . "/js/Agenda/Agendamento.js";
                     $miniJS = INCLUDES_LIBRARY . 'js/js_padrao.min.js';
                     $minifierJS->minify($miniJS);
 
                     $retorno = true;
+                }
+                if (in_array('js_renovacao', $_POST['tp_arquivos'])) {
+                    $minifierJS = new MatthiasMullie\Minify\JS();
+                    // CRIA ARQUIVO MINIFICADO JS Renovação pagamento
+                    $js[] = PASTA_RAIZ . "library/js/Assinante/RenovaPlanoAssinante_back.js";
+                    foreach ($js as $itemJS) {
+                        $minifierJS->add($itemJS);
+                    }
+                    // CRIA ARQUIVO MINIFICADO JS Renovação pagamento
+                    $miniJS = PASTA_RAIZ . "library/js/Assinante/RenovaPlanoAssinante.js";
+                    $minifierJS->minify($miniJS);
+
+                }
+                if (in_array('js_agenda', $_POST['tp_arquivos'])) {
+                    $minifierJS = new MatthiasMullie\Minify\JS();
+                    // CRIA ARQUIVO MINIFICADO JS Agendamento
+                    $js[] = PASTA_RAIZ . ADMIN . "/js/Agenda/Agendamento_back.js";
+                    foreach ($js as $itemJS) {
+                        $minifierJS->add($itemJS);
+                    }
+                    // CRIA ARQUIVO MINIFICADO JS Agendamento
+                    $miniJS = PASTA_RAIZ . ADMIN . "/js/Agenda/Agendamento.js";
+                    $minifierJS->minify($miniJS);
+
                 }
                 if ($retorno) {
                     Notificacoes::geraMensagem(

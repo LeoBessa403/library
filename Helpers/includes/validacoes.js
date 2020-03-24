@@ -205,6 +205,20 @@ $(function () {
         mascaraTel($(this), valor);
     });
 
+    $(".cartao_credito").mask("9999 9999 9999 9999");
+
+    $(".cvv").mask("999").keyup(function () {
+        var valor = $(this).val().replace(/[^0-9]+/g, '');
+        valor = valor.val().replace(/[^.-]+/g, '');
+        $(this).val(valor);
+    });
+
+    $(".validade_cartao").mask("99/99").keyup(function () {
+        var valor = $(this).val().replace(/[^0-9]+/g, '');
+        valor = valor.val().replace(/[^.-]+/g, '');
+        $(this).val(valor);
+    });
+
     ///// VERIFICA INTERVALO DE DATAS
     function gerarData(str) {
         var partes = str.split("/");
@@ -295,8 +309,7 @@ $(function () {
             return true;
         else if (tecla === 8 || tecla === 0) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }).keyup(function () {
@@ -347,7 +360,7 @@ $(function () {
     $(".formulario").submit(function () {
         var formAjax = $(this).parents('.j_cadastro').attr('id');
         var formPesquisaAjax = $(this).parents('.j_pesquisar').attr('id');
-        if(!formAjax && !formPesquisaAjax){
+        if (!formAjax && !formPesquisaAjax) {
             $('.img-load').fadeIn('slow');
             var obrigatorios = campoObrigatorio();
             var validacao = "";

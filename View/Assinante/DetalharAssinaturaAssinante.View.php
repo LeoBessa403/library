@@ -77,11 +77,15 @@
                                      <i class="fa fa-copy"></i>
                                  </a>';
 
+                            $endereco = '';
+                            if (!empty($enderecos[$res->getCoEmpresa()->getCoEndereco()])) {
+                                $endereco = $enderecos[$res->getCoEmpresa()->getCoEndereco()];
+                            }
 
                             $statusSis = AssinanteService::getStatusAssinante(Valida::DataShow($res->getDtExpiracao()));
                             $empresa = ($res->getCoEmpresa()) ? $res->getCoEmpresa()->getNoFantasia() : '';
                             $grid->setColunas($empresa);
-                            $grid->setColunas($enderecos[$res->getCoEmpresa()->getCoEndereco()]);
+                            $grid->setColunas($endereco);
                             $grid->setColunas($res->getCoPessoa()->getNoPessoa());
                             $grid->setColunas($res->getCoPessoa()->getCoContato()->getDsEmail());
                             $grid->setColunas(Valida::StatusLabel($res->getStStatus()), 2);

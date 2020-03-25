@@ -65,22 +65,26 @@
                     <span class="Valor_Ass"><b></b></span>
                 </div>
             </div>
-            <div id="form-group-Valor_Desconto" class="form-group col-sm-12">
-                <label for="Valor_Desconto" class="col-sm-3  align-right">
-                    Valor desconto:
-                </label>
-                <div class="col-sm-9">
-                    <span class="Valor_Desconto"><b></b></span>
+            <?php
+            if (PerfilService::perfilMaster()) {
+                ?>
+                <div id="form-group-Valor_Desconto" class="form-group col-sm-12">
+                    <label for="Valor_Desconto" class="col-sm-3  align-right">
+                        Valor desconto:
+                    </label>
+                    <div class="col-sm-9">
+                        <span class="Valor_Desconto"><b></b></span>
+                    </div>
                 </div>
-            </div>
-            <div id="form-group-Valor_Liquido" class="form-group col-sm-12">
-                <label for="Valor_Liquido" class="col-sm-3  align-right">
-                    Valor Líquido:
-                </label>
-                <div class="col-sm-9">
-                    <span class="Valor_Liquido"><b></b></span>
+                <div id="form-group-Valor_Liquido" class="form-group col-sm-12">
+                    <label for="Valor_Liquido" class="col-sm-3  align-right">
+                        Valor Líquido:
+                    </label>
+                    <div class="col-sm-9">
+                        <span class="Valor_Liquido"><b></b></span>
+                    </div>
                 </div>
-            </div>
+            <?php } ?>
             <div id="form-group-Profissionais" class="form-group col-sm-12">
                 <label for="Profissionais" class="col-sm-3  align-right">
                     Nº Profissionais:

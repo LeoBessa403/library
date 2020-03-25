@@ -18,7 +18,8 @@ class Assinante extends AbstractController
         if ($session->CheckSession(PESQUISA_AVANCADA)) {
             $session->FinalizaSession(PESQUISA_AVANCADA);
         }
-        $Condicoes = ["ass." . TP_ASSINANTE => AssinanteEnum::MATRIZ];
+        $Condicoes = ["ass." . TP_ASSINANTE => AssinanteEnum::MATRIZ,
+            "tpaa." . ST_STATUS => StatusSistemaEnum::ATIVO];
 
         $resultPreco = $assinanteService->PesquisaAvancadaAssinatura($Condicoes);
         $session->setSession('resultPreco', $resultPreco);
@@ -104,13 +105,13 @@ class Assinante extends AbstractController
         $PlanoAssinanteAssinaturaService = $this->getService(PLANO_ASSINANTE_ASSINATURA_SERVICE);
 
         $coAssinante = UrlAmigavel::PegaParametro(CO_ASSINANTE);
-        if($coAssinante){
+        if ($coAssinante) {
             if (AssinanteService::assianteNaoEncontrado($coAssinante)) {
                 $this->result = $PlanoAssinanteAssinaturaService->PesquisaTodos([
                     CO_ASSINANTE => $coAssinante
                 ]);
             }
-        }else{
+        } else {
             $this->result = $PlanoAssinanteAssinaturaService->PesquisaTodos([
                 CO_ASSINANTE => AssinanteService::getCoAssinanteLogado()
             ]);

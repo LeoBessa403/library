@@ -45,6 +45,7 @@
                         $arrColunas = array('Assinante', 'Endereço', 'Responsável', 'E-mail', 'Status Assinante', 'Expiração', 'Status Plano', 'Ações');
                         $grid->setColunasIndeces($arrColunas);
                         $grid->criaGrid();
+                        //                        debug($result,1);
                         /** @var AssinanteEntidade $res */
                         foreach ($result as $res):
                             $acao = '<a href="' . PASTAADMIN . 'Assinante/CadastroAssinante/' .
@@ -52,14 +53,14 @@
                                     data-original-title="Editar Registro" data-placement="top">
                                      <i class="fa fa-clipboard"></i>
                                  </a>';
-                            if (!empty($res->getCoPlanoAssinanteAssinatura())) {
-                                $acao .= ' <a href="' . PASTAADMIN . 'Assinante/HistoricoAssinante/' .
-                                    Valida::GeraParametro(CO_ASSINANTE . "/" . $res->getCoAssinante()) . '" 
-                                class="btn btn-med-grey tooltips" 
-                                    data-original-title="Histórico do Assinante" data-placement="top">
-                                     <i class="clip-folder-open"></i>
-                                 </a>';
-                            }
+//                            if (!empty($res->getCoPlanoAssinanteAssinatura())) {
+//                                $acao .= ' <a href="' . PASTAADMIN . 'Assinante/HistoricoAssinante/' .
+//                                    Valida::GeraParametro(CO_ASSINANTE . "/" . $res->getCoAssinante()) . '"
+//                                class="btn btn-med-grey tooltips"
+//                                    data-original-title="Histórico do Assinante" data-placement="top">
+//                                     <i class="clip-folder-open"></i>
+//                                 </a>';
+//                            }
                             $acao .= ' <a href="' . PASTAADMIN . 'Assinante/MeuPlanoAssinante/' .
                                 Valida::GeraParametro(CO_ASSINANTE . "/" . $res->getCoAssinante()) . '" 
                         class="btn btn-warning tooltips" data-original-title="Pagamentos do Assinante" data-placement="top">
@@ -73,7 +74,7 @@
                                      <i class="fa fa-copy"></i>
                                  </a>';
                             $endereco = '';
-                            if(!empty($enderecos[$res->getCoEmpresa()->getCoEndereco()])){
+                            if (!empty($enderecos[$res->getCoEmpresa()->getCoEndereco()])) {
                                 $endereco = $enderecos[$res->getCoEmpresa()->getCoEndereco()];
                             }
 
@@ -86,7 +87,7 @@
                             $grid->setColunas(Valida::StatusLabel($res->getStStatus()), 2);
                             $grid->setColunas(Valida::DataShow($res->getDtExpiracao()), 2);
                             $grid->setColunas(Valida::getLabelStatusPlano($statusSis), 2);
-                            $grid->setColunas($acao, 5);
+                            $grid->setColunas($acao, 3);
                             $grid->criaLinha($res->getCoAssinante());
                         endforeach;
                         $grid->finalizaGrid();

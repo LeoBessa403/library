@@ -599,8 +599,10 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
         $dados[ST_PAGAMENTO] = StatusPagamentoEnum::getDescricaoValor($planoAssinante->getStPagamento());
         $dados[TP_PAGAMENTO] = $tpPagamento;
         $dados[NU_VALOR_ASSINATURA] = Valida::FormataMoeda($planoAssinante->getCoPlanoAssinante()->getNuValor(), 'R$');
-        $dados[NU_VALOR_DESCONTO] = Valida::FormataMoeda($planoAssinante->getNuValorDesconto(), 'R$');
-        $dados[NU_VALOR_REAL] = Valida::FormataMoeda($planoAssinante->getNuValorReal(), 'R$');
+        if (PerfilService::perfilMaster()) {
+            $dados[NU_VALOR_DESCONTO] = Valida::FormataMoeda($planoAssinante->getNuValorDesconto(), 'R$');
+            $dados[NU_VALOR_REAL] = Valida::FormataMoeda($planoAssinante->getNuValorReal(), 'R$');
+        }
         $dados[NU_PROFISSIONAIS] = $planoAssinante->getNuProfissionais();
         return $dados;
     }

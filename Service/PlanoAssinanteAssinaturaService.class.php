@@ -324,6 +324,9 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
         if ($dados[ST_PAGAMENTO] == StatusPagamentoEnum::PAGO)
             $dados[DT_CONFIRMA_PAGAMENTO] = (string)$Xml->lastEventDate;
 
+        /** @var PlanoAssinanteAssinaturaEntidade $plan */
+        $plan = $planoAssinanteAssinaturaService->PesquisaUmRegistro($coPlanoAssinanteAssinatura);
+
         $PDO->beginTransaction();
         if ((string)$Xml->status == StatusPagamentoEnum::PAGO ||
             (string)$Xml->status == StatusPagamentoEnum::DISPONIVEL ||
@@ -331,8 +334,6 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
             $dados[ST_STATUS] = StatusAcessoEnum::ATIVO;
 
             // DESATIVA O PLANO ANTERIOR
-            /** @var PlanoAssinanteAssinaturaEntidade $plan */
-            $plan = $planoAssinanteAssinaturaService->PesquisaUmRegistro($coPlanoAssinanteAssinatura);
             $planAss[ST_STATUS] = StatusAcessoEnum::INATIVO;
 
             $planoAssinanteAssinaturaService->Salva($planAss, $plan->getCoPlanoAssinanteAssinaturaAtivo());
@@ -345,9 +346,6 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
             $dados[ST_STATUS] = StatusAcessoEnum::INATIVO;
 
             // DESATIVA A ASSINATURA CANCELADO OU ESTORNADA
-            /** @var PlanoAssinanteAssinaturaEntidade $plan */
-            $plan = $planoAssinanteAssinaturaService->PesquisaUmRegistro($coPlanoAssinanteAssinatura);
-
             $planoAssinanteAssinaturaService->Salva([
                 ST_STATUS => StatusAcessoEnum::INATIVO
             ], $coPlanoAssinanteAssinatura);
@@ -368,15 +366,17 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
             $retorno[SUCESSO] = $AssinanteService->Salva($ass, $plan->getCoAssinante()->getCoAssinante());
         }
 
-        // HISTORICO DO PAGAMENTO RETORNO PAGSEGURO
-        $histPagAss[CO_PLANO_ASSINANTE_ASSINATURA] = $coPlanoAssinanteAssinatura;
-        $histPagAss[DT_CADASTRO] = (string)$Xml->lastEventDate;
-        $histPagAss[DS_ACAO] = 'Mudou para o Status do pagamento de ' .
-            StatusPagamentoEnum::getDescricaoValor((string)$Xml->status);
-        $histPagAss[DS_USUARIO] = 'Retorno da operadora do pagamento';
-        $histPagAss[ST_PAGAMENTO] = (string)$Xml->status;
+        if ($plan->getStPagamento() != (string)$Xml->status) {
+            // HISTORICO DO PAGAMENTO RETORNO PAGSEGURO
+            $histPagAss[CO_PLANO_ASSINANTE_ASSINATURA] = $coPlanoAssinanteAssinatura;
+            $histPagAss[DT_CADASTRO] = (string)$Xml->lastEventDate;
+            $histPagAss[DS_ACAO] = 'Mudou para o Status do pagamento de ' .
+                StatusPagamentoEnum::getDescricaoValor((string)$Xml->status);
+            $histPagAss[DS_USUARIO] = 'Retorno da operadora do pagamento';
+            $histPagAss[ST_PAGAMENTO] = (string)$Xml->status;
 
-        $HistPagAssService->Salva($histPagAss);
+            $HistPagAssService->Salva($histPagAss);
+        }
 
         $retorno[SUCESSO] = $planoAssinanteAssinaturaService->Salva($dados, $coPlanoAssinanteAssinatura);
 

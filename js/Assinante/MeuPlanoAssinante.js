@@ -15,7 +15,7 @@ $(function () {
         $('.Profissionais b').text(dados.nu_profissionais);
         $('.Valor_Desconto b').text(dados.nu_valor_desconto);
         $('.Valor_Liquido b').text(dados.nu_valor_real);
-        $('.transacoes b').empty();
+        $('.transacoes').empty();
         $.each(dados.co_historico_pag_assinatura, function (i, obj) {
             $('.transacoes').append('<p>' + obj + '</p>');
         });

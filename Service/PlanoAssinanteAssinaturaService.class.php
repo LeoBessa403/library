@@ -570,6 +570,7 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
         $planoAssinanteAssinaturaService = new PlanoAssinanteAssinaturaService();
         /** @var PlanoAssinanteAssinaturaEntidade $planoAssinante */
         $planoAssinante = $planoAssinanteAssinaturaService->PesquisaUmRegistro($coPlanoAssAss);
+
         $dados = [];
         $dados[CO_HISTORICO_PAG_ASSINATURA] = [];
         if ($planoAssinante->getCoHistoricoPagAssinatura()) {
@@ -585,17 +586,22 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
         $dtPagamento = ($planoAssinante->getDtConfirmaPagamento()) ?
             Valida::DataShow($planoAssinante->getDtConfirmaPagamento(), 'd/m/Y H:i:s') : '';
 
+        $tpPagamento = ($planoAssinante->getTpPagamento()) ?
+            TipoPagamentoEnum::getDescricaoValor($planoAssinante->getTpPagamento()) : '';
+
+        $codePagamento = ($planoAssinante->getDsCodeTransacao() != 'null') ?
+            $planoAssinante->getDsCodeTransacao() : '';
+
         $dados[ST_STATUS] = Valida::StatusLabel($planoAssinante->getStStatus());
-        $dados[DS_CODE_TRANSACAO] = $planoAssinante->getDsCodeTransacao();
+        $dados[DS_CODE_TRANSACAO] = $codePagamento;
         $dados[NO_PLANO] = $planoAssinante->getCoPlanoAssinante()->getCoPlano()->getNoPlano();
         $dados[DT_CONFIRMA_PAGAMENTO] = $dtPagamento;
         $dados[ST_PAGAMENTO] = StatusPagamentoEnum::getDescricaoValor($planoAssinante->getStPagamento());
-        $dados[TP_PAGAMENTO] = TipoPagamentoEnum::getDescricaoValor($planoAssinante->getTpPagamento());
+        $dados[TP_PAGAMENTO] = $tpPagamento;
         $dados[NU_VALOR_ASSINATURA] = Valida::FormataMoeda($planoAssinante->getCoPlanoAssinante()->getNuValor(), 'R$');
         $dados[NU_VALOR_DESCONTO] = Valida::FormataMoeda($planoAssinante->getNuValorDesconto(), 'R$');
         $dados[NU_VALOR_REAL] = Valida::FormataMoeda($planoAssinante->getNuValorReal(), 'R$');
         $dados[NU_PROFISSIONAIS] = $planoAssinante->getNuProfissionais();
-
         return $dados;
     }
 }

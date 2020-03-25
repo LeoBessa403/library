@@ -60,21 +60,11 @@
                                      <i class="clip-folder-open"></i>
                                  </a>';
                             }
-                            $acao .= ' <a href="' . PASTAADMIN . 'Assinante/PagamentoAssinante/' .
+                            $acao .= ' <a href="' . PASTAADMIN . 'Assinante/MeuPlanoAssinante/' .
                                 Valida::GeraParametro(CO_ASSINANTE . "/" . $res->getCoAssinante()) . '" 
                         class="btn btn-warning tooltips" data-original-title="Pagamentos do Assinante" data-placement="top">
                                      <i class="fa fa-money"></i>
                                  </a>';
-                            if (!empty($res->getCoAssinanteMatriz())) {
-                                if (!empty($res->getCoUnicoAssinanteMatriz())) {
-                                    $acao .= ' <a href="' . PASTAADMIN . 'Assinante/FilialAssinante/' .
-                                        Valida::GeraParametro(CO_ASSINANTE . "/" . $res->getCoAssinante()) . '" 
-                                class="btn btn-green tooltips" 
-                                    data-original-title="Filiais do Assinante" data-placement="top">
-                                     <i class="clip-tree"></i>
-                                 </a>';
-                                }
-                            }
 
                             $acao .= ' <a href="' . PASTAADMIN . 'Assinante/DadosComplementaresAssinante/' .
                                 Valida::GeraParametro(CO_ASSINANTE . "/" . $res->getCoAssinante()) . '" 
@@ -82,12 +72,15 @@
                                     data-original-title="Dados Complementares do Assinante" data-placement="top">
                                      <i class="fa fa-copy"></i>
                                  </a>';
-
+                            $endereco = '';
+                            if(!empty($enderecos[$res->getCoEmpresa()->getCoEndereco()])){
+                                $endereco = $enderecos[$res->getCoEmpresa()->getCoEndereco()];
+                            }
 
                             $statusSis = AssinanteService::getStatusAssinante(Valida::DataShow($res->getDtExpiracao()));
                             $empresa = ($res->getCoEmpresa()) ? $res->getCoEmpresa()->getNoFantasia() : '';
                             $grid->setColunas($empresa);
-                            $grid->setColunas($enderecos[$res->getCoEmpresa()->getCoEndereco()]);
+                            $grid->setColunas($endereco);
                             $grid->setColunas($res->getCoPessoa()->getNoPessoa());
                             $grid->setColunas($res->getCoPessoa()->getCoContato()->getDsEmail());
                             $grid->setColunas(Valida::StatusLabel($res->getStStatus()), 2);

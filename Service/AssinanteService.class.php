@@ -45,7 +45,6 @@ class  AssinanteService extends AbstractService
             $contato[NU_TEL1] = Valida::RetiraMascara($dados[NU_TEL1]);
             $pessoa[NO_PESSOA] = trim($dados[NO_PESSOA]);
             $empresa[NO_FANTASIA] = trim($dados[NO_FANTASIA]);
-            $empresa[NU_CNPJ] = Valida::RetiraMascara($dados[NU_CNPJ]);
             $assinante[TP_ASSINANTE] = AssinanteEnum::MATRIZ;
 
             $PDO->beginTransaction();
@@ -61,7 +60,6 @@ class  AssinanteService extends AbstractService
                 $this->Salva($assinante, $assinanteEdic->getCoAssinante());
                 $retorno[SUCESSO] = $assinanteEdic->getCoAssinante();
                 $session->setSession(MENSAGEM, ATUALIZADO);
-//                $coAssinante = $assinanteEdic->getCoAssinante();
             else:
                 $pessoa[CO_CONTATO] = $contatoService->Salva($contato);
                 $pessoa[DT_CADASTRO] = Valida::DataHoraAtualBanco();

@@ -13,7 +13,7 @@ if (TEM_SITE) {
 <!--[if lt IE 9]>
 <script src="<?= PASTA_LIBRARY; ?>plugins/respond.min.js"></script>
 <script src="<?= PASTA_LIBRARY; ?>plugins/excanvas.min.js"></script>
-<script type="text/javascript" src="<?= INCLUDES;?>jquery-1.10.2.js"></script>
+<script type="text/javascript" src="<?= INCLUDES; ?>jquery-1.10.2.js"></script>
 <![endif]-->
 <!--[if gte IE 9]><!-->
 <script src="<?= INCLUDES; ?>jquery-2.0.3.js"></script>
@@ -26,7 +26,7 @@ if (TEM_SITE) {
 <script type="text/javascript" src="<?= INCLUDES; ?>validacoes.js"></script>
 <script src="<?= PASTA_LIBRARY; ?>plugins/select2/select2.min.js"></script>
 <script src="<?= PASTA_LIBRARY; ?>js/Funcoes.js"></script>
-<!-- Cadastrar Usuário do Sistema -->
+<!-- Cadastrar UsuÃ¡rio do Sistema -->
 <script src="<?= PASTA_LIBRARY; ?>plugins/jQuery-Smart-Wizard/js/jquery.smartWizard.js"></script>
 <script src="<?= PASTA_LIBRARY; ?>js/form-wizard.js"></script>
 <!-- CARREGAMENTO DE IMAGEM -->

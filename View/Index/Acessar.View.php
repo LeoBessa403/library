@@ -1,5 +1,5 @@
 <?php
-include_once 'library/Partial/AcessoPermitido/topo_inicial.php';
+include_once './library/Partial/AcessoPermitido/topo_inicial.php';
 ?>
     <!-- start: LOGIN BOX -->
     <div class="box-login box-shadow" style="padding: 10px 20px;">
@@ -64,5 +64,5 @@ include_once 'library/Partial/AcessoPermitido/topo_inicial.php';
         </form>
     </div>
 <?php
-include_once 'library/Partial/AcessoPermitido/rodape_inicial.php';
+include_once './library/Partial/AcessoPermitido/rodape_inicial.php';
 //?>

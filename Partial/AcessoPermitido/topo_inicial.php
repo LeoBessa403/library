@@ -52,7 +52,7 @@
     <style>
         body.login.example1 {
             background: url("<?= PASTAADMIN; ?>Imagens/bg (<?= rand(1, NUM_BG_IMAGENS); ?>).jpg") rgba(0, 0, 0, 0) top center !important;
-            background-size: auto !important;
+            background-size: 100% !important;
         }
     </style>
     <!-- end: MAIN CSS -->

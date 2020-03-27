@@ -183,7 +183,8 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
         $histPagAss[CO_PLANO_ASSINANTE_ASSINATURA] = $this->Salva($planoAssinanteAssinatura);
         $histPagAss[DT_CADASTRO] = Valida::DataHoraAtualBanco();
         $histPagAss[DS_ACAO] = 'Plano Grátis';
-        $histPagAss[DS_USUARIO] = NO_USUARIO_PADRAO . ' Iniciou o plano de experiência';
+        $histPagAss[DS_USUARIO] = NO_USUARIO_PADRAO . ' Iniciou o plano de experiência de ' .
+            ConfiguracoesEnum::DIAS_EXPERIMENTAR . ' Dias.';
         $histPagAss[ST_PAGAMENTO] = StatusPagamentoEnum::PAGO;
 
         return $HistoricoPagAssinaturaService->Salva($histPagAss);

@@ -1,93 +1,71 @@
 $(function () {
-
     var imgBand = '';
-    var submit = false;
-
     $('.debito,.credito').parents('.form-group').hide();
-
     var dados = Funcoes.Ajax('Assinante/getSessaoPagamentoAssinante', null);
-    //ID da sessão retornada pelo PagSeguro
     PagSeguroDirectPayment.setSessionId(dados.id);
     carregaBancos();
+    $("button.btn-success").attr('type', 'button');
 
     $("#co_plano").change(function () {
         limpaComboParcelas();
         iniciaComboParcelas();
         $(".cartao_credito").val('');
-        Funcoes.TiraValidacao('numCartao');
+        Funcoes.TiraValidacao('numCartao')
     });
-
     $("#tp_pagamento").change(function () {
         var tpPagamento = $(this).val();
         if (tpPagamento == 3) {
             $('.debito').parents('.form-group').hide();
-            $('.credito').parents('.form-group').show();
+            $('.credito').parents('.form-group').show()
         } else if (tpPagamento == 4) {
             $('.debito').parents('.form-group').show();
-            $('.credito').parents('.form-group').hide();
+            $('.credito').parents('.form-group').hide()
         } else {
-            $('.debito,.credito').parents('.form-group').hide();
+            $('.debito,.credito').parents('.form-group').hide()
         }
     });
-
     $(".cartao_credito").keyup(function () {
         var numCartao = $(this).val().replace(/[^0-9]+/g, '');
         var TamNumCartao = numCartao.length;
         var spanBandeira = $(this).parents('.input-group').children('span.input-group-addon');
         var spanMensagem = $(this).parents('.input-group').parents('.form-group').children('span.help-block');
-
-        //Validar o cartão quando o usuário digitar 6 digitos do cartão
         if (TamNumCartao == 6) {
-            // spanBandeira.empty();
-
-            //Instanciar a API do PagSeguro para validar o cartão
             PagSeguroDirectPayment.getBrand({
-                cardBin: numCartao,
-                success: function (retorno) {
-                    //Enviar para o index a imagem da bandeira
+                cardBin: numCartao, success: function (retorno) {
                     imgBand = retorno.brand.name;
-                    spanBandeira.html("<img src='https://stc.pagseguro.uol.com.br/public/img/payment-methods-flags/42x20/" + imgBand + ".png'>");
-                    // $('#bandeiraCartao').val(imgBand);
-                },
-                error: function (retorno) {
-                    //Enviar para o index a mensagem de erro
+                    spanBandeira.html("<img src='https://stc.pagseguro.uol.com.br/public/img/payment-methods-flags/42x20/" + imgBand + ".png'>")
+                }, error: function (retorno) {
                     spanBandeira.empty();
-                    spanMensagem.text('Cartão inválido').prepend('<i class="fa clip-checkmark-circle-2"></i> ');
-                },
-                complete: function (retorno) {
-                    $(this).focus();
+                    spanMensagem.text('Cartão inválido').prepend('<i class="fa clip-checkmark-circle-2"></i> ')
+                }, complete: function (retorno) {
+                    $(this).focus()
                 }
-            });
+            })
         } else if (TamNumCartao < 6) {
             spanBandeira.empty();
             Funcoes.ValidaErro('numCartao', 'Cartão inválido');
-
             limpaComboParcelas();
-            iniciaComboParcelas();
+            iniciaComboParcelas()
         }
-
         var valor = $(this).val().replace(/[^0-9]+/g, '');
         valor = valor.val().replace(/[^.-]+/g, '');
-        $(this).val(valor);
-
+        $(this).val(valor)
     }).focusout(function () {
         var spanBandeira = $(this).parents('.input-group').children('span.input-group-addon');
         var numCartao = $(this).val().replace(/[^0-9]+/g, '');
         var TamNumCartao = numCartao.length;
-
         if (TamNumCartao < 16) {
             spanBandeira.empty();
             Funcoes.ValidaErro('numCartao', 'Cartão inválido');
             limpaComboParcelas();
-            iniciaComboParcelas();
+            iniciaComboParcelas()
         } else {
             $('#bandeiraCartao').val(imgBand);
             Funcoes.ValidaOK('numCartao', 'Cartão Válido');
-            recupParcelas(imgBand);
+            recupParcelas(imgBand)
         }
     });
 
-//Recuperar a quantidade de parcelas e o valor das parcelas no PagSeguro
     function recupParcelas(bandeira) {
         var coPlano = $("#co_plano").val();
         var comboParc = $("#qntParcelas");
@@ -95,46 +73,32 @@ $(function () {
             var dados = Funcoes.Ajax('Assinante/getValorPlano', coPlano);
             var valorPlano = dados.nu_valor_assinatura;
             limpaComboParcelas();
-
-            // NÚMERO DE PARCELAS SEM JUROS
             var noIntInstalQuantity = 3;
             PagSeguroDirectPayment.getInstallments({
-
-                //Valor do produto
                 amount: valorPlano,
-
-                //Quantidade de parcelas sem juro
                 maxInstallmentNoInterest: noIntInstalQuantity,
-
-                //Tipo da bandeira
                 brand: bandeira,
                 success: function (retorno) {
                     $.each(retorno.installments, function (ia, obja) {
                         $.each(obja, function (ib, objb) {
-                            //Converter o preço para o formato real com JavaScript
                             var valorParcela = objb.installmentAmount.toFixed(2).replace(".", ",");
-
-                            //Apresentar quantidade de parcelas e o valor das parcelas para o usuário no campo SELECT
-                            comboParc.append(new Option(objb.quantity + " x R$ " + valorParcela,
-                                objb.quantity, false, false)).trigger('change');
-                        });
+                            comboParc.append(new Option(objb.quantity + " x R$ " + valorParcela, objb.quantity, !1, !1)).trigger('change')
+                        })
                     });
-                    iniciaComboParcelas();
+                    iniciaComboParcelas()
                 },
                 error: function (retorno) {
-                    // callback para chamadas que falharam.
                 },
                 complete: function (retorno) {
-                    // Callback para todas chamadas.
                 }
-            });
+            })
         }
     }
 
     $("#qntParcelas").change(function () {
         if ($(this).val() != 'null') {
-            var valorParcela =  $("#qntParcelas option:selected").text().split(' x R$ ');
-            $("#installmentValue").val(valorParcela[1]);
+            var valorParcela = $("#qntParcelas option:selected").text().split(' x R$ ');
+            $("#installmentValue").val(valorParcela[1])
         }
     });
 
@@ -142,96 +106,72 @@ $(function () {
         var comboParc = $("#qntParcelas");
         comboParc.select2("destroy");
         comboParc.empty();
-        var newOptionParc = new Option('Selecione um Parcelamento', null, false, false);
-        comboParc.append(newOptionParc).trigger('change');
+        var newOptionParc = new Option('Selecione um Parcelamento', null, !1, !1);
+        comboParc.append(newOptionParc).trigger('change')
     }
 
     function iniciaComboParcelas() {
         var comboParc = $("#qntParcelas");
-        comboParc.select2({
-            allowClear: false
-        });
+        comboParc.select2({allowClear: !1})
     }
 
     function carregaBancos() {
         PagSeguroDirectPayment.getPaymentMethods({
-            amount: '15.00',
-            success: function (retorno) {
-
+            amount: '15.00', success: function (retorno) {
                 console.log(retorno);
-
                 var comboBank = $("#bankName");
                 comboBank.select2("destroy");
                 comboBank.empty();
-                var newOptionBank = new Option('Selecione um Banco', null, false, false);
+                var newOptionBank = new Option('Selecione um Banco', null, !1, !1);
                 comboBank.append(newOptionBank).trigger('change');
-
                 $.each(retorno.paymentMethods.ONLINE_DEBIT.options, function (i, obj) {
-                    //Apresentar quantidade de parcelas e o valor das parcelas para o usuário no campo SELECT
-                    comboBank.append(new Option(obj.displayName,
-                        obj.name, false, false)).trigger('change');
+                    comboBank.append(new Option(obj.displayName, obj.name, !1, !1)).trigger('change')
                 });
-
-                comboBank.select2({
-                    allowClear: false
-                });
-            },
-            error: function (retorno) {
-                // Callback para chamadas que falharam.
-            },
-            complete: function (retorno) {
-                // Callback para todas chamadas.
+                comboBank.select2({allowClear: !1})
+            }, error: function (retorno) {
+            }, complete: function (retorno) {
             }
-        });
+        })
     }
 
-    //Recuperar o token do cartão de crédito
-    $("#RenovaPlanoAssinante").on("submit", function (event) {
-        if (!submit) {
-            event.preventDefault();
-            submit = true;
-        }
-
+    $(".btn-success").click(function () {
+        $(".img-load").show();
         var tpPagamento = $("#tp_pagamento").val();
-
         if (tpPagamento == 3) {
             var validade = $('#validadeCartao').val().split('/');
             PagSeguroDirectPayment.createCardToken({
-                cardNumber: $('#numCartao').val(), // Número do cartão de crédito
-                brand: $('#bandeiraCartao').val(), // Bandeira do cartão
-                cvv: $('#cvvCartao').val(), // CVV do cartão
-                expirationMonth: validade[0], // Mês da expiração do cartão
-                expirationYear: '20' + validade[1], // Ano da expiração do cartão, é necessário os 4 dígitos.
+                cardNumber: $('#numCartao').val(),
+                brand: $('#bandeiraCartao').val(),
+                cvv: $('#cvvCartao').val(),
+                expirationMonth: validade[0],
+                expirationYear: '20' + validade[1],
                 success: function (retorno) {
                     $('#tokenCartao').val(retorno.card.token);
-                    recupHashCartao();
+                    recupHashCartao()
                 },
                 error: function (retorno) {
-                    // Callback para chamadas que falharam.
+                    $(".img-load").hide();
                 },
                 complete: function (retorno) {
-                    // Callback para chamadas que falharam.
                 }
-            });
+            })
         } else if (tpPagamento == 5) {
-            recupHashCartao();
+            recupHashCartao()
         } else if (tpPagamento == 4) {
-            recupHashCartao();
+            recupHashCartao()
         }
-
     });
 
-    //Recuperar o hash do cartão
     function recupHashCartao() {
         PagSeguroDirectPayment.onSenderHashReady(function (retorno) {
             if (retorno.status == 'error') {
+                $(".img-load").hide();
                 Funcoes.Erro(retorno.message);
-                return false;
+                return 1
             } else {
                 $("#hash").val(retorno.senderHash);
-                $("#RenovaPlanoAssinante").submit();
+                $("#RenovaPlanoAssinante").submit()
             }
-        });
+        })
     }
-
 });

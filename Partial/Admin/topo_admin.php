@@ -43,7 +43,7 @@ $user = $us->getUser();
     <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>css/css_padrao.min.css">
 
     <!-- end: CSS REQUIRED FOR THIS PAGE ONLY -->
-    <link rel="shortcut icon" href="<?php echo PASTAADMIN; ?>Imagens/favicon.ico"/>
+    <link rel="shortcut icon" href="<?= HOME; ?>favicon.ico"/>
     <!-- SCRIPT GERAR GRAFICOS -->
     <script type="text/javascript" src="<?= INCLUDES; ?>gera-grafico.min.js"></script>
 </head>

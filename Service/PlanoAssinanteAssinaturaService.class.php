@@ -307,9 +307,11 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
         $AssinanteService = $this->getService(ASSINANTE_SERVICE);
 
         if ($aplicacao) {
-            $Url = URL_PAGSEGURO . "transactions/{$_POST['notificationCode']}?email=" . EMAIL_PAGSEGURO . "&token=" . TOKEN_PAGSEGURO;
+            $Url = URL_PAGSEGURO . "transactions/{$_POST['notificationCode']}?email=" .
+                EMAIL_PAGSEGURO . "&token=" . TOKEN_PAGSEGURO;
         } else {
-            $Url = URL_PAGSEGURO . "transactions/notifications/{$_POST['notificationCode']}?email=" . EMAIL_PAGSEGURO . "&token=" . TOKEN_PAGSEGURO;
+            $Url = URL_PAGSEGURO . "transactions/notifications/{$_POST['notificationCode']}?email=" .
+                EMAIL_PAGSEGURO . "&token=" . TOKEN_PAGSEGURO;
         }
 
         $Curl = curl_init($Url);

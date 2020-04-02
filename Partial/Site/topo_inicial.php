@@ -106,8 +106,8 @@
         <div class="container">
             <ul class="beautypress-simple-iocn-list beautypress-version-1">
                 <li class="no-link"><i class="xsicon icon-call"></i>Nos chame no<a title="Nos chame no WhatSapp"
-                                                                    href="<?= Valida::geraLinkWhatSapp('Ola') ?>"
-                                                                    target="_blank">
+                                                                                   href="<?= Valida::geraLinkWhatSapp('Ola') ?>"
+                                                                                   target="_blank">
                         <i class="fa fa-whatsapp i-zap"></i>WhatSapp</li>
                 <li class="no-link"><i class="xsicon icon-envelope i-zap"></i>
                     <a href="mailto:<?= USER_EMAIL; ?>"><?= USER_EMAIL; ?></a>
@@ -140,7 +140,6 @@
     </div><!-- .beautypress-main-header END -->
 </header><!-- .beautypress-header-section END -->
 <!-- Main menu closed -->
-
 
 <!-- welcome section -->
 <section class="beautypress-welcome-section beautypress-welcome-section-v1 welcome-height-calc-minus">
@@ -213,3 +212,26 @@
     </div>
 </section><!-- .beautypress-welcome-section END -->
 <!-- welcome section -->
+
+
+<section style="background-color: white; height: 130px; padding-top: 30px; text-align: center;"
+         class="beautypress-call-to-action-v2 beautypress-bg parallax-bg" data-parrlax="scroll"
+         data-image-src="img/bg_4.jpg">
+    <div class="container">
+        <div class="beautypress-footer-social text-center">
+            <h5>Nossas redes Sociais</h5>
+            <ul class="beautypress-social-list">
+                <li><a href="https://www.instagram.com/sistemadabeleza/" class="beautypress-instagram"
+                       target="_blank" title="Nos siga no Instagram"><i class="fa fa-instagram"></i></a></li>
+                <li><a href="https://www.facebook.com/sistemadabeleza" class="beautypress-facebook"
+                       target="_blank" title="Nos siga no Facebook"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="https://www.youtube.com/channel/UCurAWOHi0yrq7SnmelWdOJA" class="beautypress-pinterest"
+                       target="_blank" title="Veja nosso canal no YouTube"><i class="fa fa-youtube-play"></i></a></li>
+                <li><a href="https://twitter.com/sistemadabeleza" class="beautypress-twitter"
+                       target="_blank" title="Nos siga no Twitter"><i class="fa fa-twitter"></i></a></li>
+                <li><a href="https://api.whatsapp.com/send?phone=5561993274991&amp;l=pt_BR&amp;text=Olhando no site e gostaria de saber mais!" class="beautypress-whatsapp"
+                       target="_blank" title="Nos chame no WhatsApp" style="font-size: 1.5em;"><i class="fa fa-whatsapp"></i></a></li>
+            </ul><!-- .beautypress-social-list END -->
+        </div>
+    </div>
+</section>

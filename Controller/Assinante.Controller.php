@@ -212,7 +212,7 @@ class Assinante extends AbstractController
 
         if (!empty($assinante->getCoImagemAssinante())) {
             $imagem_logo = $assinante->getLogoImagemAssinante()->getCoImagem()->getCoImagem();
-            $logo = "Assinante/Assinante-" . AssinanteService::getCoAssinanteLogado() . "/" .
+            $logo = "Assinante/Assinante-" . $coAssinante . "/" .
                 $assinante->getLogoImagemAssinante()->getCoImagem()->getDsCaminho();
         }
         $res[DS_CAMINHO] = $logo;

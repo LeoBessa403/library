@@ -130,6 +130,10 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
 
                     if ($retorno[SUCESSO]) {
                         $retorno[SUCESSO] = true;
+
+                        if ($retPagSeg[DS_LINK_BOLETO]) {
+                            echo "<script>window.open('" . $retPagSeg[DS_LINK_BOLETO] . "', '_blank');</script>";
+                        }
                         Notificacoes::geraMensagem(
                             'Renovação Cadastrada com Sucesso!',
                             TiposMensagemEnum::SUCESSO

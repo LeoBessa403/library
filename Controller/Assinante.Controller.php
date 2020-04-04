@@ -124,7 +124,6 @@ class Assinante extends AbstractController
         $assinanteService = $this->getService(ASSINANTE_SERVICE);
         /** @var PlanoAssinanteAssinaturaService $PlanoAssinanteAssinaturaService */
         $PlanoAssinanteAssinaturaService = $this->getService(PLANO_ASSINANTE_ASSINATURA_SERVICE);
-        $id = "RenovaPlanoAssinante";
 
         if (!empty($_POST)):
             $retorno = $PlanoAssinanteAssinaturaService->salvaPagamentoAssinante($_POST);

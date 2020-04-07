@@ -5824,3 +5824,7 @@ td.column-right {
 .align-left {
     text-align: left !important;
 }
+
+.fc-list-item:hover {
+    cursor: pointer;
+}

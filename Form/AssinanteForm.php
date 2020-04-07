@@ -61,7 +61,7 @@ class AssinanteForm
         $id = "RenovaPlanoAssinante";
 
         $formulario = new Form($id, ADMIN . "/" . UrlAmigavel::$controller . "/" . UrlAmigavel::$action,
-            "Cadastrar", 6);
+            "Pagar", 6);
         $formulario->setValor($res);
 
         $formulario

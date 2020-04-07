@@ -175,6 +175,8 @@ class Assinante extends AbstractController
         /** @var AssinanteEntidade $assinante */
         $assinante = $assinanteService->getAssinanteLogado($coAssinante);
 
+        $coAssinante = $assinante->getCoAssinante();
+
         // Aba 1
         $res[NO_PESSOA] = $assinante->getCoPessoa()->getNoPessoa();
         $res[NO_FANTASIA] = $assinante->getCoEmpresa()->getNoFantasia();
@@ -214,6 +216,7 @@ class Assinante extends AbstractController
             $logo = "Assinante/Assinante-" . $coAssinante . "/" .
                 $assinante->getLogoImagemAssinante()->getCoImagem()->getDsCaminho();
         }
+
         $res[DS_CAMINHO] = $logo;
         $res['imagem_logo'] = $imagem_logo;
 

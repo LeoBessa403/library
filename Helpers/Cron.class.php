@@ -33,7 +33,6 @@ class Cron
     /**
      * Backup the whole database or just some tables
      * Use '*' for whole database or 'table1 table2 table3...'
-     * @return bool
      */
     public function ExecutarCrons()
     {
@@ -59,7 +58,6 @@ class Cron
                 "Error: " . $e->getMessage(),
                 TiposMensagemEnum::ERRO
             );
-            return false;
         }
     }
 

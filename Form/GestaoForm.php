@@ -79,7 +79,7 @@ class GestaoForm
 
         $label_options2 = array("<i class='fa fa-check fa-white'></i>", "<i class='fa fa-times fa-white'></i>", "verde", "vermelho");
         $formulario
-            ->setLabel("Tabela para auditoria?")
+            ->setLabel("Fazer Auditoria?")
             ->setId('TABELA_AUDITORIA')
             ->setClasses($res['TABELA_AUDITORIA'])
             ->setType(TiposCampoEnum::CHECKBOX)
@@ -286,7 +286,7 @@ class GestaoForm
         $formulario
             ->setId('dt_fim')
             ->setIcon("clip-calendar-3")
-            ->setTamanhoInput(3)
+            ->setTamanhoInput(4)
             ->setClasses("data ob")
             ->setLabel("Até o dia")
             ->setValor(date('d/m/Y'))

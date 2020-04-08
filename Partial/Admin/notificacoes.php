@@ -34,7 +34,7 @@
                                     <div class="thread-content">
                                         <span class="author">Renovação da Assinatura</span>
                                         <span class="preview"><b>Sua assinatura irá expirar em <?= $retorno['dias']; ?>
-                                                    Dias</b>, click no link para
+                                                    Dia(s)</b>, click no link para
                                         renovar sua assinatura.</span>
                                         <span class="time"> Expira Em <?= $retorno['dtExpiracao']; ?></span>
                                     </div>
@@ -56,7 +56,7 @@
                                     <div class="thread-content">
                                         <span class="author">Sistema Expirado!</span>
                                         <span class="preview"><b>Sua assinatura está expirada e pagamento pendente em
-                                                <?= $retorno['dias'] * -1; ?> Dias</b>, click no link para
+                                                <?= $retorno['dias'] * -1; ?> Dia(s)</b>, click no link para
                                         renovar sua assinatura.</span>
                                         <span class="time"> Expira Em <?= $retorno['dtExpiracao']; ?></span>
                                     </div>
@@ -77,7 +77,7 @@
                                     <div class="thread-content">
                                         <span class="author">Você tem
                                             <b><?= SuporteService::PesquisaCountMensagens(); ?></b>
-                                        Mensagem(ns) não Lida.</span>
+                                        Mensagem(ens) do Suporte não Lido.</span>
                                         <span class="preview"><b>Caso queira ver as mensagens, click aqui para
                                                 ver sau caixa de mensagens.</b></span>
                                     </div>

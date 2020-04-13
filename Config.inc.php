@@ -262,8 +262,8 @@ function debug($array, $Exit = false)
 function carregaJs($urlAmigavel)
 {
     $arquivo = 'js/' . $urlAmigavel::$controller . '/' . $urlAmigavel::$action . '.js';
-    if (file_exists(ADMIN . '/' . $arquivo)) {
-        echo '<script src="' . HOME . ADMIN . '/' . $arquivo . '"></script>';
+    if (file_exists(UrlAmigavel::$modulo . '/' . $arquivo)) {
+        echo '<script src="' . HOME . UrlAmigavel::$modulo  . '/' . $arquivo . '"></script>';
     } elseif (file_exists('library/' . $arquivo)) {
         echo '<script src="' . PASTA_LIBRARY . $arquivo . '"></script>';
     }

@@ -77,7 +77,7 @@ class UrlAmigavel
      */
     public function pegaControllerAction()
     {
-        if (!in_array(self::$action, self::$ACESSO_PERMITIDO)) {
+        if (!in_array(self::$action, self::$ACESSO_PERMITIDO) && self::$modulo != SITE ) {
             if (!PerfilService::perfilMaster() && MODULO_ASSINANTE &&
                 AssinanteService::verificaStatusAssiante() == StatusSistemaEnum::EXPIRADO) {
                 if (self::$action != 'RenovaPlanoAssinante' &&

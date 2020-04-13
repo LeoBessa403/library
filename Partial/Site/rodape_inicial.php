@@ -50,7 +50,7 @@
                 </div><!-- .beautypress-back-to-top-wraper END -->
             </div>
             <div class="beautypress-copyright-text">
-                <p><a href="https://xpeedstudio.com">XpeedStudio</a> &copy; 2018 All Rights Reserved.</p>
+                <p><?php include_once 'controle_versao.php'; ?></p>
             </div>
         </div>
     </div>
@@ -69,8 +69,9 @@
 <script src="<?= PASTASITE; ?>js/spectragram.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCy7becgYuLwns3uumNm6WdBYkBpLfy44k"></script>
 <script src="<?= PASTASITE; ?>js/main.js"></script>
+<script src="<?= HOME ?>library/Helpers/includes/jquery.mask.js"></script>
 
 <?php include_once PARTIAL_LIBRARY . 'constantes_javascript.php'; ?>
-<!--    --><?php //carregaJs($url); ?>
+    <?php carregaJs($url); ?>
 </body>
 </html>

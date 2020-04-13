@@ -1,16 +1,16 @@
 <?php
-//$pages = array(
-//    'IndexWeb/Index' => 'Home',
-//    'Categorias/ListarCategorias' => 'Categorias',
+$pages = array(
+    'IndexWeb/Index' => 'Home',
+    'IndexWeb/ListarCategorias' => 'Experimentar Grátis',
 //    'Fabricantes/ListarFabricantes' => 'Fabricantes',
 //    'Institucional/SobreNos' => 'Sobre nós',
 //    'Institucional/Contatos' => 'Contatos',
 //    'Institucional/Duvidas' => 'Dúvidas',
 //    'Produtos/DetalharFavoritos' => 'Favoritos',
 //    'Produtos/ComparaProdutos' => 'Comparação de produtos',
-//);
-///** @var UrlAmigavel $url */
-//$url = new UrlAmigavel();
+);
+/** @var UrlAmigavel $url */
+$url = new UrlAmigavel();
 ///** @var Seo $seo */
 //$seo = new Seo($url);
 ///** @var Sitemap $siteMap */
@@ -89,8 +89,8 @@
 <!-- FIM / GOOGLE ANALITCS -->
 
 <!--[if lt IE 8]>
-<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a
-        href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<p class="browserupgrade">Voçê está usando um programa <strong>DESATUALIZADO</strong> navegador. por favor <a
+        href="http://browsehappy.com/">atualize seu navegador</a> para que possa navegar no site e sistema de forma melhor.</p>
 <![endif]-->
 
 <!-- Main menu -->
@@ -117,11 +117,13 @@
                 <li>
                     <a href="https://api.whatsapp.com/send?phone=5561993274991&amp;l=pt_BR&amp;text=Olhando no site e gostaria de saber mais!"
                        class="beautypress-whatsapp"
-                       target="_blank" title="Nos chame no WhatsApp" style="font-size: 1.5em;"><i
+                       target="_blank" title="Nos chame no WhatsApp"><i
                                 class="fa fa-whatsapp"></i></a></li>
                 <li><a href="mailto:<?= USER_EMAIL; ?>" class="beautypress-envelope">
                         <i class="fa fa-envelope"></i></a></li>
+                <a href="#" class="btn-exp xs-btn round-btn box-shadow-btn bg-color-green">Experimentar Grátis<span></span></a>
             </ul>
+
         </div>
     </div>
     <div class="beautypress-main-header bg-color-purple color-white">
@@ -134,7 +136,6 @@
                     <ul class="nav-menu">
                         <li><a href="#">Home</a>
                             <ul class="nav-dropdown">
-                                <li><a href="#">home</a></li>
                                 <?php foreach ($pages as $key => $packagePage) : ?>
                                     <li><a href="<?php echo PASTASITE . $key; ?>">
                                             <?php echo $packagePage; ?></a></li>

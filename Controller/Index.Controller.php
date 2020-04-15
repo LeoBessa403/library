@@ -2,7 +2,7 @@
 
 class Index extends AbstractController
 {
-    public function Index()
+    public function IndexAdmin()
     {
         $index = new IndexController();
         $this->dados = $index->Index();

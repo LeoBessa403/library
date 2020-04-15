@@ -384,23 +384,8 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
 
             $HistPagAssService->Salva($histPagAss);
 
-
-            /** @var AssinanteEntidade $assinante */
-            $assinante = $AssinanteService->PesquisaUmRegistro($plan->getCoAssinante()->getCoAssinante());
-
-            $data = explode('T', (string)$Xml->lastEventDate);
-            $hora = explode('.', $data[1]);
-
-            $msg = 'Olá, ' . strtoupper($assinante->getCoPessoa()->getNoPessoa()) . ', Eu Sou O *SisBela*, 
-            seu Sistema da Beleza, e gostaria de te informar que o _Pagamento_ do Assinante *' .
-                $assinante->getCoEmpresa()->getNoFantasia() . '* Mudou para o Status do pagamento de _*' .
-                StatusPagamentoEnum::getDescricaoValor((string)$Xml->status) . '*_ em ' .
-                Valida::DataShow($data[0] . ' ' . $hora[0], 'd/m/Y H:i') .
-                ' conforme retornado da operadora do pagamento. Acesse nosso sistema para maiores Informações.';
             $whats = new WhatsAppService();
-            $whats->enviarMensagem($assinante->getCoPessoa()->getCoContato()->getNuTel1(), $msg);
-
-
+            $retWhats = $whats->enviaMsgRetornoPagamento($plan->getCoAssinante()->getCoAssinante(),$Xml);
         }
 
         $retorno[SUCESSO] = $planoAssinanteAssinaturaService->Salva($dados, $coPlanoAssinanteAssinatura);

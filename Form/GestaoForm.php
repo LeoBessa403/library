@@ -49,7 +49,7 @@ class GestaoForm
 
         $label_options2 = array("<i class='fa fa-check fa-white'></i>", "<i class='fa fa-times fa-white'></i>", "verde", "vermelho");
         $formulario
-            ->setLabel("Projeto possui site?")
+            ->setLabel("Têm site?")
             ->setId('TEM_SITE')
             ->setClasses($res['TEM_SITE'])
             ->setType(TiposCampoEnum::CHECKBOX)
@@ -111,6 +111,7 @@ class GestaoForm
             ->setType(TiposCampoEnum::TEXTAREA)
             ->setId('DESC_SITE')
             ->setClasses('ob')
+            ->setTamanhoInput(12)
             ->setLabel("Descrição padrão do site")
             ->CriaInpunt();
 
@@ -181,7 +182,7 @@ class GestaoForm
             ->setId('INATIVO')
             ->setClasses('ob')
             ->setClasses('numero')
-            ->setLabel("Tempo de Inativadade Máximo em Minutos")
+            ->setLabel("Tempo de Inativadade Minutos")
             ->setTamanhoInput(6)
             ->CriaInpunt();
 
@@ -189,24 +190,16 @@ class GestaoForm
             ->setId('BACKUP')
             ->setClasses('ob')
             ->setClasses('numero')
-            ->setLabel("Dias para realizar o BACKUP NO BANCO")
-            ->setTamanhoInput(6)
+            ->setLabel("BACKUP em Dias")
+            ->setTamanhoInput(4)
             ->CriaInpunt();
 
         $formulario
             ->setId('TAMANHO')
             ->setClasses('ob')
             ->setClasses('numero')
-            ->setLabel("Tamanho padrão do width das iamgens")
-            ->setTamanhoInput(6)
-            ->CriaInpunt();
-
-        $formulario
-            ->setId('WHATSAPP')
-            ->setClasses('ob')
-            ->setClasses('tel')
-            ->setLabel("Número padrão de envio do WhatsApp")
-            ->setTamanhoInput(6)
+            ->setLabel("Width das imagens")
+            ->setTamanhoInput(4)
             ->CriaInpunt();
 
         $formulario
@@ -214,14 +207,33 @@ class GestaoForm
             ->setClasses('ob')
             ->setLabel("Número de imagens")
             ->setClasses('numero')
-            ->setTamanhoInput(6)
+            ->setTamanhoInput(4)
             ->setInfo("backgrounds da tela inicial do sistema")
             ->CriaInpunt();
+
+        $formulario
+            ->setId('WHATSAPP')
+            ->setClasses('ob')
+            ->setClasses('tel')
+            ->setLabel("Número de envio do WhatsApp")
+            ->setTamanhoInput(6)
+            ->CriaInpunt();
+
+        $formulario
+            ->setId('WHATSAPP_MSG')
+            ->setClasses('ob')
+            ->setClasses('tel')
+            ->setLabel("Número de recebimento do WhatsApp")
+            ->setTamanhoInput(6)
+            ->CriaInpunt();
+
+
 
         $formulario
             ->setId('CONTROLLER_SEO')
             ->setLabel("Controllers para gerar o seo diferenciado")
             ->setInfo('Separador por vírguila')
+            ->setTamanhoInput(12)
             ->CriaInpunt();
 
         $formulario
@@ -242,6 +254,7 @@ class GestaoForm
         $formulario
             ->setId('HOST_EMAIL')
             ->setLabel("Host E-mail")
+            ->setTamanhoInput(12)
             ->setInfo('Host de configuração do email')
             ->CriaInpunt();
 

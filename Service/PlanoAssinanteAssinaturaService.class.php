@@ -13,7 +13,7 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
     public function __construct()
     {
         parent::__construct(PlanoAssinanteAssinaturaEntidade::ENTIDADE);
-        $this->ObjetoModel = New PlanoAssinanteAssinaturaModel();
+        $this->ObjetoModel = new PlanoAssinanteAssinaturaModel();
     }
 
     public function salvaPagamentoAssinante($dados)
@@ -286,7 +286,7 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
         $url = URL_PAGSEGURO . "transactions";
 
         $curl = curl_init($url);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, Array("Content-Type: application/x-www-form-urlencoded; charset=UTF-8"));
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array("Content-Type: application/x-www-form-urlencoded; charset=UTF-8"));
         curl_setopt($curl, CURLOPT_POST, true);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -335,45 +335,45 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
         $plan = $planoAssinanteAssinaturaService->PesquisaUmRegistro($coPlanoAssinanteAssinatura);
 
         $PDO->beginTransaction();
-        if ((string)$Xml->status == StatusPagamentoEnum::PAGO ||
-            (string)$Xml->status == StatusPagamentoEnum::DISPONIVEL ||
-            (string)$Xml->status == StatusPagamentoEnum::EM_DISPUTA) {
-            $dados[ST_STATUS] = StatusAcessoEnum::ATIVO;
-
-            // DESATIVA O PLANO ANTERIOR
-            $planAss[ST_STATUS] = StatusAcessoEnum::INATIVO;
-
-            $planoAssinanteAssinaturaService->Salva($planAss, $plan->getCoPlanoAssinanteAssinaturaAtivo());
-
-            // ATUALIZA A DATA DE EXPIRAÇÃO DO ASSINANTE
-            $ass[DT_EXPIRACAO] = $plan->getDtExpiracao();
-            $AssinanteService->Salva($ass, $plan->getCoAssinante()->getCoAssinante());
-        } elseif ((string)$Xml->status == StatusPagamentoEnum::DEVOLVIDA ||
-            (string)$Xml->status == StatusPagamentoEnum::CANCELADA) {
-            $dados[ST_STATUS] = StatusAcessoEnum::INATIVO;
-
-            // DESATIVA A ASSINATURA CANCELADO OU ESTORNADA
-            $planoAssinanteAssinaturaService->Salva([
-                ST_STATUS => StatusAcessoEnum::INATIVO
-            ], $coPlanoAssinanteAssinatura);
-
-            // ATIVA A ASSINATURA ANTERIOR
-            $planoAssinanteAssinaturaService->Salva([
-                ST_STATUS => StatusAcessoEnum::ATIVO
-            ], $plan->getCoPlanoAssinanteAssinaturaAtivo());
-
-            //  ATUALIZA A DATA DE EXPIRAÇÃO DO ASSINANTE
-            /** @var PlanoAssinanteAssinaturaEntidade $planAnterior */
-            $planAnterior = $planoAssinanteAssinaturaService->PesquisaUmRegistro(
-                $plan->getCoPlanoAssinanteAssinaturaAtivo()
-            );
-
-            // ATUALIZA A DATA DE EXPIRAÇÃO DO ASSINANTE
-            $ass[DT_EXPIRACAO] = $planAnterior->getDtExpiracao();
-            $retorno[SUCESSO] = $AssinanteService->Salva($ass, $plan->getCoAssinante()->getCoAssinante());
-        }
-
         if ($plan->getStPagamento() != (string)$Xml->status) {
+            if ((string)$Xml->status == StatusPagamentoEnum::PAGO ||
+                (string)$Xml->status == StatusPagamentoEnum::DISPONIVEL ||
+                (string)$Xml->status == StatusPagamentoEnum::EM_DISPUTA) {
+                $dados[ST_STATUS] = StatusAcessoEnum::ATIVO;
+
+                // DESATIVA O PLANO ANTERIOR
+                $planAss[ST_STATUS] = StatusAcessoEnum::INATIVO;
+
+                $planoAssinanteAssinaturaService->Salva($planAss, $plan->getCoPlanoAssinanteAssinaturaAtivo());
+
+                // ATUALIZA A DATA DE EXPIRAÇÃO DO ASSINANTE
+                $ass[DT_EXPIRACAO] = $plan->getDtExpiracao();
+                $AssinanteService->Salva($ass, $plan->getCoAssinante()->getCoAssinante());
+            } elseif ((string)$Xml->status == StatusPagamentoEnum::DEVOLVIDA ||
+                (string)$Xml->status == StatusPagamentoEnum::CANCELADA) {
+                $dados[ST_STATUS] = StatusAcessoEnum::INATIVO;
+
+                // DESATIVA A ASSINATURA CANCELADO OU ESTORNADA
+                $planoAssinanteAssinaturaService->Salva([
+                    ST_STATUS => StatusAcessoEnum::INATIVO
+                ], $coPlanoAssinanteAssinatura);
+
+                // ATIVA A ASSINATURA ANTERIOR
+                $planoAssinanteAssinaturaService->Salva([
+                    ST_STATUS => StatusAcessoEnum::ATIVO
+                ], $plan->getCoPlanoAssinanteAssinaturaAtivo());
+
+                //  ATUALIZA A DATA DE EXPIRAÇÃO DO ASSINANTE
+                /** @var PlanoAssinanteAssinaturaEntidade $planAnterior */
+                $planAnterior = $planoAssinanteAssinaturaService->PesquisaUmRegistro(
+                    $plan->getCoPlanoAssinanteAssinaturaAtivo()
+                );
+
+                // ATUALIZA A DATA DE EXPIRAÇÃO DO ASSINANTE
+                $ass[DT_EXPIRACAO] = $planAnterior->getDtExpiracao();
+                $retorno[SUCESSO] = $AssinanteService->Salva($ass, $plan->getCoAssinante()->getCoAssinante());
+            }
+
             // HISTORICO DO PAGAMENTO RETORNO PAGSEGURO
             $histPagAss[CO_PLANO_ASSINANTE_ASSINATURA] = $coPlanoAssinanteAssinatura;
             $histPagAss[DT_CADASTRO] = (string)$Xml->lastEventDate;
@@ -383,6 +383,24 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
             $histPagAss[ST_PAGAMENTO] = (string)$Xml->status;
 
             $HistPagAssService->Salva($histPagAss);
+
+
+            /** @var AssinanteEntidade $assinante */
+            $assinante = $AssinanteService->PesquisaUmRegistro($plan->getCoAssinante()->getCoAssinante());
+
+            $data = explode('T', (string)$Xml->lastEventDate);
+            $hora = explode('.', $data[1]);
+
+            $msg = 'Olá, ' . strtoupper($assinante->getCoPessoa()->getNoPessoa()) . ', Eu Sou O *SisBela*, 
+            seu Sistema da Beleza, e gostaria de te informar que o _Pagamento_ do Assinante *' .
+                $assinante->getCoEmpresa()->getNoFantasia() . '* Mudou para o Status do pagamento de _*' .
+                StatusPagamentoEnum::getDescricaoValor((string)$Xml->status) . '*_ em ' .
+                Valida::DataShow($data[0] . ' ' . $hora[0], 'd/m/Y H:i') .
+                ' conforme retornado da operadora do pagamento. Acesse nosso sistema para maiores Informações.';
+            $whats = new WhatsAppService();
+            $whats->enviarMensagem($assinante->getCoPessoa()->getCoContato()->getNuTel1(), $msg);
+
+
         }
 
         $retorno[SUCESSO] = $planoAssinanteAssinaturaService->Salva($dados, $coPlanoAssinanteAssinatura);
@@ -414,7 +432,7 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
             EMAIL_PAGSEGURO . "&token=" . TOKEN_PAGSEGURO . "&transactionCode={$code}";
 
         $Curl = curl_init($Url);
-        curl_setopt($Curl, CURLOPT_HTTPHEADER, Array("Content-Type: application/x-www-form-urlencoded; charset=UTF-8"));
+        curl_setopt($Curl, CURLOPT_HTTPHEADER, array("Content-Type: application/x-www-form-urlencoded; charset=UTF-8"));
         curl_setopt($Curl, CURLOPT_POST, true);
         curl_setopt($Curl, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($Curl, CURLOPT_RETURNTRANSFER, true);
@@ -489,7 +507,7 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
             EMAIL_PAGSEGURO . "&token=" . TOKEN_PAGSEGURO . "&transactionCode={$code}";
 
         $Curl = curl_init($Url);
-        curl_setopt($Curl, CURLOPT_HTTPHEADER, Array("Content-Type: application/x-www-form-urlencoded; charset=UTF-8"));
+        curl_setopt($Curl, CURLOPT_HTTPHEADER, array("Content-Type: application/x-www-form-urlencoded; charset=UTF-8"));
         curl_setopt($Curl, CURLOPT_POST, true);
         curl_setopt($Curl, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($Curl, CURLOPT_RETURNTRANSFER, true);

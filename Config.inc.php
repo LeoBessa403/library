@@ -76,6 +76,8 @@ if (defined('TEM_SITE') == false) {
     define('TAMANHO', 800);
     // NÚMERO PADRÃO DE ENVIO DO WHATSAPP
     define('WHATSAPP', '');
+    // NÚMERO PADRÃO DE RECEBIMENTO DO WHATSAPP
+    define('WHATSAPP_MSG', '');
     // DESCRIÇÃO PADRÃO DO SITE
     define('DESC_SITE', 'Sistema de gestão novo');
     // TÍTULO PADRÃO DO SITE

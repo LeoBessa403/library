@@ -46,6 +46,7 @@ class Gestao extends AbstractController
             $dados['LOGAR_EMAIL'] = (!empty($dados['LOGAR_EMAIL'])) ? TRUE : FALSE;
             $dados['TABELA_AUDITORIA'] = (!empty($dados['TABELA_AUDITORIA'])) ? TRUE : FALSE;
             $dados['WHATSAPP'] = '55' . Valida::RetiraMascara($dados['WHATSAPP']);
+            $dados['WHATSAPP_MSG'] = '55' . Valida::RetiraMascara($dados['WHATSAPP_MSG']);
             $retorno = $this->geraConstantes($dados);
             if ($retorno) {
                 /** @var Session $session */
@@ -78,6 +79,7 @@ class Gestao extends AbstractController
         $res['BACKUP'] = BACKUP;
         $res['TAMANHO'] = TAMANHO;
         $res['WHATSAPP'] = str_replace('55', '', WHATSAPP);
+        $res['WHATSAPP_MSG'] = str_replace('55', '', WHATSAPP_MSG);
         $res['NUM_BG_IMAGENS'] = NUM_BG_IMAGENS;
         $res['CONTROLLER_SEO'] = CONTROLLER_SEO;
         $res['USER_EMAIL'] = USER_EMAIL;

@@ -74,6 +74,7 @@ class  AssinanteService extends AbstractService
 
                 $dadosEmail[NO_PESSOA] = $pessoa[NO_PESSOA];
                 $dadosEmail[DS_EMAIL] = $contato[DS_EMAIL];
+                $dadosEmail[NU_TEL1] = $contato[NU_TEL1];
 
                 $coAssinante = $this->Salva($assinante);
                 $coUsuario = $usuarioService->salvaUsuarioInicial($assinante[CO_PESSOA], $dadosEmail, $coAssinante);

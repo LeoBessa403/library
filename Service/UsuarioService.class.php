@@ -355,6 +355,9 @@ class  UsuarioService extends AbstractService
 
         $dadosEmail[DS_SENHA] = $usuario[DS_SENHA];
         $this->enviaEmailNovoUsuario($dadosEmail, $coUsuario);
+        $whats = new WhatsAppService();
+        $retWhats = $whats->enviaMsgUsuarioInicial($dadosEmail);
+
 
         return $coUsuario;
     }

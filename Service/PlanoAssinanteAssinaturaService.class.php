@@ -334,6 +334,9 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
         /** @var PlanoAssinanteAssinaturaEntidade $plan */
         $plan = $planoAssinanteAssinaturaService->PesquisaUmRegistro($coPlanoAssinanteAssinatura);
 
+        $whats = new WhatsAppService();
+        $retWhats = $whats->enviaMsgRetornoPagamento($plan->getCoAssinante()->getCoAssinante(),$Xml);
+
         $PDO->beginTransaction();
         if ($plan->getStPagamento() != (string)$Xml->status) {
             if ((string)$Xml->status == StatusPagamentoEnum::PAGO ||

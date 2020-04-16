@@ -3,8 +3,8 @@
         <div class="row">
             <div class="col-md-12 col-sm-12 col-lg-3 col-xl-3">
                 <div class="beautypress-single-our-sevice beautypress-version-2 bg-color-white">
-                    <div class="beautypress-service-header color-gradient">
-                        <i class="fa fa-volume-control-phone"></i>
+                    <div class="beautypress-service-header color-green">
+                        <i class="fa fa-whatsapp"></i>
                     </div><!-- .beautypress-service-header END -->
                     <div class="beautypress-service-footer">
                         <a class="beautypress-service-title underline-title">Suporte 24/7</a>
@@ -14,7 +14,7 @@
             </div>
             <div class="col-md-12 col-sm-12 col-lg-3 col-xl-3">
                 <div class="beautypress-single-our-sevice beautypress-version-2 bg-color-white">
-                    <div class="beautypress-service-header color-gradient">
+                    <div class="beautypress-service-header color-navy-blue">
                         <i class="fa fa-video-camera"></i>
                     </div><!-- .beautypress-service-header END -->
                     <div class="beautypress-service-footer">
@@ -25,7 +25,7 @@
             </div>
             <div class="col-md-12 col-sm-12 col-lg-3 col-xl-3">
                 <div class="beautypress-single-our-sevice beautypress-version-2 bg-color-white">
-                    <div class="beautypress-service-header color-gradient">
+                    <div class="beautypress-service-header color-red-light">
                         <i class="fa fa-ban"></i>
                     </div><!-- .beautypress-service-header END -->
                     <div class="beautypress-service-footer">
@@ -37,7 +37,7 @@
             </div>
             <div class="col-md-12 col-sm-12 col-lg-3 col-xl-3">
                 <div class="beautypress-single-our-sevice beautypress-version-2 bg-color-white">
-                    <div class="beautypress-service-header color-gradient">
+                    <div class="beautypress-service-header color-purple">
                         <i class="fa fa-cloud-download"></i>
                     </div><!-- .beautypress-service-header END -->
                     <div class="beautypress-service-footer">

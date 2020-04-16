@@ -1,15 +1,49 @@
 <?php
 $pages = array(
-    'IndexWeb/Index' => 'Home',
-    'IndexWeb/ListarCategorias' => 'Experimentar Grátis',
-//    'Fabricantes/ListarFabricantes' => 'Fabricantes',
-//    'Institucional/SobreNos' => 'Sobre nós',
-//    'Institucional/Contatos' => 'Contatos',
-//    'Institucional/Duvidas' => 'Dúvidas',
-//    'Produtos/DetalharFavoritos' => 'Favoritos',
-//    'Produtos/ComparaProdutos' => 'Comparação de produtos',
+    'home_inicio' => 'Início',
+    'experimentar_gratis' => 'Experimentar Grátis',
+    'planos_sistema' => 'Planos',
+    'saiba_mais' => 'Saiba Mais',
 );
-/** @var UrlAmigavel $url */
+$redesSocial = array(
+    'instagram' => [
+        'link' => 'https://www.instagram.com/sistemadabeleza/',
+        'class' => 'beautypress-instagram',
+        'title' => 'Nos siga no Instagram',
+        'iClass' => 'fa fa-instagram',
+    ],
+    'facebook' => [
+        'link' => 'https://www.facebook.com/sistemadabeleza/',
+        'class' => 'beautypress-facebook',
+        'title' => 'Nos siga no Facebook',
+        'iClass' => 'fa fa-facebook',
+    ],
+    'youtube' => [
+        'link' => 'https://www.youtube.com/channel/UCurAWOHi0yrq7SnmelWdOJA',
+        'class' => 'beautypress-pinterest',
+        'title' => 'Veja nosso canal no YouTube',
+        'iClass' => 'fa fa-youtube-play',
+    ],
+    'twitter' => [
+        'link' => 'https://twitter.com/sistemadabeleza/',
+        'class' => 'beautypress-twitter',
+        'title' => 'Nos siga no Twitter',
+        'iClass' => 'fa fa-twitter',
+    ],
+    'whatsapp' => [
+        'link' => 'https://api.whatsapp.com/send?phone=' . WHATSAPP .
+            '&amp;l=pt_BR&amp;text=Olhando no site e gostaria de saber mais!',
+        'class' => 'beautypress-whatsapp',
+        'title' => 'Nos chame no WhatsApp',
+        'iClass' => 'fa fa-whatsapp',
+    ],
+    'email' => [
+        'link' => 'mailto:' . USER_EMAIL,
+        'class' => 'beautypress-envelope',
+        'title' => 'Nos envie um E-mail',
+        'iClass' => 'fa fa-envelope',
+    ],
+);
 $url = new UrlAmigavel();
 ///** @var Seo $seo */
 //$seo = new Seo($url);
@@ -90,7 +124,8 @@ $url = new UrlAmigavel();
 
 <!--[if lt IE 8]>
 <p class="browserupgrade">Voçê está usando um programa <strong>DESATUALIZADO</strong> navegador. por favor <a
-        href="http://browsehappy.com/">atualize seu navegador</a> para que possa navegar no site e sistema de forma melhor.</p>
+        href="http://browsehappy.com/">atualize seu navegador</a> para que possa navegar no site e sistema de forma
+    melhor.</p>
 <![endif]-->
 
 <!-- Main menu -->
@@ -106,22 +141,13 @@ $url = new UrlAmigavel();
         <div class="container">
             <h4 style="display: none;">Redes Sociais</h4>
             <ul class="beautypress-simple-iocn-list beautypress-social-list beautypress-version-1">
-                <li><a href="https://www.instagram.com/sistemadabeleza/" class="beautypress-instagram"
-                       target="_blank" title="Nos siga no Instagram"><i class="fa fa-instagram"></i></a></li>
-                <li><a href="https://www.facebook.com/sistemadabeleza" class="beautypress-facebook"
-                       target="_blank" title="Nos siga no Facebook"><i class="fa fa-facebook"></i></a></li>
-                <li><a href="https://www.youtube.com/channel/UCurAWOHi0yrq7SnmelWdOJA" class="beautypress-pinterest"
-                       target="_blank" title="Veja nosso canal no YouTube"><i class="fa fa-youtube-play"></i></a></li>
-                <li><a href="https://twitter.com/sistemadabeleza" class="beautypress-twitter"
-                       target="_blank" title="Nos siga no Twitter"><i class="fa fa-twitter"></i></a></li>
-                <li>
-                    <a href="https://api.whatsapp.com/send?phone=5561993274991&amp;l=pt_BR&amp;text=Olhando no site e gostaria de saber mais!"
-                       class="beautypress-whatsapp"
-                       target="_blank" title="Nos chame no WhatsApp"><i
-                                class="fa fa-whatsapp"></i></a></li>
-                <li><a href="mailto:<?= USER_EMAIL; ?>" class="beautypress-envelope">
-                        <i class="fa fa-envelope"></i></a></li>
-                <a href="#" class="btn-exp xs-btn round-btn box-shadow-btn bg-color-green">Experimentar Grátis<span></span></a>
+                <?php foreach ($redesSocial as $key => $dados) : ?>
+                    <li><a href="<?= $dados['link']; ?>" class="<?= $dados['class']; ?>"
+                           target="_blank" title="<?= $dados['title']; ?>"><i class="<?= $dados['iClass']; ?>">
+                            </i></a></li>
+                <?php endforeach; ?>
+                <a href="#" class="btn-exp xs-btn round-btn box-shadow-btn bg-color-green experimentar_gratis">
+                    Experimentar Grátis<span></span></a>
             </ul>
 
         </div>
@@ -134,14 +160,10 @@ $url = new UrlAmigavel();
                 </div>
                 <div class="nav-menus-wrapper">
                     <ul class="nav-menu">
-                        <li><a href="#">Home</a>
-                            <ul class="nav-dropdown">
-                                <?php foreach ($pages as $key => $packagePage) : ?>
-                                    <li><a href="<?php echo PASTASITE . $key; ?>">
-                                            <?php echo $packagePage; ?></a></li>
-                                <?php endforeach; ?>
-                            </ul>
-                        </li>
+                        <?php foreach ($pages as $key => $packagePage) : ?>
+                            <li class="<?= $key; ?>"><a href="#">
+                                    <?php echo $packagePage; ?></a></li>
+                        <?php endforeach; ?>
                         <li><a href="<?= PASTAADMIN; ?>Index/PrimeiroAcesso" target="_blank">SisBela</a></li>
                     </ul>
                 </div>

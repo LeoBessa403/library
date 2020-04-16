@@ -62,11 +62,10 @@
                         <img src="<?= PASTASITE; ?>img/footer_logo-v4.png" alt="">
                     </a>
                 </div><!-- .beautypress-footer-logo END -->
-                <p>One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed
-                    into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could
-                    see his brown belly, slightly domed and divided by arches into stiff sections. The bedding was
-                    hardly able to cover it and seemed ready to slide off any moment. His many legs, pitifully thin
-                    compared with the size of the rest of him, waved about helplessly as he looked. </p>
+                <p>O sistema de gestão <?= DESC; ?> é ideal para SEU NEGÓCIO, Salão de Beleza, Barbearia, Clínicas de
+                    Estética, Ateliê de Maquiagem, Spas, Estúdio de Tatuagem e Outros.  Acesse de qualquer lugar todas as ferramentas, são muito
+                    fáceis de usar e podem ser acessadas pelo computador, Tablet ou celular. Ganhe mais tempo com suas
+                    tarefas e deixe nosso sitema organizar sua agenda pra você.</p>
                 <div class="beautypress-footer-social text-center">
                     <ul class="beautypress-social-list">
                         <?php foreach ($redesSocial as $key => $dados) : ?>

@@ -31,7 +31,7 @@
                     <div class="beautypress-service-footer">
                         <a class="beautypress-service-title underline-title">Sem taxa de adesão</a>
                         <p>Experimente Grátis por <?= ConfiguracoesEnum::DIAS_EXPERIMENTAR ?> Dias nosso sistema, e só
-                            depois realiza a assinatura.</p>
+                            depois realize a assinatura.</p>
                     </div><!-- .beautypress-service-footer END -->
                 </div><!-- .beautypress-single-our-sevice END -->
             </div>
@@ -43,7 +43,7 @@
                     <div class="beautypress-service-footer">
                         <a class="beautypress-service-title underline-title">Backup e atualizações</a>
                         <p>Salva as Informações e atualizações do sistema de
-                            forma automática</p>
+                            forma automática.</p>
                     </div><!-- .beautypress-service-footer END -->
                 </div><!-- .beautypress-single-our-sevice END -->
             </div>

@@ -132,7 +132,7 @@ $url = new UrlAmigavel();
 <header class="beautypress-header-section beautypress-version-1 beautypress-extra-css menu-skew header-height-calc-minus navbar-fixed">
     <div class="container">
         <div class="beautypress-logo-wraper">
-            <a href="index.html" class="beautypress-logo beautypress-version-2  beautypress-version-4">
+            <a class="beautypress-logo beautypress-version-2 beautypress-version-4 home_inicio">
                 <img src="<?= PASTASITE; ?>img/logo-v1-1.png" alt="">
             </a>
         </div><!-- .beautypress-logo-wraper END -->

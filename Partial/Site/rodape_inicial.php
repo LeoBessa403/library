@@ -1,3 +1,75 @@
+
+<div class="beautypress-our-service-section section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-lg-3 col-xl-3">
+                <div class="beautypress-single-our-sevice beautypress-version-2 bg-color-white">
+                    <div class="beautypress-service-header color-green">
+                        <i class="fa fa-whatsapp"></i>
+                    </div><!-- .beautypress-service-header END -->
+                    <div class="beautypress-service-footer">
+                        <a href="#" class="beautypress-service-title underline-title">Massage Parlour</a>
+                        <p>When an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries</p>
+                        <a href="#" class="xs-btn bg-color-purple purple-2 round-btn box-shadow-btn">
+                            learn more
+                            <span></span>
+                        </a>
+                    </div><!-- .beautypress-service-footer END -->
+                </div><!-- .beautypress-single-our-sevice END -->
+            </div>
+            <div class="col-md-12 col-sm-12 col-lg-3 col-xl-3">
+                <div class="beautypress-single-our-sevice beautypress-version-2 bg-color-white">
+                    <div class="beautypress-service-header">
+                        <i class="fa fa-whatsapp"></i>
+                    </div><!-- .beautypress-service-header END -->
+                    <div class="beautypress-service-footer">
+                        <a href="#" class="beautypress-service-title underline-title">Massage Parlour</a>
+                        <p>When an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries</p>
+
+                        <a href="#" class="xs-btn bg-color-purple purple-2 round-btn box-shadow-btn">
+                            learn more
+                            <span></span>
+                        </a>
+                    </div><!-- .beautypress-service-footer END -->
+                </div><!-- .beautypress-single-our-sevice END -->
+            </div>
+            <div class="col-md-12 col-sm-12 col-lg-3 col-xl-3">
+                <div class="beautypress-single-our-sevice beautypress-version-2 bg-color-white">
+                    <div class="beautypress-service-header">
+                        <i class="fa fa-whatsapp"></i>
+                    </div><!-- .beautypress-service-header END -->
+                    <div class="beautypress-service-footer">
+                        <a href="#" class="beautypress-service-title">Therapy Parlour</a>
+                        <p>When an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries</p>
+
+                        <a href="#" class="xs-btn bg-color-purple purple-2 round-btn box-shadow-btn">
+                            learn more
+                            <span></span>
+                        </a>
+                    </div><!-- .beautypress-service-footer END -->
+                </div><!-- .beautypress-single-our-sevice END -->
+            </div>
+            <div class="col-md-12 col-sm-12 col-lg-3 col-xl-3">
+                <div class="beautypress-single-our-sevice beautypress-version-2 bg-color-white">
+                    <div class="beautypress-service-header">
+                        <i class="fa fa-whatsapp"></i>
+                    </div><!-- .beautypress-service-header END -->
+                    <div class="beautypress-service-footer">
+                        <a href="#" class="beautypress-service-title">Classical Massage</a>
+                        <p>When an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries</p>
+
+                        <a href="#" class="xs-btn bg-color-purple purple-2 round-btn box-shadow-btn">
+                            learn more
+                            <span></span>
+                        </a>
+                    </div><!-- .beautypress-service-footer END -->
+                </div><!-- .beautypress-single-our-sevice END -->
+            </div>
+        </div>
+    </div>
+</div><!-- .beautypress-our-service-section END -->
+<!-- Our service -->
+
 <!-- Footer section -->
 <footer class="beautypress-footer-section beautypress-version-5">
     <div class="container">

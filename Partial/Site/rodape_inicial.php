@@ -63,9 +63,9 @@
                     </a>
                 </div><!-- .beautypress-footer-logo END -->
                 <p>O sistema de gestão <?= DESC; ?> é ideal para SEU NEGÓCIO, Salão de Beleza, Barbearia, Clínicas de
-                    Estética, Ateliê de Maquiagem, Spas, Estúdio de Tatuagem e Outros.  Acesse de qualquer lugar todas as ferramentas, são muito
-                    fáceis de usar e podem ser acessadas pelo computador, Tablet ou celular. Ganhe mais tempo com suas
-                    tarefas e deixe nosso sitema organizar sua agenda pra você.</p>
+                    Estética, Ateliê de Maquiagem, Esmalteria, Spa, Estúdio de Tatuagem e Outros. Acesse de qualquer lugar todas as
+                    ferramentas, são muito fáceis de usar e podem ser acessadas pelo computador, Tablet ou celular.
+                    Ganhe mais tempo com suas tarefas e deixe nosso sitema organizar sua agenda pra você.</p>
                 <div class="beautypress-footer-social text-center">
                     <ul class="beautypress-social-list">
                         <?php foreach ($redesSocial as $key => $dados) : ?>

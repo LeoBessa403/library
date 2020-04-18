@@ -46,8 +46,7 @@ $redesSocial = array(
 );
 $url = new UrlAmigavel();
 $seo = new Seo($url);
-///** @var Sitemap $siteMap */
-//$siteMap = new Sitemap();
+$siteMap = new Sitemap();
 ///** @var VisitaService $visitaService */
 //$visitaService = new VisitaService();
 //$visitaService->gestaoVisita();

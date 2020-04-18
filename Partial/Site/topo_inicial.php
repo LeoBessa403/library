@@ -45,8 +45,7 @@ $redesSocial = array(
     ],
 );
 $url = new UrlAmigavel();
-///** @var Seo $seo */
-//$seo = new Seo($url);
+$seo = new Seo($url);
 ///** @var Sitemap $siteMap */
 //$siteMap = new Sitemap();
 ///** @var VisitaService $visitaService */
@@ -64,11 +63,9 @@ $url = new UrlAmigavel();
 <html class="no-js" lang="pt-br" itemscope itemtype="https://schema.org/WebSite"> <!--<![endif]-->
 <head>
     <!-- Inclução das tags do Seo -->
-    <!--        --><?php //require_once 'library/includes/SeoTags.php'; ?>
+    <?php require_once 'library/Partial/Site/SeoTags.php'; ?>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Site Sistema da Beleza</title>
-    <meta name="description" content="Uma descrição do site">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700%7CNiconne"

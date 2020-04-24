@@ -10,7 +10,7 @@ $url->pegaControllerAction();
 <!-- end: MAIN NAVIGATION MENU --><!-- end: MAIN CONTAINER -->
 <!-- start: FOOTER -->
 <div class="footer clearfix">
-    <div class="footer-inner">
+    <div class="footer-inner" style="float:none;  text-align: center;">
         <?php include_once 'controle_versao.php'; ?>
     </div>
     <div class="footer-items">

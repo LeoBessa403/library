@@ -77,7 +77,7 @@ seu _Sistema da Beleza_, e gostaria de te informar que o _Pagamento_ do Assinant
         return $this->enviarMensagem($assinante->getCoPessoa()->getCoContato()->getNuTel1(), $msg);
     }
 
-    public function enviaMsgUsuarioInicial($dadosEmail)
+    public function enviaMsgUsuarioInicial($dadosEmail, $coUsuario)
     {
         $Mensagem = "  Olá " . strtoupper($dadosEmail[NO_PESSOA]) . ", Seu cadastro no *" . DESC .
             "* foi realizado com sucesso.
@@ -86,7 +86,10 @@ seu _Sistema da Beleza_, e gostaria de te informar que o _Pagamento_ do Assinant
         $Mensagem .= ". 
         _Ao acesso o Sistema pela primeira vez, deve trocar a senha._
               
-   Acesse o Nosso _Sistema da Beleza_ agora mesmo e começe a usar-lo para uma melhor organização de sua agenda. Esperamos por você";
+   Acesse o Nosso _Sistema da Beleza_ agora mesmo e começe a usar-lo para uma melhor organização de sua agenda. Esperamos por você
+   
+   Acesso o link para a <a href='" . HOME . "admin/Index/AtivacaoUsuario/" .
+            Valida::GeraParametro(CO_USUARIO . "/" . $coUsuario) . "'>ATIVAÇÃO DO CADASTRO</a>";
         return $this->enviarMensagem($dadosEmail[NU_TEL1], $Mensagem);
     }
 

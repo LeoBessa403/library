@@ -121,7 +121,7 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
                     // HISTORICO DO PAGAMENTO RETORNO PAGSEGURO
                     $histPagAss[CO_PLANO_ASSINANTE_ASSINATURA] = (int)$retornoPagSeguro->reference;
                     $histPagAss[DT_CADASTRO] = (string)$retornoPagSeguro->lastEventDate;
-                    $histPagAss[DS_ACAO] = 'Mudou para o Status do pagamento de ' .
+                    $histPagAss[DS_ACAO] = 'Mudou para o Status do pagamento para ' .
                         StatusPagamentoEnum::getDescricaoValor((string)$retornoPagSeguro->status);
                     $histPagAss[DS_USUARIO] = 'Retorno da operadora do pagamento';
                     $histPagAss[ST_PAGAMENTO] = (string)$retornoPagSeguro->status;
@@ -380,7 +380,7 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
             // HISTORICO DO PAGAMENTO RETORNO PAGSEGURO
             $histPagAss[CO_PLANO_ASSINANTE_ASSINATURA] = $coPlanoAssinanteAssinatura;
             $histPagAss[DT_CADASTRO] = (string)$Xml->lastEventDate;
-            $histPagAss[DS_ACAO] = 'Mudou para o Status do pagamento de ' .
+            $histPagAss[DS_ACAO] = 'Mudou para o Status do pagamento para ' .
                 StatusPagamentoEnum::getDescricaoValor((string)$Xml->status);
             $histPagAss[DS_USUARIO] = 'Retorno da operadora do pagamento';
             $histPagAss[ST_PAGAMENTO] = (string)$Xml->status;
@@ -440,7 +440,7 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
             // HISTORICO DO PAGAMENTO RETORNO PAGSEGURO
             $histPagAss[CO_PLANO_ASSINANTE_ASSINATURA] = $plan->getCoPlanoAssinanteAssinatura();
             $histPagAss[DT_CADASTRO] = Valida::DataHoraAtualBanco();
-            $histPagAss[DS_ACAO] = 'Mudou para o Status do pagamento de ' .
+            $histPagAss[DS_ACAO] = 'Mudou para o Status do pagamento para ' .
                 StatusPagamentoEnum::getDescricaoValor(StatusPagamentoEnum::CANCELADA);
             $histPagAss[DS_USUARIO] = 'Suporte Efetuou o cancelamento.';
             $histPagAss[ST_PAGAMENTO] = StatusPagamentoEnum::CANCELADA;
@@ -514,7 +514,7 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
             // HISTORICO DO PAGAMENTO RETORNO PAGSEGURO
             $histPagAss[CO_PLANO_ASSINANTE_ASSINATURA] = $plan->getCoPlanoAssinanteAssinatura();
             $histPagAss[DT_CADASTRO] = Valida::DataHoraAtualBanco();
-            $histPagAss[DS_ACAO] = 'Mudou para o Status do pagamento de ' .
+            $histPagAss[DS_ACAO] = 'Mudou para o Status do pagamento para ' .
                 StatusPagamentoEnum::getDescricaoValor(StatusPagamentoEnum::DEVOLVIDA);
             $histPagAss[DS_USUARIO] = 'Suporte Efetuou o estorno.';
             $histPagAss[ST_PAGAMENTO] = StatusPagamentoEnum::DEVOLVIDA;

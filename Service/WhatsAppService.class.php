@@ -68,7 +68,7 @@ class  WhatsAppService extends AbstractService
 
         $msg = '  Olá, ' . strtoupper($assinante->getCoPessoa()->getNoPessoa()) . ', Eu Sou O *SisBela*, 
 seu _Sistema da Beleza_, e gostaria de te informar que o _Pagamento_ do Assinante *' .
-            $assinante->getCoEmpresa()->getNoFantasia() . '* Mudou para o Status do pagamento para _*' .
+            $assinante->getCoEmpresa()->getNoFantasia() . '* Mudou o Status do pagamento para _*' .
             StatusPagamentoEnum::getDescricaoValor((string)$Xml->status) . '*_ em ' .
             Valida::DataShow($data[0] . ' ' . $hora[0], 'd/m/Y H:i') .
             ' conforme retornado da operadora do pagamento. 

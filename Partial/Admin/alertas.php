@@ -28,7 +28,7 @@ if ($retorno['status_sistema'] == StatusSistemaEnum::PENDENTE  && UrlAmigavel::$
 }
 // ALERTA DE TROCA DE SENHA
 if ($user[md5(ST_TROCA_SENHA)] == SimNaoEnum::NAO && empty($session->CheckSession(ST_TROCA_SENHA)) &&
-    UrlAmigavel::$action == 'Index' && UrlAmigavel::$controller == 'Index') {
+    UrlAmigavel::$action == ACTION_INICIAL_ADMIN && UrlAmigavel::$controller == CONTROLLER_INICIAL_ADMIN) {
 
     $dados['titulo'] = 'Cadastro Ativado com Sucesso!';
     $dados['mensagem'] = '<p>Para trocar sua senha acesseo link <a href="' . PASTAADMIN . 'Usuario/TrocaSenhaUsuario"

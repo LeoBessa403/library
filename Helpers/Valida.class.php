@@ -478,7 +478,7 @@ class Valida
     {
         if (Session::CheckSession(SESSION_USER)):
             if (Session::getSession(SESSION_USER, CAMPO_PERFIL)):
-                if ($action == "Index" || $action == "Logar"):
+                if ($action == "IndexAdmin" || $action == "Logar"):
                     return true;
                 endif;
                 $compara = strstr(UrlAmigavel::$action, 'Exporta');

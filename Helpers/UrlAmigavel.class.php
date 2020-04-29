@@ -193,7 +193,7 @@ class UrlAmigavel
         else:
             echo '<li>';
         endif;
-        echo '<a href="' . PASTAADMIN . 'Index/Index"><i class="clip-home-3"></i>
+        echo '<a href="' . PASTAADMIN . 'Index/IndexAdmin"><i class="clip-home-3"></i>
                                    <span class="title"> PÁGINA INICIAL  </span><span class="selected"></span>
                            </a>
                    </li>';

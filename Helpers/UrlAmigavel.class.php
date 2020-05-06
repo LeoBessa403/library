@@ -39,16 +39,19 @@ class UrlAmigavel
     }
 
     /**
-     * <b>PegaParametro:</b> Pega todos os parÃªmetros passados pela URL
-     * @param STRING $name = Passando o nome do parametro a ser retornado.
-     * @return ArrayAccess Retorna um array de parÃ¢metros ou caso mensione o parÃ¢metro a ser pesquisado
+     * <b>PegaParametro:</b> Pega todos os parâmetros passados pela URL
+     * @param STRING $name = Passando o nome do parâmetro a ser retornado.
+     * @return ArrayAccess Retorna um array de parâmetros ou caso mensione o parâmetro a ser pesquisado
      * retorno com o valor de uma variavel solicitada
      */
     public static function PegaParametro($name = null)
     {
         if ($name != null):
             if (array_key_exists(md5($name), self::$params)):
-                return self::$params[md5($name)];
+                return trim(strip_tags(preg_replace(
+                        '/<(head|title|style|script)[^>]*>.*?<\/\\1>/s', '',
+                        self::$params[md5($name)]))
+                );
             endif;
         else:
             return self::$params;
@@ -77,7 +80,7 @@ class UrlAmigavel
      */
     public function pegaControllerAction()
     {
-        if (!in_array(self::$action, self::$ACESSO_PERMITIDO) && self::$modulo != SITE ) {
+        if (!in_array(self::$action, self::$ACESSO_PERMITIDO) && self::$modulo != SITE) {
             if (!PerfilService::perfilMaster() && MODULO_ASSINANTE &&
                 AssinanteService::verificaStatusAssiante() == StatusSistemaEnum::EXPIRADO) {
                 if (self::$action != 'RenovaPlanoAssinante' &&

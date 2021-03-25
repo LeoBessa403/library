@@ -129,6 +129,7 @@ class Pesquisa extends Conn
                         switch ($tipo) {
                             case 'st':
                             case 'tp':
+                            case 'nu':
                                 $pesquisa[] = $key . " in ('" . $value . "')";
                                 break;
                             case 'dt':
@@ -136,7 +137,6 @@ class Pesquisa extends Conn
                                 break;
                             case 'co':
                             case 'sg':
-                            case 'nu':
                                 $pesquisa[] = $key . " in (" . $value . ")";
                                 break;
                             case 'no':

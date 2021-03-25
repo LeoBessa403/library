@@ -7,7 +7,7 @@
 
 class AuditoriaItensEntidade extends AbstractEntidade
 {
-    const TABELA = 'TB_AUDITORIA_ITENS';
+    const TABELA = SCHEMA . '.TB_AUDITORIA_ITENS';
     const ENTIDADE = 'AuditoriaItensEntidade';
     const CHAVE = CO_AUDITORIA_ITENS;
 

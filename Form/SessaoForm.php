@@ -28,19 +28,7 @@ class SessaoForm
             ->setLabel("Nome da Sessao")
             ->CriaInpunt();
 
-        $formulario
-            ->setType(TiposCampoEnum::HIDDEN)
-            ->setId(CO_MODULO)
-            ->setValues($res[CO_MODULO])
-            ->CriaInpunt();
-
-        if (!empty($res[CO_SESSAO])):
-            $formulario
-                ->setType(TiposCampoEnum::HIDDEN)
-                ->setId(CO_SESSAO)
-                ->setValues($res[CO_SESSAO])
-                ->CriaInpunt();
-        endif;
+        Form::CriaInputHidden($formulario, $res, [CO_MODULO, CO_SESSAO]);
 
         return $formulario->finalizaForm('Sessao/ListarSessao/' .
             Valida::GeraParametro(CO_MODULO . "/" . $res[CO_MODULO]));

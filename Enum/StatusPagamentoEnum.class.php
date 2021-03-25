@@ -24,4 +24,15 @@ class StatusPagamentoEnum extends AbstractEnum
         StatusPagamentoEnum::DEVOLVIDA => 'Devolvida',
         StatusPagamentoEnum::CANCELADA => 'Cancelada',
     ];
+
+    public static $cores = [
+        StatusPagamentoEnum::PENDENTE => 'beige',
+        StatusPagamentoEnum::AGUARDANDO_PAGAMENTO => 'purple',
+        StatusPagamentoEnum::EM_ANALISE => 'warning',
+        StatusPagamentoEnum::PAGO => 'green',
+        StatusPagamentoEnum::DISPONIVEL => 'teal',
+        StatusPagamentoEnum::EM_DISPUTA => 'orange',
+        StatusPagamentoEnum::DEVOLVIDA => 'red',
+        StatusPagamentoEnum::CANCELADA => 'black',
+    ];
 }

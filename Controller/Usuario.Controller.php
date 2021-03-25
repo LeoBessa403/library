@@ -66,9 +66,12 @@ class Usuario extends AbstractController
 
             $res['ds_senha_confirma'] = $usuario->getDsSenha();
             $res[DS_SENHA] = $usuario->getDsSenha();
+            $res[CO_IMAGEM] = null;
+
             if (!empty($usuario->getCoImagem())):
                 if ($usuario->getCoImagem()->getDsCaminho()):
                     $res[DS_CAMINHO] = "usuarios/" . $usuario->getCoImagem()->getDsCaminho();
+                    $res[CO_IMAGEM] = "usuarios/" . $usuario->getCoImagem()->getCoImagem();
                 endif;
             endif;
             $res[CO_USUARIO] = $usuario->getCoUsuario();
@@ -98,7 +101,13 @@ class Usuario extends AbstractController
             if ($cadastro):
                 $res[NU_CPF] = $_POST[NU_CPF];
                 $res[CO_ASSINANTE] = AssinanteService::getCoAssinanteLogado();
-                $this->form = UsuarioForm::Cadastrar($res, false, 6);
+                $res[CO_USUARIO] = null;
+                $res[CO_PESSOA] = null;
+                $res[CO_CONTATO] = null;
+                $res[CO_IMAGEM] = null;
+                $res[CO_ENDERECO] = null;
+                
+                $this->form = UsuarioForm::Cadastrar($res, true, 6);
             else:
                 $this->form = PessoaForm::ValidarCPF(4);
             endif;

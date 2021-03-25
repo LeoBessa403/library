@@ -26,9 +26,14 @@ abstract class Conn
     {
         try {
             if (self::$Connect == null):
-                $dsn = 'mysql:host=' . self::$Host . ';dbname=' . self::$Dbsa;
-                $options = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES UTF8');
-                self::$Connect = new PDO($dsn, self::$User, self::$Pass, $options);
+                if (BANCO == 1) {
+                    $dsn = 'mysql:host=' . self::$Host . ';dbname=' . self::$Dbsa;
+                    $options = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES UTF8');
+                    self::$Connect = new PDO($dsn, self::$User, self::$Pass, $options);
+                } else if (BANCO == 2) {
+                    $dsn = 'pgsql:host=' . self::$Host . ';dbname=' . self::$Dbsa . ';port=5432';
+                    self::$Connect = new PDO($dsn, self::$User, self::$Pass);
+                }
             endif;
         } catch (PDOException $e) {
             PHPErro($e->getCode(), $e->getMessage(), $e->getFile(), $e->getLine());
@@ -47,10 +52,16 @@ abstract class Conn
 
     public function inicializarConexao()
     {
-        $conn = mysqli_connect(HOST, USER, PASS);
-        mysqli_select_db($conn, DBSA);
-        if (!mysqli_set_charset($conn, "utf8")) {
-            mysqli_query($conn, "SET NAMES utf8");
+        $conn = null;
+        if (BANCO == 1) {
+            $conn = mysqli_connect(HOST, USER, PASS);
+            mysqli_select_db($conn, DBSA);
+            if (!mysqli_set_charset($conn, "utf8")) {
+                mysqli_query($conn, "SET NAMES utf8");
+            }
+        } elseif (BANCO == 2) {
+            $conn = pg_connect('host=' . self::$Host . ' user=' . self::$User .
+                ' dbname=' . self::$Dbsa . ' password=' . self::$Pass) or die('Não conectou');
         }
         return $conn;
     }
@@ -59,7 +70,7 @@ abstract class Conn
     {
         // Auditoria
         $sem_auditoria = explode(', ', SEM_AUDITORIA);
-        if (TABELA_AUDITORIA && !in_array($Tabela, $sem_auditoria)) {
+        if (TABELA_AUDITORIA && !in_array(str_replace(SCHEMA . '.','', $Tabela), $sem_auditoria)) {
             return true;
         }
         return false;

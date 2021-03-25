@@ -7,7 +7,7 @@
 
 class SessaoEntidade extends AbstractEntidade
 {
-    const TABELA = 'TB_SESSAO';
+    const TABELA = SCHEMA . '.TB_SESSAO';
     const ENTIDADE = 'SessaoEntidade';
     const CHAVE = CO_SESSAO;
 

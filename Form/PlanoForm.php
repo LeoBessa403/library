@@ -67,14 +67,7 @@ class PlanoForm
             ->setLabel("Observação")
             ->CriaInpunt();
 
-
-        if (!empty($res[CO_PLANO])):
-            $formulario
-                ->setType(TiposCampoEnum::HIDDEN)
-                ->setId(CO_PLANO)
-                ->setValues($res[CO_PLANO])
-                ->CriaInpunt();
-        endif;
+        Form::CriaInputHidden($formulario, $res, [CO_PLANO]);
 
         return $formulario->finalizaForm();
     }

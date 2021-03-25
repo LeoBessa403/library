@@ -73,7 +73,7 @@ class GestaoForm
             ->setId('LOGAR_EMAIL')
             ->setClasses($res['LOGAR_EMAIL'])
             ->setType(TiposCampoEnum::CHECKBOX)
-            ->setTamanhoInput(3)
+            ->setTamanhoInput(4)
             ->setOptions($label_options2)
             ->CriaInpunt();
 
@@ -83,7 +83,7 @@ class GestaoForm
             ->setId('TABELA_AUDITORIA')
             ->setClasses($res['TABELA_AUDITORIA'])
             ->setType(TiposCampoEnum::CHECKBOX)
-            ->setTamanhoInput(3)
+            ->setTamanhoInput(4)
             ->setOptions($label_options2)
             ->CriaInpunt();
 
@@ -228,7 +228,6 @@ class GestaoForm
             ->CriaInpunt();
 
 
-
         $formulario
             ->setId('CONTROLLER_SEO')
             ->setLabel("Controllers para gerar o seo diferenciado")
@@ -328,13 +327,7 @@ class GestaoForm
             ->setLabel("Sql")
             ->CriaInpunt();
 
-        if (!empty($res[CO_CRON])):
-            $formulario
-                ->setType(TiposCampoEnum::HIDDEN)
-                ->setId(CO_CRON)
-                ->setValues($res[CO_CRON])
-                ->CriaInpunt();
-        endif;
+        Form::CriaInputHidden($formulario, $res, [CO_CRON]);
 
         return $formulario->finalizaForm();
     }

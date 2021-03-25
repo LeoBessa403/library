@@ -7,7 +7,7 @@
 
 class PessoaEntidade extends PessoaEntidadeExtends
 {
-    const TABELA = 'TB_PESSOA';
+    const TABELA = SCHEMA . '.TB_PESSOA';
     const ENTIDADE = 'PessoaEntidade';
     const CHAVE = CO_PESSOA;
 

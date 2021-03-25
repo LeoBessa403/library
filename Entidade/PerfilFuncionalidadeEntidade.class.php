@@ -7,7 +7,7 @@
 
 class PerfilFuncionalidadeEntidade extends AbstractEntidade
 {
-    const TABELA = 'TB_PERFIL_FUNCIONALIDADE';
+    const TABELA = SCHEMA . '.TB_PERFIL_FUNCIONALIDADE';
     const ENTIDADE = 'PerfilFuncionalidadeEntidade';
     const CHAVE = CO_PERFIL_FUNCIONALIDADE;
 

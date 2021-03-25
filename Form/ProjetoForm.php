@@ -23,13 +23,7 @@ class ProjetoForm
             ->setClasses("ob")
             ->CriaInpunt();
 
-        if (!empty($res[CO_PROJETO])):
-            $formulario
-                ->setType(TiposCampoEnum::HIDDEN)
-                ->setId(CO_PROJETO)
-                ->setValues($res[CO_PROJETO])
-                ->CriaInpunt();
-        endif;
+        Form::CriaInputHidden($formulario, $res, [CO_PROJETO]);
 
         return $formulario->finalizaForm();
     }

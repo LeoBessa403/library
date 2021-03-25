@@ -7,7 +7,7 @@
 
 class VisitaEntidade extends AbstractEntidade
 {
-    const TABELA = 'TB_VISITA';
+    const TABELA = SCHEMA . '.TB_VISITA';
     const ENTIDADE = 'VisitaEntidade';
     const CHAVE = CO_VISITA;
 

@@ -7,7 +7,7 @@
 
 class UsuarioEntidade extends UsuarioEntidadeExtends
 {
-    const TABELA = 'TB_USUARIO';
+    const TABELA = SCHEMA . '.TB_USUARIO';
     const ENTIDADE = 'UsuarioEntidade';
     const CHAVE = CO_USUARIO;
 

@@ -47,9 +47,9 @@ $redesSocial = array(
 $url = new UrlAmigavel();
 $seo = new Seo($url);
 $siteMap = new Sitemap();
-///** @var VisitaService $visitaService */
-//$visitaService = new VisitaService();
-//$visitaService->gestaoVisita();
+/** @var VisitaService $visitaService */
+$visitaService = new VisitaService();
+$visitaService->gestaoVisita();
 ?>
 <!doctype html>
 <!--[if lt IE 7]>
@@ -67,11 +67,11 @@ $siteMap = new Sitemap();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700%7CNiconne"
-          rel="stylesheet">
 
     <!-- end: CSS REQUIRED FOR THIS PAGE ONLY -->
     <link rel="shortcut icon" href="<?= HOME; ?>favicon.ico"/>
+    <!-- Bootstrap.css -->
+    <link rel="stylesheet" href="<?= PASTASITE; ?>css/app.css">
 
     <!-- Bootstrap.css -->
     <link rel="stylesheet" href="<?= PASTASITE; ?>css/bootstrap.min.css">
@@ -92,6 +92,10 @@ $siteMap = new Sitemap();
 
     <!--Theme custom css -->
     <link rel="stylesheet" href="<?= PASTASITE; ?>css/style.css">
+
+<!-- Icons/Glyphs -->
+    <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>css/font-awesome.min.css">
+
 
     <!--Theme Responsive css-->
     <link rel="stylesheet" href="<?= PASTASITE; ?>css/responsive.css"/>

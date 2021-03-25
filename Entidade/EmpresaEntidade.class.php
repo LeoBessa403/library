@@ -7,7 +7,7 @@
 
 class EmpresaEntidade extends AbstractEntidade
 {
-    const TABELA = 'TB_EMPRESA';
+    const TABELA = SCHEMA . '.TB_EMPRESA';
     const ENTIDADE = 'EmpresaEntidade';
     const CHAVE = CO_EMPRESA;
 

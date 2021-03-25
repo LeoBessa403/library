@@ -31,7 +31,6 @@ class UsuarioForm extends AbstractController
             }
         endif;
         $res['cpf'] = $res[NU_CPF];
-//        debug($res,1);
         $formulario->setValor($res);
 
         $formulario
@@ -84,7 +83,7 @@ class UsuarioForm extends AbstractController
             ->setTamanhoInput(6)
             ->setIcon("fa fa-mobile-phone")
             ->setLabel("Telefone Celular")
-            ->setInfo("Com o Whatsapp")
+            ->setInfo("Com <i class=\"fa fa-whatsapp\" style='color: green;'></i> WhatSapp")
             ->setClasses("tel ob")
             ->CriaInpunt();
 
@@ -232,45 +231,7 @@ class UsuarioForm extends AbstractController
         endif;
 
 
-        if (!empty($res[CO_USUARIO])):
-            $formulario
-                ->setType(TiposCampoEnum::HIDDEN)
-                ->setId(CO_USUARIO)
-                ->setValues($res[CO_USUARIO])
-                ->CriaInpunt();
-        endif;
-
-        if (!empty($res[CO_ENDERECO])):
-            $formulario
-                ->setType(TiposCampoEnum::HIDDEN)
-                ->setId(CO_ENDERECO)
-                ->setValues($res[CO_ENDERECO])
-                ->CriaInpunt();
-        endif;
-
-        if (!empty($res[CO_CONTATO])):
-            $formulario
-                ->setType(TiposCampoEnum::HIDDEN)
-                ->setId(CO_CONTATO)
-                ->setValues($res[CO_CONTATO])
-                ->CriaInpunt();
-        endif;
-
-        if (!empty($res[CO_IMAGEM])):
-            $formulario
-                ->setType(TiposCampoEnum::HIDDEN)
-                ->setId(CO_IMAGEM)
-                ->setValues($res[CO_IMAGEM])
-                ->CriaInpunt();
-        endif;
-
-        if (!empty($res[CO_PESSOA])):
-            $formulario
-                ->setType(TiposCampoEnum::HIDDEN)
-                ->setId(CO_PESSOA)
-                ->setValues($res[CO_PESSOA])
-                ->CriaInpunt();
-        endif;
+         Form::CriaInputHidden($formulario, $res, [CO_PESSOA, CO_IMAGEM, CO_CONTATO, CO_ENDERECO, CO_USUARIO]);
 
         return $formulario->finalizaForm($link);
     }

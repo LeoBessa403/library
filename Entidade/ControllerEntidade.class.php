@@ -7,7 +7,7 @@
 
 class ControllerEntidade extends AbstractEntidade
 {
-    const TABELA = 'TB_CONTROLLER';
+    const TABELA = SCHEMA . '.TB_CONTROLLER';
     const ENTIDADE = 'ControllerEntidade';
     const CHAVE = CO_CONTROLLER;
 

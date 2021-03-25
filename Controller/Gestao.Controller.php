@@ -254,9 +254,8 @@ class Gestao extends AbstractController
 
                     // ARQUIVOS CSS
                     $css[] = INCLUDES_LIBRARY . "plugins/bootstrap/css/bootstrap.min.css";
-                    $css[] = INCLUDES_LIBRARY . "plugins/font-awesome/css/font-awesome.min.css";
+                    $css[] = INCLUDES_LIBRARY . "css/font-awesome.min.css";
                     $css[] = INCLUDES_LIBRARY . "fonts/style.css";
-                    $css[] = INCLUDES_LIBRARY . "css/main-responsive.css";
                     $css[] = INCLUDES_LIBRARY . "css/main.css";
                     $css[] = INCLUDES_LIBRARY . "plugins/iCheck/skins/all.css";
                     $css[] = INCLUDES_LIBRARY . "plugins/perfect-scrollbar/src/perfect-scrollbar.css";
@@ -269,6 +268,7 @@ class Gestao extends AbstractController
                     $css[] = INCLUDES_LIBRARY . "plugins/select2/select2.css";
                     $css[] = INCLUDES_LIBRARY . "plugins/bootstrap-fileupload/bootstrap-fileupload.min.css";
                     $css[] = INCLUDES_LIBRARY . "plugins/jQRangeSlider/css/classic-min.css";
+                    $css[] = INCLUDES_LIBRARY . "plugins/DataTables/media/css/DT_bootstrap.css";
 
                     $css[] = INCLUDES_LIBRARY . "plugins/FullCalendar4/css/core.main.min.css";
                     $css[] = INCLUDES_LIBRARY . "plugins/FullCalendar4/css/daygrid.main.min.css";
@@ -277,8 +277,8 @@ class Gestao extends AbstractController
                     $css[] = INCLUDES_LIBRARY . "plugins/FullCalendar4/css/bootstrap.main.min.css";
 
                     $css[] = INCLUDES_LIBRARY . "plugins/bootstrap-switch/static/stylesheets/bootstrap-switch.css";
-                    $css[] = INCLUDES_LIBRARY . "plugins/DataTables/media/css/DT_bootstrap.css";
                     $css[] = INCLUDES_LIBRARY . "plugins/gritter/css/jquery.gritter.css";
+                    $css[] = INCLUDES_LIBRARY . "css/main-responsive.css";
 
                     foreach ($css as $itemCss) {
                         $minifierCSS->add($itemCss);
@@ -327,8 +327,6 @@ class Gestao extends AbstractController
                     $js1[] = INCLUDES_LIBRARY . "plugins/DataTables/media/js/jquery.dataTables.min.js";
                     $js1[] = INCLUDES_LIBRARY . "plugins/DataTables/media/js/DT_bootstrap.js";
                     $js1[] = INCLUDES_LIBRARY . "js/table-data.js";
-                    $js1[] = INCLUDES_LIBRARY . "plugins/ckeditor/ckeditor.js";
-                    $js1[] = INCLUDES_LIBRARY . "plugins/ckeditor/adapters/jquery.js";
                     $js1[] = INCLUDES_LIBRARY . "js/Funcoes.js";
                     $js1[] = INCLUDES_LIBRARY . "plugins/jQuery-Smart-Wizard/js/jquery.smartWizard.js";
                     $js1[] = INCLUDES_LIBRARY . "js/form-wizard.js";
@@ -340,6 +338,8 @@ class Gestao extends AbstractController
                     $js1[] = INCLUDES_LIBRARY . "plugins/FullCalendar4/js/list.main.min.js";
                     $js1[] = INCLUDES_LIBRARY . "plugins/FullCalendar4/js/timegrid.main.min.js";
                     $js1[] = INCLUDES_LIBRARY . "plugins/FullCalendar4/js/bootstrap.main.min.js";
+                    // CKEDITOR
+//                    $js1[] = INCLUDES_LIBRARY . "plugins/ckeditor5/build/ckeditor.js";
 
                     foreach ($js1 as $itemJS1) {
                         $minifierJS1->add($itemJS1);
@@ -347,32 +347,6 @@ class Gestao extends AbstractController
 
                     $miniJS1 = INCLUDES_LIBRARY . 'js/js_padrao.min.js';
                     $minifierJS1->minify($miniJS1);
-
-                    $retorno = true;
-                }
-                if (in_array('js_renovacao', $_POST['tp_arquivos'])) {
-                    $minifierJS2 = new MatthiasMullie\Minify\JS();
-                    // CRIA ARQUIVO MINIFICADO JS Renovação pagamento
-                    $js2[] = PASTA_RAIZ . "library/js/Assinante/RenovaPlanoAssinante_back.js";
-                    foreach ($js2 as $itemJS2) {
-                        $minifierJS2->add($itemJS2);
-                    }
-                    // CRIA ARQUIVO MINIFICADO JS Renovação pagamento
-                    $miniJS2 = PASTA_RAIZ . "library/js/Assinante/RenovaPlanoAssinante.js";
-                    $minifierJS2->minify($miniJS2);
-
-                    $retorno = true;
-                }
-                if (in_array('js_agenda', $_POST['tp_arquivos'])) {
-                    $minifierJS3 = new MatthiasMullie\Minify\JS();
-                    // CRIA ARQUIVO MINIFICADO JS Agendamento
-                    $js3[] = PASTA_RAIZ . ADMIN . "/js/Agenda/Agendamento_back.js";
-                    foreach ($js3 as $itemJS3) {
-                        $minifierJS3->add($itemJS3);
-                    }
-                    // CRIA ARQUIVO MINIFICADO JS Agendamento
-                    $miniJS3 = PASTA_RAIZ . ADMIN . "/js/Agenda/Agendamento.js";
-                    $minifierJS3->minify($miniJS3);
 
                     $retorno = true;
                 }

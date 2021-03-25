@@ -7,7 +7,7 @@
 
 class FuncionalidadeEntidade extends AbstractEntidade
 {
-    const TABELA = 'TB_FUNCIONALIDADE';
+    const TABELA = SCHEMA . '.TB_FUNCIONALIDADE';
     const ENTIDADE = 'FuncionalidadeEntidade';
     const CHAVE = CO_FUNCIONALIDADE;
 

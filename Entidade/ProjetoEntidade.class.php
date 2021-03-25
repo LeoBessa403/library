@@ -7,7 +7,7 @@
 
 class ProjetoEntidade extends AbstractEntidade
 {
-    const TABELA = 'TB_PROJETO';
+    const TABELA = SCHEMA . '.TB_PROJETO';
     const ENTIDADE = 'ProjetoEntidade';
     const CHAVE = CO_PROJETO;
 

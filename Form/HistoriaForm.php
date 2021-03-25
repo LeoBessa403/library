@@ -51,19 +51,7 @@ class HistoriaForm
             ->setTamanhoInput(6)
             ->CriaInpunt();
 
-        $formulario
-            ->setType(TiposCampoEnum::HIDDEN)
-            ->setId(CO_SESSAO)
-            ->setValues($res[CO_SESSAO])
-            ->CriaInpunt();
-
-        if (!empty($res[CO_HISTORIA])):
-            $formulario
-                ->setType(TiposCampoEnum::HIDDEN)
-                ->setId(CO_HISTORIA)
-                ->setValues($res[CO_HISTORIA])
-                ->CriaInpunt();
-        endif;
+        Form::CriaInputHidden($formulario, $res, [CO_SESSAO, CO_HISTORIA]);
 
         return $formulario->finalizaForm('Historia/ListarHistoria/' .
             Valida::GeraParametro(CO_SESSAO . "/" . $res[CO_SESSAO]));

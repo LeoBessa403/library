@@ -80,14 +80,7 @@ class FuncionalidadeForm
             ->setOptions($perfis)
             ->CriaInpunt();
 
-        if (!empty($res[CO_FUNCIONALIDADE])):
-            $formulario
-                ->setType(TiposCampoEnum::HIDDEN)
-                ->setId(CO_FUNCIONALIDADE)
-                ->setValues($res[CO_FUNCIONALIDADE])
-                ->CriaInpunt();
-        endif;
-
+        Form::CriaInputHidden($formulario, $res, [CO_FUNCIONALIDADE]);
 
         return $formulario->finalizaForm();
     }

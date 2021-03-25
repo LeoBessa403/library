@@ -7,7 +7,7 @@
 
 class EnderecoEntidade extends EnderecoEntidadeExtends
 {
-    const TABELA = 'TB_ENDERECO';
+    const TABELA = SCHEMA . '.TB_ENDERECO';
     const ENTIDADE = 'EnderecoEntidade';
     const CHAVE = CO_ENDERECO;
 

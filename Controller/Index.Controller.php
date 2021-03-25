@@ -132,7 +132,7 @@ class Index extends AbstractController
         $acesso = UrlAmigavel::PegaParametro('acesso');
         $class = 0;
         $msg = "";
-        /** @var Session $session */
+        /** Session $session */
         $session = new Session();
 
         switch ($acesso) {
@@ -172,6 +172,11 @@ class Index extends AbstractController
                 $msg = 'Sistema Expirado, favor renovar sua assinatura.';
                 $class = 3;
                 break;
+                break;
+            case 'acesso_simultaneo':
+                $msg = Mensagens::USUARIO_JA_LOGADO;
+                $class = 2;
+                break;
         }
         $this->class = $class;
         $this->msg = $msg;
@@ -210,6 +215,17 @@ class Index extends AbstractController
                     Redireciona(ADMIN . LOGIN . Valida::GeraParametro("acesso/I"));
                     exit();
                 endif;
+
+//                /** @var AcessoService $acessoService */
+//                $acessoService = $this->getService(ACESSO_SERVICE);
+//                $acessoService->finalizaAcessos();
+//                $acesso = $acessoService->verificaAcessoSimultaneo($user->getCoUsuario());
+//
+//                if ($acesso) {
+//                    Redireciona(ADMIN . LOGIN . Valida::GeraParametro("acesso/acesso_simultaneo"));
+//                    exit();
+//                }
+
             endif;
             if ($user != ""):
                 $this->geraDadosSessao($user, $user->getCoUsuario());

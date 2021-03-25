@@ -1,3 +1,11 @@
+<?php
+$url = new UrlAmigavel();
+if ($url::$controller . '/' . $url::$action != 'Index/Acessar') {
+    /** @var VisitaService $visitaService */
+    $visitaService = new VisitaService();
+    $visitaService->gestaoVisita();
+}
+?>
 <!DOCTYPE html>
 <!-- Template Name: Clip-One - Responsive Admin Template build with Twitter Bootstrap 3.x Version: 1.4 Author: ClipTheme -->
 <!--[if IE 8]>
@@ -22,7 +30,7 @@
     <meta content="" name="author"/>
     <!-- end: META -->
     <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>plugins/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>css/font-awesome.min.css">
     <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>fonts/style.css">
     <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>css/main-responsive.css">
     <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>css/main.css">
@@ -31,8 +39,6 @@
     <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>plugins/perfect-scrollbar/src/perfect-scrollbar.css">
     <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>css/theme_navy.css" type="text/css" id="skin_color">
     <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>plugins/css3-animation/animations.css">
-    <!--[if IE 7]>
-    <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>plugins/font-awesome/css/font-awesome-ie7.min.css">
     <![endif]-->
     <!-- start: CSS REQUIRED Gritter -->
     <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>plugins/gritter/css/jquery.gritter.css">
@@ -60,7 +66,7 @@
 <!-- end: HEAD -->
 <!-- start: BODY -->
 <body class="login example1">
-<div class="main-login col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3" style="padding: 20px 50px;">
+<div class="main-login col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
     <div class="logo">
         <span class="no_sistema box-shadow"><?= DESC_SIS; ?></span>
     </div>

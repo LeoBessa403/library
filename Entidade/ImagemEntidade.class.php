@@ -7,7 +7,7 @@
 
 class ImagemEntidade extends AbstractEntidade
 {
-    const TABELA = 'TB_IMAGEM';
+    const TABELA = SCHEMA . '.TB_IMAGEM';
     const ENTIDADE = 'ImagemEntidade';
     const CHAVE = CO_IMAGEM;
 

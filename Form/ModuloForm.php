@@ -28,19 +28,7 @@ class ModuloForm
             ->setLabel("Nome do Modulo")
             ->CriaInpunt();
 
-        $formulario
-            ->setType(TiposCampoEnum::HIDDEN)
-            ->setId(CO_PROJETO)
-            ->setValues($res[CO_PROJETO])
-            ->CriaInpunt();
-
-        if (!empty($res[CO_MODULO])):
-            $formulario
-                ->setType(TiposCampoEnum::HIDDEN)
-                ->setId(CO_MODULO)
-                ->setValues($res[CO_MODULO])
-                ->CriaInpunt();
-        endif;
+        Form::CriaInputHidden($formulario, $res, [CO_PROJETO, CO_MODULO]);
 
         return $formulario->finalizaForm('Modulo/ListarModulo/' .
             Valida::GeraParametro(CO_PROJETO . "/" . $res[CO_PROJETO]));

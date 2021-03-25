@@ -7,7 +7,7 @@
 
 class ContatoEntidade extends ContatoEntidadeExtends
 {
-    const TABELA = 'TB_CONTATO';
+    const TABELA = SCHEMA . '.TB_CONTATO';
     const ENTIDADE = 'ContatoEntidade';
     const CHAVE = CO_CONTATO;
 

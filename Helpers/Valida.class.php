@@ -24,9 +24,9 @@ class Valida
         self::$Format = '/[a-z0-9_\.\-]+@[a-z0-9_\.\-]*[a-z0-9_\.\-]+\.[a-z]{2,4}$/';
 
         if (preg_match(self::$Format, self::$Data)):
-            return 1;
+            return true;
         else:
-            return 2;
+            return false;
         endif;
     }
 
@@ -39,7 +39,7 @@ class Valida
     {
         $cpf = preg_replace('/[^0-9]/', '', $cpf);
         if (empty($cpf) || strlen($cpf) != 11) {
-            return 2;
+            return false;
         }
         $digitoA = 0;
         $digitoB = 0;
@@ -48,16 +48,16 @@ class Valida
         }
         for ($i = 0, $x = 11; $i <= 9; $i++, $x--) {
             if (str_repeat($i, 11) == $cpf) {
-                return 2;
+                return false;
             }
             $digitoB += $cpf[$i] * $x;
         }
         $somaA = (($digitoA % 11) < 2) ? 0 : 11 - ($digitoA % 11);
         $somaB = (($digitoB % 11) < 2) ? 0 : 11 - ($digitoB % 11);
         if ($somaA != $cpf[9] || $somaB != $cpf[10]) {
-            return 2;
+            return false;
         } else {
-            return 1;
+            return true;
         }
     }
 
@@ -70,16 +70,15 @@ class Valida
     {
         $soma = 0;
         $multiplicador = 0;
-        $multiplo = 0;
         $cnpj = preg_replace('/[^0-9]/', '', $cnpj);
 
         if (empty($cnpj) || strlen($cnpj) != 14) {
-            return 2;
+            return false;
         }
         for ($i = 0; $i <= 9; $i++) {
             $repetidos = str_pad('', 14, $i);
             if ($cnpj === $repetidos) {
-                return 2;
+                return false;
             }
         }
         $parte1 = substr($cnpj, 0, 12);
@@ -104,11 +103,10 @@ class Valida
         $rest = $soma % 11;
         $dv2 = ($rest == 0 || $rest == 1) ? 0 : 11 - $rest;
         if ($dv1 == $cnpj[12] && $dv2 == $cnpj[13]):
-            return 1;
+            return true;
         else:
-            return 2;
+            return false;
         endif;
-
     }
 
     /**
@@ -149,7 +147,7 @@ class Valida
      */
     public static function DataDBDate($data)
     {
-        if(!$data)
+        if (!$data)
             return null;
 
         self::$Data = explode('/', $data);
@@ -332,14 +330,14 @@ class Valida
      */
     public static function CalculaDiferencaDiasData($data1, $data2)
     {
-        if($data1 && $data2){
+        if ($data1 && $data2) {
             $Data1 = explode('/', $data1);
             $Data2 = explode('/', $data2);
             $Data1 = mktime(0, 0, 0, $Data1[1], $Data1[0], $Data1[2]);
             $Data2 = mktime(0, 0, 0, $Data2[1], $Data2[0], $Data2[2]);
             $Diferenca = $Data2 - $Data1; //CALCULA-SE A DIFERENÇA EM SEGUNDOS
             return ($Diferenca / (60 * 60 * 24)); //CALCULA-SE A DIFERENÇA EM DIAS
-        }else{
+        } else {
             return null;
         }
     }
@@ -731,14 +729,15 @@ class Valida
     /**
      * Retorna a logo padrão do sistema pelo TimThamb
      * @param int $tamanho
+     * @param string $class
      * @return string
      */
-    public static function getSemImg($tamanho = 50)
+    public static function getSemImg($tamanhoW = 50, $tamanhoH = 50, $class = 'circle-img')
     {
         return '
         <img src="' . TIMTHUMB . '?src=' . SEM_FOTO .
-            '&w=' . $tamanho . '&h=' . $tamanho . '"
-                                alt="Sem Imagem" title="Sem Imagem" class="circle-img" />
+            '&w=' . $tamanhoW . '&h=' . $tamanhoH . '"
+                                alt="Sem Imagem" title="Sem Imagem" class="' . $class . '" />
         ';
     }
 
@@ -1130,13 +1129,13 @@ class Valida
             $dias = 0;
             $diaAux = 0;
             $semanas = 0;
-        }elseif($mediaDia == 0){
+        } elseif ($mediaDia == 0) {
             $diaAux = ($dados['esforcoRestante'] / 3);
             $dias = intval(($dados['esforcoRestante'] / 3));
             $semanas = intval($diaAux / 7);
         } else {
-            $diaAux = (($dados['esforcoRestante']) ? $dados['esforcoRestante']:  0 / $mediaDia);
-            $dias = intval((($dados['esforcoRestante']) ? $dados['esforcoRestante']:  0 / $mediaDia));
+            $diaAux = (($dados['esforcoRestante']) ? $dados['esforcoRestante'] : 0 / $mediaDia);
+            $dias = intval((($dados['esforcoRestante']) ? $dados['esforcoRestante'] : 0 / $mediaDia));
             $semanas = intval($diaAux / 7);
         }
         $dataPrevista = Valida::CalculaData(Date('d/m/Y'), $diaAux, '+');

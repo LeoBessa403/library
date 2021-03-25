@@ -1,0 +1,983 @@
+* {
+    font-weight: normal;
+    text-decoration: none;
+    text-indent: 0;
+    font-family: "Trebuchet MS";
+}
+
+.main-navigation {
+    width: 11%;
+    min-width: 180px;
+}
+
+.main-content {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0 !important;
+}
+
+.navbar-content {
+    display: none;
+}
+
+/***********************************/
+/******* PÁGINA / CONTEÚDO *********/
+/***********************************/
+.capa .conteudo {
+    margin: 0;
+    padding: 0;
+}
+
+.capa .conteudo img {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 90%;
+}
+
+#ler_livro {
+    background-color: white;
+    padding: 10px 0;
+    width: 100%;
+    max-width: 100%;
+}
+
+.pag {
+    width: 55%;
+    max-width: 55%;
+    margin: 0 auto;
+    box-shadow: 1px 1px 8px #0d0d0d;
+    position: relative;
+}
+
+.pag:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.conteudo {
+    width: 100%;
+    height: 93%;
+    padding: 2% 3%;
+    content: ".";
+    display: block;
+    clear: both;
+}
+
+.conteudo img {
+    padding: 0.8em;
+    margin-top: -15px;
+    max-width: 100%;
+    height: auto !important;
+}
+
+
+/***********************************/
+/***** TÍTULO/RODAPÉ PÁGINA ********/
+/***********************************/
+.titulo-page {
+    border-bottom: 2px solid #aaa;
+    color: #aaa;
+    font-size: 16px;
+    width: 100%;
+    margin: 0;
+    padding: 23px 0 0;
+    list-style: none;
+    text-decoration: none;
+}
+
+.titulo-page-ex-total {
+    border-bottom: 2px solid white !important;
+    color: white !important;
+    position: relative;
+    float: left;
+    z-index: 99;
+}
+
+.class_i {
+    float: right;
+    margin-top: -23px;
+}
+
+.rodape-page {
+    text-align: center;
+    border-top: 1px solid #aaa;
+    color: #aaa;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.tt_capitulo {
+    text-transform: capitalize;
+    color: #aaa;
+    margin: 0;
+    padding: 0;
+    float: left;
+    font-size: 0.7em !important;
+    text-indent: 0;
+}
+
+.nu_pagina {
+    text-transform: capitalize;
+    color: #aaa;
+    margin: 0 10px 0;
+    padding: 0;
+    float: right;
+    font-size: 1em !important;
+}
+
+.titulo-page-esq i, .anotProf {
+    float: right;
+    padding: 5px;
+    color: #aaa;
+}
+
+.titulo-page-esq i:hover, .titulo-page-dir i:hover, .anotProf:hover {
+    background-color: #aaa;
+    color: white;
+    border-radius: 100%;
+    cursor: pointer;
+}
+
+.titulo-page-ex-total i {
+    color: white !important;
+    z-index: 9999;
+    position: relative;
+    float: right;
+    cursor: pointer;
+}
+
+.titulo-page-ex-total i:hover {
+    background-color: white;
+    color: #aaa !important;
+}
+
+.titulo-page-ex-total-rp {
+    z-index: 999;
+    position: relative;
+    float: inherit;
+    border-top: 1px solid white !important;
+}
+
+.titulo-page-ex-total-rp .tt_capitulo {
+    color: white !important;
+    float: left;
+}
+
+.titulo-page-ex-total-rp .nu_pagina {
+    color: white !important;
+    float: right;
+}
+
+.rodape-page {
+    text-align: center;
+    text-space: 0;
+    font-size: 1.8em !important;
+}
+
+/***********************************/
+/********* PAINEL ANOTAÇÃO ********/
+/***********************************/
+.painel_anotacao {
+    background-color: rgba(0, 0, 0, 0.8);
+    float: left;
+    position: fixed;
+    top: 60px;
+    width: 600px;
+    margin-left: -602px;
+    z-index: 995;
+}
+
+.painel_anotacao .col-md-12 {
+    padding: 0 8px !important;
+}
+
+.painel_anotacao .panel-body {
+    padding: 5px !important;
+}
+
+.painel_anotacao #ds_anotacao-info, .painel_anotacao #co_materia_turma-info {
+    display: none !important;
+}
+
+.icone_painel_anotacao {
+    float: right;
+    width: 35px;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 8px 2px 5px 6px;
+    font-size: 1.6em;
+    position: absolute;
+    top: 0;
+    right: -35px;
+    color: white;
+    border-bottom-right-radius: 50%;
+    border-top-right-radius: 50%;
+}
+
+.icone_painel_anotacao:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fefefe;
+    cursor: pointer;
+}
+
+/***********************************/
+/**** PAINEL ANOTAÇÃO PROFESSOR ****/
+/***********************************/
+.painel_anotacao_prof {
+    background-color: rgba(0, 0, 0, 0.8);
+    float: left;
+    position: fixed;
+    top: 180px;
+    width: 600px;
+    margin-left: -616px;
+    z-index: 997;
+    padding: 8px;
+}
+
+.painel_anotacao_prof .anot_prof {
+    padding: 8px !important;
+    background-color: var(--cor-cinza);
+}
+
+.painel_anotacao_prof .panel-body {
+    padding: 5px !important;
+}
+
+.painel_anotacao_prof #ds_anotacao-info, .painel_anotacao_prof #co_materia_turma-info {
+    display: none !important;
+}
+
+.icone_painel_anotacao_prof {
+    float: right;
+    width: 35px;
+    background-color: var(--cor-cinza);
+    padding: 8px 0 5px 10px;
+    font-size: 1.6em;
+    position: absolute;
+    top: 0;
+    right: -35px;
+    color: black;
+    opacity: 0.6;
+    border-bottom-right-radius: 50%;
+    border-top-right-radius: 50%;
+}
+
+.icone_painel_anotacao_prof:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fefefe;
+    cursor: pointer;
+}
+
+
+/***********************************/
+/********* PAINEL NAVEGAÇÃO ********/
+/***********************************/
+.painel_navegacao {
+    background-color: rgba(0, 0, 0, 0.8);
+    float: left;
+    position: fixed;
+    bottom: 15px;
+    padding: 3px 5px;
+    margin: 0 auto 0 -360px;
+    width: 380px;
+    z-index: 999;
+    border-bottom-right-radius: 18%;
+    border-top-right-radius: 18%;
+    display: none;
+}
+
+.painel_navegacao label {
+    color: white;
+    font-weight: bolder;
+    margin-bottom: 5px;
+    float: left;
+}
+
+.icone_painel {
+    color: white;
+    float: right;
+    margin-top: -13%;
+    margin-left: 2%;
+    font-size: 2em;
+    position: relative;
+    height: 100%;
+}
+
+.icone_painel:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/***************************/
+/*********** CORES *********/
+/***************************/
+:root {
+    --cor-complemento-titulo: rgba(0, 0, 0, 0.5);
+    --cor-cinza: #ccc;
+    --bg-color-grd-1: linear-gradient(65deg, var(--cor-1), var(--cor-complemento-titulo) 180%);
+    --font-padrao: 2em;
+}
+
+.bg-color-1 {
+    background-color: var(--cor-1);
+}
+
+.bg-color-2 {
+    background-color: var(--cor-2);
+}
+
+.bg-color-3 {
+    background-color: var(--cor-3);
+    border: 1px solid var(--cor-1);
+}
+
+.bg-color-cinza {
+    background-color: #efefef;
+}
+
+.bg-color-grd-1 {
+    background-image: var(--bg-color-grd-1);
+}
+
+.bg-color-grd-2 {
+    background-image: linear-gradient(65deg, var(--cor-2), var(--cor-complemento-titulo) 180%);
+}
+
+.bg-color-grd-3 {
+    background-image: linear-gradient(65deg, var(--cor-3), var(--cor-complemento-titulo) 180%);
+}
+
+/***********************************/
+/************* TÍTULOS *************/
+/***********************************/
+.tit_1 {
+    font-size: 1.7em;
+    font-weight: bold;
+    width: 95%;
+    margin: 2% 0 3% 5%;
+    position: relative;
+    color: white;
+    float: left;
+    padding: 3% 3% 3% 6%;
+}
+
+.num_tit {
+    color: var(--cor-1);
+    font-size: 1.4em;
+    position: absolute;
+    font-weight: bold;
+    background-color: white;
+    float: left;
+    margin: -8px 0 0 -70px;
+    padding: 10px 0 10px 10px;
+}
+
+.tit_2 {
+    color: var(--cor-1);
+    font-size: 2.2em;
+    font-weight: bold;
+    width: 100%;
+    margin: 30px 0;
+    border-bottom: 1px solid var(--cor-1);
+}
+
+.tit_3 {
+    color: var(--cor-1);
+    font-size: var(--font-padrao) !important;
+    font-weight: bold;
+    width: 100%;
+    margin: 30px 0;
+}
+
+/***********************************/
+/************** TEXTO **************/
+/***********************************/
+.paragrafo, p {
+    text-align: justify !important;
+    text-indent: var(--font-padrao) !important;
+    text-space: 0 !important;
+    font-size: 1.3em !important;
+    letter-spacing: 0.01em !important;
+    line-height: 1.5em !important;
+    color: black !important;
+}
+
+p.paragrafo_ex {
+    text-align: justify !important;
+    text-indent: 0 !important;
+    text-space: 0 !important;
+    font-size: 1.3em !important;
+    letter-spacing: 0.01em !important;
+    line-height: 1.5em !important;
+    color: black !important;
+}
+
+p.paragrafo_citacao {
+    text-align: left !important;
+    text-indent: 0 !important;
+    text-space: 0 !important;
+    font-size: 1.3em !important;
+    letter-spacing: 0.01em !important;
+    line-height: 1.5em !important;
+    color: black !important;
+    width: 60% !important;
+    display: inline-block !important;
+    margin-left: 40% !important;
+}
+
+strong {
+    font-weight: bolder;
+}
+
+u {
+    text-decoration: underline;
+}
+
+/***********************************/
+/************ TABELAS ***********/
+/***********************************/
+table {
+    text-align: center;
+    padding: 1%;
+    margin: 5px auto 10px;
+    background-color: #EEE;
+    font-size: 1.5em;
+    font-family: "Garamond";
+    border-spacing: 2px;
+    border-collapse: separate;
+}
+
+table tr td, table tr th {
+    padding: 3px 6px;
+}
+
+table tr th {
+    background-color: var(--cor-1);
+    text-align: center;
+    color: white;
+}
+
+table tr td {
+    background-color: #FFF;
+}
+
+/***********************************/
+/************ LEGENDA **************/
+/***********************************/
+figcaption, table figcaption, .paragrafo figcaption {
+    font-size: 1.1em !important;
+    color: var(--cor-1) !important;
+    margin-top: 3% !important;
+    margin-bottom: 3%;
+    text-align: center !important;
+}
+
+.conteudo ul li p, ul li, ul ol {
+    line-height: 1em;
+    text-align: justify;
+    text-indent: var(--font-padrao) !important;
+    text-space: 0;
+    font-size: 1.3em;
+    letter-spacing: 0.01em;
+    color: black;
+}
+
+ul li, ul ol {
+    text-indent: 0 !important;
+    line-height: 1.5em !important
+}
+
+
+/***********************************/
+/********* CAIXA ROLAGEM ***********/
+/***********************************/
+.cx_rolagem {
+    margin: 20px auto;
+}
+
+.tt_cx_rolagem {
+    font-size: 1.6em;
+    color: black;
+    display: block;
+    background-color: white;
+    border: 1px solid var(--cor-1);
+    border-bottom: none;
+    padding: 10px 15px;
+    background: url('../../admin/Imagens/img-scrool.png') center right no-repeat !important;
+    background-size: 3% !important;
+    background-clip: padding-box;
+}
+
+.tt_cx_rolagem2 {
+    font-size: 1.6em;
+    color: black;
+    display: block;
+    background-color: white;
+    border: 1px solid var(--cor-1);
+    border-bottom: none;
+    padding: 10px 15px;
+}
+
+.cx-texto-rolagem-lv {
+    padding: 15px 20px 5px;
+    margin-bottom: 15px;
+}
+
+.cx-texto-rolagem-p {
+    padding: 15px 20px 20px;
+    margin: 0;
+    height: 250px;
+    overflow-y: scroll;
+}
+
+.cx-texto-rolagem-m {
+    padding: 15px 20px 20px;
+    margin: 0;
+    height: 450px;
+    overflow-y: scroll;
+}
+
+.cx-texto-rolagem-g {
+    padding: 15px 20px 20px;
+    margin: 0;
+    height: 850px;
+    overflow-y: scroll;
+}
+
+/***********************************/
+/**** CAIXA DE EXERCICIO TOTOAL ****/
+/***********************************/
+.cx-exer-total {
+    position: relative;
+    width: 110%;
+    height: 1080px;
+    top: -50px;
+    left: -5%;
+    margin: 0;
+    padding: 10px 30px 50px;
+}
+
+.cx-exer-total h3 {
+    font-size: 1.8em;
+    color: var(--cor-cinza);
+    display: block;
+    border-bottom: 2px dotted var(--cor-cinza);
+    padding: 10px 5px;
+}
+
+.bg-color-grd-3 h3 {
+    color: var(--cor-1) !important;
+    border-bottom: 2px dotted var(--cor-1);
+}
+
+.cx-exer-total .cx-texto-rolagem-g {
+    height: 99%;
+}
+
+.cx-exer-total .cx-texto-rolagem-m .bootstrap-tabs, .cx-exer-parcial .cx-texto-rolagem-p .bootstrap-tabs,
+.cx-exer-total .cx-texto-rolagem-g .bootstrap-tabs {
+    width: 100%;
+}
+
+.cx-exer-total .cx-texto-rolagem-m .tab-content, .cx-exer-parcial .cx-texto-rolagem-p .tab-content,
+.cx-exer-total .cx-texto-rolagem-g -content.tab {
+    max-height: 100% !important;
+}
+
+/***********************************/
+/*** CAIXA DE EXERCICIO PARCIAL ****/
+/***********************************/
+.cx-exer-parcial {
+    width: 100%;
+    margin: 0 0 5%;
+    padding: 0 10px 20px 15px;
+}
+
+.cx-exer-parcial h3 {
+    font-size: 1.8em;
+    color: var(--cor-cinza);
+    display: block;
+    border-bottom: 2px dotted var(--cor-cinza);
+    padding: 10px 5px;
+}
+
+.cx-exer-parcial .tab-content {
+    width: 100%;
+    border: none;
+    min-height: 300px;
+}
+
+.cx-exer-parcial .cx-texto-rolagem-m .bootstrap-tabs, .cx-exer-parcial .cx-texto-rolagem-p .bootstrap-tabs {
+    width: 104%;
+}
+
+.cx-exer-parcial .cx-texto-rolagem-m {
+    padding-bottom: 0;
+}
+
+.cx-exer-parcial .cx-texto-rolagem-m .bootstrap-tabs {
+    min-height: 540px;
+}
+
+/***********************************/
+/*********** TABS / ABAS ***********/
+/***********************************/
+.bootstrap-tabs {
+    margin-top: -5px;
+    margin-left: -20px;
+    background-color: var(--cor-cinza);
+}
+
+.nav-tabs {
+    width: 100%;
+    padding: 1%;
+}
+
+.nav-tabs li {
+    width: 12.5%;
+}
+
+.nav-tabs li a {
+    padding: 8px 4px;
+    font-size: 0.7em !important;
+}
+
+.tab-content {
+    width: 100%;
+    border: none;
+    min-height: 1000px;
+    overflow-x: hidden !important;
+}
+.tab-content ul li{
+    font-size: 1em !important;
+}
+
+/***********************************/
+/********** MENU ACORDEON **********/
+/***********************************/
+.ui-accordion {
+    border: 1px solid #aaa;
+    width: 105%;
+    overflow: hidden;
+    padding: 0 10px 10px;
+    margin-left: -2.5%;
+}
+
+.ui-accordion .ui-accordion-header {
+    cursor: pointer;
+    padding: 2px;
+    max-width: 100%;
+    border-radius: 7px;
+}
+
+.accordion h3 {
+    margin: 10px 0;
+    border: 1px solid var(--cor-2);
+    background-image: var(--bg-color-grd-1);
+}
+
+.accordion a {
+    color: white;
+    text-decoration: none;
+    padding-left: 10px;
+}
+
+
+a.link-acordeon {
+    color: #000;
+    text-decoration: none;
+    font-size: 42px;
+}
+
+.ui-accordion .ui-accordion-content {
+    padding: 0 20px 20px;
+    overflow-y: scroll;
+    width: 900px;
+    margin-bottom: 20px;
+    background-color: #F4F4F4;
+}
+
+.ui-accordion .ui-accordion-header-active {
+    background-color: var(--cor-cinza);
+    color: var(--cor-2) !important;
+}
+
+.accordion h3:hover a {
+    color: var(--cor-2) !important;
+}
+
+.accordion .cx-texto-rolagem-m, .accordion .cx-texto-rolagem-p {
+    width: 100% !important;
+}
+
+/***********************************/
+/************ LINK POPUP ***********/
+/***********************************/
+.popup, .link {
+    padding: 3px 7px;
+    color: white !important;
+    text-decoration: none !important;
+    border-radius: 5px;
+    text-align: center !important;
+    text-indent: 0;
+    margin-right: 2px;
+    cursor: pointer;
+    float: left;
+    background: var(--bg-color-grd-1);
+}
+
+.popup:hover, .link:hover {
+    box-shadow: 1px 1px 2px black;
+
+}
+
+/***********************************/
+/******** IMAGEM LATERAL ***********/
+/***********************************/
+.img-lat1 {
+    top: 100px;
+}
+
+.img-lat2 {
+    top: 450px;
+}
+
+.img-lat3 {
+    top: 850px;
+}
+
+.img-lat {
+    position: absolute;
+    width: 100%;
+    float: right;
+    left: 96%;
+    display: none !important;
+}
+
+.img-lat .clique {
+    background-color: white;
+    width: 4%;
+    height: 100px;
+    margin: 0;
+    padding: 0;
+    float: left;
+    background: url('../../admin/Imagens/clique.png') center top no-repeat !important;
+    background-size: 100% !important;
+    background-clip: padding-box;
+    cursor: pointer;
+}
+
+.body-img-lat {
+    width: 92%;
+    float: left;
+    margin: 0;
+    height: 500px;
+    overflow-y: hidden;
+    padding: 10px 20px 30px;
+}
+
+
+.body-img-lat2 {
+    margin-top: -400px !important;
+    cursor: auto;
+}
+
+.img-lat .voltar {
+    width: 4%;
+    height: 100px;
+    margin: 0;
+    padding: 0;
+    float: left;
+    background: url('../../admin/Imagens/voltar.png') center top no-repeat !important;
+    background-size: 100% !important;
+    background-clip: padding-box;
+    cursor: pointer;
+}
+
+/***********************************/
+/************* GALERIA *************/
+/***********************************/
+.slideshowPlugin {
+    background-color: #F4F4F4;
+    border: 1px solid var(--cor-1);
+}
+
+.ad-gallery .ad-nav {
+    height: 60px;
+    width: 100%;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+.ad-gallery .ad-nav .ad-thumbs {
+    overflow: unset;
+    text-align: center;
+}
+
+.ad-gallery .ad-nav .ad-thumbs li {
+    overflow: unset;
+}
+
+.ad-gallery .ad-back, .ad-gallery .ad-forward, .ad-gallery .ad-controls, .ad-image span {
+    display: none !important;
+}
+
+.ad-gallery .ad-prev-image, .ad-gallery .ad-next-image {
+    display: block !important;
+}
+
+.ad-gallery .ad-nav .ad-thumbs .ad-thumb-list {
+    width: 100% !important;
+    margin-top: 3px;
+}
+
+.ad-gallery .ad-controls {
+    height: 0;
+}
+
+.ad-gallery .ad-image {
+    padding-top: 10px;
+}
+
+.ad-gallery .ad-thumbs li a img {
+    height: 50px !important;
+    width: 50px !important;
+    padding: 2px;
+}
+
+.ad-image .ad-description-title {
+    display: none !important;
+}
+
+.ad-image .ad-image-description {
+    display: none !important;
+}
+
+.ad-thumb-list .img_referencia {
+    display: none !important;
+}
+
+.fancybox-title-float-wrap {
+    margin-bottom: 20px;
+    font-size: 1.4em;
+}
+
+.fancybox-title-float-wrap .child {
+    background: var(--bg-color-grd-1) !important;
+    box-shadow: 1px 1px 10px white;
+    opacity: 0.7;
+}
+
+.fancybox-title .child big {
+    font-size: 0.6em;
+    letter-spacing: 0.1em;
+}
+
+/***********************************/
+/******* IMAGEM REFERENCIA *********/
+/***********************************/
+
+img.img_base {
+    position: relative;
+}
+
+span.img_referencia {
+    position: relative;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    margin-left: -18px;
+    margin-top: 2px;
+    font-size: 0.6em;
+    letter-spacing: 0.01em;
+    float: right;
+    padding: 0;
+}
+
+/*****************************************/
+/** MODAL COMENTARIO LIVRO DO PROFESSOR **/
+/*****************************************/
+
+.lv_prof {
+    padding: 7px 5px 2px 7px;
+    box-shadow: 1px 1px 2px black;
+    background: var(--cor-2);
+    border-radius: 10px;
+    text-decoration: none !important;
+    color: black !important;
+    font-size: 1.5em;
+}
+
+.lv_prof:hover {
+    box-shadow: none;
+    background: var(--cor-3);
+    text-decoration: none;
+}
+/*******************************/
+/***** PAINEL  MENU ************/
+/*******************************/
+.menuu {
+    background-color: rgba(0, 0, 0, 0.8);
+    float: left;
+    position: fixed;
+    top: 120px;
+    width: 600px;
+    margin-left: -617px;
+    z-index: 999;
+    padding: 2.5%;
+}
+
+.menuu h4{
+    color: white;
+    text-shadow: 1px 1px 2px red;
+    letter-spacing: 0.2em;
+    font-weight: bolder;
+    font-size: 1.6em;
+}
+
+.menuu ul li{
+    color: white;
+    letter-spacing: 0.1em;
+    font-size: 1.3em;
+    margin-top: 5px;
+}
+
+.menuu ul li:hover, .menu-menu-2 li:hover, .menu-menu-3 li:hover {
+    cursor: pointer;
+    text-decoration: underline;
+    color: lightgray;
+    text-shadow: 1px 1px 1px red;
+}
+
+.menu-menu-2 li{
+    letter-spacing: 0.1em;
+    font-size: 1.1em !important;
+}
+
+.menu-menu-3 li{
+    font-size: 1.0em !important;
+}
+.menu-trigger {
+    float: right;
+    width: 35px;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 8px 2px 5px 6px;
+    font-size: 1.6em;
+    position: absolute;
+    top: 0;
+    right: -35px;
+    color: white;
+    border-bottom-right-radius: 50%;
+    border-top-right-radius: 50%;
+}
+
+.menu-trigger:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fefefe;
+    cursor: pointer;
+}

@@ -7,7 +7,7 @@
 
 class UsuarioPerfilEntidade extends AbstractEntidade
 {
-    const TABELA = 'TB_USUARIO_PERFIL';
+    const TABELA = SCHEMA . '.TB_USUARIO_PERFIL';
     const ENTIDADE = 'UsuarioPerfilEntidade';
     const CHAVE = CO_USUARIO_PERFIL;
 

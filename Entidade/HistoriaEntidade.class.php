@@ -7,7 +7,7 @@
 
 class HistoriaEntidade extends AbstractEntidade
 {
-    const TABELA = 'TB_HISTORIA';
+    const TABELA = SCHEMA . '.TB_HISTORIA';
     const ENTIDADE = 'HistoriaEntidade';
     const CHAVE = CO_HISTORIA;
 

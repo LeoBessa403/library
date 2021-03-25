@@ -13,7 +13,7 @@ class AbstractModel
     /** Retorna um objeto PDO Singleton Pattern. */
     public function getPDO()
     {
-        $ObjetoPDO = NEW ObjetoPDO();
+        $ObjetoPDO = new ObjetoPDO();
         $this->EntidadePesquisadas = [];
         return $ObjetoPDO::$ObjetoPDO;
     }
@@ -315,12 +315,14 @@ class AbstractModel
         return array();
     }
 
-    public function PesquisaTodos($Condicoes = array())
+    public function PesquisaTodos($Condicoes = array(), $order = 'D', $campoOrdenar = null)
     {
         $Entidade = $this->Entidade;
         $pesquisa = new Pesquisa();
         $where = $pesquisa->getClausula($Condicoes);
-        $where = $where . " ORDER BY " . $Entidade::CHAVE . " DESC";
+        $ordenacao =  ($order == 'D') ? 'DESC' : 'ASC';
+        $campo = ($campoOrdenar) ? $campoOrdenar : $Entidade::CHAVE;
+        $where = $where . " ORDER BY " . $campo . " " . $ordenacao;
         $pesquisa->Pesquisar($Entidade::TABELA, $where);
         $dados = array();
         foreach ($pesquisa->getResult() as $entidade) {

@@ -689,8 +689,71 @@ var Main = function () {
 
     //function to initiate ckeditor
     var runCKEditor = function () {
-        CKEDITOR.disableAutoInline = true;
-        $('textarea.ckeditor').ckeditor();
+        ClassicEditor
+            .create( document.querySelector( '.editor' ), {
+                toolbar: {
+                    items: [
+                        'heading',
+                        '|',
+                        'bold',
+                        'italic',
+                        'link',
+                        'bulletedList',
+                        'numberedList',
+                        '|',
+                        'indent',
+                        'outdent',
+                        '|',
+                        'imageUpload',
+                        'blockQuote',
+                        'insertTable',
+                        'mediaEmbed',
+                        'todoList',
+                        'undo',
+                        'underline',
+                        'redo',
+                        'alignment',
+                        'codeBlock',
+                        'exportWord',
+                        'superscript',
+                        'exportPdf',
+                        'fontBackgroundColor',
+                        'fontColor',
+                        'fontSize',
+                        'fontFamily',
+                        'highlight',
+                        'horizontalLine',
+                        'imageInsert',
+                        'removeFormat',
+                        'subscript',
+                        'specialCharacters'
+                    ]
+                },
+                language: 'pt-br',
+                image: {
+                    toolbar: [
+                        'imageTextAlternative',
+                        'imageStyle:full',
+                        'imageStyle:side',
+                        'linkImage'
+                    ]
+                },
+                table: {
+                    contentToolbar: [
+                        'tableColumn',
+                        'tableRow',
+                        'mergeTableCells',
+                        'tableCellProperties',
+                        'tableProperties'
+                    ]
+                },
+            } )
+            .then( editor => {
+                window.editor = editor;
+            } )
+            .catch( err => {
+                console.error( err.stack );
+            } );
     };
     return {
         //main function to initiate template pages
@@ -716,7 +779,7 @@ var Main = function () {
             runSaveSetting();
             runCustomSetting();
             runClearSetting();
-            runCKEditor();
+            // runCKEditor();
         }
     };
 }();

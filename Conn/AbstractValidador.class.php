@@ -31,26 +31,17 @@ class AbstractValidador
             case static::VALIDACAO_CPF:
                 $validadorDado = preg_replace('/[^a-zA-Z]/', '', $dado);
                 if (strlen($validadorDado) == 0) {
-                    $validadorDado = Valida::ValCPF(Valida::RetiraMascara($dado));
-                    if ($validadorDado == 1) {
-                        $validador = true;
-                    }
+                    $validador = Valida::ValCPF(Valida::RetiraMascara($dado));
                 }
                 break;
             case static::VALIDACAO_CNPJ:
                 $validadorDado = preg_replace('/[^a-zA-Z]/', '', $dado);
                 if (strlen($validadorDado) == 0) {
-                    $validadorDado = Valida::ValCNPJ(Valida::RetiraMascara($dado));
-                    if ($validadorDado == 1) {
-                        $validador = true;
-                    }
+                    $validador = Valida::ValCNPJ(Valida::RetiraMascara($dado));
                 }
                 break;
             case static::VALIDACAO_EMAIL:
-                $validadorDado = Valida::ValEmail($dado);
-                if ($validadorDado == 1) {
-                    $validador = true;
-                }
+                $validador = Valida::ValEmail($dado);
                 break;
             case static::VALIDACAO_CEP:
                 $validadorDado = preg_replace('/[^a-zA-Z]/', '', $dado);

@@ -7,7 +7,7 @@
 
 class AcessoEntidade extends AbstractEntidade
 {
-    const TABELA = 'TB_ACESSO';
+    const TABELA = SCHEMA . '.TB_ACESSO';
     const ENTIDADE = 'AcessoEntidade';
     const CHAVE = CO_ACESSO;
 

@@ -7,7 +7,7 @@
 
 class TrafegoEntidade extends AbstractEntidade
 {
-    const TABELA = 'TB_TRAFEGO';
+    const TABELA = SCHEMA . '.TB_TRAFEGO';
     const ENTIDADE = 'TrafegoEntidade';
     const CHAVE = CO_TRAFEGO;
 

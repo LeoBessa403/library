@@ -335,6 +335,25 @@ class Form
         return $checked;
     }
 
+    public static function CriaInputHidden($formulario, $res,array $ids)
+    {
+        foreach ($ids as $id){
+            if ($res[$id]):
+                $formulario
+                    ->setType(TiposCampoEnum::HIDDEN)
+                    ->setId($id)
+                    ->setValues($res[$id])
+                    ->CriaInpunt();
+            else:
+                $formulario
+                    ->setType(TiposCampoEnum::HIDDEN)
+                    ->setId($id)
+                    ->setValues(null)
+                    ->CriaInpunt();
+            endif;
+        }
+    }
+
     /**
      * <b>CriaInpunt:</b> Cria os inputs do formulário
      * @return STRING com o campo criado.
@@ -664,7 +683,7 @@ class Form
         $form = '<div class="input-group">
                                         <span style="background: ' . $valor .
             '" class="input-group-addon color-back"></span>';
-        $form .= '<input type="text" disabled="disabled" style="' .
+        $form .= '<input type="text" style="' .
             self::$style . '"' . self::$place . ' 
                 class="form-control color ' . self::$classes . '" id="' . self::$id .
             '-input" name="' . self::$id . '-input" value="' . $valor . '"/>';
@@ -797,7 +816,7 @@ class Form
             self::$form
             . '<div class="row col-md-12" style="display: block; padding-right: 0">
                              <button data-style="zoom-out" class="btn btn-success pull-right ladda-button" type="submit" value="' .
-            Form::$idForm . '" name="' . Form::$idForm . '" style="margin-right: -10px; margin-left: 10px; margin-top: 8px;">
+            Form::$idForm . '" name="' . Form::$idForm . '" style="margin-left: 10px; margin-top: 8px;">
                                 <span class="ladda-label"> Pesquisar </span>
                                 <i class="fa fa-save"></i>
                                 <span class="ladda-spinner"></span>

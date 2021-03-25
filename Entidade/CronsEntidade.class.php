@@ -7,7 +7,7 @@
 
 class CronsEntidade extends AbstractEntidade
 {
-	const TABELA = 'TB_CRONS';
+	const TABELA = SCHEMA . '.TB_CRONS';
 	const ENTIDADE = 'CronsEntidade';
 	const CHAVE = CO_CRON;
 

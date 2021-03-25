@@ -7,7 +7,7 @@
 
 class ModuloEntidade extends AbstractEntidade
 {
-    const TABELA = 'TB_MODULO';
+    const TABELA = SCHEMA . '.TB_MODULO';
     const ENTIDADE = 'ModuloEntidade';
     const CHAVE = CO_MODULO;
 

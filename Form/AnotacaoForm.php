@@ -30,24 +30,12 @@ class AnotacaoForm
 
         $formulario
             ->setType(TiposCampoEnum::TEXTAREA)
-//            ->setClasses("ckeditor")
+//            ->setClasses("editor")
             ->setId(DS_OBSERVACAO)
             ->setLabel("Descrição da Anotação")
             ->CriaInpunt();
 
-        $formulario
-            ->setType(TiposCampoEnum::HIDDEN)
-            ->setId(CO_HISTORIA)
-            ->setValues($res[CO_HISTORIA])
-            ->CriaInpunt();
-
-        if (!empty($res[CO_ANOTACAO])):
-            $formulario
-                ->setType(TiposCampoEnum::HIDDEN)
-                ->setId(CO_ANOTACAO)
-                ->setValues($res[CO_ANOTACAO])
-                ->CriaInpunt();
-        endif;
+        Form::CriaInputHidden($formulario, $res, [CO_HISTORIA, CO_ANOTACAO]);
 
         return $formulario->finalizaForm('Anotacao/ListarAnotacao/' .
             Valida::GeraParametro(CO_HISTORIA . "/" . $res[CO_HISTORIA]));

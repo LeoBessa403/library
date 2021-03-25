@@ -71,11 +71,12 @@ var Funcoes = function () {
         Ajax: function (controller, codigo) {
             //VARIÁVEL GLOBAL
             var home = $("#home").attr('data-val');
+            var pastaHome = $("#pasta_home").attr('data-val');
             var urlValida = home + 'library/Controller/Ajax.Controller.php?acao=Ajax';
             var retornoAjax = {};
             $.ajax({
                 url: urlValida,
-                data: {controller: controller, codigo: codigo},
+                data: {controller: controller, codigo: codigo, pastaHome: pastaHome},
                 type: "POST",
                 dataType: "json",
                 async: false,

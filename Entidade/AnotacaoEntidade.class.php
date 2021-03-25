@@ -7,7 +7,7 @@
 
 class AnotacaoEntidade extends AbstractEntidade
 {
-    const TABELA = 'TB_ANOTACAO';
+    const TABELA = SCHEMA . '.TB_ANOTACAO';
     const ENTIDADE = 'AnotacaoEntidade';
     const CHAVE = CO_ANOTACAO;
 

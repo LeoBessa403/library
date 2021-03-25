@@ -405,7 +405,7 @@ class  {$Entidade}Model extends AbstractModel
     {
         $ArquivoService = "<?php\n
 /**
- * {$Entidade}Service.class [ SEVICE ]
+ * {$Entidade}Service.class [ SERVICE ]
  * @copyright (c) " . date('Y') . ", Leo Bessa
  */
 class  {$Entidade}Service extends AbstractService
@@ -424,7 +424,7 @@ class  {$Entidade}Service extends AbstractService
     {
         if (!$ArquivoService) return false;
         try {
-            $arquivo = PASTA_SEVICE . $Entidade . 'Service.class.php';
+            $arquivo = PASTA_SERVICE . $Entidade . 'Service.class.php';
             if (!file_exists($arquivo)) {
                 $handle = fopen($arquivo, 'w+');
                 fwrite($handle, $ArquivoService);

@@ -22,7 +22,7 @@ class UrlAmigavel
     public static $action;
 
     /** @var array Action Permitidas pra acesso sem validação de usuário */
-    public static $ACESSO_PERMITIDO = ['Acessar', 'Registrar', 'RecuperarSenha', 'AtivacaoUsuario'];
+    public static $ACESSO_PERMITIDO = ['Acessar', 'Registrar', 'RecuperarSenha', 'AtivacaoUsuario', 'InscricaoCurso'];
 
     /**
      * Realização a gestã£o da dos controladores e metodos a serem executados
@@ -99,7 +99,7 @@ class UrlAmigavel
 
         $erro_404 = false;
         if (self::$modulo != SITE && self::$action != ACTION_INICIAL_ADMIN &&
-            self::$controller != CONTROLLER_INICIAL_ADMIN):
+            self::$controller != CONTROLLER_INICIAL_ADMIN && !in_array(self::$action, self::$ACESSO_PERMITIDO)):
             if (!Valida::ValPerfil(self::$action)):
                 self::$action = ACTION_INICIAL_ADMIN;
                 self::$controller = CONTROLLER_INICIAL_ADMIN;

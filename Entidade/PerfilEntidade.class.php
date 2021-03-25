@@ -7,7 +7,7 @@
 
 class PerfilEntidade extends PerfilEntidadeExtends
 {
-    const TABELA = 'TB_PERFIL';
+    const TABELA = SCHEMA . '.TB_PERFIL';
     const ENTIDADE = 'PerfilEntidade';
     const CHAVE = CO_PERFIL;
 

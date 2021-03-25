@@ -1,0 +1,661 @@
+
+@media (max-width: 500px) {
+    .conteudo img {
+        float: none !important;
+        margin: auto;
+    }
+
+    p img {
+        display: inline-block !important;
+    }
+}
+@media (min-width: 319px) and (max-width: 650px) {
+    .menuu{
+        margin-left: -79%;
+        width: 75%;
+        height: 100vh;
+        /*overflow: auto;*/
+        margin-bottom: 10px;
+    }
+    .livro_capa{
+        margin-left: 3px;
+        margin-right: 0;
+        width: 165px;
+    }
+    .panel-body{
+        padding: 2px;
+    }
+}
+@media (min-width: 319px) and (max-width: 600px) {
+    .cx-texto-rolagem-m {
+        padding: 15px 7px 20px !important;
+    }
+    .pag table {
+        max-width: 100% !important;
+        width: 0 !important;
+        margin-bottom: 7%;
+    }
+
+    .nav-tabs li a {
+        width: 115% !important;
+    }
+
+    iframe {
+        max-width: 100%;
+    }
+
+    body {
+        overflow-x: hidden;
+    }
+
+    .cke_1 {
+        width: 100% !important;
+    }
+
+    .painel_anotacao {
+        width: 400px !important;
+        margin-left: -415px;
+    }
+    .pag {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .conteudo {
+        margin: 1%;
+        overflow-x: hidden;
+    }
+
+    .conteudo img, .modal-body img {
+        max-width: 90% !important;
+        margin: 0;
+        padding: 1% !important;
+    }
+
+    .ad-gallery .ad-nav .ad-thumbs .ad-thumb-list {
+        margin-top: 0 !important;
+    }
+
+    .cx-exer-total {
+        top: 4px;
+        left: 0;
+        position: relative;
+        width: 100%;
+        height: 962px;
+        margin: 0;
+        padding: 0 15px;
+    }
+
+    .cx-texto-rolagem-g {
+        height: 89% !important;
+        padding-left: 5% !important;
+        padding-top: 2% !important;
+        padding-right: 0;
+    }
+
+    .tit_1 {
+        padding: 3% 4% 3% 2% !important;
+    }
+
+    .nav-tabs li {
+        width: 20%;
+    }
+
+    .num_tit {
+        margin: -8px 0 0 -09%;
+
+        padding: 2% 0 1% 0;
+    }
+    .math-responsive{
+        font-size: 0.8em !important;
+    }
+
+    /*.painel_anotacao{*/
+    /*    margin-left: -700px;*/
+    /*}*/
+    .icone_painel_anotacao {
+        top: 65px !important;
+        right: -35px !important;
+    }
+
+    .bootstrap-tabs {
+        width: 103% !important;
+        margin-left: -5px !important;
+    }
+    .menuu{
+        top: 200px !important;
+    }
+}
+
+@media (min-width: 601px) and (max-width: 800px) {
+    .nav-tabs {
+        width: 140%;
+        padding: 1%;
+    }
+    iframe {
+        max-width: 100%;
+    }
+
+    .pag table {
+        max-width: 100% !important;
+        width: 0 !important;
+    }
+
+    .pag {
+        width: 90%;
+        max-width: 90%;
+    }
+
+    .ad-gallery .ad-nav .ad-thumbs .ad-thumb-list {
+        width: 100% !important;
+        margin-top: 0 !important;
+    }
+
+    .tit_1 {
+        padding: 1% 3% 1% 5% !important;
+    }
+
+    .cx-exer-total {
+        width: 100% !important;
+        top: 0 !important;
+        left: 0 !important;
+        margin-top: 7% !important;
+    }
+
+    .cx-texto-rolagem-g {
+        height: 89% !important;
+        padding-left: 5% !important;
+        padding-top: 2% !important;
+        padding-right: 0;
+    }
+
+    .cke_1 {
+        width: 100% !important;
+    }
+
+    /*.icone_painel_anotacao {*/
+    /*    top: 43px !important;*/
+    /*}*/
+
+    .painel_anotacao {
+        margin-left: -615px !important;
+        top: 130px;
+    }
+
+    .conteudo img, .modal-body img {
+        max-width: 90% !important;
+        margin: 0;
+        padding: 1% !important;
+    }
+    .math-responsive{
+        font-size: 0.7em !important;
+    }
+    .menuu{
+        top: 200px !important;
+    }
+}
+
+@media (min-width: 1200px) {
+    iframe {
+        max-width: 100%;
+    }
+
+    .nav-tabs li {
+        width: 10.5% !important;
+    }
+
+    .cx-texto-rolagem-g, .cx-texto-rolagem-m, .cx-texto-rolagem-p {
+        height: 100% !important;
+        overflow-y: hidden;
+    }
+
+    .pag table {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-bottom: 7%;
+    }
+
+    .painel_anotacao {
+        margin-left: -615px;
+    }
+
+    .bootstrap-tabs {
+        width: 103% !important;
+    }
+}
+
+@media (min-width: 801px) and (max-width: 1000px) {
+    iframe {
+        max-width: 100%;
+    }
+
+    .bootstrap-tabs {
+        width: 103% !important;
+    }
+
+    .pag {
+        width: 81% !important;
+        max-width: 81% !important;
+    }
+
+    .num_tit {
+        margin: -1% 0 0 -14%;
+    }
+
+    .tit_1 {
+        padding: 1% 3% 1% 6%;
+    }
+
+    .cx-exer-total {
+        width: 100% !important;
+        top: 0 !important;
+        left: 0 !important;
+        margin-top: 7% !important;
+    }
+
+    .cx-texto-rolagem-g {
+        height: 89% !important;
+        padding-left: 5% !important;
+        padding-top: 2% !important;
+        padding-right: 0;
+    }
+
+    .pag table {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-bottom: 3%;
+    }
+
+    .painel_anotacao {
+        margin-left: -615px;
+    }
+    .conteudo img, .modal-body img {
+        max-width: 90% !important;
+        margin: 0;
+        padding: 1% !important;
+    }
+    .math-responsive{
+        font-size: 0.7em !important;
+    }
+}
+
+@media (min-width: 1001px) and (max-width: 1200px) {
+    .conteudo img{
+        max-width: 90% !important;
+        margin: 0;
+        padding: 1% !important;
+}
+    iframe {
+        max-width: 100%;
+    }
+
+    .bootstrap-tabs {
+        width: 102% !important;
+    }
+
+    .pag {
+        width: 85%;
+        max-width: 85%;
+    }
+
+    .num_tit {
+        margin: -8px 0 0 -13%;
+    }
+
+    .tit_1 {
+        padding: 1% 0 1% 6%;
+    }
+
+    .cx-exer-total {
+        width: 100% !important;
+        top: 0 !important;
+        left: 0 !important;
+        margin-top: 5% !important;
+    }
+
+    .cx-texto-rolagem-g {
+        height: 89% !important;
+        padding-left: 5% !important;
+        padding-top: 2% !important;
+        padding-right: 0;
+    }
+
+    .pag table {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-bottom: 3%;
+    }
+
+    .painel_anotacao {
+        margin-left: -615px;
+    }
+    .math-responsive{
+        font-size: 1.0em !important;
+    }
+
+}
+
+@media (min-width: 1201px) and (max-width: 1300px) {
+    .bootstrap-tabs {
+        width: 102% !important;
+    }
+
+    .pag {
+        width: 80%;
+        max-width: 80%;
+    }
+
+    .num_tit {
+        margin: -8px 0 0 -12%;
+    }
+
+    .tit_1 {
+        padding: 1% 0 1% 6%;
+    }
+
+    .cx-exer-total {
+        width: 100% !important;
+        top: 0 !important;
+        left: 0 !important;
+        margin-top: 3% !important;
+    }
+
+    .cx-texto-rolagem-g {
+        height: 89% !important;
+        padding-left: 5% !important;
+        padding-top: 2% !important;
+        padding-right: 0;
+    }
+
+    .pag table {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-bottom: 3%;
+    }
+
+    .painel_anotacao {
+        margin-left: -615px;
+    }
+    .math-responsive{
+        font-size: 1.0em !important;
+    }
+}
+
+
+@media (min-width: 1301px) and (max-width: 1400px) {
+    .bootstrap-tabs {
+        width: 103% !important;
+    }
+
+    .pag {
+        width: 70%;
+        max-width: 70%;
+    }
+
+    .tit_1 {
+        font-size: 1.7em;
+        font-weight: bold;
+        width: 95%;
+        margin: 1% 0 3% 5%;
+        position: relative;
+        color: white;
+        float: left;
+        padding: 1% 1% 1% 2%;
+    }
+
+    .cx-exer-total {
+        width: 100%;
+        margin: 14% 5% 5%;
+        top: 0 !important;
+        left: -5% !important;
+        margin-top: 3% !important;
+    }
+
+    .tt_cx_rolagem2 {
+        margin-top: 4%;
+    }
+
+    .cx-exer-total .cx-texto-rolagem-g {
+        height: 94%;
+    }
+
+    .pag table {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-bottom: 3%;
+    }
+
+    .painel_anotacao {
+        margin-left: -615px;
+    }
+    .math-responsive{
+        font-size: 1.0em !important;
+    }
+}
+
+@media (min-width: 1401px) and (max-width: 1600px) {
+    .bootstrap-tabs {
+        width: 103% !important;
+    }
+
+    .pag {
+        width: 70%;
+        max-width: 70%;
+    }
+
+    .tit_1 {
+        font-size: 1.7em;
+        font-weight: bold;
+        width: 95%;
+        margin: 1% 0 3% 5%;
+        position: relative;
+        color: white;
+        float: left;
+        padding: 1% 1% 1% 2%;
+    }
+
+    .cx-exer-total {
+        width: 100%;
+        margin: 14% 5% 5%;
+        top: 0 !important;
+        left: -5% !important;
+        margin-top: 3% !important;
+    }
+
+    .tt_cx_rolagem2 {
+        margin-top: 4%;
+    }
+
+    .cx-exer-total .cx-texto-rolagem-g {
+        height: 94%;
+    }
+
+    .pag table {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-bottom: 3%;
+    }
+
+    .painel_anotacao {
+        margin-left: -615px;
+    }
+    .math-responsive{
+        font-size: 1.1em !important;
+    }
+}
+
+@media (min-width: 1601px) and (max-width: 1700px) {
+    .bootstrap-tabs {
+        width: 103% !important;
+    }
+
+    .pag {
+        width: 70%;
+        max-width: 70%;
+    }
+
+    .tit_1 {
+        font-size: 1.7em;
+        font-weight: bold;
+        width: 95%;
+        margin: 1% 0 3% 5%;
+        position: relative;
+        color: white;
+        float: left;
+        padding: 1% 1% 1% 2%;
+    }
+
+    .cx-exer-total {
+        width: 100%;
+        margin: 14% 5% 5%;
+        top: 0 !important;
+        left: -5% !important;
+        margin-top: 3% !important;
+    }
+
+    .tt_cx_rolagem2 {
+        margin-top: 4%;
+    }
+
+    .cx-exer-total .cx-texto-rolagem-g {
+        height: 94%;
+    }
+
+    .pag table {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-bottom: 3%;
+    }
+
+    .painel_anotacao {
+        margin-left: -615px;
+    }
+}
+
+@media (min-width: 1701px) and (max-width: 1800px) {
+    .bootstrap-tabs {
+        width: 104% !important;
+    }
+
+    .pag {
+        width: 60%;
+        max-width: 60%;
+    }
+
+    .tit_1 {
+        font-size: 1.7em;
+        font-weight: bold;
+        width: 95%;
+        margin: 1% 0 3% 5%;
+        position: relative;
+        color: white;
+        float: left;
+        padding: 1% 1% 1% 2%;
+    }
+
+    .cx-exer-total {
+        width: 100%;
+        margin: 14% 5% 5%;
+        top: 0 !important;
+        left: -5% !important;
+        margin-top: 3% !important;
+    }
+
+    .tt_cx_rolagem2 {
+        margin-top: 4%;
+    }
+
+    .cx-exer-total .cx-texto-rolagem-g {
+        height: 94%;
+    }
+
+    .pag table {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-bottom: 3%;
+    }
+
+    .painel_anotacao {
+        margin-left: -615px;
+    }
+}
+
+@media (min-width: 1801px) {
+    .bootstrap-tabs {
+        width: 104% !important;
+    }
+
+    .pag {
+        width: 60%;
+        max-width: 60%;
+    }
+
+    .num_tit {
+        padding: 10px 0 10px 0 !important;
+        margin: -8px 0 0 -70px !important;
+    }
+
+    .tit_1 {
+        font-size: 1.7em;
+        font-weight: bold;
+        width: 95%;
+        margin: 1% 0 3% 5%;
+        position: relative;
+        color: white;
+        float: left;
+        padding: 1% 1% 1% 2%;
+    }
+
+    .cx-exer-total {
+        width: 100%;
+        margin: 14% 5% 5%;
+        top: 0 !important;
+        left: -5% !important;
+        margin-top: 3% !important;
+    }
+
+    .tt_cx_rolagem2 {
+        margin-top: 4%;
+    }
+
+    .cx-exer-total .cx-texto-rolagem-g {
+        height: 94%;
+    }
+
+    .cx-texto-rolagem-lv {
+        padding: 15px 20px 5px;
+        margin-bottom: 1%;
+        margin-top: 0;
+    }
+
+    .pag table {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-bottom: 3%;
+    }
+
+    .painel_anotacao {
+        margin-left: -615px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .cx-texto-rolagem-p, .cx-texto-rolagem-m, .cx-texto-rolagem-g, .tab-content {
+        height: 92% !important;
+        /*overflow-y: hidden !important;*/
+    }
+
+    .cx-exer-total {
+        height: 100% !important;
+        overflow-y: hidden !important;
+    }
+
+    .cx-exer-total:after {
+        content: ".";
+        display: block;
+        height: 0;
+        clear: both;
+        visibility: hidden;
+    }
+
+}

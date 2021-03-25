@@ -75,10 +75,10 @@ $(function () {
     function validaCPF(cpf, id) {
         if (cpf !== "") {
             $.get(urlValida, {valida: 'valcpf', cpf: cpf}, function (retorno) {
-                if (retorno === 2) {
-                    Funcoes.ValidaErro(id, "CPF inválido! favor verificar.");
-                } else {
+                if (retorno) {
                     Funcoes.ValidaOK(id, "CPF válido!");
+                } else {
+                    Funcoes.ValidaErro(id, "CPF inválido! favor verificar.");
                 }
             });
         } else {
@@ -89,10 +89,10 @@ $(function () {
     function validaEmail(email, id) {
         if (email !== "") {
             $.get(urlValida, {valida: 'valemail', email: email}, function (retorno) {
-                if (retorno === 2) {
-                    Funcoes.ValidaErro(id, "E-mail incorreto! favor verificar.");
-                } else {
+                if (retorno) {
                     Funcoes.ValidaOK(id, "E-mail válido!");
+                } else {
+                    Funcoes.ValidaErro(id, "E-mail incorreto! favor verificar.");
                 }
             });
         } else {
@@ -103,10 +103,10 @@ $(function () {
     function validaCNPJ(cnpj, id) {
         if (cnpj !== "") {
             $.get(urlValida, {valida: 'valcnpj', cnpj: cnpj}, function (retorno) {
-                if (retorno === 2) {
-                    Funcoes.ValidaErro(id, "CNPJ inválido! favor verificar.");
-                } else {
+                if (retorno) {
                     Funcoes.ValidaOK(id, "CNPJ válido!");
+                } else {
+                    Funcoes.ValidaErro(id, "CNPJ inválido! favor verificar.");
                 }
             });
         } else {
@@ -171,6 +171,12 @@ $(function () {
         $(this).val(valor);
     });
 
+    $.mask.definitions['a'] = "[0-9A-Fa-f]";
+    $(".color").mask("#aaaaaa").change(function () {
+        var back_color = $(this).parents('.input-group').children('.color-back');
+        back_color.css('background', $(this).val());
+    });
+
     var campo_cep = $('#nu_cep');
     if (campo_cep.length) {
         campo_cep.change(function () {
@@ -213,7 +219,7 @@ $(function () {
         $(this).val(valor);
     });
 
-    $(".validade_cartao").mask("99/99").keyup(function () {
+    $(".validade_cartao").mask("99/9999").keyup(function () {
         var valor = $(this).val().replace(/[^0-9]+/g, '');
         valor = valor.val().replace(/[^.-]+/g, '');
         $(this).val(valor);
@@ -491,49 +497,57 @@ $(function () {
 
     //Função de subir a página ao topo
     function irAoTopo() {
+        irParaAltura(0);
+    }
+
+    $(".modal").on('hidden', function () {
+        irParaAltura($(this).attr('data-altura'));
+    });
+
+    function irParaAltura(altura) {
         $("html, body").animate({
-            scrollTop: 0
+            scrollTop: altura
         }, "slow");
     }
 
     ///// START CAMPO SLIDER  /////
-    var sliderValoresMin = $(".slider_basico").parents('.sliders').children('.slider_min');
-    var sliderValoresMax = $(".slider_basico").parents('.sliders').children('.slider_max');
-
-    $(".slider_basico").rangeSlider({
-        defaultValues: {
-            min: sliderValoresMin.val(),
-            max: sliderValoresMax.val()
-        },
-        bounds: {
-            min: parseInt(sliderValoresMin.attr('data-min')),
-            max: parseInt(sliderValoresMax.attr('data-max'))
-        },
-        valueLabels: "change",
-        delayOut: 1000,
-        formatter: function (val) {
-            var value = Math.round(val * 5) / 5,
-                decimal = value - Math.round(val);
-            return value - decimal;
-        }
-    }).bind("valuesChanged", function (e, data) {
-        atualizaRangeSlider($(this), data);
-    });
-
-    function atualizaRangeSlider(e, data) {
-        var min = calculaSlider(data.values.min);
-        var max = calculaSlider(data.values.max);
-        e.parents('.sliders').children('.slider_min').val(min);
-        e.parents('.sliders').children('.slider_max').val(max);
-        e.parents('.form-group').children('.control-label').children('span').empty();
-        e.parents('.form-group').children('.control-label').append('<span> de <b>' + min + '</b> a <b>' + max + '</b></span>');
-    }
-
-    function calculaSlider(valor) {
-        var value = Math.round(valor * 5) / 5,
-            decimal = value - Math.round(valor);
-        return value - decimal;
-    }
+    // var sliderValoresMin = $(".slider_basico").parents('.sliders').children('.slider_min');
+    // var sliderValoresMax = $(".slider_basico").parents('.sliders').children('.slider_max');
+    //
+    // $(".slider_basico").rangeSlider({
+    //     defaultValues: {
+    //         min: sliderValoresMin.val(),
+    //         max: sliderValoresMax.val()
+    //     },
+    //     bounds: {
+    //         min: parseInt(sliderValoresMin.attr('data-min')),
+    //         max: parseInt(sliderValoresMax.attr('data-max'))
+    //     },
+    //     valueLabels: "change",
+    //     delayOut: 1000,
+    //     formatter: function (val) {
+    //         var value = Math.round(val * 5) / 5,
+    //             decimal = value - Math.round(val);
+    //         return value - decimal;
+    //     }
+    // }).bind("valuesChanged", function (e, data) {
+    //     atualizaRangeSlider($(this), data);
+    // });
+    //
+    // function atualizaRangeSlider(e, data) {
+    //     var min = calculaSlider(data.values.min);
+    //     var max = calculaSlider(data.values.max);
+    //     e.parents('.sliders').children('.slider_min').val(min);
+    //     e.parents('.sliders').children('.slider_max').val(max);
+    //     e.parents('.form-group').children('.control-label').children('span').empty();
+    //     e.parents('.form-group').children('.control-label').append('<span> de <b>' + min + '</b> a <b>' + max + '</b></span>');
+    // }
+    //
+    // function calculaSlider(valor) {
+    //     var value = Math.round(valor * 5) / 5,
+    //         decimal = value - Math.round(valor);
+    //     return value - decimal;
+    // }
 
     ///// END CAMPO SLIDER  /////
 

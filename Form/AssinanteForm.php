@@ -87,8 +87,8 @@ class AssinanteForm
             null => Mensagens::MSG_SEM_ITEM_SELECIONADO,
             TipoPagamentoEnum::CARTAO_CREDITO =>
                 TipoPagamentoEnum::getDescricaoValor(TipoPagamentoEnum::CARTAO_CREDITO),
-            TipoPagamentoEnum::DEPOSITO_TRANSFERENCIA =>
-                TipoPagamentoEnum::getDescricaoValor(TipoPagamentoEnum::DEPOSITO_TRANSFERENCIA),
+            TipoPagamentoEnum::PIX =>
+                TipoPagamentoEnum::getDescricaoValor(TipoPagamentoEnum::PIX),
             TipoPagamentoEnum::BOLETO =>
                 TipoPagamentoEnum::getDescricaoValor(TipoPagamentoEnum::BOLETO)
         ];

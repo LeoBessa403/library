@@ -48,7 +48,7 @@ class PagSeguro
             $DadosArray['paymentMethod'] = 'creditCard';
         } elseif ($tpPagamento == TipoPagamentoEnum::BOLETO) {
             $DadosArray['paymentMethod'] = 'boleto';
-        } elseif ($tpPagamento == TipoPagamentoEnum::DEPOSITO_TRANSFERENCIA) {
+        } elseif ($tpPagamento == TipoPagamentoEnum::PIX) {
             $DadosArray['bankName'] = $Dados['bankName'];
             $DadosArray['paymentMethod'] = 'eft';
         }

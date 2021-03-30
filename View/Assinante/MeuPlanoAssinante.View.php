@@ -72,7 +72,7 @@
                                                         data-original-title="Abrir Boleto" data-placement="top">
                                                          <i class="clip-file-pdf"></i>
                                                      </a>';
-                                    } elseif ($res->getTpPagamento() == TipoPagamentoEnum::DEPOSITO_TRANSFERENCIA
+                                    } elseif ($res->getTpPagamento() == TipoPagamentoEnum::PIX
                                         && $res->getDsLinkBoleto()) {
                                         $acao .= ' <a href="' . $res->getDsLinkBoleto() . '" target="_blank"
                                                     class="btn btn-warning tooltips" 

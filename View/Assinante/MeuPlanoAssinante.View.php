@@ -134,6 +134,11 @@
                         ?>
                     </div>
                 </div>
+                <div class="pull-right">
+                    <!-- end: DYNAMIC TABLE PANEL -->
+                    <?php Valida::geraBtnVoltar('Assinante/ListarAssinante'); ?>
+                </div>
+                <br><br><br>
                 <!-- end: DYNAMIC TABLE PANEL -->
             </div>
         </div>

@@ -41,6 +41,7 @@ class Historia extends AbstractController
 
         $coHistoria = UrlAmigavel::PegaParametro(CO_HISTORIA);
         $res = [];
+        $res[CO_HISTORIA] = null;
         if ($coHistoria) {
             /** @var HistoriaEntidade $historia */
             $historia = $historiaService->PesquisaUmRegistro($coHistoria);

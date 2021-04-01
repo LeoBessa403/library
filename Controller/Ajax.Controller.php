@@ -2,7 +2,7 @@
 /* 
  * Controller résponsavel para receber e passar dados para controller responsável.
  */
-define('PASTA_HOME', $_REQUEST['pastaHome']);
+//define('PASTA_HOME', $_REQUEST['pastaHome']);
 include "../Config.inc.php";
 
 if (isset($_REQUEST['acao'])) {

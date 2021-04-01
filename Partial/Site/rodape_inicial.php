@@ -58,7 +58,7 @@
         <div class="beautypress-footer-wraper">
             <div class="beautypress-footer-content">
                 <div class="beautypress-footer-logo">
-                    <a href="#" class="home_inicio">
+                    <a href="#" class="home_inicio bg-color-white" style="padding: 20px; border-radius: 10%">
                         <img src="<?= PASTASITE; ?>img/footer_logo-v4.png" alt="">
                     </a>
                 </div><!-- .beautypress-footer-logo END -->

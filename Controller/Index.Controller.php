@@ -169,7 +169,7 @@ class Index extends AbstractController
                 $class = 2;
                 break;
             case 'S':
-                $msg = 'Sistema Expirado, favor renovar sua assinatura.';
+                $msg = 'Sistema Expirado, favor renovar sua assinatura.333366';
                 $class = 3;
                 break;
                 break;
@@ -226,6 +226,22 @@ class Index extends AbstractController
 //                    exit();
 //                }
 
+                //// VERIFICA E ATUALIZA OS PAGAMENTOS COM STATUS DE AGUARDANDO PAGAMENTO
+                if (PROD) {
+                    /** @var PlanoAssinanteAssinaturaService $PlanoAssinanteAssinaturaService */
+                    $PlanoAssinanteAssinaturaService = $this->getService(PLANO_ASSINANTE_ASSINATURA_SERVICE);
+                    $pagamentos = $PlanoAssinanteAssinaturaService->PesquisaTodos([
+                        ST_PAGAMENTO => StatusPagamentoEnum::AGUARDANDO_PAGAMENTO,
+                        "in#" . TP_PAGAMENTO => TipoPagamentoEnum::BOLETO . "', '" . TipoPagamentoEnum::CARTAO_CREDITO
+                    ]);
+                    /** @var PlanoAssinanteAssinaturaEntidade $pagamento */
+                    foreach ($pagamentos as $pagamento) {
+                        if ($pagamento->getTpPagamento() == TipoPagamentoEnum::BOLETO ||
+                            $pagamento->getTpPagamento() == TipoPagamentoEnum::CARTAO_CREDITO) {
+                            $PlanoAssinanteAssinaturaService->notificacaoPagSeguro($pagamento->getDsCodeTransacao(), true);
+                        }
+                    }
+                }
             endif;
             if ($user != ""):
                 $this->geraDadosSessao($user, $user->getCoUsuario());
@@ -295,7 +311,7 @@ class Index extends AbstractController
                 $statusSis = AssinanteService::getStatusAssinante($usuarioAcesso[DT_EXPIRACAO]);
                 if ($statusSis == StatusSistemaEnum::EXPIRADO) {
                     Notificacoes::geraMensagem(
-                        'Sistema Expirado, favor renovar sua assinatura.',
+                        'Sistema Expirado, favor renovar sua assinatura.333',
                         TiposMensagemEnum::ERRO
                     );
                 }

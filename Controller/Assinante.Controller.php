@@ -265,7 +265,7 @@ class Assinante extends AbstractController
         $id = "CadastrarNotificaacao";
 
         if (!empty($_POST[$id])):
-            $retorno = $PlanoAssAssinaturaService->notificacaoPagSeguro(true);
+            $retorno = $PlanoAssAssinaturaService->notificacaoPagSeguro($_POST['notificationCode'], true);
             if ($retorno[SUCESSO]) {
                 Redireciona(UrlAmigavel::$modulo . '/' . UrlAmigavel::$controller . '/MeuPlanoAssinante/');
             }

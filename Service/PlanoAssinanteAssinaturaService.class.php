@@ -299,7 +299,7 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
         return $retorna;
     }
 
-    public function notificacaoPagSeguro($aplicacao = false)
+    public function notificacaoPagSeguro($notificationCode, $aplicacao = false)
     {
         /** @var PDO $PDO */
         $PDO = $this->getPDO();
@@ -311,10 +311,10 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
         $AssinanteService = $this->getService(ASSINANTE_SERVICE);
 
         if ($aplicacao) {
-            $Url = URL_PAGSEGURO . "transactions/{$_POST['notificationCode']}?email=" .
+            $Url = URL_PAGSEGURO . "transactions/{$notificationCode}?email=" .
                 EMAIL_PAGSEGURO . "&token=" . TOKEN_PAGSEGURO;
         } else {
-            $Url = URL_PAGSEGURO . "transactions/notifications/{$_POST['notificationCode']}?email=" .
+            $Url = URL_PAGSEGURO . "transactions/notifications/{$notificationCode}?email=" .
                 EMAIL_PAGSEGURO . "&token=" . TOKEN_PAGSEGURO;
         }
 

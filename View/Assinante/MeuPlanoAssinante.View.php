@@ -32,6 +32,16 @@
                         Assinaturas de Planos
                     </div>
                     <div class="panel-body">
+                        <div class="alert alert-block alert-warning fade in col-md-12"
+                             style="margin-bottom: 15px;">
+                            <h4 class="alert-heading"><i class="fa fa-money"></i> Status de Pagamento</h4>
+                            <?php
+                            foreach (StatusPagamentoEnum::$descricao as $chave => $desc) {
+                                echo '<span class="circle-img label_span label-' . StatusPagamentoEnum::$cores[$chave] . '">';
+                                echo '&nbsp;&nbsp;&nbsp;&nbsp;</span> ' . $desc . ' / ';
+                            }
+                            ?>
+                        </div>
                         <?php
                         Modal::load();
                         Modal::confirmacao("confirma_Assinante");
@@ -117,13 +127,19 @@
                                 $grid->setColunas($noEmpresa, 3);
                                 $grid->setColunas($res->getDsCodeTransacao(), 2);
                             }
+
+                            $spanLabel = '<span class="circle-img label_span label-' .
+                                StatusPagamentoEnum::$cores[$res->getStPagamento()] . '">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;</span> ';
+
                             $grid->setColunas(Valida::StatusLabel($res->getStStatus()), 2);
                             $grid->setColunas($res->getCoPlanoAssinante()->getCoPlano()->getNoPlano());
                             $grid->setColunas($dtPagamento, 2);
                             $grid->setColunas($tpPagamento, 4);
                             $grid->setColunas($res->getNuValorAssinatura(), 2);
                             $grid->setColunas($res->getNuProfissionais(), 2);
-                            $grid->setColunas(StatusPagamentoEnum::getDescricaoValor($res->getStPagamento()), 2);
+                            $grid->setColunas($spanLabel .
+                                StatusPagamentoEnum::getDescricaoValor($res->getStPagamento()), 3);
                             if (!PerfilService::perfilMaster()) {
                                 $grid->setColunas(Valida::DataShow($res->getDtExpiracao()), 2);
                             }

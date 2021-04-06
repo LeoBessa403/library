@@ -338,7 +338,7 @@ class Form
     public static function CriaInputHidden($formulario, $res,array $ids)
     {
         foreach ($ids as $id){
-            if ($res[$id]):
+            if (!empty($res[$id])):
                 $formulario
                     ->setType(TiposCampoEnum::HIDDEN)
                     ->setId($id)

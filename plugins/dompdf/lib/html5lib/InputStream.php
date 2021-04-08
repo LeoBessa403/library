@@ -29,8 +29,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // /* */ indicates verbatim text from the HTML 5 specification
 // // indicates regular comments
 
-class HTML5_InputStream
-{
+class HTML5_InputStream {
     /**
      * The string data we're parsing.
      */
@@ -52,10 +51,10 @@ class HTML5_InputStream
     public $errors = array();
 
     /**
-     * @param $data Data to parse
+     * @param $data | Data to parse
+     * @throws Exception
      */
-    public function __construct($data)
-    {
+    public function __construct($data) {
 
         /* Given an encoding, the bytes in the input stream must be
         converted to Unicode characters for the tokeniser, as
@@ -78,7 +77,7 @@ class HTML5_InputStream
             $data = @iconv('UTF-8', 'UTF-8//IGNORE', $data);
         } else {
             // we can make a conforming native implementation
-            throw new Exception('Not implemented, please install mbstring or iconv');
+            throw new Exception('Not implemented, please install iconv');
         }
 
         /* One leading U+FEFF BYTE ORDER MARK character must be
@@ -158,14 +157,15 @@ class HTML5_InputStream
 
         $this->data = $data;
         $this->char = 0;
-        $this->EOF = strlen($data);
+        $this->EOF  = strlen($data);
     }
 
     /**
      * Returns the current line that the tokenizer is at.
+     *
+     * @return int
      */
-    public function getCurrentLine()
-    {
+    public function getCurrentLine() {
         // Check the string isn't empty
         if ($this->EOF) {
             // Add one to $this->char because we want the number for the next
@@ -179,9 +179,10 @@ class HTML5_InputStream
 
     /**
      * Returns the current column of the current line that the tokenizer is at.
+     *
+     * @return int
      */
-    public function getColumnOffset()
-    {
+    public function getColumnOffset() {
         // strrpos is weird, and the offset needs to be negative for what we
         // want (i.e., the last \n before $this->char). This needs to not have
         // one (to make it point to the next character, the one we want the
@@ -209,16 +210,17 @@ class HTML5_InputStream
             // 0x80 = 0x7F - 0 + 1 (one added to get inclusive range)
             // 0x33 = 0xF4 - 0x2C + 1 (one added to get inclusive range)
             return array_sum(array_slice($count, 0, 0x80)) +
-                array_sum(array_slice($count, 0xC2, 0x33));
+                   array_sum(array_slice($count, 0xC2, 0x33));
         }
     }
 
     /**
      * Retrieve the currently consume character.
      * @note This performs bounds checking
+     *
+     * @return bool|string
      */
-    public function char()
-    {
+    public function char() {
         return ($this->char++ < $this->EOF)
             ? $this->data[$this->char - 1]
             : false;
@@ -227,9 +229,10 @@ class HTML5_InputStream
     /**
      * Get all characters until EOF.
      * @note This performs bounds checking
+     *
+     * @return string|bool
      */
-    public function remainingChars()
-    {
+    public function remainingChars() {
         if ($this->char < $this->EOF) {
             $data = substr($this->data, $this->char);
             $this->char = $this->EOF;
@@ -242,17 +245,19 @@ class HTML5_InputStream
     /**
      * Matches as far as possible until we reach a certain set of bytes
      * and returns the matched substring.
-     * @param $bytes Bytes to match.
+     *
+     * @param $bytes | Bytes to match.
+     * @param null $max
+     * @return bool|string
      */
-    public function charsUntil($bytes, $max = null)
-    {
+    public function charsUntil($bytes, $max = null) {
         if ($this->char < $this->EOF) {
             if ($max === 0 || $max) {
                 $len = strcspn($this->data, $bytes, $this->char, $max);
             } else {
                 $len = strcspn($this->data, $bytes, $this->char);
             }
-            $string = (string)substr($this->data, $this->char, $len);
+            $string = (string) substr($this->data, $this->char, $len);
             $this->char += $len;
             return $string;
         } else {
@@ -263,17 +268,19 @@ class HTML5_InputStream
     /**
      * Matches as far as possible with a certain set of bytes
      * and returns the matched substring.
-     * @param $bytes Bytes to match.
+     *
+     * @param $bytes | Bytes to match.
+     * @param null $max
+     * @return bool|string
      */
-    public function charsWhile($bytes, $max = null)
-    {
+    public function charsWhile($bytes, $max = null) {
         if ($this->char < $this->EOF) {
             if ($max === 0 || $max) {
                 $len = strspn($this->data, $bytes, $this->char, $max);
             } else {
                 $len = strspn($this->data, $bytes, $this->char);
             }
-            $string = (string)substr($this->data, $this->char, $len);
+            $string = (string) substr($this->data, $this->char, $len);
             $this->char += $len;
             return $string;
         } else {
@@ -284,8 +291,7 @@ class HTML5_InputStream
     /**
      * Unconsume one character.
      */
-    public function unget()
-    {
+    public function unget() {
         if ($this->char <= $this->EOF) {
             $this->char--;
         }

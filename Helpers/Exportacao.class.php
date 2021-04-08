@@ -18,12 +18,12 @@ class Exportacao
     /**
      * <b>Inicia a Exportação</b> Gera arquivos Excel ou PDF para exportação de Dados
      * @param STRING $Formato : Formato a ser exportado XLS ou PDF
-     * @param STRING $NomeArquivo : Nome do arquivo a ser Exportado
+     * @param STRING $Titulo : Nome do arquivo a ser Exportado
      */
-    function __construct($Formato)
+    function __construct($Formato, $Titulo = 'Relatório Detalhado')
     {
         $this->Formato = $Formato;
-        $this->NomeArquivo = "Relatório de " . UrlAmigavel::$controller;
+        $this->NomeArquivo = utf8_encode($Titulo);
         $this->Orientacao = "portrait";
     }
 
@@ -83,14 +83,15 @@ class Exportacao
                 break;
             /// Formato PDF
             case "PDF" :
-                require_once("admin/plugins/dompdf/dompdf_config.inc.php");
+                require_once("library/plugins/dompdf/autoload.inc.php");
 
                 $html = $this->geraConteudo();
 
                 $strFileName = Valida::ValNome($this->NomeArquivo) . "-" . date("d_m_Y_H_i") . ".pdf";
-                $dompdf = new DOMPDF();
-                $dompdf->load_html($html);
-                $dompdf->set_paper('A4', $this->Orientacao);
+                $dompdf = new Dompdf\Dompdf();
+
+                $dompdf->loadHtml($html);
+                $dompdf->setPaper('A4', $this->Orientacao);
                 $dompdf->render();
                 $dompdf->stream($strFileName);
 
@@ -114,11 +115,11 @@ class Exportacao
                                     <td style="background-color: #fff;" colspan="' . count($this->Colunas) . '">Total de Registros: <b>' . count($this->Conteudo) . '</b></td>
                                 </tr>
                                 <tr>
-                                    <td style="background-color: #fff;" colspan="' . count($this->Colunas) . '">Relat&oacute;rio Gerado em: <b>' . date("d/m/Y H:i") . '</b></td>
+                                    <td style="background-color: #fff;" colspan="' . count($this->Colunas) . '">Relatório Gerado em: <b>' . date("d/m/Y H:i") . '</b></td>
                                 </tr>
                                 <tr>';
         foreach ($this->Colunas as $coluns):
-            $html .= '<th style="background-color: #006699; color: #ffffff;">' . utf8_decode($coluns) . '</th>';
+            $html .= '<th style="background-color: #006699; color: #ffffff;">' . $coluns . '</th>';
         endforeach;
         $html .= '</tr>
                                </thead>

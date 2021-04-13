@@ -79,7 +79,7 @@ class Exportacao
 
                 $html = $this->geraConteudo();
 
-                echo $html;
+                echo utf8_decode($html);
                 break;
             /// Formato PDF
             case "PDF" :
@@ -106,10 +106,10 @@ class Exportacao
         $html = '<table style="background-color: #fbfbfb; margin:0 auto;">
                             <thead>
                                 <tr>
-                                    <td style="background-color: #fff; text-align: center;" colspan="' . count($this->Colunas) . '" style="text-align: center;"><h2>' . utf8_decode(DESC) . '</h2></td>
+                                    <td style="background-color: #fff; text-align: center;" colspan="' . count($this->Colunas) . '" style="text-align: center;"><h2>' .DESC . '</h2></td>
                                 </tr>
                                 <tr>
-                                    <td style="background-color: #fff; text-align: center;" colspan="' . count($this->Colunas) . '"><h3>' . utf8_decode($this->NomeArquivo) . '</h3></td>
+                                    <td style="background-color: #fff; text-align: center;" colspan="' . count($this->Colunas) . '"><h3>' . $this->NomeArquivo . '</h3></td>
                                 </tr>
                                 <tr>
                                     <td style="background-color: #fff;" colspan="' . count($this->Colunas) . '">Total de Registros: <b>' . count($this->Conteudo) . '</b></td>

@@ -233,24 +233,26 @@ class  UsuarioService extends AbstractService
                     $idCoUsuario = $usuarioPerfil[CO_USUARIO];
                 } else {
                     $usuarioService->Salva($usu, $idCoUsuario);
+                    $usuarioPerfil[CO_USUARIO] = $idCoUsuario;
                     $session->setSession(MENSAGEM, ATUALIZADO);
                 }
 
                 $usuarioPerfilService->DeletaQuando([
                     CO_USUARIO => $idCoUsuario
                 ]);
+
                 // REGISTRAR ///
                 if (!$resgistrar):
                     if (!empty($dados['ds_perfil'])) {
                         foreach ($dados['ds_perfil'] as $perfil) {
-                            if ($perfil != 3) {
+                            if ($perfil != PERFIL_USUARIO_PADRAO) {
                                 $usuarioPerfil[CO_PERFIL] = $perfil;
                                 $usuarioPerfilService->Salva($usuarioPerfil);
                             }
                         }
                     }
                 endif;
-                $usuarioPerfil[CO_PERFIL] = 3;
+                $usuarioPerfil[CO_PERFIL] = PERFIL_USUARIO_PADRAO;
                 $retorno = $usuarioPerfilService->Salva($usuarioPerfil);
                 if ($retorno) {
                     $PDO->commit();

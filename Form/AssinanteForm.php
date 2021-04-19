@@ -123,10 +123,10 @@ class AssinanteForm
             null => Mensagens::MSG_SEM_ITEM_SELECIONADO,
         ];
         $formulario
-            ->setId('bankName')
-            ->setType(TiposCampoEnum::SELECT)
-            ->setLabel("Banco")
-            ->setClasses("debito")
+            ->setId('chave')
+            ->setLabel("Chave PIX")
+            ->setPlace('contato@sistemadabeleza.com.br')
+            ->setClasses("debito disabilita")
             ->setTamanhoInput(12)
             ->setOptions($bancos)
             ->CriaInpunt();

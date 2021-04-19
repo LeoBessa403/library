@@ -222,7 +222,6 @@ class  UsuarioService extends AbstractService
                         : null);
                 }
                 if (!$idCoUsuario) {
-
                     $usuarioPerfil[CO_USUARIO] = $usuarioService->Salva($usu);
                     $dadosEmail = [
                         NO_PESSOA => $pessoa[NO_PESSOA],
@@ -231,11 +230,15 @@ class  UsuarioService extends AbstractService
                     ];
                     $this->enviaEmailNovoUsuario($dadosEmail, $usuarioPerfil[CO_USUARIO]);
                     $session->setSession(MENSAGEM, CADASTRADO);
+                    $idCoUsuario = $usuarioPerfil[CO_USUARIO];
                 } else {
                     $usuarioService->Salva($usu, $idCoUsuario);
                     $session->setSession(MENSAGEM, ATUALIZADO);
                 }
 
+                $usuarioPerfilService->DeletaQuando([
+                    CO_USUARIO => $idCoUsuario
+                ]);
                 // REGISTRAR ///
                 if (!$resgistrar):
                     if (!empty($dados['ds_perfil'])) {

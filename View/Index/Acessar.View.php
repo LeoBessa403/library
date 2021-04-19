@@ -55,7 +55,7 @@ include_once './library/Partial/AcessoPermitido/topo_inicial.php';
                             Criar Conta
                         </a>
                     <?php } ?>
-                    <a href="<?= PASTAADMIN . ACTION_INICIAL_ADMIN; ?>/RecuperarSenha" class="register"
+                    <a href="<?= PASTAADMIN; ?>Index/RecuperarSenha" class="register"
                        style="float: right;">
                         Recuperar Senha
                     </a>

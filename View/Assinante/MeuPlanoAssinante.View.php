@@ -150,11 +150,15 @@
                         ?>
                     </div>
                 </div>
-                <div class="pull-right">
-                    <!-- end: DYNAMIC TABLE PANEL -->
-                    <?php Valida::geraBtnVoltar('Assinante/ListarAssinante'); ?>
-                </div>
-                <br><br><br>
+                <?php
+                if (PerfilService::perfilMaster()) {
+                    ?>
+                    <div class="pull-right">
+                        <!-- end: DYNAMIC TABLE PANEL -->
+                        <?php Valida::geraBtnVoltar('Assinante/ListarAssinante'); ?>
+                    </div>
+                    <br><br><br>
+                <?php } ?>
                 <!-- end: DYNAMIC TABLE PANEL -->
             </div>
         </div>

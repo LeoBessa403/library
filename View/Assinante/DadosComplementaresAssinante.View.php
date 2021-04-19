@@ -42,8 +42,7 @@ $assinanteEdit = $assinante;
             if (PerfilService::perfilMaster()) {
                 Valida::geraBtnVoltar('Assinante/ListarAssinante/');
             } else {
-                Valida::geraBtn('Cancelar', 'MeuPlanoAssinante',
-                    'btn-danger pull-right', 'btn_cancelar', 'clip-arrow-right-2');
+                Valida::geraBtnVoltar( 'Assinante/MeuPlanoAssinante');
             }
             ?>
         </div>

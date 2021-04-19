@@ -34,11 +34,13 @@ class  VisitaService extends AbstractService
                 $coVisita = $session::getCookie($noCookie);
                 /** @var VisitaEntidade $visitaPesquisa */
                 $visitaPesquisa = $this->PesquisaUmRegistro($coVisita);
-                // Edição da Página
-                $visita[NU_VISITAS] = $visitaPesquisa->getNuVisitas() + 1;
-                $visita[DT_ATUALIZADO] = Valida::DataHoraAtualBanco();
-                $this->Salva($visita, $visitaPesquisa->getCoVisita());
-                $retorno[SUCESSO] = $paginaService->salvaPagina($visitaPesquisa->getCoVisita());
+                if($visitaPesquisa) {
+                    // Edição da Página
+                    $visita[NU_VISITAS] = $visitaPesquisa->getNuVisitas() + 1;
+                    $visita[DT_ATUALIZADO] = Valida::DataHoraAtualBanco();
+                    $this->Salva($visita, $visitaPesquisa->getCoVisita());
+                    $retorno[SUCESSO] = $paginaService->salvaPagina($visitaPesquisa->getCoVisita());
+                }
             } else {
                 $coTrafego = $trafegoService->salvaTrafego();
                 $coVisita = $this->salvaVisita($coTrafego);

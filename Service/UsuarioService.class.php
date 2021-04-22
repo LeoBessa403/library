@@ -221,39 +221,38 @@ class  UsuarioService extends AbstractService
                         ? $dados[CO_ASSINANTE]
                         : null);
                 }
+                $usu[DT_CADASTRO] = Valida::DataHoraAtualBanco();
                 if (!$idCoUsuario) {
                     $usuarioPerfil[CO_USUARIO] = $usuarioService->Salva($usu);
                     $dadosEmail = [
                         NO_PESSOA => $pessoa[NO_PESSOA],
                         DS_EMAIL => $contato[DS_EMAIL],
+                        NU_TEL1 => $contato[NU_TEL1],
                         DS_SENHA => $usu[DS_SENHA]
                     ];
                     $this->enviaEmailNovoUsuario($dadosEmail, $usuarioPerfil[CO_USUARIO]);
                     $session->setSession(MENSAGEM, CADASTRADO);
-                    $idCoUsuario = $usuarioPerfil[CO_USUARIO];
                 } else {
                     $usuarioService->Salva($usu, $idCoUsuario);
                     $usuarioPerfil[CO_USUARIO] = $idCoUsuario;
                     $session->setSession(MENSAGEM, ATUALIZADO);
                 }
-
-                $usuarioPerfilService->DeletaQuando([
-                    CO_USUARIO => $idCoUsuario
-                ]);
+                $retorno = $idCoUsuario;
 
                 // REGISTRAR ///
-                if (!$resgistrar):
-                    if (!empty($dados['ds_perfil'])) {
-                        foreach ($dados['ds_perfil'] as $perfil) {
-                            if ($perfil != PERFIL_USUARIO_PADRAO) {
-                                $usuarioPerfil[CO_PERFIL] = $perfil;
-                                $usuarioPerfilService->Salva($usuarioPerfil);
-                            }
+                if (!empty($dados['ds_perfil'])) {
+                    $usuarioPerfilService->DeletaQuando([
+                        CO_USUARIO => $idCoUsuario
+                    ]);
+                    foreach ($dados['ds_perfil'] as $perfil) {
+                        if ($perfil != PERFIL_USUARIO_PADRAO) {
+                            $usuarioPerfil[CO_PERFIL] = $perfil;
+                            $usuarioPerfilService->Salva($usuarioPerfil);
                         }
                     }
-                endif;
-                $usuarioPerfil[CO_PERFIL] = PERFIL_USUARIO_PADRAO;
-                $retorno = $usuarioPerfilService->Salva($usuarioPerfil);
+                    $usuarioPerfil[CO_PERFIL] = PERFIL_USUARIO_PADRAO;
+                    $retorno = $usuarioPerfilService->Salva($usuarioPerfil);
+                }
                 if ($retorno) {
                     $PDO->commit();
                 } else {

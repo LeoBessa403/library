@@ -41,65 +41,155 @@ class Backup
     public function RealizarBackup($tables = '*')
     {
         try {
-            /**
-             * Tables to export
-             */
-            if ($tables == '*') {
-                $tables = array();
-                $result = mysqli_query($this->conn, 'SHOW TABLES');
-                while ($row = mysqli_fetch_row($result)) {
-                    $tables[] = $row[0];
-                }
-            } else {
-                $tables = is_array($tables) ? $tables : explode(',', $tables);
-            }
 
             $sql = "-- Atualizado em: " . Valida::DataAtual() . "\n-- AMBIENTE: " . HOME . "\n-- BANCO: " . DBSA . "\n\n";
             $sql .= 'CREATE DATABASE IF NOT EXISTS ' . DBSA . ";\n\n";
             $sql .= 'USE ' . DBSA . ";\n\n";
 
-            /**
-             * Iterate tables
-             */
-            foreach ($tables as $table) {
-                $table = strtoupper($table);
-                $result = mysqli_query($this->conn, 'SELECT * FROM ' . $table);
-                $numFields = mysqli_num_fields($result);
-
-                $sql .= 'DROP TABLE IF EXISTS ' . $table . ';';
-                $row2 = mysqli_fetch_row(mysqli_query($this->conn, 'SHOW CREATE TABLE ' . $table));
-                $sql .= "\n\n\n" . str_replace(strtolower($row2[0]), $row2[0], $row2[1]) . ";\n\n\n";
-
-                for ($i = 0; $i < $numFields; $i++) {
-                    while ($row = mysqli_fetch_row($result)) {
-                        $sql .= 'INSERT INTO ' . $table . ' VALUES(';
-                        for ($j = 0; $j < $numFields; $j++) {
-                            $row[$j] = addslashes($row[$j]);
-                            $row[$j] = str_replace("\n", "\\n", $row[$j]);
-                            if (isset($row[$j])) {
-                                $sql .= '"' . $row[$j] . '"';
-                            } else {
-                                $sql .= 'NULL';
-                            }
-
-                            if ($j < ($numFields - 1)) {
-                                $sql .= ',';
-                            }
-                        }
-
-                        $sql .= ");\n\n";
-                    }
-                }
-
-                $sql .= "\n\n\n";
-
+            if (BANCO == 1) {
+                $sql = $this->backupMySql($tables, $sql);
+            } elseif (BANCO == 2) {
+//                $sql = $this->backupPostGres($tables, $sql);
             }
+
         } catch (Exception $e) {
             var_dump($e->getMessage());
             return false;
         }
 
         return $this->saveFile($sql);
+    }
+
+
+    /**
+     * Save SQL to file
+     * @param string $sql
+     * @param string $tables
+     * @return bool
+     */
+    protected function backupMySql($tables, $sql)
+    {
+        /**
+         * Tables to export
+         */
+        if ($tables == '*') {
+            $tables = array();
+            $result = mysqli_query($this->conn, 'SHOW TABLES');
+            while ($row = mysqli_fetch_row($result)) {
+                if ($this->liberaBackup($row[0])) {
+                    $tables[] = $row[0];
+                }
+            }
+        } else {
+            $tables = is_array($tables) ? $tables : explode(',', $tables);
+        }
+
+        foreach ($tables as $table) {
+            $table = strtoupper($table);
+            $result = mysqli_query($this->conn, 'SELECT * FROM ' . $table);
+            $numFields = mysqli_num_fields($result);
+
+            $sql .= 'DROP TABLE IF EXISTS ' . $table . ';';
+            $row2 = mysqli_fetch_row(mysqli_query($this->conn, 'SHOW CREATE TABLE ' . $table));
+            $sql .= "\n\n\n" . str_replace(strtolower($row2[0]), $row2[0], $row2[1]) . ";\n\n\n";
+
+            for ($i = 0; $i < $numFields; $i++) {
+                while ($row = mysqli_fetch_row($result)) {
+                    $sql .= 'INSERT INTO ' . $table . ' VALUES(';
+                    for ($j = 0; $j < $numFields; $j++) {
+                        $row[$j] = addslashes($row[$j]);
+                        $row[$j] = str_replace("\n", "\\n", $row[$j]);
+                        if (isset($row[$j])) {
+                            $sql .= "'" . $row[$j] . "'";
+                        } else {
+                            $sql .= 'NULL';
+                        }
+
+                        if ($j < ($numFields - 1)) {
+                            $sql .= ',';
+                        }
+                    }
+                    $sql .= ");\n\n";
+                }
+            }
+            $sql .= "\n\n\n";
+        }
+
+        return $sql;
+    }
+
+    /**
+     * Save SQL to file
+     * @param string $sql
+     * @param string $tables
+     * @return bool
+     */
+    protected function backupPostGres($tables, $sql)
+    {
+        /**
+         * Tables to export
+         */
+        if ($tables == '*') {
+            $tables = array();
+            $result = pg_query($this->conn, "SELECT *
+                                            FROM pg_catalog.pg_tables
+                                            WHERE schemaname != 'pg_catalog' AND
+                                                    schemaname != 'information_schema'");
+            while ($row = pg_fetch_row($result)) {
+                $tables[] = $row[1];
+            }
+        } else {
+            $tables = is_array($tables) ? $tables : explode(',', $tables);
+        }
+
+
+        foreach ($tables as $table) {
+            $table = DBSA . '.' . $table;
+            $result = pg_query($this->conn, 'SELECT * FROM ' . $table);
+            $numFields = pg_num_fields($result);
+
+            $sql .= "DROP TABLE IF EXISTS " . $table . ";";
+
+            $row2 = pg_fetch_row(pg_query($this->conn, 'SELECT
+                                                f.attname AS name
+                                        FROM pg_attribute f
+                                                 JOIN pg_class c ON c.oid = f.attrelid
+                                                 JOIN pg_type t ON t.oid = f.atttypid
+                                                 LEFT JOIN pg_attrdef d ON d.adrelid = c.oid AND d.adnum = f.attnum
+                                                 LEFT JOIN pg_namespace n ON n.oid = c.relnamespace
+                                                 LEFT JOIN pg_constraint p ON p.conrelid = c.oid AND f.attnum = ANY (p.conkey)
+                                                 LEFT JOIN pg_class AS g ON p.confrelid = g.oid
+                                        WHERE c.relkind = \'r\'::char
+                                          AND n.nspname = \'' . DBSA . '\'  -- Replace with Schema name
+                                          AND c.relname = \'' . str_replace(DBSA . '.', '', $table) . '\'  -- Replace with table name
+                                          AND f.attnum > 0'));
+
+
+            $sql .= "\n\n\n" . str_replace(strtolower($row2[0]), $row2[0], $row2[1]) . ";\n\n\n";
+
+            for ($i = 0; $i < $numFields; $i++) {
+                while ($row = mysqli_fetch_row($result)) {
+                    $sql .= 'INSERT INTO ' . $table . ' VALUES(';
+                    for ($j = 0; $j < $numFields; $j++) {
+                        $row[$j] = addslashes($row[$j]);
+                        $row[$j] = str_replace("\n", "\\n", $row[$j]);
+                        if (isset($row[$j])) {
+                            $sql .= "'" . $row[$j] . "'";
+                        } else {
+                            $sql .= 'NULL';
+                        }
+
+                        if ($j < ($numFields - 1)) {
+                            $sql .= ',';
+                        }
+                    }
+                    $sql .= ");\n\n";
+                }
+            }
+            $sql .= "\n\n\n";
+        }
+
+        return $sql;
     }
 
     /**
@@ -158,7 +248,7 @@ class Backup
     {
         $novaData = Valida::CalculaData(date("d/m/Y"), BACKUP, "+");
         $backupCheck = fopen('BancoDados/Backup.txt', "w");
-        fwrite($backupCheck, Valida::DataDBDate($novaData). "//" . Valida::DataAtualBanco());
+        fwrite($backupCheck, Valida::DataDBDate($novaData) . "//" . Valida::DataAtualBanco());
         fclose($backupCheck);
     }
 
@@ -185,5 +275,14 @@ class Backup
         $backupDates = fgets($backup);
         $backupDate = explode('//', $backupDates);
         return $backupDate[1];
+    }
+
+    protected function liberaBackup($Tabela)
+    {
+        $sem_auditoria = explode(', ', SEM_AUDITORIA);
+        if (TABELA_AUDITORIA && !in_array(strtoupper($Tabela), $sem_auditoria)) {
+            return true;
+        }
+        return false;
     }
 }

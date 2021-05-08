@@ -114,10 +114,9 @@ define('LOGADO', '/' . CONTROLLER_INICIAL_ADMIN . '/' . ACTION_INICIAL_ADMIN);
 // Nome da View da Página de Erro Controller ou Action não encontrado. (Erro 404).
 define('ERRO_404', '404');
 // CONTROLLERS PARA NÃO SEGUIR PARA A AUDITORIA
-define('SEM_AUDITORIA', AcessoEntidade::TABELA . ', ' . TrafegoEntidade::TABELA . ', ' .
-    PaginaVisitaEntidade::TABELA . ', ' . PaginaEntidade::TABELA . ', ' . VisitaEntidade::TABELA . ', ' .
-    FuncionalidadeEntidade::TABELA . ', ' . AuditoriaEntidade::TABELA . ', ' . AuditoriaTabelaEntidade::TABELA . ', ' .
-    AuditoriaItensEntidade::TABELA);
+define('SEM_AUDITORIA', 'TB_ACESSO, TB_TRAFEGO, TB_PAGINA_VISITA, TB_PAGINA, TB_VISITA, ' .
+    'TB_AUDITORIA, TB_AUDITORIA_TABELA, TB_AUDITORIA_ITENS, TB_CIDADES, TB_ESTADOS, TB_TIPO_IMAGEM, ' .
+    'TB_HISTORIA, TB_HISTORICO_HISTORIA, TB_PROJETO, TB_SESSAO, TB_MODULO, TB_ANOTACAO');
 // Action do primeiro acesso
 define('PRIMEIRO_ACESSO', '/' . CONTROLLER_INICIAL_ADMIN . '/' . ACTION_INICIAL_ADMIN);
 

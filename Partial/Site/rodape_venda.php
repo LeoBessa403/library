@@ -16,7 +16,7 @@
             <nav class="beautypress-footer-menu">
                 <ul>
                     <?php foreach ($pages as $key => $packagePage) : ?>
-                        <li class="<?= $key; ?>"><a href="#">
+                        <li data-class="<?= $key; ?>" class="menu_click"><a href="#">
                                 <?php echo $packagePage; ?></a></li>
                     <?php endforeach; ?>
                     <li><a href="<?= PASTAADMIN; ?>Index/PrimeiroAcesso" target="_blank">SisBela</a></li>

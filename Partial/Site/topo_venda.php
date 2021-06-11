@@ -1,9 +1,11 @@
 <?php
 $pages = array(
     'home_inicio' => 'Início',
-    'experimentar_gratis' => 'Experimentar Grátis',
     'planos_sistema' => 'Planos',
+    'duvidas' => 'Dúvidas',
     'saiba_mais' => 'Saiba Mais',
+    'bonus' => 'Bônus',
+    'compra' => 'Comprar',
 );
 
 $url = new UrlAmigavel();
@@ -107,7 +109,7 @@ $visitaService->gestaoVisita();
                 <div class="nav-menus-wrapper">
                     <ul class="nav-menu">
                         <?php foreach ($pages as $key => $packagePage) : ?>
-                            <li class="<?= $key; ?>"><a href="#">
+                            <li data-class="<?= $key; ?>" class="menu_click"><a href="#">
                                     <?php echo $packagePage; ?></a></li>
                         <?php endforeach; ?>
                         <li><a href="<?= PASTAADMIN; ?>Index/PrimeiroAcesso" target="_blank">SisBela</a></li>

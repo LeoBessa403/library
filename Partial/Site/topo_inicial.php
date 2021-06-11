@@ -101,9 +101,7 @@ $visitaService->gestaoVisita();
     <link rel="stylesheet" href="<?= PASTASITE; ?>css/responsive.css"/>
 </head>
 <body>
-<h1 style="display: none;">
-    <!--        --><? //= //$seo->getTitulo(); ?>
-</h1>
+<h1 style="display: none;"><?= $seo->getTitulo(); ?></h1>
 <!-- GOOGLE ANALITCS -->
 <?php if (ID_ANALITCS): ?>
     <!-- Global site tag (gtag.js) - Google Analytics -->

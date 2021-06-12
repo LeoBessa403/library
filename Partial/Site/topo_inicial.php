@@ -70,8 +70,6 @@ $visitaService->gestaoVisita();
 
     <!-- end: CSS REQUIRED FOR THIS PAGE ONLY -->
     <link rel="shortcut icon" href="<?= HOME; ?>favicon.ico"/>
-    <!-- Bootstrap.css -->
-    <link rel="stylesheet" href="<?= PASTASITE; ?>css/app.css">
 
     <!-- Bootstrap.css -->
     <link rel="stylesheet" href="<?= PASTASITE; ?>css/bootstrap.min.css">

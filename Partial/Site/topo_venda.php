@@ -34,8 +34,6 @@ $visitaService->gestaoVisita();
 
     <!-- end: CSS REQUIRED FOR THIS PAGE ONLY -->
     <link rel="shortcut icon" href="<?= HOME; ?>favicon.ico"/>
-    <!-- Bootstrap.css -->
-    <link rel="stylesheet" href="<?= PASTASITE; ?>css/app.css">
 
     <!-- Bootstrap.css -->
     <link rel="stylesheet" href="<?= PASTASITE; ?>css/bootstrap.min.css">
@@ -59,6 +57,10 @@ $visitaService->gestaoVisita();
 
 <!-- Icons/Glyphs -->
     <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>plugins/select2/select2.css">
+    <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>Helpers/includes/Jcalendar.css">
+    <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>plugins/css3-animation/animations.css">
+    <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>plugins/bootstrap/css/bootstrap.min.css">
 
 
     <!--Theme Responsive css-->

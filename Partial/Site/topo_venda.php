@@ -60,7 +60,7 @@ $visitaService->gestaoVisita();
     <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>plugins/select2/select2.css">
     <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>Helpers/includes/Jcalendar.css">
     <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>plugins/css3-animation/animations.css">
-    <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>plugins/bootstrap/css/bootstrap.min.css">
+<!--    <link rel="stylesheet" href="--><?//= PASTA_LIBRARY; ?><!--plugins/bootstrap/css/bootstrap.min.css">-->
 
 
     <!--Theme Responsive css-->

@@ -13,7 +13,7 @@ class  AssinanteService extends AbstractService
     public function __construct()
     {
         parent::__construct(AssinanteEntidade::ENTIDADE);
-        $this->ObjetoModel = New AssinanteModel();
+        $this->ObjetoModel = new AssinanteModel();
     }
 
     public function salvaAssinante($dados)
@@ -26,6 +26,8 @@ class  AssinanteService extends AbstractService
         $empresaService = $this->getService(EMPRESA_SERVICE);
         /** @var PlanoAssinanteAssinaturaService $PlanoAssinanteAssinaturaService */
         $PlanoAssinanteAssinaturaService = $this->getService(PLANO_ASSINANTE_ASSINATURA_SERVICE);
+        /** @var PlanoService $PlanoService */
+        $PlanoService = $this->getService(PLANO_SERVICE);
         /** @var UsuarioService $usuarioService */
         $usuarioService = $this->getService(USUARIO_SERVICE);
         /** @var UsuarioPerfilService $usuarioPerfilService */
@@ -47,11 +49,9 @@ class  AssinanteService extends AbstractService
             $empresa[NO_FANTASIA] = trim($dados[NO_FANTASIA]);
             $assinante[TP_ASSINANTE] = AssinanteEnum::MATRIZ;
 
-            debug($contato,1);
-
             $PDO->beginTransaction();
 
-            if (!empty($_POST[CO_ASSINANTE])):
+            if (!empty($_POST[CO_ASSINANTE])) {
                 /** @var AssinanteService $assinanteService */
                 $assinanteService = $this->getService(ASSINANTE_SERVICE);
                 /** @var AssinanteEntidade $assinanteEdic */
@@ -62,7 +62,10 @@ class  AssinanteService extends AbstractService
                 $this->Salva($assinante, $assinanteEdic->getCoAssinante());
                 $retorno[SUCESSO] = $assinanteEdic->getCoAssinante();
                 $session->setSession(MENSAGEM, ATUALIZADO);
-            else:
+            } else {
+                /** @var PlanoEntidade $plano */
+                $plano = $PlanoService->PesquisaUmRegistro($dados[CO_PLANO]);
+
                 $pessoa[CO_CONTATO] = $contatoService->Salva($contato);
                 $pessoa[DT_CADASTRO] = Valida::DataHoraAtualBanco();
                 $empresa[DT_CADASTRO] = Valida::DataHoraAtualBanco();
@@ -72,7 +75,7 @@ class  AssinanteService extends AbstractService
 
                 $assinante[DT_CADASTRO] = Valida::DataHoraAtualBanco();
                 $assinante[DT_EXPIRACAO] = Valida::DataDBDate(Valida::CalculaData(date('d/m/Y'),
-                    ConfiguracoesEnum::DIAS_EXPERIMENTAR, "+"));
+                    $plano->getNuMesAtivo(), "+", 'm'));
 
                 $dadosEmail[NO_PESSOA] = $pessoa[NO_PESSOA];
                 $dadosEmail[DS_EMAIL] = $contato[DS_EMAIL];
@@ -80,13 +83,14 @@ class  AssinanteService extends AbstractService
 
                 $coAssinante = $this->Salva($assinante);
                 $coUsuario = $usuarioService->salvaUsuarioInicial($assinante[CO_PESSOA], $dadosEmail, $coAssinante);
-                $PlanoAssinanteAssinaturaService->salvaPlanoPadrao($coAssinante);
+
+                $PlanoAssinanteAssinaturaService->salvaPagamentoAssinanteSite($dados, $coAssinante, $plano);
 
                 $usuarioPerfil[CO_PERFIL] = 2;
                 $usuarioPerfil[CO_USUARIO] = $coUsuario;
                 $retorno[SUCESSO] = $usuarioPerfilService->Salva($usuarioPerfil);
                 $session->setSession(MENSAGEM, CADASTRADO);
-            endif;
+            }
             if ($retorno[SUCESSO]) {
                 $retorno[SUCESSO] = true;
                 $PDO->commit();

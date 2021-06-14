@@ -87,12 +87,12 @@ class  PlanoService extends AbstractService
     public static function montaComboMesesAtivos()
     {
         $todosMesAt = [
-            1 => '1 - Até '. PlanoService::getNuProfissionais(1). ' Profissionais',
-            3 => '3 - Até '. PlanoService::getNuProfissionais(3). ' Profissionais',
-            6 => '6 - Até '. PlanoService::getNuProfissionais(6). ' Profissionais',
-            12 => '12 - Até '. PlanoService::getNuProfissionais(12). ' Profissionais',
-            24 => '24 - Até '. PlanoService::getNuProfissionais(24). ' Profissionais',
-            36 => '36 - Até '. PlanoService::getNuProfissionais(36). ' Profissionais',
+            1 => '1 Mês',
+            3 => '3 Meses',
+            6 => '6 Meses',
+            12 => '12 Meses',
+            24 => '24 Meses',
+            36 => '36 Meses',
         ];
         return $todosMesAt;
     }
@@ -105,25 +105,20 @@ class  PlanoService extends AbstractService
         $planos = $planoService->PesquisaTodos([
             ST_STATUS => StatusAcessoEnum::ATIVO
         ]);
+        $planos = array_reverse($planos);
         $todosPlanos = [
-            '' => Mensagens::MSG_SEM_ITEM_SELECIONADO
+            '' => 'Escolher Plano'
         ];
         /** @var PlanoEntidade $plano */
         foreach ($planos as $plano) :
             if ($plano->getCoPlano() != 1) {
                 $meses = ($plano->getNuMesAtivo() == 1) ? ' Mês' : ' Meses';
-                $profissionais = PlanoService::getNuProfissionais($plano->getNuMesAtivo());
                 $todosPlanos[$plano->getCoPlano()] = $plano->getNoPlano() .
-                    ' - R$ ' . $plano->getCoUltimoPlanoAssinante()->getNuValor() . ' - ' .
-                    $plano->getNuMesAtivo() . $meses . ' - Até ' . $profissionais . ' Profissionais';
+                    ' - R$ ' . Valida::FormataMoeda($plano->getCoUltimoPlanoAssinante()->getNuValor()) . ' - ' .
+                    $plano->getNuMesAtivo() . $meses;
             }
         endforeach;
         return $todosPlanos;
-    }
-
-    public static function getNuProfissionais($mesesPlano)
-    {
-        return 1 + ($mesesPlano * 2);
     }
 
     /**

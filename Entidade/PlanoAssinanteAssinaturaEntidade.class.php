@@ -25,7 +25,6 @@ class PlanoAssinanteAssinaturaEntidade extends AbstractEntidade
     private $st_status;
     private $ds_code_transacao;
     private $nu_valor_assinatura;
-    private $nu_profissionais;
     private $nu_filiais;
     private $co_assinante;
     private $co_plano_assinante;
@@ -52,7 +51,6 @@ class PlanoAssinanteAssinaturaEntidade extends AbstractEntidade
             TP_PAGAMENTO,
             NU_VALOR_ASSINATURA,
             NU_FILIAIS,
-            NU_PROFISSIONAIS,
             CO_ASSINANTE,
             CO_PLANO_ASSINANTE,
         ];
@@ -294,23 +292,6 @@ class PlanoAssinanteAssinaturaEntidade extends AbstractEntidade
     public function setNuValorAssinatura($nu_valor_assinatura)
     {
         return $this->nu_valor_assinatura = $nu_valor_assinatura;
-    }
-
-    /**
-     * @return mixed $nu_profissionais
-     */
-    public function getNuProfissionais()
-    {
-        return $this->nu_profissionais;
-    }
-
-    /**
-     * @param $nu_profissionais
-     * @return mixed
-     */
-    public function setNuProfissionais($nu_profissionais)
-    {
-        return $this->nu_profissionais = $nu_profissionais;
     }
 
     /**

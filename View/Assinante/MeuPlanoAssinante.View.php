@@ -137,7 +137,6 @@
                             $grid->setColunas($dtPagamento, 2);
                             $grid->setColunas($tpPagamento, 4);
                             $grid->setColunas($res->getNuValorAssinatura(), 2);
-                            $grid->setColunas($res->getNuProfissionais(), 2);
                             $grid->setColunas($spanLabel .
                                 StatusPagamentoEnum::getDescricaoValor($res->getStPagamento()), 3);
                             if (!PerfilService::perfilMaster()) {

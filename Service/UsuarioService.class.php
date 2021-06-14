@@ -358,7 +358,7 @@ class  UsuarioService extends AbstractService
         $coUsuario = $this->Salva($usuario);
 
         $dadosEmail[DS_SENHA] = $usuario[DS_SENHA];
-        $this->enviaEmailNovoUsuario($dadosEmail, $coUsuario);
+//        $this->enviaEmailNovoUsuario($dadosEmail, $coUsuario);
 
         return $coUsuario;
     }

@@ -102,14 +102,6 @@ class AssinanteForm
             ->CriaInpunt();
 
         $formulario
-            ->setId(NU_CPF)
-            ->setClasses("cpf ob")
-            ->setInfo('Somente números')
-            ->setTamanhoInput(6)
-            ->setLabel("CPF do Comprador")
-            ->CriaInpunt();
-
-        $formulario
             ->setId(NU_TEL1)
             ->setIcon("fa fa-mobile-phone")
             ->setLabel("Celular do Comprador")

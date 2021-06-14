@@ -12,7 +12,6 @@ $(function () {
         $('.Situacao_Pagamento b').text(dados.st_pagamento);
         $('.Meio_Pagamento b').text(dados.tp_pagamento);
         $('.Valor_Ass b').text(dados.nu_valor_assinatura);
-        $('.Profissionais b').text(dados.nu_profissionais);
         $('.Valor_Desconto b').text(dados.nu_valor_desconto);
         $('.Valor_Liquido b').text(dados.nu_valor_real);
         $('.transacoes').empty();

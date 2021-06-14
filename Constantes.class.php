@@ -107,7 +107,6 @@ define('CO_PLANO_PACOTE', 'co_plano_pacote');
 define('CO_PLANO_ASSINANTE_ASSINATURA', 'co_plano_assinante_assinatura');
 define('DT_EXPIRACAO', 'dt_expiracao');
 define('NU_VALOR_ASSINATURA', 'nu_valor_assinatura');
-define('NU_PROFISSIONAIS', 'nu_profissionais');
 define('CO_ASSINANTE', 'co_assinante');
 define('CO_ASSINANTE_MATRIZ', 'co_assinante_matriz');
 define('CO_ASSINANTE_FILIAL', 'co_assinante_filial');

@@ -15,7 +15,10 @@ class  AssinanteValidador extends AbstractValidador
     public function validarAssinante($dados)
     {
         $this->retorno[DADOS][] = $this->ValidaCampoObrigatorioDescricao(
-            $dados[NO_PESSOA], 1, 'Nome Completo'
+            $dados[NO_FANTASIA], 1, 'Nome do Estabelecimento'
+        );
+        $this->retorno[DADOS][] = $this->ValidaCampoObrigatorioDescricao(
+            $dados[NO_PESSOA], 1, ' Nome do Responsável'
         );
         $this->retorno[DADOS][] = $this->ValidaCampoObrigatorioValido(
             $dados[NU_TEL1], AbstractValidador::VALIDACAO_TEL, 'Telefone Celular'

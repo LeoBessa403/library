@@ -47,6 +47,8 @@ class  AssinanteService extends AbstractService
             $empresa[NO_FANTASIA] = trim($dados[NO_FANTASIA]);
             $assinante[TP_ASSINANTE] = AssinanteEnum::MATRIZ;
 
+            debug($contato,1);
+
             $PDO->beginTransaction();
 
             if (!empty($_POST[CO_ASSINANTE])):

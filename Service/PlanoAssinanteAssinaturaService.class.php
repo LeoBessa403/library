@@ -301,7 +301,7 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
         } else {
             $qntParcelas = $Dados['qntParcelas'];
         }
-        if (isset($Dados[SG_UF][0])) {
+        if (!isset($Dados[SG_UF][0])) {
             $sg_uf = $Dados[SG_UF][0];
         } else {
             $sg_uf = $Dados[SG_UF];

@@ -301,7 +301,7 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
         } else {
             $qntParcelas = $Dados['qntParcelas'];
         }
-        if (!empty($Dados[SG_UF][0])) {
+        if (isset($Dados[SG_UF][0])) {
             $sg_uf = $Dados[SG_UF][0];
         } else {
             $sg_uf = $Dados[SG_UF];
@@ -350,12 +350,12 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
         $DadosArray["itemQuantity1"] = 1;
 
 
-        if($coPlanoAssinanteAssinatura) {
+        if ($coPlanoAssinanteAssinatura) {
             $coPlanoRef = $coPlanoAssinanteAssinatura;
-        }else{
-            if(!empty($Dados[CO_PLANO_ASSINANTE_ASSINATURA])){
+        } else {
+            if (!empty($Dados[CO_PLANO_ASSINANTE_ASSINATURA])) {
                 $coPlanoRef = $Dados[CO_PLANO_ASSINANTE_ASSINATURA];
-            }else{
+            } else {
                 $coPlanoRef = $plano->getCoUltimoPlanoAssinante()->getCoUltimoPlanoAssinanteAssinatura()->getCoPlanoAssinanteAssinatura();
             }
         }
@@ -736,16 +736,14 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
 
     public function atualizaStPagPagSeguro(AssinanteEntidade $assinante)
     {
-        if (!PROD) {
-
-            /** @var PlanoAssinanteAssinaturaEntidade $pagamento */
-            $pagamento = $assinante->getUltimoCoPlanoAssinante();
-            if (($pagamento->getStPagamento() == StatusPagamentoEnum::AGUARDANDO_PAGAMENTO) &&
-                ($pagamento->getTpPagamento() == TipoPagamentoEnum::BOLETO ||
-                    $pagamento->getTpPagamento() == TipoPagamentoEnum::CARTAO_CREDITO)) {
-                $this->notificacaoPagSeguro($pagamento->getDsCodeTransacao(), true);
-            }
+        /** @var PlanoAssinanteAssinaturaEntidade $pagamento */
+        $pagamento = $assinante->getUltimoCoPlanoAssinante();
+        if (($pagamento->getStPagamento() == StatusPagamentoEnum::AGUARDANDO_PAGAMENTO) &&
+            ($pagamento->getTpPagamento() == TipoPagamentoEnum::BOLETO ||
+                $pagamento->getTpPagamento() == TipoPagamentoEnum::CARTAO_CREDITO)) {
+            $this->notificacaoPagSeguro($pagamento->getDsCodeTransacao(), true);
         }
+
     }
 
 }

@@ -20,6 +20,14 @@ class Assinante extends AbstractController
         if ($session->CheckSession(PESQUISA_AVANCADA)) {
             $session->FinalizaSession(PESQUISA_AVANCADA);
         }
+
+        $assinantes = $assinanteService->PesquisaTodos();
+        /** @var AssinanteEntidade $ass */
+        foreach ($assinantes as $ass) {
+            //// VERIFICA E ATUALIZA OS PAGAMENTOS COM STATUS DE AGUARDANDO PAGAMENTO
+            $PlanoAssinanteAssinaturaService->atualizaStPagPagSeguro($ass);
+        }
+
         $Condicoes = ["ass." . TP_ASSINANTE => AssinanteEnum::MATRIZ];
 
         $resultPreco = $assinanteService->PesquisaAvancadaAssinatura($Condicoes);
@@ -42,10 +50,6 @@ class Assinante extends AbstractController
         }
         /** @var AssinanteEntidade $assinante */
         foreach ($this->result as $assinante) {
-
-            //// VERIFICA E ATUALIZA OS PAGAMENTOS COM STATUS DE AGUARDANDO PAGAMENTO
-            $PlanoAssinanteAssinaturaService->atualizaStPagPagSeguro($assinante);
-
             $coEndereco = $assinante->getCoEmpresa()->getCoEndereco();
             if ($coEndereco) {
                 /** @var EnderecoEntidade $endereco */

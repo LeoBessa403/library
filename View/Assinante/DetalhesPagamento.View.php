@@ -85,14 +85,6 @@
                     </div>
                 </div>
             <?php } ?>
-            <div id="form-group-Profissionais" class="form-group col-sm-12">
-                <label for="Profissionais" class="col-sm-3  align-right">
-                    Nº Profissionais:
-                </label>
-                <div class="col-sm-9">
-                    <span class="Profissionais"><b></b></span>
-                </div>
-            </div>
             <div id="form-group-transacoes" class="form-group col-sm-12">
                 <label for="transacoes" class="col-sm-3  align-right">
                     <h4><b>Transações:</b></h4>

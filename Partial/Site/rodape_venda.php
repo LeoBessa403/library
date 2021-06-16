@@ -66,5 +66,26 @@
 
 <?php include_once PARTIAL_LIBRARY . 'constantes_javascript.php'; ?>
 <?php carregaJs($url); ?>
+<!-- Carrega DIVs dos Alertas e Notificações   -->
+<?php
+$session = new Session();
+if ($session->CheckSession(MENSAGEM)) {
+    switch ($session::getSession(MENSAGEM)) {
+        case CADASTRADO:
+            Notificacoes::cadastrado();
+            break;
+        case ATUALIZADO:
+            Notificacoes::atualizado();
+            break;
+        case DELETADO:
+            Notificacoes::deletado();
+            break;
+        default:
+            Notificacoes::mesagens($session::getSession(MENSAGEM), $session::getSession(TIPO));
+            break;
+    }
+    $session->FinalizaSession(MENSAGEM);
+}
+?>
 </body>
 </html>

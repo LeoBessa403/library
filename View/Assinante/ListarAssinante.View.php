@@ -42,7 +42,7 @@
                         <?php
                         Modal::load();
                         Modal::confirmacao("confirma_Assinante");
-                        $arrColunas = array('Assinante', 'Endereço', 'Responsável', 'E-mail', 'Status Assinante', 'Expiração', 'Status Plano', 'Ações');
+                        $arrColunas = array('Assinante', 'Endereço', 'Responsável', 'E-mail', 'Status Assinante', 'Expiração', 'Status Plano', 'Sit. Pagamento', 'Ações');
                         $grid->setColunasIndeces($arrColunas);
                         $grid->criaGrid();
                         //                        debug($result,1);
@@ -78,6 +78,10 @@
                                 $endereco = $enderecos[$res->getCoEmpresa()->getCoEndereco()];
                             }
 
+                            $spanLabel = '<span class="circle-img label_span label-' .
+                                StatusPagamentoEnum::$cores[$res->getUltimoCoPlanoAssinante()->getStPagamento()] . '">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;</span> ';
+
                             $statusSis = AssinanteService::getStatusAssinante(Valida::DataShow($res->getDtExpiracao()));
                             $empresa = ($res->getCoEmpresa()) ? $res->getCoEmpresa()->getNoFantasia() : '';
                             $grid->setColunas($empresa);
@@ -87,6 +91,8 @@
                             $grid->setColunas(Valida::StatusLabel($res->getStStatus()), 2);
                             $grid->setColunas(Valida::DataShow($res->getDtExpiracao()), 2);
                             $grid->setColunas(Valida::getLabelStatusPlano($statusSis), 2);
+                            $grid->setColunas($spanLabel .
+                                StatusPagamentoEnum::getDescricaoValor($res->getUltimoCoPlanoAssinante()->getStPagamento()), 3);
                             $grid->setColunas($acao, 3);
                             $grid->criaLinha($res->getCoAssinante());
                         endforeach;

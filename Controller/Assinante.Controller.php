@@ -18,8 +18,7 @@ class Assinante extends AbstractController
         if ($session->CheckSession(PESQUISA_AVANCADA)) {
             $session->FinalizaSession(PESQUISA_AVANCADA);
         }
-        $Condicoes = ["ass." . TP_ASSINANTE => AssinanteEnum::MATRIZ,
-            "tpaa." . ST_STATUS => StatusSistemaEnum::ATIVO];
+        $Condicoes = ["ass." . TP_ASSINANTE => AssinanteEnum::MATRIZ];
 
         $resultPreco = $assinanteService->PesquisaAvancadaAssinatura($Condicoes);
         $session->setSession('resultPreco', $resultPreco);

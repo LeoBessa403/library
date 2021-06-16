@@ -47,10 +47,10 @@
                         Modal::confirmacao("confirma_Assinante");
                         $grid = new Grid();
                         if (PerfilService::perfilMaster()) {
-                            $arrColunas = array('Assinante', 'Code', 'Status', 'Plano', 'Data Pagamento', 'Meio de Pagamento', 'Valor R$', 'Nº Profissionais',
+                            $arrColunas = array('Assinante', 'Code', 'Status', 'Plano', 'Data Pagamento', 'Meio de Pagamento', 'Valor R$',
                                 'Sit. Pagamento', 'Ações');
                         } else {
-                            $arrColunas = array('Status', 'Plano', 'Data Pagamento', 'Meio de Pagamento', 'Valor R$', 'Nº Profissionais',
+                            $arrColunas = array('Status', 'Plano', 'Data Pagamento', 'Meio de Pagamento', 'Valor R$',
                                 'Sit. Pagamento', 'Expiração', 'Ações');
                         }
                         $grid->setColunasIndeces($arrColunas);

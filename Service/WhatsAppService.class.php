@@ -13,47 +13,95 @@ class  WhatsAppService extends AbstractService
 
     public function __construct()
     {
-        $this->urlApiWhats = API_WHATS_URL;
+        $this->urlApiWhats = "https://api.chat-api.com/instance" . WHATSAPP_INSTANCE . "/";
         $this->tokenApiWhats = API_WHATS_TOKEN;
+        if (!$this->verificaStatus()) {
+
+            if (PerfilService::perfilMaster()) {
+                Notificacoes::geraMensagem(
+                    'O Status do Servidor de Envio do WhatsApp esta Inativo.<br>' .
+                    'Verifique as configurações no site:
+            <a href="https://app.chat-api.com/login" target="_blank">Chat Api</a>',
+                    TiposMensagemEnum::ERRO
+                );
+            } else {
+                Notificacoes::geraMensagem(
+                    'O Status do Servidor de Envio do WhatsApp esta Inativo.<br>' .
+                    'Favor entrar em Contato com o Administrador do Sistema: <br>
+                    <div class="icon-whats">
+             <a class="pulse" title="Nos chame no WhatsApp"
+                           href="' . Valida::geraLinkWhatSapp('Status do WhatsApp do Sistema esta Inativo.') . '"
+                           target="_blank">
+                            <i class="fa fa-whatsapp"></i>
+                        </a></div>',
+                    TiposMensagemEnum::ALERTA
+                );
+            }
+
+            Redireciona(UrlAmigavel::$modulo . '/' . UrlAmigavel::$controller .
+                '/' . UrlAmigavel::$action);
+        }
     }
 
     public function verificaStatus()
     {
-        $url = $this->urlApiWhats . 'status?token=' . $this->tokenApiWhats;
-        $result = file_get_contents($url); // Send a request
-        $data = json_decode($result, 1); // Parse JSON
-        if ($data["accountStatus"] == 'authenticated') {
-            return true;
-        } else {
-            return false;
+        if (API_WHATS_SERVER) {
+            $url = $this->urlApiWhats . 'status?token=' . $this->tokenApiWhats;
+            $result = file_get_contents($url); // Send a request
+            $data = json_decode($result, 1); // Parse JSON
+            if ($data["accountStatus"] == 'authenticated') {
+                return true;
+            } else {
+                return false;
+            }
         }
+        return false;
     }
 
-    private function enviarMensagem($telDestinatario, $msg)
+    public function enviarMensagem($telDestinatario, $msg, $nacional = true)
     {
-        if ($this->verificaStatus()) {
-            $msgZap = urldecode($msg);
-            $telDestinatario = filter_var(Valida::RetiraMascara($telDestinatario), FILTER_SANITIZE_NUMBER_INT);
-            $url = $this->urlApiWhats . 'sendMessage?token=' . $this->tokenApiWhats;
-            $telSendMsg = (PROD) ? '55' . $telDestinatario : WHATSAPP_MSG;
-            $data = [
-                'phone' => $telSendMsg, // Receivers phone
-                'body' => $msgZap, // Message
-            ];
-            $json = json_encode($data); // Encode data to JSON
-            // Make a POST request
-            $options = stream_context_create(['http' => [
-                'method' => 'POST',
-                'header' => 'Content-type: application/json',
-                'content' => $json
-            ]
-            ]);
-            // Send a request
-            return file_get_contents($url, false, $options);
-        } else {
-            return false;
-        }
+        $msgZap = urldecode($msg);
+        $telDestinatario = filter_var(Valida::RetiraMascara($telDestinatario), FILTER_SANITIZE_NUMBER_INT);
+        $url = $this->urlApiWhats . 'sendMessage?token=' . $this->tokenApiWhats;
+        $telSendMsg = (PROD) ? ($nacional) ? '55' . $telDestinatario : $telDestinatario : WHATSAPP_MSG;
+        $data = [
+            'phone' => $telSendMsg, // Número do Telefone
+            'body' => $msgZap, // Menssagem
+        ];
+        $json = json_encode($data); // Encode data to JSON
+        // Make a POST request
+        $options = stream_context_create(['http' => [
+            'method' => 'POST',
+            'header' => 'Content-type: application/json',
+            'content' => $json
+        ]
+        ]);
+        // Send a request
+        return file_get_contents($url, false, $options);
+    }
 
+    public function enviarMensagemArquivo($telDestinatario, $msg, $arquivo, $nacional = true)
+    {
+        $msgZap = urldecode($msg);
+        $telDestinatario = filter_var(Valida::RetiraMascara($telDestinatario), FILTER_SANITIZE_NUMBER_INT);
+        $url = $this->urlApiWhats . 'sendFile?token=' . $this->tokenApiWhats;
+        $telSendMsg = (PROD) ? ($nacional) ? '55' . $telDestinatario : $telDestinatario : WHATSAPP_MSG;
+        $data = [
+            'phone' => $telSendMsg, // Número do Telefone
+            'body' => $arquivo['caminho'], // Arquivo
+            'filename' => $arquivo['nome'], // Nome do Arquivo
+            'caption' => $msgZap, // Menssagem com o Arquivo
+        ];
+        $json = json_encode($data); // Encode data to JSON
+        // Make a POST request
+        $options = stream_context_create(['http' => [
+            'method' => 'POST',
+            'header' => 'Content-type: application/json',
+            'content' => $json
+        ]
+        ]);
+        // Send a request
+        return file_get_contents($url, false, $options);
     }
 
     public function enviaMsgRetornoPagamento($coAssinante, $Xml)

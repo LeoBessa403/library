@@ -80,6 +80,9 @@ class Gestao extends AbstractController
         $res['TAMANHO'] = TAMANHO;
         $res['WHATSAPP'] = str_replace('55', '', WHATSAPP);
         $res['WHATSAPP_MSG'] = str_replace('55', '', WHATSAPP_MSG);
+        $res['WHATSAPP_INSTANCE'] = WHATSAPP_INSTANCE;
+        $res['API_WHATS_TOKEN'] = API_WHATS_TOKEN;
+        $res['API_WHATS_SERVER'] = (API_WHATS_SERVER) ? 'checked' : null;
         $res['NUM_BG_IMAGENS'] = NUM_BG_IMAGENS;
         $res['CONTROLLER_SEO'] = CONTROLLER_SEO;
         $res['USER_EMAIL'] = USER_EMAIL;

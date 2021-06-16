@@ -247,7 +247,7 @@ function debug($array, $Exit = false)
     echo '<script src="' . INCLUDES . 'jquery-2.0.3.js"></script>
                 <script type="text/javascript">
                         $(function() {
-                            $(".navbar-content").hide();
+                            $(".navbar-content, .beautypress-header-section").hide();
                        });
                 </script>';
     if ($Exit) {

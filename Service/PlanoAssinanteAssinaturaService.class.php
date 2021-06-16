@@ -163,8 +163,6 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
 
     public function salvaPagamentoAssinanteSite($dados, $coAssinante, PlanoEntidade $plano)
     {
-        /** @var PlanoService $PlanoService */
-        $PlanoService = $this->getService(PLANO_SERVICE);
         /** @var AssinanteService $AssinanteService */
         $AssinanteService = $this->getService(ASSINANTE_SERVICE);
         /** @var PlanoAssinanteAssinaturaService $planoAssinanteAssinaturaService */
@@ -182,21 +180,16 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
             /** @var AssinanteEntidade $assinante */
             $assinante = $AssinanteService->PesquisaUmRegistro($coAssinante);
 
-            if (!empty($dados[CO_PLANO_ASSINANTE_ASSINATURA])) {
-                $retorno[SUCESSO] = $dados[CO_PLANO_ASSINANTE_ASSINATURA];
-                $retorno[MSG] = ATUALIZADO;
-            } else {
-                $planoAssinanteAssinatura[CO_PLANO_ASSINANTE] = $plano->getCoUltimoPlanoAssinante()->getCoPlanoAssinante();
-                $planoAssinanteAssinatura[CO_ASSINANTE] = $coAssinante;
-                $planoAssinanteAssinatura[NU_FILIAIS] = 0;
-                $planoAssinanteAssinatura[NU_VALOR_ASSINATURA] = $plano->getCoUltimoPlanoAssinante()->getNuValor();
-                $planoAssinanteAssinatura[TP_PAGAMENTO] = $dados[TP_PAGAMENTO];
-                $planoAssinanteAssinatura[DT_CADASTRO] = Valida::DataHoraAtualBanco();
-                $planoAssinanteAssinatura[DT_EXPIRACAO] = $assinante->getDtExpiracao();
+            $planoAssinanteAssinatura[CO_PLANO_ASSINANTE] = $plano->getCoUltimoPlanoAssinante()->getCoPlanoAssinante();
+            $planoAssinanteAssinatura[CO_ASSINANTE] = $coAssinante;
+            $planoAssinanteAssinatura[NU_FILIAIS] = 0;
+            $planoAssinanteAssinatura[NU_VALOR_ASSINATURA] = $plano->getCoUltimoPlanoAssinante()->getNuValor();
+            $planoAssinanteAssinatura[TP_PAGAMENTO] = $dados[TP_PAGAMENTO];
+            $planoAssinanteAssinatura[DT_CADASTRO] = Valida::DataHoraAtualBanco();
+            $planoAssinanteAssinatura[DT_EXPIRACAO] = $assinante->getDtExpiracao();
 
-                $retorno[SUCESSO] = $planoAssinanteAssinaturaService->Salva($planoAssinanteAssinatura);
-                $retorno[MSG] = CADASTRADO;
-            }
+            $retorno[SUCESSO] = $planoAssinanteAssinaturaService->Salva($planoAssinanteAssinatura);
+            $retorno[MSG] = CADASTRADO;
 
             // HISTORICO DO PAGAMENTO INICIADO
             $histPagAss[CO_PLANO_ASSINANTE_ASSINATURA] = $retorno[SUCESSO];
@@ -240,7 +233,7 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
                     $histPagAss[DS_USUARIO] = 'Retorno da operadora do pagamento';
                     $histPagAss[ST_PAGAMENTO] = (string)$retornoPagSeguro->status;
 
-                    $HistPagAssService->Salva($histPagAss);
+                    $retorno[SUCESSO] = $HistPagAssService->Salva($histPagAss);
 
                     if ($retorno[SUCESSO]) {
                         $retorno[SUCESSO] = true;
@@ -298,19 +291,19 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
     {
         $Dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
-        if(!empty($Dados[TP_PAGAMENTO][0])){
+        if (!empty($Dados[TP_PAGAMENTO][0])) {
             $tpPagamento = $Dados[TP_PAGAMENTO][0];
-        }else{
+        } else {
             $tpPagamento = $Dados[TP_PAGAMENTO];
         }
-        if(!empty($Dados['qntParcelas'][0])){
+        if (!empty($Dados['qntParcelas'][0])) {
             $qntParcelas = $Dados['qntParcelas'][0];
-        }else{
+        } else {
             $qntParcelas = $Dados['qntParcelas'];
         }
-        if(!empty($Dados[SG_UF][0])){
+        if (!empty($Dados[SG_UF][0])) {
             $sg_uf = $Dados[SG_UF][0];
-        }else{
+        } else {
             $sg_uf = $Dados[SG_UF];
         }
 
@@ -356,9 +349,19 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
         $DadosArray["itemAmount1"] = $total_venda;
         $DadosArray["itemQuantity1"] = 1;
 
+
+        if($coPlanoAssinanteAssinatura) {
+            $coPlanoRef = $coPlanoAssinanteAssinatura;
+        }else{
+            if(!empty($Dados[CO_PLANO_ASSINANTE_ASSINATURA])){
+                $coPlanoRef = $Dados[CO_PLANO_ASSINANTE_ASSINATURA];
+            }else{
+                $coPlanoRef = $plano->getCoUltimoPlanoAssinante()->getCoUltimoPlanoAssinanteAssinatura()->getCoPlanoAssinanteAssinatura();
+            }
+        }
+
         $DadosArray['notificationURL'] = URL_NOTIFICACAO;
-        $DadosArray['reference'] = ($coPlanoAssinanteAssinatura) ? $coPlanoAssinanteAssinatura : (!empty($Dados[CO_PLANO_ASSINANTE_ASSINATURA])) ? $Dados[CO_PLANO_ASSINANTE_ASSINATURA] :
-            $plano->getCoUltimoPlanoAssinante()->getCoUltimoPlanoAssinanteAssinatura()->getCoPlanoAssinanteAssinatura();
+        $DadosArray['reference'] = $coPlanoRef;
         $DadosArray['senderName'] = $assinante->getCoPessoa()->getNoPessoa();
         $DadosArray['senderCPF'] = ($assinante->getCoPessoa()->getNuCpf()) ? $assinante->getCoPessoa()->getNuCpf() : '12345678909';
 
@@ -729,6 +732,20 @@ class  PlanoAssinanteAssinaturaService extends AbstractService
 
         $xml = simplexml_load_string($retorno);
         return $xml;
+    }
+
+    public function atualizaStPagPagSeguro(AssinanteEntidade $assinante)
+    {
+        if (!PROD) {
+
+            /** @var PlanoAssinanteAssinaturaEntidade $pagamento */
+            $pagamento = $assinante->getUltimoCoPlanoAssinante();
+            if (($pagamento->getStPagamento() == StatusPagamentoEnum::AGUARDANDO_PAGAMENTO) &&
+                ($pagamento->getTpPagamento() == TipoPagamentoEnum::BOLETO ||
+                    $pagamento->getTpPagamento() == TipoPagamentoEnum::CARTAO_CREDITO)) {
+                $this->notificacaoPagSeguro($pagamento->getDsCodeTransacao(), true);
+            }
+        }
     }
 
 }

@@ -229,6 +229,32 @@ class GestaoForm
 
 
         $formulario
+            ->setId('WHATSAPP_INSTANCE')
+            ->setInfo('Número da Instance da Api do WhatsApp')
+            ->setClasses('numero')
+            ->setLabel("Instance do WhatsApp")
+            ->setTamanhoInput(4)
+            ->CriaInpunt();
+
+        $formulario
+            ->setId('API_WHATS_TOKEN')
+            ->setInfo('Número do Token da Api do WhatsApp')
+            ->setLabel("Token do WhatsApp")
+            ->setTamanhoInput(4)
+            ->CriaInpunt();
+
+        $label_options2 = array("<i class='fa fa-check fa-white'></i>", "<i class='fa fa-times fa-white'></i>", "verde", "vermelho");
+        $formulario
+            ->setLabel("Ativar Envio de WhatsApp?")
+            ->setId('API_WHATS_SERVER')
+            ->setClasses($res['API_WHATS_SERVER'])
+            ->setType(TiposCampoEnum::CHECKBOX)
+            ->setTamanhoInput(4)
+            ->setOptions($label_options2)
+            ->CriaInpunt();
+
+
+        $formulario
             ->setId('CONTROLLER_SEO')
             ->setLabel("Controllers para gerar o seo diferenciado")
             ->setInfo('Separador por vírguila')

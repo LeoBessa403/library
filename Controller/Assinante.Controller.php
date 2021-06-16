@@ -13,6 +13,8 @@ class Assinante extends AbstractController
         $assinanteService = $this->getService(ASSINANTE_SERVICE);
         /** @var EnderecoService $enderecoService */
         $enderecoService = $this->getService(ENDERECO_SERVICE);
+        /** @var PlanoAssinanteAssinaturaService $PlanoAssinanteAssinaturaService */
+        $PlanoAssinanteAssinaturaService = $this->getService(PLANO_ASSINANTE_ASSINATURA_SERVICE);
         /** @var Session $session */
         $session = new Session();
         if ($session->CheckSession(PESQUISA_AVANCADA)) {
@@ -38,9 +40,12 @@ class Assinante extends AbstractController
         } else {
             $this->result = $assinanteService->PesquisaAvancada($Condicoes);
         }
-
         /** @var AssinanteEntidade $assinante */
         foreach ($this->result as $assinante) {
+
+            //// VERIFICA E ATUALIZA OS PAGAMENTOS COM STATUS DE AGUARDANDO PAGAMENTO
+            $PlanoAssinanteAssinaturaService->atualizaStPagPagSeguro($assinante);
+
             $coEndereco = $assinante->getCoEmpresa()->getCoEndereco();
             if ($coEndereco) {
                 /** @var EnderecoEntidade $endereco */

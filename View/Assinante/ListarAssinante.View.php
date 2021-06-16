@@ -42,7 +42,7 @@
                         <?php
                         Modal::load();
                         Modal::confirmacao("confirma_Assinante");
-                        $arrColunas = array('Assinante', 'Endereço', 'Responsável', 'E-mail', 'Status Assinante', 'Expiração', 'Status Plano', 'Sit. Pagamento', 'Ações');
+                        $arrColunas = array('Assinante', 'Endereço', 'Responsável', 'E-mail', 'Status Assinante', 'Expiração', 'Status Plano', 'Status Assinatura', 'Sit. Pagamento', 'Ações');
                         $grid->setColunasIndeces($arrColunas);
                         $grid->criaGrid();
                         //                        debug($result,1);
@@ -91,6 +91,7 @@
                             $grid->setColunas(Valida::StatusLabel($res->getStStatus()), 2);
                             $grid->setColunas(Valida::DataShow($res->getDtExpiracao()), 2);
                             $grid->setColunas(Valida::getLabelStatusPlano($statusSis), 2);
+                            $grid->setColunas(Valida::StatusLabel($res->getUltimoCoPlanoAssinante()->getStStatus()), 2);
                             $grid->setColunas($spanLabel .
                                 StatusPagamentoEnum::getDescricaoValor($res->getUltimoCoPlanoAssinante()->getStPagamento()), 3);
                             $grid->setColunas($acao, 3);

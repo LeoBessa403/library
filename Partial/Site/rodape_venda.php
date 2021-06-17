@@ -1,5 +1,5 @@
 <!-- Footer section -->
-<footer class="beautypress-footer-section beautypress-version-5">
+<footer class="beautypress-footer-section beautypress-version-5 padding-p">
     <div class="container">
         <div class="beautypress-footer-wraper">
             <div class="beautypress-footer-content">
@@ -9,8 +9,8 @@
                     </a>
                 </div><!-- .beautypress-footer-logo END -->
                 <p>O sistema de gestão <?= DESC; ?> é ideal para SEU NEGÓCIO, Salão de Beleza, Barbearia, Clínica de
-                    Estética, Ateliê de Maquiagem, Esmalteria, Spa e Outros. Acesse de qualquer lugar todas as
-                    ferramentas, são muito fáceis de usar e podem ser acessadas pelo computador, Tablet ou celular.
+                    Estética, Ateliê de Maquiagem, Esmalteria, Spa e outros. Acesse de qualquer lugar! Todas as
+                    ferramentas são muito fáceis de usar e podem ser acessadas pelo computador, Tablet ou celular.
                     Ganhe mais tempo com suas tarefas e deixe nosso sistema organizar sua agenda pra você.</p>
             </div><!-- .beautypress-footer-content END -->
             <nav class="beautypress-footer-menu">

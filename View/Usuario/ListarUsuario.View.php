@@ -81,7 +81,11 @@
                                     $assinanteService = new AssinanteService();
                                     /** @var AssinanteEntidade $assinante */
                                     $assinante = $assinanteService->PesquisaUmRegistro($res->getCoAssinante());
-                                    $grid->setColunas(strtoupper($assinante->getCoEmpresa()->getNoFantasia()));
+                                    if($assinante){
+                                        $grid->setColunas(strtoupper($assinante->getCoEmpresa()->getNoFantasia()));
+                                    }else{
+                                        $grid->setColunas('');
+                                    }
                                 } else {
                                     $grid->setColunas("Sem Assinante");
                                 }

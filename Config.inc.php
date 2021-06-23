@@ -141,7 +141,7 @@ define('PASTA_LIBRARY', HOME . 'library/');
 define('PASTA_ENTIDADES', PASTA_RAIZ . ADMIN . '/Entidade/');
 define('PASTA_MODEL', PASTA_RAIZ . ADMIN . '/Model/');
 define('PASTA_CLASS', PASTA_RAIZ . ADMIN . '/Class/');
-define('PASTA_SEVICE', PASTA_RAIZ . ADMIN . '/Service/');
+define('PASTA_SERVICE', PASTA_RAIZ . ADMIN . '/Service/');
 define('PARTIAL_SITE', PASTA_RAIZ . SITE . '/Partial/');
 define('PARTIAL_ADMIN', PASTA_RAIZ . ADMIN . '/Partial/');
 define('PARTIAL_LIBRARY', PASTA_RAIZ . 'library/Partial/');

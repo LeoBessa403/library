@@ -367,4 +367,39 @@ class Gestao extends AbstractController
         $this->form = GestaoForm::Minificacao();
     }
 
+    public function ListarBotao()
+    {
+        /** @var BotaoService $BotaoService */
+        $BotaoService = $this->getService(BOTAO_SERVICE);
+        $this->result = $BotaoService->PesquisaTodos();
+    }
+
+    public function CadastroBotao()
+    {
+        /** @var BotaoService $BotaoService */
+        $BotaoService = $this->getService(BOTAO_SERVICE);
+        if (!empty($_POST['CadastroBtn'])) {
+            $retorno = $BotaoService->salvBotao($_POST);
+            if ($retorno[SUCESSO]) {
+                Redireciona(UrlAmigavel::$modulo . '/Gestao/ListarBotao/');
+            }
+        }
+
+        $coBotao = UrlAmigavel::PegaParametro(CO_BOTAO);
+        $res = [];
+        $res[ST_STATUS] = "checked";
+        if ($coBotao) {
+            /** @var BotaoEntidade $btn */
+            $btn = $BotaoService->PesquisaUmRegistro($coBotao);
+
+            $res[CO_BOTAO] = $btn->getCoBotao();
+            $res[NO_BOTAO] = $btn->getNoBotao();
+            $res[DS_BOTAO] = $btn->getDsBotao();
+            $res[ST_STATUS] = ($btn->getStStatus() == 'A')
+                ? 'checked' : '';
+        }
+        $res[ST_STATUS] = 'checked';
+        $this->form = GestaoForm::CadastroBtn($res);
+    }
+
 }

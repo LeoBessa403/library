@@ -375,6 +375,42 @@ class GestaoForm
 
         return $formulario->finalizaForm();
     }
+
+    public static function CadastroBtn($res)
+    {
+        $id = "CadastroBtn";
+
+        $formulario = new Form($id, null, 'Salvar', 6);
+        $formulario->setValor($res);
+
+        $label_options2 = array("<i class='fa fa-check fa-white'></i>", "<i class='fa fa-times fa-white'></i>", "verde", "vermelho");
+        $formulario
+            ->setLabel("Status do Botão")
+            ->setId(ST_STATUS)
+            ->setClasses($res[ST_STATUS])
+            ->setType(TiposCampoEnum::CHECKBOX)
+            ->setTamanhoInput(12)
+            ->setOptions($label_options2)
+            ->CriaInpunt();
+
+        $formulario
+            ->setId(NO_BOTAO)
+            ->setClasses("ob")
+            ->setLabel("Texto do Botão")
+            ->CriaInpunt();
+
+        $formulario
+            ->setType(TiposCampoEnum::TEXTAREA)
+            ->setId(DS_BOTAO)
+            ->setClasses('ob')
+            ->setTamanhoInput(12)
+            ->setLabel("Descrição do Botão")
+            ->CriaInpunt();
+
+        Form::CriaInputHidden($formulario, $res, [CO_BOTAO]);
+
+        return $formulario->finalizaForm('Gestao/ListarBotao');
+    }
 }
 
 ?>

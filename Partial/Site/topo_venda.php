@@ -1,11 +1,11 @@
 <?php
 $pages = array(
-    'home_inicio' => 'Início',
-    'planos_sistema' => 'Planos',
-    'duvidas' => 'Dúvidas',
-    'saiba_mais' => 'Saiba Mais',
-    'bonus' => 'Bônus',
-    'compra' => 'Comprar',
+    'home_inicio' => array(1, 'Início'),
+    'planos_sistema' => array(2, 'Planos'),
+    'duvidas' => array(3, 'Dúvidas'),
+    'saiba_mais' => array(4, 'Saiba Mais'),
+    'bonus' => array(5, 'Bônus'),
+    'compra' => array(6, 'Comprar'),
 );
 
 $url = new UrlAmigavel();
@@ -55,7 +55,7 @@ $visitaService->gestaoVisita();
     <!--Theme custom css -->
     <link rel="stylesheet" href="<?= PASTASITE; ?>css/style.css">
 
-<!-- Icons/Glyphs -->
+    <!-- Icons/Glyphs -->
     <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>css/font-awesome.min.css">
     <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>plugins/select2/select2.css">
     <link rel="stylesheet" href="<?= PASTA_LIBRARY; ?>Helpers/includes/Jcalendar.css">
@@ -111,8 +111,9 @@ $visitaService->gestaoVisita();
                 <div class="nav-menus-wrapper">
                     <ul class="nav-menu">
                         <?php foreach ($pages as $key => $packagePage) : ?>
-                            <li data-class="<?= $key; ?>" class="menu_click"><a href="#">
-                                    <?php echo $packagePage; ?></a></li>
+                            <li data-class="<?= $key; ?>" data-co-botao="<?= $packagePage[0]; ?>" class="menu_click"><a
+                                        href="#">
+                                    <?= $packagePage[1]; ?></a></li>
                         <?php endforeach; ?>
                         <li><a href="<?= PASTAADMIN; ?>Index/PrimeiroAcesso" target="_blank">SisBela</a></li>
                     </ul>

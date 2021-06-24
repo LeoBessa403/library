@@ -16,8 +16,9 @@
             <nav class="beautypress-footer-menu">
                 <ul>
                     <?php foreach ($pages as $key => $packagePage) : ?>
-                        <li data-class="<?= $key; ?>" class="menu_click"><a href="#">
-                                <?php echo $packagePage; ?></a></li>
+                        <li data-class="<?= $key; ?>" data-co-botao="<?= $packagePage[0]; ?>" class="menu_click"><a
+                                    href="#">
+                                <?= $packagePage[1]; ?></a></li>
                     <?php endforeach; ?>
                     <li><a href="<?= PASTAADMIN; ?>Index/PrimeiroAcesso" target="_blank">SisBela</a></li>
                 </ul>
@@ -38,7 +39,7 @@
 </footer><!-- .beautypress-footer-section END -->
 <!-- Footer section end -->
 <div class="icon-whats">
-    <a class="pulse" title="Nos chame no WhatsApp"
+    <a class="pulse menu_click" title="Nos chame no WhatsApp" data-co-botao="17"
        href="<?= Valida::geraLinkWhatSapp(Mensagens::ZAP01) ?>"
        target="_blank">
         <i class="fa fa-whatsapp"></i>
